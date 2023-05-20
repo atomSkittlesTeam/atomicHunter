@@ -9,12 +9,14 @@ import { AnalyticsComponent } from "./tables/analytics/analytics.component";
 import {MasterDetailDetailComponent} from "./tables/master-detail-detail/master-detail-detail.component";
 import {TreeDataComponent} from "./tables/tree-data/tree-data.component";
 import {RegistrationFormComponent} from "./registration-form/registration-form.component";
+import { VacancyComponent } from './tables/vacancy/vacancy.component';
 
 const routes: Routes = [
     {path: '', component: NavigationComponent, canActivate: [AuthGuard]},
     {path: 'login', component: LoginFormComponent},
     {path: 'registration', component: RegistrationFormComponent},
     {path: 'admin', component: AdminComponent},
+    {path: 'vacancy', component: VacancyComponent},
     {path: 'request', component: RequestComponent},
     {path: 'analytics', component: AnalyticsComponent},
     {path: '3ple', component: MasterDetailDetailComponent},

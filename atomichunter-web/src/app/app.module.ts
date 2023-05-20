@@ -38,20 +38,21 @@ import {CalendarModule} from "primeng/calendar";
 import {ChipsModule} from "primeng/chips";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { RequestDialogComponent } from './registration/request-dialog/request-dialog.component';
+import { RequestDialogComponent } from './dialogs/request-dialog/request-dialog.component';
 import { RequestPositionsComponent } from './tables/request-positions/request-positions.component';
-import { RequestPositionDialogComponent } from './registration/request-position-dialog/request-position-dialog.component';
+import { RequestPositionDialogComponent } from './dialogs/request-position-dialog/request-position-dialog.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { MasterDetailDetailComponent } from './tables/master-detail-detail/master-detail-detail.component';
-import { AdminDialogComponent } from './registration/admin-dialog/admin-dialog.component';
+import { AdminDialogComponent } from './dialogs/admin-dialog/admin-dialog.component';
 import { HttpHelperInterceptor } from './interceptors/http-helper.interceptor';
 import {LoadingCellRendererComponent} from './platform/loading-cell-renderer/loading-cell-renderer.component';
 import { TreeDataComponent } from './tables/tree-data/tree-data.component';
 import {RowGroupingModule} from "@ag-grid-enterprise/row-grouping";
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
-import { UserDialogComponent } from './registration/user-dialog/user-dialog.component';
+import { UserDialogComponent } from './dialogs/user-dialog/user-dialog.component';
 import { PasswordModule } from "primeng/password";
 import {NgOptimizedImage} from "@angular/common";
+import { VacancyComponent } from './tables/vacancy/vacancy.component';
 
 @NgModule({
     declarations: [
@@ -71,7 +72,8 @@ import {NgOptimizedImage} from "@angular/common";
         LoadingCellRendererComponent,
         TreeDataComponent,
         RegistrationFormComponent,
-        UserDialogComponent
+        UserDialogComponent,
+        VacancyComponent
     ],
     imports: [
         BrowserModule,
