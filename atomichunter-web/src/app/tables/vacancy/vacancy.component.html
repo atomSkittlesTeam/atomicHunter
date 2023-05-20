@@ -56,4 +56,22 @@
             (gridReady)="onGridReady($event)"
             (cellClicked)="onCellClicked($event)">
     </ag-grid-angular>
+
+    <app-vacancy-dialog [openDialog]="openDialog"
+                    *ngIf="openDialog"
+                    [item]="selectedVacancy"
+                    [editMode]="dialogEditMode"
+                    (submit)="onDialogSubmit($event)">
+    </app-vacancy-dialog>
+
+
+    <p-confirmDialog #cd [style]="{width: '50vw'}">
+        <ng-template pTemplate="header">
+            <h3>Архивация</h3>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <button type="button" pButton icon="pi pi-check" label="Да" (click)="cd.accept()"></button>
+            <button type="button" pButton icon="pi pi-times" label="Нет" (click)="cd.reject()"></button>
+        </ng-template>
+    </p-confirmDialog>
 </div>

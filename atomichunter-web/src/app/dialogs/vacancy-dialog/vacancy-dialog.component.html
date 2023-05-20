@@ -1,0 +1,11 @@
+<app-dialog *ngIf="visible"
+            [visible]="visible"
+            [selectedItem]="item"
+            [title]="dialogTitle"
+            [editMode]="editMode"
+            (submit)="onSubmit($event)">
+    <app-dialog-row [(item)]="item.expierence"
+                    icon = 'pi pi-user'
+                    title="Опыт работы"
+                    type="string"></app-dialog-row>
+</app-dialog>

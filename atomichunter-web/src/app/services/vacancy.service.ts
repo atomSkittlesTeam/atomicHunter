@@ -27,6 +27,16 @@ export class VacancyService extends BaseService {
         }
     ));
   }
+
+  async createVacancy(vacancy: Vacancy) {
+    const url = await this.getBackendUrl();
+    return await firstValueFrom(this.http.post(url + '/vacancy/create', vacancy));
+  }
+
+  async updateVacancy(id: number, vacancy: Vacancy) {
+    const url = await this.getBackendUrl();
+    return await firstValueFrom(this.http.put(url + `/vacancy/${id}/update`, vacancy));
+  }
   
   async archiveVacancy(id: number) {
     const url = await this.getBackendUrl();

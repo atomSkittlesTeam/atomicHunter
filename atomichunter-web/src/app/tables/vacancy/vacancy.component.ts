@@ -142,4 +142,10 @@ export class VacancyComponent {
     await this.getAllVacanciesFromApi();
   }
 
+  async onDialogSubmit($event: any) {
+    this.openDialog = false;
+    if ($event) {
+        await this.getAllVacanciesFromApi();
+    }
+  }
 }
