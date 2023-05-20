@@ -1,4 +1,7 @@
 export class  Vacancy {
     id: number;
-    expierence: string;
+    salary: string;
+    experience: string;
+    additional: string;
+    archive: boolean;
 }

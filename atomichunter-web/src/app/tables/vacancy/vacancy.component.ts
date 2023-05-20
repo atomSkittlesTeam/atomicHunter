@@ -24,15 +24,12 @@ export class VacancyComponent {
 
   public columnDefs: ColDef[] = [
     {field: 'id', headerName: 'Идентификатор'},
-    {field: 'number', headerName: 'Номер заказа'},
-    {field: 'description', headerName: 'Описание'},
-    {field: 'priority', headerName: 'Приоритет'},
-    {field: 'requestDate', headerName: 'Дата заказа', cellRenderer: (data: { value: string | number | Date; }) => {
-            return data.value ? (new Date(data.value)).toLocaleDateString() : '';
-        }},
-    {field: 'releaseDate', headerName: 'Дата поставки' , hide: this.showArchive, cellRenderer: (data: { value: string | number | Date; }) => {
-            return data.value ? (new Date(data.value)).toLocaleDateString() : '';
-        }},
+    {field: 'salary', headerName: 'Зарплата'},
+    {field: 'experience', headerName: 'Опыт работы'},
+    {field: 'additional', headerName: 'Дополнительно'},
+    // {field: 'releaseDate', headerName: 'Дата поставки' , hide: this.showArchive, cellRenderer: (data: { value: string | number | Date; }) => {
+    //         return data.value ? (new Date(data.value)).toLocaleDateString() : '';
+    //     }},
     {field: 'archive', headerName: 'Архив', hide: !this.showArchive, cellRenderer: (params: { value: any; }) => {
             return `<input disabled="true" type='checkbox' ${params.value ? 'checked' : ''} />`;
         } }

@@ -4,8 +4,21 @@
             [title]="dialogTitle"
             [editMode]="editMode"
             (submit)="onSubmit($event)">
-    <app-dialog-row [(item)]="item.expierence"
+    <app-dialog-row [(item)]="item.salary"
+                    icon = 'pi pi-user'
+                    title="Зарплата"
+                    type="string">
+    </app-dialog-row>
+
+    <app-dialog-row [(item)]="item.experience"
                     icon = 'pi pi-user'
                     title="Опыт работы"
-                    type="string"></app-dialog-row>
+                    type="string">
+    </app-dialog-row>
+
+    <app-dialog-row [(item)]="item.additional"
+                    icon = 'pi pi-user'
+                    title="Дополнительно"
+                    type="string">
+    </app-dialog-row>    
 </app-dialog>

@@ -23,10 +23,10 @@ export class VacancyDialogComponent {
 
   ngOnInit(): void {
     if(this.editMode) {
-       this.dialogTitle = 'Редактирование заказа'; 
+       this.dialogTitle = 'Редактирование вакансии'; 
     } else {
         this.item = new Vacancy();
-        this.dialogTitle = 'Регистрация заказа';
+        this.dialogTitle = 'Регистрация вакансии';
     }
   } 
 
@@ -48,7 +48,7 @@ export class VacancyDialogComponent {
         this.messageService.add({
             severity: "success",
             summary: "Успех!",
-            detail: "Заказ создан",
+            detail: "Вакания создана",
         });
     } catch (e: any) {
         this.messageService.add({
@@ -65,7 +65,7 @@ export class VacancyDialogComponent {
           this.messageService.add({
               severity: "success",
               summary: "Успех!",
-              detail: "Заказ обновлён",
+              detail: "Вакансия обновлена",
           });
       } catch (e: any) {
           this.messageService.add({
