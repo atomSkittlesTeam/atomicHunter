@@ -1,2 +1,2 @@
-# skittles-app
-Simple app for our stack demo
+# Atomic Hunter Application
+Application for HR for all!
