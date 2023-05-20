@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="left-side">
+    <div class="form-block">
+      <div class="form-block__container">
+        <div class="text block">{{title}}</div>
+        <div class="block">
+          <div class="col-12 md:col-4">
+            <div class="p-inputgroup">
+              <!--              <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>-->
+              <input
+                type="text"
+                pInputText
+                required
+                placeholder="Логин"
+                [(ngModel)]="user.login"/>
+            </div>
+          </div>
+          <div class="col-12 md:col-4">
+            <div class="p-inputgroup">
+              <!--              <span class="p-inputgroup-addon"><i class="pi pi-key"></i></span>-->
+              <input
+                type="password"
+                pInputText
+                required
+                placeholder="Пароль"
+                [(ngModel)]="user.password"/>
+            </div>
+          </div>
+
+          <div class="button">
+            <button
+              class="button"
+              [label]="'Войти'"
+              pButton
+              [disabled]="!user?.password || !user?.login"
+              type="button"
+              [style]="{'height':'50px', 'width':'100%'}"
+              (click)="sendRequest()"></button>
+          </div>
+          <div class="button">
+            <button pButton pRipple [style]="{'height':'50px', 'width':'100%'}"
+                    type="button" routerLink="/registration"
+                    label="Зарегистрироваться"
+                    class="p-button-raised p-button-success"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="right-side">
+    <img ngSrc="../../assets/2.PNG" class="img1" alt="" height="958" width="1437">
+  </div>
+</div>

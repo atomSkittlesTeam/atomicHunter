@@ -1,0 +1,91 @@
+<p-dialog class="dialog" [header]="dialogTitle"
+          [(visible)]="visible" [modal]="true" [style]="{width: '50vw', 'min-width': '400px'}" (onHide)="closeDialog()">
+
+  <form #f="ngForm" novalidate>
+
+    <div #fullName class="p-inputgroup">
+      <span class="p-inputgroup-addon" style="width: 160px">ФИО</span>
+      <input pInputText type="text" [disabled]="!fullNameChangeEnabled"
+      [(ngModel)]="this.currentUser.fullName" [ngModelOptions]="{standalone: true}"/>
+      <button class="p-inputgroup-addon" style="width: auto"
+              (click)="fullNameChangeEnabled ? fullNameSave() : fullNameChange()">
+
+        <i [pTooltip]="fullNameChangeEnabled ? 'Сохранить' : 'Изменить'"
+           [class]="fullNameChangeEnabled ? 'pi pi-save' : 'pi pi-pencil'"
+           style="padding-left: 10px"></i></button>
+    </div>
+
+    <div #email class="p-inputgroup">
+      <span class="p-inputgroup-addon" style="width: 160px">Электронная почта</span>
+      <input pInputText type="text" [disabled]="!emailChangeEnabled"
+      [(ngModel)]="this.currentUser.email" [ngModelOptions]="{standalone: true}"/>
+      <button class="p-inputgroup-addon" style="width: auto"
+              (click)="emailChangeEnabled ? emailSave() : emailChange()">
+        <i [pTooltip]="emailChangeEnabled ? 'Сохранить' : 'Изменить'" [class]="emailChangeEnabled ? 'pi pi-save' : 'pi pi-pencil'" style="padding-left: 10px"></i></button>
+    </div>
+
+    <div #password class="p-inputgroup">
+      <span class="p-inputgroup-addon" style="width: 160px">Пароль</span>
+      <input pInputText type="text" [disabled]="true" [placeholder]="'*****'" />
+      <button class="p-inputgroup-addon" style="width: auto" (click)="passwordChange()">
+        <i pTooltip="Изменить" [class]="'pi pi-pencil'" style="padding-left: 10px"></i></button>
+    </div>
+
+    <div #role class="p-inputgroup">
+      <span class="p-inputgroup-addon" style="width: 160px">Ваша роль</span>
+      <input pInputText type="text" [disabled]="true"
+             [placeholder]="this.currentUser.role" />
+    </div>
+
+    <div #telegramStatus class="p-inputgroup">
+      <span class="p-inputgroup-addon" style="width: 160px">Телеграм</span>
+      <input pInputText type="text" [disabled]="true"
+             [placeholder]="this.telegramStatusIsSubscribe() ? 'Подписан' : 'Не подписан'" />
+      <button *ngIf="this.telegramStatusIsSubscribe()" class="p-inputgroup-addon" style="width: 120px"
+              (click)="acceptDialogVisible = true">
+        Отписаться
+        <i class="pi pi-pencil" style="padding-left: 10px"></i>
+      </button>
+    </div>
+  </form>
+
+  <p-footer>
+    <p-button label="Выйти из приложения"
+              icon="pi pi-sign-out"
+              styleClass="p-button-danger"
+              (click)="signOut()">
+    </p-button>
+  </p-footer>
+</p-dialog>
+
+<p-confirmDialog #telegramAccept [visible]="acceptDialogVisible"
+                 [closable]="false"
+                 [header]="'Отписаться от телеграм-канала?'"
+                 [rejectLabel]="'Нет'"
+                 [acceptLabel]="'Да'" (onHide)="telegramUnsubscribeConfirmDialogHide($event)">
+</p-confirmDialog>
+
+<p-dialog #passwordChangeDialog
+          [visible]="passwordChangeDialogVisible"
+          [closable]="false"
+          [header]="'Изменение пароля'" [style]="{width: '50vw'}">
+  <div class="p-inputgroup">
+    <span class="p-inputgroup-addon" style="width: 200px">Ваш текущий пароль</span>
+    <input pPassword type="text" [(ngModel)]="oldPassword" [showPassword]="false"/>
+  </div>
+
+  <div class="p-inputgroup">
+    <span class="p-inputgroup-addon" style="width: 200px">Ваш новый пароль</span>
+    <input pPassword type="text" [(ngModel)]="newPassword" [showPassword]="false"/>
+  </div>
+
+  <div class="p-inputgroup">
+    <span class="p-inputgroup-addon" style="width: 200px">Повторите ваш новый пароль</span>
+    <input pPassword type="text" [(ngModel)]="newPasswordRepeat" [showPassword]="false"/>
+  </div>
+
+  <p-footer>
+    <p-button label="Отменить" (onClick)="this.passwordChangeDialogVisible = false"></p-button>
+    <p-button label="Сохранить" (onClick)="passwordSave()" [disabled]="passwordSaveDisabled()"></p-button>
+  </p-footer>
+</p-dialog>

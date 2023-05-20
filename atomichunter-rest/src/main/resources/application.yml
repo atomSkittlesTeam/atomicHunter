@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active: "pg"
+server:
+  port: 8081
+api:
+  url: "http://192.168.1.44:1040"
+scheduled:
+  broken-machines: "25000"
+  update-batch: "20000"
+  repairing-machines: "27000"
+  new-requests: "30000"
+  queue-view: "35000"
+  telegram-bot-mailing: "20000"
+default-user:
+  login: "admin"
+  password: "admin"
+  email: "admin-user-42-user-admin@gmail.com"
+  full-name: "Админ Админович Админов"
+telegram:
+  link: "null"
+  token: "null"
+generators:
+  message: false
+  telegram: false
+  product: false
+  request: false
+  request-positions: false

@@ -1,0 +1,90 @@
+<ng-container>
+    <p-toolbar id="toolbar-by-id" class="toolbar">
+        <div class="p-toolbar-group-start">
+            <h3 class="logo" routerLink="/">
+                <img pTooltip="Перейти домой"
+                     src="assets/logo.png"
+                     alt="MESkittles">
+            </h3>
+        </div>
+
+
+        <div class="p-toolbar-group-end">
+            <div class="burger-button" [ngClass]="{'active': isActiveBurger}"
+                 (click)="isActiveBurger = !isActiveBurger">
+                <span></span>
+            </div>
+
+            <div class="burger-menu" [ngClass]="{'active': isActiveBurger}">
+                <div class="burger-menu__nav-buttons">
+                    <p-button label="Главная"
+                              icon="pi pi-plus"
+                              styleClass="p-button-outlined">
+                    </p-button>
+                    <p-button label="Заказы"
+                              icon="pi pi-pencil"
+                              styleClass="p-button-outlined p-button-help">
+                    </p-button>
+                </div>
+                <div class="burger-menu__info-ring">
+
+                  <p-button [label]="'Пользователь: ' + userLogin"
+                            [pTooltip]="'Роль пользователя: ' + userRole"
+                            (onClick)="openUserDialog()"
+                            [tooltipPosition]="'left'">
+                  </p-button>
+
+                    <div class="splitter"></div>
+
+                    <div *ngIf="userAuth" (click)="showNewPositions()" class="ring" pTooltip="Посмотреть уведомления">
+                        <i style="font-size: 26px" [class.bell-anim]="messages.length > 0" class="pi pi-bell"></i>
+                        <span style="font-size: 22px; margin-left: 10px">({{messages.length}})</span>
+                    </div>
+
+                    <div *ngIf="userAuth && !this.userTelegramSubscriber && this.telegramBotIsEnable"
+                         (click)="toTelegramSubscribe()" pTooltip="Не подписан на телеграм-бота? Подпишись сейчас!">
+                    </div>
+
+                    <div class="telegram-status" *ngIf=" this.userRole == 'admin'">
+                        <div class="flex align-items-center gap-1"
+                             style="display:flex; flex-direction: column; align-items: center"
+                             *ngIf="userAuth && !this.telegramBotIsEnable">
+                            <span style="font-size: 20px">Telegram BOT</span>
+                            <p-checkbox [disabled]=true [value]=this.telegramBotIsEnable></p-checkbox>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </p-toolbar>
+
+    <router-outlet></router-outlet>
+</ng-container>
+<p-speedDial [model]="items" class="module-nav" direction="up-left" type="quarter-circle"
+             buttonClassName="p-button-success" *ngIf="userAuth"></p-speedDial>
+<p-sidebar [(visible)]="display" position="right">
+    <div class="container-message">
+        <h3 *ngIf="messages.length == 0">Нет новых сообщений</h3>
+        <div class="message" *ngFor="let message of messages; let idx = index;">
+            <div class="message__icon" (click)="closeOneInfo(message.id, idx)"><i class="pi pi-times"></i></div>
+            <div class="message__text">{{message.customText}}</div>
+            <p-button
+                    [pTooltip]="'Создать заявку на ремонт'"
+                    tooltipPosition="left"
+                    class="approve"
+                    icon="pi pi-check" styleClass="p-button-success"
+            ></p-button>
+        </div>
+    </div>
+    <div style="width: 100%; text-align: center; padding-top: 10px">
+        <button pButton type="button" class="p-button-success" label="Прочитать все" (click)="closeAllInfo()"></button>
+    </div>
+</p-sidebar>
+
+<app-user-dialog #userDialogComponent *ngIf="user" [openDialog]="displayUserDialog" [currentUser]="this.user" (submit)="displayUserDialog = $event">
+</app-user-dialog>
+
+<p-toast></p-toast>
+
+
+

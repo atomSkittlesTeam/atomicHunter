@@ -1,0 +1,31 @@
+<app-dialog *ngIf="visible"
+            [visible]="visible"
+            [selectedItem]="item"
+            [title]="dialogTitle"
+            [editMode]="editMode"
+            (submit)="onSubmit($event)">
+    <app-dialog-row [(item)]="item.number"
+                    icon = 'pi pi-user'
+                    title="Номер заказа"
+                    type="string"></app-dialog-row>
+
+    <app-dialog-row [(item)]="item.priority"
+                    icon = 'pi pi-user'
+                    title="Приоритет"
+                    type="number"></app-dialog-row>
+
+    <app-dialog-row [(item)]="item.description"
+                    icon = 'pi pi-user'
+                    title="Описание"
+                    type="string"></app-dialog-row>
+
+    <app-dialog-row [(item)]="item.requestDate"
+                    title="Дата заказа"
+                    icon = 'pi pi-user'
+                    type="date"></app-dialog-row>
+
+    <app-dialog-row [(item)]="item.releaseDate"
+                    icon = 'pi pi-user'
+                    title="Желаемая дата поставки"
+                    type="date"></app-dialog-row>
+</app-dialog>

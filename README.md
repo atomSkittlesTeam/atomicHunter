@@ -1,2 +1,2 @@
-# atomicHunter
-atomicHunter project by vniia skittles team
+# skittles-app
+Simple app for our stack demo

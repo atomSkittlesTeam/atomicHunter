@@ -1,0 +1,366 @@
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+#toolbar-by-id {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.logo {
+  img {
+    height: 60px;
+  }
+}
+
+.logo:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.login-label {
+  font-size: 17px;
+}
+
+.module-nav {
+  position: absolute;
+  right: 100px;
+  bottom: 100px;
+}
+
+.container-message {
+  height: 78vh;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: auto;
+
+  .message {
+    position: relative;
+    min-height: 95px;
+    background: aliceblue;
+    display: grid;
+    grid-template-columns: 10% 87%;
+    gap: 3%;
+    padding: 2px;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+
+    &__icon {
+      align-self: center;
+      cursor: pointer;
+      width: 100%;
+      padding: 5px;
+
+      i {
+        font-weight: bold;
+        font-size: 25px;
+      }
+
+    }
+
+    &__text {
+
+      font-size: 20px;
+    }
+
+
+  }
+}
+
+
+:host {
+  ::ng-deep {
+    .ng-trigger {
+      width: 26rem;
+    }
+
+    .toolbar {
+      .p-toolbar {
+        height: 92px;
+      }
+    }
+
+    .p-sidebar-content {
+      .login-label {
+        display: none;
+      }
+    }
+  }
+}
+
+:host {
+  .message {
+
+    ::ng-deep {
+      .p-button-success {
+        width: 2rem;
+        height: 2rem;
+        margin: 5px
+      }
+    }
+  }
+
+}
+
+.machineBroke {
+  background-color: #ef514054 !important;
+}
+
+.approve {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.bell-anim {
+  animation: bell 1s infinite;
+}
+
+@keyframes bell {
+  0% {
+    transform: rotate(35deg);
+  }
+  12.5% {
+    transform: rotate(-30deg);
+  }
+  25% {
+    transform: rotate(25deg);
+  }
+  37.5% {
+    transform: rotate(-20deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+  62.5% {
+    transform: rotate(-10deg)
+  }
+  75% {
+    transform: rotate(5deg)
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
+.info {
+  position: absolute;
+  top: 0;
+  right: 10px;
+}
+
+.p-toolbar-group-end {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex: 1;
+
+  .burger-button {
+    display: none;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+
+    span, span::before, span::after {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background-color: #616161;
+    }
+
+    span {
+      &::before {
+        content: '';
+        top: -8px;
+      }
+
+      &::after {
+        content: '';
+        top: 8px;
+      }
+    }
+
+    &.active {
+      span {
+        transform: rotate(45deg);
+
+        &::before {
+          top: 0;
+          transform: rotate(0);
+        }
+
+        &::after {
+          top: 0;
+          transform: rotate(90deg);
+        }
+      }
+
+    }
+
+
+  }
+
+  .burger-menu {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+    &__nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    &__info-ring {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+
+      .ring {
+        cursor: pointer;
+        border: 1px lightgrey solid;
+        border-radius: 10px;
+        padding: 10px;
+        display: flex;
+        align-items: center
+      }
+      .telegram-status {
+        border: 1px lightgrey solid;
+        border-radius: 10px;
+        padding: 5px;
+      }
+    }
+
+    &.active {
+      visibility: visible;
+      right: 0;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 20px;
+    }
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  /* For mobile phones: */
+
+  .telegram-status {
+    display: none;
+  }
+
+
+}
+
+@media only screen and (max-width: 970px) {
+  /* For mobile phones: */
+  .logo {
+    img {
+      height: 40px;
+    }
+  }
+
+}
+
+
+@media only screen and (max-width: 880px) {
+  /* For mobile phones: */
+
+  .p-toolbar-group-end {
+    .login-label {
+      display: none;
+    }
+  }
+  .container-message {
+    height: 74vh;
+  }
+  .splitter {
+    display: none;
+  }
+
+}
+
+
+@media only screen and (max-width: 695px) {
+  /* For mobile phones: */
+  .burger-menu {
+    display: block;
+    position: fixed;
+    visibility: hidden;
+    top: 0;
+    right: -100%;
+    z-index: 3;
+    width: 300px !important;
+    height: 100%;
+
+    margin: 0;
+    padding: 80px 0;
+
+    list-style: none;
+
+    background-color: #ECEFF1;
+    box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
+
+    transition-duration: .25s;
+
+    &__info-ring {
+      flex-direction: column;
+    }
+  }
+
+  .p-toolbar-group-end {
+    justify-content: flex-end;
+
+    .login-label {
+      display: block;
+    }
+
+    .burger-button {
+      display: block;
+      z-index: 4;
+
+      &::before {
+        content: '';
+        top: -8px;
+      }
+
+      &::after {
+        content: '';
+        top: 8px;
+
+      }
+    }
+
+    .burger-menu {
+      flex-direction: column-reverse;
+
+      .burger-menu__nav-buttons {
+        flex-direction: column;
+
+      }
+    }
+  }
+  :host {
+    ::ng-deep {
+      .burger-menu__nav-buttons {
+        .p-ripple {
+          width: 100% !important;
+        }
+      }
+
+    }
+
+  }
+
+}

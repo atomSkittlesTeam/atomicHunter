@@ -1,0 +1,19 @@
+<app-dialog *ngIf="visible"
+            [visible]="visible"
+            [selectedItem]="item"
+            [title]="dialogTitle"
+            [editMode]="editMode"
+            (submit)="onSubmit($event)">
+    <app-dialog-row [(item)]="item.login"
+                    icon='pi pi-user'
+                    [disabled]=true
+                    title="Логин"
+                    type="string"></app-dialog-row>
+    <app-dialog-row [(item)]="item.role"
+                    [dropDown]="roles"
+                    [dropDownField]="'name'"
+                    title="Роль пользователя"
+                    type="select"></app-dialog-row>
+
+
+</app-dialog>

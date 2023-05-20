@@ -1,0 +1,176 @@
+@import 'ag-grid-community/styles/ag-grid.css';
+@import 'ag-grid-community/styles/ag-theme-alpine.css';
+
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #f1c40f;
+  --background-color: #ecf0f1;
+  --accent-color: #c0392b;
+  --main: #003274;
+  --main2: #FFB001;
+  --main1: #025EA1;
+  --refresh: #f1972a;
+  --add: #5f9b67;
+  --update: #5cdb95;
+  --delete: #e56262;
+  --background: #edf5e1;
+  --shadow: #CCCCCC;
+  --illumination: #fdc6be;
+  --dialog-footer: aliceblue;
+}
+
+.p-button-success {
+  background-color: var(--main1) !important;
+  outline: none !important;
+  border: unset !important;
+}
+
+.p-button.p-button-secondary {
+  color: black !important;
+  background: lightgrey !important;
+  border: none !important;
+}
+
+.p-button-info {
+  background-color: var(--main2) !important;
+  outline: none !important;
+  border: unset !important;
+}
+
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+  background-color: var(--main1) !important;
+}
+
+/* Указываем box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Убираем внутренние отступы */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Убираем внешние отступы */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  font-size: 20px;
+  margin: 0;
+}
+
+/* Выставляем основные настройки по-умолчанию для body */
+body {
+  height: 100vh;
+  padding-top: 92px;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+}
+
+.loading {
+  position: absolute;
+  top:0;
+  height: 100%;
+  width: 100%;
+  background: rgba(91, 43, 43, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  color: white;
+}
+
+.table-name {
+  width: 200px;
+  word-break: break-all;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+b {
+  font-size: 20px;
+}
+
+* {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
+
+/* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+/* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Упрощаем работу с изображениями */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Указываем понятную периодичность в потоке данных у article*/
+article > * + * {
+  margin-top: 1em;
+}
+
+/* Наследуем шрифты для инпутов и кнопок */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.formDisabled {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.cellDisabled {
+  color: red;
+}
+
+.saveType {
+  color: green;
+}
+
+.splitter {
+  border-right: 1px solid grey;
+  height: 40px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+

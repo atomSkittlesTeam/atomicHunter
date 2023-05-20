@@ -1,0 +1,20 @@
+<p-dialog class="dialog" [header]="tittle" [(visible)]="visible" [modal]="true" [style]="{height: '80vh',width: '50vw'}"
+          (onHide)="closeDialog(false)">
+
+    <form #f="ngForm"  novalidate>
+        <div class="flex">
+            <ng-content></ng-content>
+        </div>
+    </form>
+
+    <p-footer>
+        <div class="flex justify-content-center">
+            <p-button icon="pi pi-check"
+                (click)="save()"
+                [disabled]="!f.valid"
+                [label]="getSaveLabel()"
+                styleClass="p-button-info">
+            </p-button>
+        </div>
+    </p-footer>
+</p-dialog>

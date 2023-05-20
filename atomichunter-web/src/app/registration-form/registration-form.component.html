@@ -1,0 +1,73 @@
+<div class="container">
+    <div class="left-side">
+        <div class="form-block">
+            <div class="form-block__container">
+                <div class="text block">{{title}}</div>
+                <div class="block">
+                    <div class="col-12 md:col-4">
+                        <div class="p-inputgroup">
+                            <!--              <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>-->
+                            <input
+                                    type="text"
+                                    pInputText
+                                    required
+                                    placeholder="Логин"
+                                    [(ngModel)]="user.login"/>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-4">
+                        <div class="p-inputgroup">
+                            <!--              <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>-->
+                            <input
+                                    type="text"
+                                    pInputText
+                                    required
+                                    placeholder="Mail"
+                                    [(ngModel)]="user.mail"/>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-4">
+                        <div class="p-inputgroup" >
+                            <!--              <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>-->
+                            <input
+                                    type="text"
+                                    pInputText
+                                    required
+                                    placeholder="ФИО"
+                                    [(ngModel)]="user.fullName"/>
+                        </div>
+                    </div>
+
+                    <div class="col-12 md:col-4">
+                        <div class="p-inputgroup">
+                            <!--              <span class="p-inputgroup-addon"><i class="pi pi-key"></i></span>-->
+                            <input
+                                    type="password"
+                                    pInputText
+                                    required
+                                    placeholder="Пароль"
+                                    [(ngModel)]="user.password"/>
+                        </div>
+                    </div>
+
+                    <div class="button"  style="display: inline-flex">
+                        <p-button [pTooltip]="'К форме логина'"
+                                  icon="pi pi-arrow-left" styleClass="p-button-secondary"
+                                  routerLink="/login"></p-button>
+                        <button
+                                class="button"
+                                [label]="this.buttonLabel"
+                                pButton
+                                [disabled]="!user?.password || !user?.login || !user?.fullName || !user?.mail"
+                                type="button"
+                                [style]="{'height':'50px', 'width':'100%', marginLeft: '5px'}"
+                                (click)="sendRequest()"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-side">
+        <img src="../../assets/2.PNG" class="img1" alt="">
+    </div>
+</div>
