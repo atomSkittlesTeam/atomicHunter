@@ -69,7 +69,7 @@ export class RequestPositionsComponent {
 
     public loadingCellRenderer: any = LoadingCellRendererComponent;
     public loadingCellRendererParams: any = {
-        loadingMessage: 'One moment please...',
+        loadingMessage: 'Подождите еще немного...',
     };
 
     async onGridReady(params: GridReadyEvent) {

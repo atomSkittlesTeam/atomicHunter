@@ -51,7 +51,7 @@ export class RequestComponent implements OnInit  {
 
     public loadingCellRenderer: any = LoadingCellRendererComponent;
     public loadingCellRendererParams: any = {
-        loadingMessage: 'One moment please...',
+        loadingMessage: 'Подождите еще немного...',
     };
 
     // Data that gets displayed in the grid

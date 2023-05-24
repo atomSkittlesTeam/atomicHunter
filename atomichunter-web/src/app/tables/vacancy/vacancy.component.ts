@@ -37,7 +37,7 @@ export class VacancyComponent {
 
   public loadingCellRenderer: any = LoadingCellRendererComponent;
   public loadingCellRendererParams: any = {
-    loadingMessage: 'One moment please...',
+    loadingMessage: 'Подождите еще немного...',
   };
 
   // DefaultColDef sets props common to all Columns

@@ -54,7 +54,7 @@ export class MasterDetailDetailComponent implements OnInit{
       '<span class="ag-overlay-loading-center">Скоро все появится, подождите еще немного...</span>';
 
   public loadingCellRendererParams: any = {
-    loadingMessage: 'One moment please...',
+    loadingMessage: 'Подождите еще немного...',
   };
   constructor(public requestService: RequestService,
               public router: Router,

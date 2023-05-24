@@ -17,7 +17,7 @@ export class TreeDataComponent {
 
 
   public loadingCellRendererParams: any = {
-    loadingMessage: 'One moment please...',
+    loadingMessage: 'Подождите еще немного...',
   };
   public loadingCellRenderer: any = LoadingCellRendererComponent;
 
