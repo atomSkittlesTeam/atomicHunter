@@ -4,6 +4,12 @@
             [title]="dialogTitle"
             [editMode]="editMode"
             (submit)="onSubmit($event)">
+    <app-dialog-row [(item)]="item.name"
+                    icon = 'pi pi-user'
+                    title="Должность"
+                    type="string">
+    </app-dialog-row>
+
     <app-dialog-row [(item)]="item.salary"
                     icon = 'pi pi-user'
                     title="Зарплата"

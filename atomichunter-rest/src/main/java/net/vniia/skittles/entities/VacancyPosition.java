@@ -8,34 +8,31 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.vniia.skittles.dto.VacancyDto;
+import net.vniia.skittles.dto.VacancyPositionDto;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Vacancy {
+public class VacancyPosition {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String name;
+    private Long vacancyId;
+    private String coverLetter;
 
-    private String salary;
-
-    private String experience;
-
-    private String additional;
+    private String pathToResume;
 
     private boolean archive;
 
-    public Vacancy(VacancyDto vacancyDto) {
-        this.update(vacancyDto);
+    public VacancyPosition(VacancyPositionDto vacancyPositionDto) {
+        this.update(vacancyPositionDto);
     }
 
-    public void update(VacancyDto vacancyDto) {
-        this.name = vacancyDto.getName();
-        this.salary = vacancyDto.getSalary();
-        this.experience = vacancyDto.getExperience();
-        this.additional = vacancyDto.getAdditional();
+    public void update(VacancyPositionDto vacancyPositionDto) {
+        this.vacancyId = vacancyPositionDto.getVacancyId();
+        this.coverLetter = vacancyPositionDto.getCoverLetter();
+        this.pathToResume = vacancyPositionDto.getPathToResume();
     }
 
     public void archive() {

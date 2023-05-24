@@ -22,6 +22,7 @@ public class VacancyReader {
                 .select(Projections.bean(
                         VacancyDto.class,
                         vacancy.id,
+                        vacancy.name,
                         vacancy.salary,
                         vacancy.experience,
                         vacancy.additional,
