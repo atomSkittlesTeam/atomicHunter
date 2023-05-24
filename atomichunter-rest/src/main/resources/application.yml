@@ -28,4 +28,4 @@ generators:
   request-positions: false
   vacancy: false
   vacancy-positions: false
-  vacancy-positions-online: true
+  vacancy-positions-online: false
