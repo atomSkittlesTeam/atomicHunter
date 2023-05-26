@@ -48,7 +48,7 @@ public class VacancyGenerator {
 
     private void generateVacancyPositions() {
         if (generatorVacancyPositionsEnable) {
-            List<VacancyPosition> vacancyPositionList = vacancyPositionListGenerate();
+            List<VacancyRespond> vacancyPositionList = vacancyPositionListGenerate();
             vacancyPositionRepository.saveAll(vacancyPositionList);
         }
     }
@@ -70,22 +70,22 @@ public class VacancyGenerator {
         return vacancyList;
     }
 
-    private List<VacancyPosition> vacancyPositionListGenerate() {
+    private List<VacancyRespond> vacancyPositionListGenerate() {
         Random random = new Random();
-        List<VacancyPosition> vacancyPositionList = new ArrayList<>();
+        List<VacancyRespond> vacancyPositionList = new ArrayList<>();
         int index = 0;
         List<Long> vacancyIds = vacancyRepository.findAll().stream().map(Vacancy::getId).toList();
         for (int i = 0; i < vacancyIds.size(); i++) {
             for (int j = 0; j < random.nextInt(4,6); j++) {
 
-                VacancyPosition vacancyPosition = new VacancyPosition(
+                VacancyRespond vacancyRespond = new VacancyRespond(
                         (long) index, //id - автогенерируется, здесь как заглушка для allArgs
                         (long) vacancyIds.get(i), //vacancyId
                         String.valueOf(VacancyTemplate.allVacancyPositionCoverLetter
                                 .get(random.nextInt(0, VacancyTemplate.allVacancyPositionCoverLetter.size()))), //cover letter,
                         "//",
                         false); //note
-                vacancyPositionList.add(vacancyPosition);
+                vacancyPositionList.add(vacancyRespond);
                 index++;
             }
         }
@@ -98,14 +98,14 @@ public class VacancyGenerator {
             Random random = new Random();
             List<Long> vacancyIds = vacancyRepository.findAll().stream().map(Vacancy::getId).toList();
             int vacancyIndex = random.nextInt(0, vacancyIds.size());
-            VacancyPosition vacancyPosition = new VacancyPosition(
+            VacancyRespond vacancyRespond = new VacancyRespond(
                     (long) 0, //id - автогенерируется, здесь как заглушка для allArgs
                     (long) vacancyIds.get(vacancyIndex), //vacancyId
                     String.valueOf(VacancyTemplate.allVacancyPositionCoverLetter
                             .get(random.nextInt(0, VacancyTemplate.allVacancyPositionCoverLetter.size()))), //cover letter,
                     "//",
                     false);
-            vacancyPositionRepository.saveAndFlush(vacancyPosition);
+            vacancyPositionRepository.saveAndFlush(vacancyRespond);
         }
     }
 }

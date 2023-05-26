@@ -7,14 +7,13 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.vniia.skittles.dto.VacancyDto;
 import net.vniia.skittles.dto.VacancyPositionDto;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VacancyPosition {
+public class VacancyRespond {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -25,7 +24,7 @@ public class VacancyPosition {
 
     private boolean archive;
 
-    public VacancyPosition(VacancyPositionDto vacancyPositionDto) {
+    public VacancyRespond(VacancyPositionDto vacancyPositionDto) {
         this.update(vacancyPositionDto);
     }
 
