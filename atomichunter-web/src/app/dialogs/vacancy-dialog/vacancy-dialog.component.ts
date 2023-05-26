@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { Position } from 'src/app/dto/Position';
 import { Vacancy } from 'src/app/dto/Vacancy';
+import { PositionService } from 'src/app/services/position.service';
 import { VacancyService } from 'src/app/services/vacancy.service';
 
 @Component({
@@ -16,16 +18,20 @@ export class VacancyDialogComponent {
   @Output() submit = new EventEmitter<any>();
   @Output() visibleChange = new EventEmitter<any>();
   dialogTitle = 'Заведение вакансии';
+  positions: any[] = [];
 
   constructor(private vacancyService: VacancyService,
+    private positionService: PositionService,
     public messageService: MessageService) {
   }
 
-  ngOnInit(): void {
-    if(this.editMode) {
+  async ngOnInit() {
+    await this.getAllPositionsFromApi();
+    if (this.editMode) {
        this.dialogTitle = 'Редактирование вакансии'; 
     } else {
         this.item = new Vacancy();
+        this.item.position = new Position();
         this.dialogTitle = 'Регистрация вакансии';
     }
   } 
@@ -74,5 +80,9 @@ export class VacancyDialogComponent {
               detail: e.error.message,
           });
       }
+  }
+
+  async getAllPositionsFromApi() {
+    this.positions = await this.positionService.getPositions();
   }
 }

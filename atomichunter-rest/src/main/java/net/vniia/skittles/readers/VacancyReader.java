@@ -1,10 +1,12 @@
 package net.vniia.skittles.readers;
 
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.QBean;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.VacancyDto;
+import net.vniia.skittles.entities.QPosition;
 import net.vniia.skittles.entities.QVacancy;
 import org.springframework.stereotype.Repository;
 
@@ -14,20 +16,26 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VacancyReader {
     public static final QVacancy vacancy = QVacancy.vacancy;
+    public static final QPosition position = QPosition.position;
+
+    public static QBean<VacancyDto> getMappedSelectForVacancyDto() {
+        return Projections.bean(
+                VacancyDto.class,
+                vacancy.id,
+                PositionReader.getMappedSelectForPositionDto().as("position"),
+                vacancy.salary,
+                vacancy.experience,
+                vacancy.additional,
+                vacancy.archive
+        );
+    }
 
     private final JPAQueryFactory queryFactory;
 
     private JPAQuery<VacancyDto> vacancyQuery() {
         return queryFactory.from(vacancy)
-                .select(Projections.bean(
-                        VacancyDto.class,
-                        vacancy.id,
-                        vacancy.name,
-                        vacancy.salary,
-                        vacancy.experience,
-                        vacancy.additional,
-                        vacancy.archive
-                ));
+                .leftJoin(position).on(position.id.eq(vacancy.positionId))
+                .select(getMappedSelectForVacancyDto());
     }
 
     public List<VacancyDto> getAllVacancies(boolean showArchive) {

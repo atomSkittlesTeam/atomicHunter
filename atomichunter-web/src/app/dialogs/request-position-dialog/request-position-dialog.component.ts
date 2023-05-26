@@ -29,12 +29,12 @@ export class RequestPositionDialogComponent {
 
     if(this.editMode) {
       this.dialogTitle = 'Редактирование позиции заказа'; 
-   } else {
+    } else {
        this.item = new RequestPosition();
        this.item.requestId = this.requestId;
        this.item.product = new Product();
        this.dialogTitle = 'Регистрация позиции заказа'; 
-   }
+    }
   }
 
   async onSubmit($event: any) {
@@ -86,5 +86,4 @@ export class RequestPositionDialogComponent {
   async getAllProductsFromApi() {
     this.products = await this.requestService.getProducts();
   }
-  
 }
