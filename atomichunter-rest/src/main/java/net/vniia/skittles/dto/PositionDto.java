@@ -7,15 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VacancyDto {
+public class PositionDto {
     private Long id;
-    private PositionDto position;
-
-    private String salary;
-
-    private String experience;
-
-    private String additional;
-
-    private boolean archive;
+    private String name;
+    private String description;
 }
