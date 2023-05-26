@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Deprecated
 public class RequestPositionService {
 
     private final RequestPositionReader requestPositionReader;

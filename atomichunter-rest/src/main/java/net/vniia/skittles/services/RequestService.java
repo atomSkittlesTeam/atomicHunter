@@ -14,6 +14,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Deprecated
 public class RequestService {
 
     private final RequestReader requestReader;

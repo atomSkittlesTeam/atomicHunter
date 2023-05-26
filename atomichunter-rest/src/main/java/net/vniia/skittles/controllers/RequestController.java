@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("requests")
 @RequiredArgsConstructor
+@Deprecated
 public class RequestController {
 
     private final RequestService requestService;

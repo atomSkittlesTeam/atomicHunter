@@ -10,6 +10,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Deprecated
 public class RequestDto {
     private Long id;
     private String number;

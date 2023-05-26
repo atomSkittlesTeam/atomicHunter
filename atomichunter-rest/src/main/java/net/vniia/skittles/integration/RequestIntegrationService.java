@@ -14,6 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @Service
+@Deprecated
 public class RequestIntegrationService {
 
     private final RestTemplate restTemplate = new RestTemplate();

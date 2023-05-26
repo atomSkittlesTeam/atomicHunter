@@ -15,6 +15,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Deprecated
 public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

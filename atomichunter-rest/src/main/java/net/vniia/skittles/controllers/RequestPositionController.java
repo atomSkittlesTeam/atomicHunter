@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("requests")
 @RequiredArgsConstructor
+@Deprecated
 public class RequestPositionController {
 
     private final RequestPositionService requestPositionService;

@@ -13,6 +13,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Deprecated
 public class ProductReader {
     private final JPAQueryFactory queryFactory;
 

@@ -16,6 +16,7 @@ import java.util.Optional;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Deprecated
 public class RequestPosition {
 
     @Id

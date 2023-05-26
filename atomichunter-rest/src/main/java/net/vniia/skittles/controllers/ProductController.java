@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("products")
 @RequiredArgsConstructor
+@Deprecated
 public class ProductController {
 
     private final ProductReader productReader;

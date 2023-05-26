@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class VacancyTemplate {
-    public static List<String> allVacancyNames = Arrays.asList(
+    public static List<String> allPositionNames = Arrays.asList(
             "Программист",
             "Уборщик",
             "Повар",

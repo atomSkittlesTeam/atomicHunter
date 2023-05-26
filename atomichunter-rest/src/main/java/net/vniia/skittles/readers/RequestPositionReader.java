@@ -15,6 +15,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Deprecated
 public class RequestPositionReader {
 
     private final JPAQueryFactory queryFactory;

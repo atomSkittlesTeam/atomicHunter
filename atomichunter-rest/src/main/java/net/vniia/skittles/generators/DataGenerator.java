@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Random;
 
 @Component
+@Deprecated
 public class DataGenerator {
 
     @Value("${generators.request}")

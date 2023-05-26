@@ -12,6 +12,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Deprecated
 public class RequestReader {
 
     public static final QRequest request = QRequest.request;
