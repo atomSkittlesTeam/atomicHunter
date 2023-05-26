@@ -24,6 +24,7 @@ export class VacancyComponent {
 
   public columnDefs: ColDef[] = [
     {field: 'id', headerName: 'Идентификатор'},
+    {field: 'name', headerName: 'Должность'},
     {field: 'salary', headerName: 'Зарплата'},
     {field: 'experience', headerName: 'Опыт работы'},
     {field: 'additional', headerName: 'Дополнительно'},

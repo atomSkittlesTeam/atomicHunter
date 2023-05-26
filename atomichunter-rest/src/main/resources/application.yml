@@ -26,3 +26,6 @@ generators:
   product: false
   request: false
   request-positions: false
+  vacancy: false
+  vacancy-positions: false
+  vacancy-positions-online: false
