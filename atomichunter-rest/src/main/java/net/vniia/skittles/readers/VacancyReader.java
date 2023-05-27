@@ -15,8 +15,8 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class VacancyReader {
-    public static final QVacancy vacancy = QVacancy.vacancy;
-    public static final QPosition position = QPosition.position;
+    private static final QVacancy vacancy = QVacancy.vacancy;
+    private static final QPosition position = QPosition.position;
 
     public static QBean<VacancyDto> getMappedSelectForVacancyDto() {
         return Projections.bean(

@@ -30,3 +30,5 @@ generators:
   vacancy-positions: false
   vacancy-positions-online: false
   positions: true
+  competence: true
+  matrixCompetence: true

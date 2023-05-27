@@ -36,8 +36,8 @@ public class PositionGenerator {
         for (String positionName : VacancyTemplate.allPositionNames) {
             Position position = new Position(id++, positionName, positionName + " " + Math.random());
             generatedList.add(position);
-            positionRepository.saveAllAndFlush(generatedList);
         }
+        positionRepository.saveAllAndFlush(generatedList);
         return generatedList;
     }
 }
