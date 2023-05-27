@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VacancyPositionDto {
+public class VacancyRespondDto {
     private Long id;
     private Long vacancyId;
     private String coverLetter;

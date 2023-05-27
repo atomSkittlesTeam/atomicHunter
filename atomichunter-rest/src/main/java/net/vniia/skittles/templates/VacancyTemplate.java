@@ -32,7 +32,7 @@ public class VacancyTemplate {
             "Готовность к физической нагрузке и желание стабильного дохода"
     );
 
-    public static List<String> allVacancyPositionCoverLetter = Arrays.asList(
+    public static List<String> allVacancyRespondCoverLetter = Arrays.asList(
             "Я такой крутой, такой крутой!",
             "Готов стать админом вашей хуйни",
             "Сопроводительные письма презираю",

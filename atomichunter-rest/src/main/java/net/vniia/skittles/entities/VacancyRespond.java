@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.vniia.skittles.dto.VacancyPositionDto;
+import net.vniia.skittles.dto.VacancyRespondDto;
 
 @Entity
 @Data
@@ -24,14 +24,14 @@ public class VacancyRespond {
 
     private boolean archive;
 
-    public VacancyRespond(VacancyPositionDto vacancyPositionDto) {
-        this.update(vacancyPositionDto);
+    public VacancyRespond(VacancyRespondDto vacancyRespondDto) {
+        this.update(vacancyRespondDto);
     }
 
-    public void update(VacancyPositionDto vacancyPositionDto) {
-        this.vacancyId = vacancyPositionDto.getVacancyId();
-        this.coverLetter = vacancyPositionDto.getCoverLetter();
-        this.pathToResume = vacancyPositionDto.getPathToResume();
+    public void update(VacancyRespondDto vacancyRespondDto) {
+        this.vacancyId = vacancyRespondDto.getVacancyId();
+        this.coverLetter = vacancyRespondDto.getCoverLetter();
+        this.pathToResume = vacancyRespondDto.getPathToResume();
     }
 
     public void archive() {

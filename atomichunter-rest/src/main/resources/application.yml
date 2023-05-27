@@ -27,8 +27,8 @@ generators:
   request: false
   request-positions: false
   vacancy: false
-  vacancy-positions: false
-  vacancy-positions-online: false
+  vacancy-respond: false
+  vacancy-respond-online: false
   positions: true
   competence: true
   matrixCompetence: true

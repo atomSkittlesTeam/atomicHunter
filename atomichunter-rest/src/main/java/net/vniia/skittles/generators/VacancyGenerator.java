@@ -19,24 +19,24 @@ public class VacancyGenerator {
     @Value("${generators.vacancy}")
     private Boolean generatorVacancyEnable;
 
-    @Value("${generators.vacancy-positions}")
-    private Boolean generatorVacancyPositionsEnable;
+    @Value("${generators.vacancy-respond}")
+    private Boolean generatorVacancyRespondEnable;
 
-    @Value("${generators.vacancy-positions-online}")
-    private Boolean generatorVacancyPositionsOnlineEnable;
+    @Value("${generators.vacancy-respond-online}")
+    private Boolean generatorVacancyRespondOnlineEnable;
 
     @Autowired
     private VacancyRepository vacancyRepository;
 
     @Autowired
-    private VacancyPositionRepository vacancyPositionRepository;
+    private VacancyRespondRepository vacancyRespondRepository;
 
     private static int vacancyCount = 15;
 
     @PostConstruct
     public void generateData() {
         this.generateVacancy();
-        this.generateVacancyPositions();
+        this.generateVacancyRespond();
     }
 
     private void generateVacancy() {
@@ -46,10 +46,10 @@ public class VacancyGenerator {
         }
     }
 
-    private void generateVacancyPositions() {
-        if (generatorVacancyPositionsEnable) {
-            List<VacancyRespond> vacancyPositionList = vacancyPositionListGenerate();
-            vacancyPositionRepository.saveAll(vacancyPositionList);
+    private void generateVacancyRespond() {
+        if (generatorVacancyRespondEnable) {
+            List<VacancyRespond> vacancyRespondList = vacancyRespondListGenerate();
+            vacancyRespondRepository.saveAll(vacancyRespondList);
         }
     }
 
@@ -70,9 +70,9 @@ public class VacancyGenerator {
         return vacancyList;
     }
 
-    private List<VacancyRespond> vacancyPositionListGenerate() {
+    private List<VacancyRespond> vacancyRespondListGenerate() {
         Random random = new Random();
-        List<VacancyRespond> vacancyPositionList = new ArrayList<>();
+        List<VacancyRespond> vacancyRespondList = new ArrayList<>();
         int index = 0;
         List<Long> vacancyIds = vacancyRepository.findAll().stream().map(Vacancy::getId).toList();
         for (int i = 0; i < vacancyIds.size(); i++) {
@@ -81,31 +81,31 @@ public class VacancyGenerator {
                 VacancyRespond vacancyRespond = new VacancyRespond(
                         (long) index, //id - автогенерируется, здесь как заглушка для allArgs
                         (long) vacancyIds.get(i), //vacancyId
-                        String.valueOf(VacancyTemplate.allVacancyPositionCoverLetter
-                                .get(random.nextInt(0, VacancyTemplate.allVacancyPositionCoverLetter.size()))), //cover letter,
+                        String.valueOf(VacancyTemplate.allVacancyRespondCoverLetter
+                                .get(random.nextInt(0, VacancyTemplate.allVacancyRespondCoverLetter.size()))), //cover letter,
                         "//",
                         false); //note
-                vacancyPositionList.add(vacancyRespond);
+                vacancyRespondList.add(vacancyRespond);
                 index++;
             }
         }
-        return vacancyPositionList;
+        return vacancyRespondList;
     }
 
     @Scheduled(fixedDelay = 5000)
-    private void vacancyPositionGeneratorByScheduler() {
-        if (generatorVacancyPositionsOnlineEnable) {
+    private void vacancyRespondGeneratorByScheduler() {
+        if (generatorVacancyRespondOnlineEnable) {
             Random random = new Random();
             List<Long> vacancyIds = vacancyRepository.findAll().stream().map(Vacancy::getId).toList();
             int vacancyIndex = random.nextInt(0, vacancyIds.size());
             VacancyRespond vacancyRespond = new VacancyRespond(
                     (long) 0, //id - автогенерируется, здесь как заглушка для allArgs
                     (long) vacancyIds.get(vacancyIndex), //vacancyId
-                    String.valueOf(VacancyTemplate.allVacancyPositionCoverLetter
-                            .get(random.nextInt(0, VacancyTemplate.allVacancyPositionCoverLetter.size()))), //cover letter,
+                    String.valueOf(VacancyTemplate.allVacancyRespondCoverLetter
+                            .get(random.nextInt(0, VacancyTemplate.allVacancyRespondCoverLetter.size()))), //cover letter,
                     "//",
                     false);
-            vacancyPositionRepository.saveAndFlush(vacancyRespond);
+            vacancyRespondRepository.saveAndFlush(vacancyRespond);
         }
     }
 }
