@@ -32,3 +32,4 @@ generators:
   positions: true
   competence: true
   matrixCompetence: true
+jwt-secret: jkdhfekej
