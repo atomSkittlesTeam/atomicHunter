@@ -13,7 +13,7 @@ import { VacancyService } from 'src/app/services/vacancy.service';
 export class VacancyDialogComponent {
 
   @Input('openDialog') visible: boolean = false;
-  @Input('item') item: Vacancy = new Vacancy();
+  @Input('item') item: Vacancy;
   @Input('editMode') editMode: boolean;
   @Output() submit = new EventEmitter<any>();
   @Output() visibleChange = new EventEmitter<any>();
