@@ -46,6 +46,13 @@
         <p-knob [(ngModel)]="weight" [readonly]="value ? false : true" (ngModelChange)="chooseSkill(false)"></p-knob>
       </div>
 
+      <p-button label="Удалить"
+                class="delete-vacancy"
+                 icon="pi pi-trash"
+                 styleClass="p-button-outlined p-button-danger"
+                 *ngIf="value"
+                 (onClick)="deleteSkill(value?.name)">
+    </p-button>
 
     </div>
   </div>

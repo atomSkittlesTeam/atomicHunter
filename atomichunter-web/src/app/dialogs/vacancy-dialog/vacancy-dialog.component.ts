@@ -121,5 +121,13 @@ export class VacancyDialogComponent {
     this.buttons.forEach(item => this.summ += item.weight);
     return this.summ;
   }
+  deleteSkill(skillName: string) {
+
+    let index = this.buttons.findIndex( skill => skill.name === skillName);
+    if (index != -1) {
+      this.buttons.slice(index,1);
+    }
+  }
+
 
 }
