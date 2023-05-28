@@ -12,6 +12,8 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
+import jakarta.mail.MessagingException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -30,7 +32,10 @@ public class OfferService {
     @Value("classpath:/OpenSans.ttf")
     private Resource font;
 
-    public void createPdf() throws IOException {
+    @Autowired
+    private EmailService emailService;
+
+    public String createPdf() throws IOException {
         this.createFolder();
         String path = OFFER_PATH + "offer1.pdf";
 
@@ -45,7 +50,6 @@ public class OfferService {
         ImageData data = ImageDataFactory.create(photo.getContentAsByteArray());
         Image img = new Image(data);
 
-
         document.add(img);
         document.add(new Paragraph("ЛИЧНО И КОНФИДЕНЦИАЛЬНО").setBold().setFont(font));
         document.add(new Paragraph("Наноеву Алексею").setFont(font));
@@ -54,11 +58,23 @@ public class OfferService {
         document.add(new Paragraph("ЗП: 45.000").setFont(font));
 
         document.close();
+
+        return path;
+    }
+
+    public void createPdfAndSendByEmail() throws IOException, MessagingException {
+        String path = this.createPdf();
+        this.emailService.sendEmailWithAttachment(
+                "artemsrv@ya.ru",
+                "Оффер",
+                "Здравствуйте! Компания Atomic Hunter высылает вам оффер",
+                path
+        );
     }
 
     private void createFolder() {
         File directory = new File(OFFER_PATH);
-        if (! directory.exists()){
+        if (! directory.exists()) {
             directory.mkdir();
         }
     }

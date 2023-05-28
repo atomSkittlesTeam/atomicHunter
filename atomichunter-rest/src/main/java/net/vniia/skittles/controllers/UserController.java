@@ -1,6 +1,7 @@
 package net.vniia.skittles.controllers;
 
 
+import jakarta.mail.MessagingException;
 import net.vniia.skittles.services.OfferService;
 import net.vniia.skittles.dto.PasswordChangeRequestDto;
 import net.vniia.skittles.dto.UserDto;
@@ -88,6 +89,11 @@ public class UserController {
     @GetMapping("getOffer")
     public void getOffer() throws IOException {
         offerService.createPdf();
+    }
+
+    @GetMapping("getOfferMail")
+    public void getOfferMail() throws IOException, MessagingException {
+        offerService.createPdfAndSendByEmail();
 //        return new FileSystemResource();
 
     }
