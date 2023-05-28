@@ -1,0 +1,79 @@
+.personal-skills {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  border: 1px solid black;
+  display: flex;
+  padding: 10px;
+  flex-direction: column;
+  justify-content: flex-start;
+
+
+  &__toolbar {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 0 0 10px 0
+  }
+
+  &__text {
+    padding: 5px;
+    display: flex;
+    font-size: 18px;
+    align-items: center;
+
+  }
+
+}
+
+.skills {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  ::ng-deep {
+    .p-button {
+      min-width: 80px;
+      padding: 10px;
+    }
+  }
+}
+
+.skill-weight {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.info-block {
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.fail {
+  display: flex;
+  max-width: 150px;
+}
+
+@media only screen and (max-width: 350px) {
+  /* For mobile phones: */
+
+  .personal-skills {
+    &__toolbar {
+      flex-direction: column;
+    }
+  }
+
+
+}
+
+:host {
+  ::ng-deep {
+    .p-dialog {
+      width: auto !important;
+    }
+  }
+}

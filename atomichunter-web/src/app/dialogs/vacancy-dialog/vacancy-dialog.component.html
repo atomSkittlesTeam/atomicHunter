@@ -5,29 +5,48 @@
             [editMode]="editMode"
             (submit)="onSubmit($event)">
 
-    <app-dialog-row [(item)]="item.position"
-        [dropDown]="positions"
-        [dropDownField]="'name'"
-        icon = 'pi pi-user'
-        title="Должность"
-        type="list">
-    </app-dialog-row>
+  <app-dialog-row [(item)]="item.position"
+                  [dropDown]="positions"
+                  [dropDownField]="'name'"
+                  icon="pi pi-user"
+                  title="Должность"
+                  type="list">
+  </app-dialog-row>
 
-    <app-dialog-row [(item)]="item.salary"
-                    icon = 'pi pi-user'
-                    title="Зарплата"
-                    type="string">
-    </app-dialog-row>
+  <app-dialog-row [(item)]="item.salary"
+                  icon="pi pi-user"
+                  title="Зарплата"
+                  type="string">
+  </app-dialog-row>
 
-    <app-dialog-row [(item)]="item.experience"
-                    icon = 'pi pi-user'
-                    title="Опыт работы"
-                    type="string">
-    </app-dialog-row>
+  <app-dialog-row [(item)]="item.experience"
+                  icon="pi pi-user"
+                  title="Опыт работы"
+                  type="string">
+  </app-dialog-row>
 
-    <app-dialog-row [(item)]="item.additional"
-                    icon = 'pi pi-user'
-                    title="Дополнительно"
-                    type="string">
-    </app-dialog-row>
+  <app-dialog-row [(item)]="item.additional"
+                  icon="pi pi-user"
+                  title="Дополнительно"
+                  type="string">
+  </app-dialog-row>
+
+  <div class="personal-skills">
+    <div class="personal-skills__toolbar">
+      <button pButton type="button" class="p-button-success" label="Добавить новый навык"
+              icon="pi pi-cog"></button>
+      <span class="personal-skills__text">Общий вес: {{summ}}</span>
+      <span class="fail" *ngIf="summ > 100" style="color:red"> Общий вес не должен превышать 100</span>
+    </div>
+    <div class="flex flex-wrap gap-3 info-block" >
+      <div class="skills">
+          <p-selectButton [options]="buttons" [(ngModel)]="value" [multiple]="false" (ngModelChange)="chooseSkill(true)" optionLabel="name"></p-selectButton>
+      </div>
+      <div class="skill-weight">
+        <p-knob [(ngModel)]="weight" [readonly]="value ? false : true" (ngModelChange)="chooseSkill(false)"></p-knob>
+      </div>
+
+
+    </div>
+  </div>
 </app-dialog>

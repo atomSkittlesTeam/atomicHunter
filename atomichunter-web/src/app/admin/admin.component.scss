@@ -8,6 +8,7 @@
       justify-content: flex-start;
       gap: 15px;
       position: relative;
+      overflow: auto;
     }
   }
 }
@@ -22,4 +23,5 @@ nav {
   display: flex;
   justify-content: flex-start;
   gap: 10px;
+  min-width: max-content;
 }
