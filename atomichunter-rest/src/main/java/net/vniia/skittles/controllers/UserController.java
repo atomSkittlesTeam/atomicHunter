@@ -1,13 +1,12 @@
 package net.vniia.skittles.controllers;
 
 
-import net.vniia.skittles.configs.PdfGenerator;
+import net.vniia.skittles.services.OfferService;
 import net.vniia.skittles.dto.PasswordChangeRequestDto;
 import net.vniia.skittles.dto.UserDto;
 import net.vniia.skittles.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +25,7 @@ public class UserController {
 
     private final UserService userService;
     private final TelegramBotController telegramBotController;
-    private final PdfGenerator pdfGenerator;
+    private final OfferService offerService;
 
     @GetMapping("all")
     public List<UserDto> getAllUsers() {
@@ -88,7 +87,7 @@ public class UserController {
 
     @GetMapping("getOffer")
     public void getOffer() throws IOException {
-        pdfGenerator.createPdf();
+        offerService.createPdf();
 //        return new FileSystemResource();
 
     }
