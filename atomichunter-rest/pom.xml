@@ -11,8 +11,8 @@
 	<groupId>net.vniia.skittlesteam</groupId>
 	<artifactId>atomichunter</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Project from VNIIA Skittles Team</description>
+	<name>atomichunter</name>
+	<description>Atomic Hunter HR system by VNIIA Skittles Team</description>
 	<properties>
 		<java.version>17</java.version>
 		<querydsl.version>5.0.0</querydsl.version>

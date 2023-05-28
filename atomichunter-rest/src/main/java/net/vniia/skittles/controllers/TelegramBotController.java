@@ -1,16 +1,12 @@
 package net.vniia.skittles.controllers;
 
-import net.vniia.skittles.configs.TelegramBotConfig;
-import net.vniia.skittles.dto.TelegramCommandDto;
+import net.vniia.skittles.configs.TelegramBotSettings;
 import net.vniia.skittles.entities.TelegramSubscriber;
-import net.vniia.skittles.repositories.TelegramSubscriberRepository;
 import net.vniia.skittles.services.TelegramBotService;
 import net.vniia.skittles.services.UserService;
-import net.vniia.skittles.templates.JokesTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -40,7 +36,7 @@ public class TelegramBotController extends TelegramLongPollingBot {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    private final TelegramBotConfig telegramBotConfig = new TelegramBotConfig();
+    private final TelegramBotSettings telegramBotSettings = new TelegramBotSettings();
 
     @Autowired
     UserService userService;
@@ -55,7 +51,7 @@ public class TelegramBotController extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return telegramBotConfig.getBotSettings(telegramLink, telegramToken).getToken();
+        return telegramBotSettings.getBotSettings(telegramLink, telegramToken).getToken();
     }
 
     @Override

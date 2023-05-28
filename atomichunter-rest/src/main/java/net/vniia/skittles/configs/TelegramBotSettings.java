@@ -3,12 +3,9 @@ package net.vniia.skittles.configs;
 import net.vniia.skittles.dto.TelegramBotSettingsDto;
 import net.vniia.skittles.dto.TelegramCommandDto;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class TelegramBotConfig {
+public class TelegramBotSettings {
 
     public static String testUrl = "http://localhost:8080";
     public static String testingUrl = "http://localhost:8081";

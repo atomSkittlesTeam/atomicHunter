@@ -2,24 +2,16 @@ package net.vniia.skittles.services;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import net.vniia.skittles.configs.TelegramBotConfig;
-import net.vniia.skittles.dto.MessageDto;
-import net.vniia.skittles.dto.RequestDto;
+import net.vniia.skittles.configs.TelegramBotSettings;
 import net.vniia.skittles.dto.TelegramCommandDto;
 import net.vniia.skittles.entities.*;
 import net.vniia.skittles.enums.TelegramMailingType;
-import net.vniia.skittles.readers.RequestReader;
 import net.vniia.skittles.repositories.*;
 import net.vniia.skittles.templates.JokesTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import javax.transaction.Transactional;
 import java.time.Instant;
 import java.util.*;
 
@@ -54,7 +46,7 @@ public class TelegramBotService {
 
     public String commandShowHelp(Message message, Boolean userIsNotAuthorized, TelegramSubscriber subscriber) {
         StringBuilder messageToTelegramChat = new StringBuilder();
-        List<TelegramCommandDto> actualCommands = TelegramBotConfig.telegramCommands;
+        List<TelegramCommandDto> actualCommands = TelegramBotSettings.telegramCommands;
         if(userIsNotAuthorized) {
             actualCommands = actualCommands.stream().filter(e -> e.isVisibleToNotAuthorized()).toList();
         } else {
@@ -129,7 +121,7 @@ public class TelegramBotService {
 
     private String checkCommandRoleMappingReturnErrorOrNull(String commandFromInput, TelegramSubscriber subscriber) {
         List<TelegramCommandDto> commandLikeList =
-                TelegramBotConfig.telegramCommands.stream().filter(e -> e.getCommand().equals(commandFromInput)).toList();
+                TelegramBotSettings.telegramCommands.stream().filter(e -> e.getCommand().equals(commandFromInput)).toList();
         if (commandLikeList.isEmpty()) {
             throw new RuntimeException("Команда не найдена в конфиге");
         }
