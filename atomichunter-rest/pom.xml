@@ -164,6 +164,12 @@
 			<version>8.0.0.Final</version>
 		</dependency>
 
+		<dependency>
+			<groupId>net.sf.biweekly</groupId>
+			<artifactId>biweekly</artifactId>
+			<version>0.6.7</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
