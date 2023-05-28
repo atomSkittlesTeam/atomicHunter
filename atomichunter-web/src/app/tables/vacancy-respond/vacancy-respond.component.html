@@ -1,0 +1,41 @@
+<p-toolbar>
+
+    <div class="table-name">Позиции заказа</div>
+    <nav>
+        <p-button icon="pi pi-sync"
+                  styleClass="p-button-rounded p-button-warning p-button-outlined"
+                  (click)="getAllRequestPositionsFromApi()"
+                  [disabled]="!request">
+        </p-button>
+
+        <p-button
+                icon="pi pi-filter"
+                styleClass="p-button-outlined p-button-warning"
+                (onClick)="showFilter()"
+                [disabled]="!request">
+        </p-button>
+
+        <p-button label="Просмотреть"
+                  icon="pi pi-plus"
+                  styleClass="p-button-outlined"
+                  [disabled]="!request"
+                  (onClick)="createRequestPosition()">
+        </p-button>
+
+        <p-button label="Удалить"
+                  icon="pi pi-trash"
+                  [disabled]="!request || !selectedRequestPosition || !selectedRequestPosition.id"
+                  styleClass="p-button-outlined p-button-danger"
+                  (onClick)="archiveRequestPosition()">
+        </p-button>
+
+        <p-checkbox [disabled]="!request || !selectedRequestPosition"
+                    [(ngModel)]="showArchive"
+                    label="Показывать архив"
+                    [binary]="true"
+                    inputId="binary"
+                    (ngModelChange)="showArchivePressed()">
+        </p-checkbox>
+    </nav>
+
+</p-toolbar>

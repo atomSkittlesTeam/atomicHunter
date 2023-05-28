@@ -58,6 +58,8 @@
             (cellClicked)="onCellClicked($event)">
     </ag-grid-angular>
 
+    <app-vacancy-respond></app-vacancy-respond>
+
     <app-vacancy-dialog [openDialog]="openDialog"
                     *ngIf="openDialog"
                     [item]="selectedVacancy"

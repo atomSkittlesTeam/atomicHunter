@@ -54,6 +54,7 @@ import { PasswordModule } from "primeng/password";
 import {NgOptimizedImage} from "@angular/common";
 import { VacancyComponent } from './tables/vacancy/vacancy.component';
 import { VacancyDialogComponent } from './dialogs/vacancy-dialog/vacancy-dialog.component';
+import { VacancyRespondComponent } from './tables/vacancy-respond/vacancy-respond.component';
 
 @NgModule({
     declarations: [
@@ -75,7 +76,8 @@ import { VacancyDialogComponent } from './dialogs/vacancy-dialog/vacancy-dialog.
         RegistrationFormComponent,
         UserDialogComponent,
         VacancyComponent,
-        VacancyDialogComponent
+        VacancyDialogComponent,
+        VacancyRespondComponent
     ],
     imports: [
         BrowserModule,
