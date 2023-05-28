@@ -33,7 +33,17 @@ export class VacancyComponent {
     //     }},
     {field: 'archive', headerName: 'Архив', hide: !this.showArchive, cellRenderer: (params: { value: any; }) => {
             return `<input disabled="true" type='checkbox' ${params.value ? 'checked' : ''} />`;
-        } }
+        }},
+    {field: 'createInstant', headerName: 'Дата создания',
+          cellRenderer: (data: {value: number}) => {
+          return data.value ? new Date(data.value * 1000).toLocaleDateString() 
+            + ' ' + new Date(data.value * 1000).toLocaleTimeString() : '';
+      }},
+    {field: 'modifyInstant', headerName: 'Дата последнего редактирования', 
+          cellRenderer: (data: {value: number}) => {
+          return data.value ? new Date(data.value * 1000).toLocaleDateString() 
+            +  ' ' + new Date(data.value * 1000).toLocaleTimeString() : '';
+    }},        
   ];
 
   public loadingCellRenderer: any = LoadingCellRendererComponent;

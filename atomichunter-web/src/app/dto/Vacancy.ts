@@ -8,4 +8,6 @@ export class  Vacancy {
     experience: string;
     additional: string;
     archive: boolean;
+    createInstant: Date;
+    modifyInstant: Date;
 }

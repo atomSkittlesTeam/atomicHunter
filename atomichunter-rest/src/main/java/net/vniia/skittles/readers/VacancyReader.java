@@ -26,7 +26,9 @@ public class VacancyReader {
                 vacancy.salary,
                 vacancy.experience,
                 vacancy.additional,
-                vacancy.archive
+                vacancy.archive,
+                vacancy.createInstant,
+                vacancy.modifyInstant
         );
     }
 

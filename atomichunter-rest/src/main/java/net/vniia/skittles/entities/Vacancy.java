@@ -1,15 +1,15 @@
 package net.vniia.skittles.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.vniia.skittles.dto.PositionDto;
 import net.vniia.skittles.dto.VacancyDto;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.Instant;
 import java.util.Optional;
 
 @Entity
@@ -30,6 +30,14 @@ public class Vacancy {
     private String additional;
 
     private boolean archive;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Instant createInstant;
+
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Instant modifyInstant;
 
     public Vacancy(VacancyDto vacancyDto) {
         this.update(vacancyDto);
