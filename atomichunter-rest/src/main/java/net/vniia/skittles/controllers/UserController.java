@@ -2,6 +2,7 @@ package net.vniia.skittles.controllers;
 
 
 import jakarta.mail.MessagingException;
+import net.vniia.skittles.services.EmailService;
 import net.vniia.skittles.services.OfferService;
 import net.vniia.skittles.dto.PasswordChangeRequestDto;
 import net.vniia.skittles.dto.UserDto;
@@ -27,6 +28,8 @@ public class UserController {
     private final UserService userService;
     private final TelegramBotController telegramBotController;
     private final OfferService offerService;
+
+    private final EmailService emailService;
 
     @GetMapping("all")
     public List<UserDto> getAllUsers() {
@@ -94,7 +97,10 @@ public class UserController {
     @GetMapping("getOfferMail")
     public void getOfferMail() throws IOException, MessagingException {
         offerService.createPdfAndSendByEmail();
-//        return new FileSystemResource();
+    }
 
+    @GetMapping("getMailInvite")
+    public void getMailInvite() throws Exception {
+        emailService.sendCalendarInvite("Приглашение на собес", "artemsrv3@gmail.com");
     }
 }

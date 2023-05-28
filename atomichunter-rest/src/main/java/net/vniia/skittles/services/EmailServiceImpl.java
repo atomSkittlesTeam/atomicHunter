@@ -9,11 +9,12 @@ import biweekly.property.Method;
 import biweekly.property.Organizer;
 import biweekly.util.Duration;
 import jakarta.activation.DataHandler;
-import jakarta.activation.DataSource;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
 import jakarta.mail.util.ByteArrayDataSource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -80,30 +81,7 @@ public class EmailServiceImpl implements EmailService {
         emailSender.send(mimeMessage);
     }
 
-    @Override
-    public void sendEmailWithInvite(String consumer, String subject, String message)
-            throws MessagingException, IOException {
-        MimeMessage mimeMessage = emailSender.createMimeMessage();
-        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
-
-        DataSource iCalData = new ByteArrayDataSource(generateICalDataForInvite(consumer), "text/calendar; charset=UTF-8");
-        InternetAddress sender = new InternetAddress(MailConfiguration.SERVICE_EMAIL, "Atomic Hunter");
-        InternetAddress consumerAddress = new InternetAddress(consumer);
-
-        mimeMessage.setDataHandler(new DataHandler(iCalData));
-        mimeMessage.setHeader("Content-Type", "text/calendar; charset=UTF-8; method=REQUEST");
-        mimeMessage.setRecipient(Message.RecipientType.TO, consumerAddress);
-        mimeMessage.setSender(sender);
-
-        messageHelper.setFrom(sender);
-        messageHelper.setTo(consumer);
-        messageHelper.setSubject(subject);
-        messageHelper.setText(message);
-
-        emailSender.send(mimeMessage);
-    }
-
-    public static String generateICalDataForInvite(String consumerEmail) {
+    public static String generateICalDataForInvite(String consumerEmail) throws IOException {
         ICalendar ical = new ICalendar();
         ical.addProperty(new Method(Method.REQUEST));
 
@@ -118,11 +96,45 @@ public class EmailServiceImpl implements EmailService {
 
         event.setOrganizer(new Organizer("Atomic Hunter", MailConfiguration.SERVICE_EMAIL));
 
-        Attendee a = new Attendee("Уважаемый соискатель", consumerEmail);
+        Attendee a = new Attendee(consumerEmail, consumerEmail);
         a.setParticipationLevel(ParticipationLevel.REQUIRED);
         event.addAttendee(a);
         ical.addEvent(event);
-
         return Biweekly.write(ical).go();
     }
+
+    @Override
+    public void sendCalendarInvite(String subject, String consumerEmail) throws Exception {
+
+        MimeMessage mimeMessage = emailSender.createMimeMessage();
+        InternetAddress sender = new InternetAddress(MailConfiguration.SERVICE_EMAIL, "Atomic Hunter");
+        InternetAddress consumer = new InternetAddress(consumerEmail);
+
+        mimeMessage.addHeaderLine("method=REQUEST");
+        mimeMessage.addHeaderLine("charset=UTF-8");
+        mimeMessage.addHeaderLine("component=VEVENT");
+        mimeMessage.setFrom(sender);
+        mimeMessage.addRecipient(Message.RecipientType.TO, consumer);
+        mimeMessage.setSubject(subject);
+        StringBuilder builder = new StringBuilder();
+        builder.append(generateICalDataForInvite(consumerEmail));
+
+        MimeBodyPart messageBodyPart = new MimeBodyPart();
+
+        messageBodyPart.setHeader("Content-Class", "urn:content-classes:calendarmessage");
+        messageBodyPart.setHeader("Content-ID", "calendar_message");
+        messageBodyPart.setDataHandler(new DataHandler(
+                new ByteArrayDataSource(builder.toString(), "text/calendar;method=REQUEST;name=\"invite.ics\"")));
+
+        MimeMultipart multipart = new MimeMultipart();
+
+        multipart.addBodyPart(messageBodyPart);
+
+        mimeMessage.setContent(multipart);
+
+
+        emailSender.send(mimeMessage);
+        System.out.println("Calendar invite sent");
+    }
+
 }
