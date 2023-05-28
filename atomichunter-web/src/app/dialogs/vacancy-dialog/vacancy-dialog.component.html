@@ -40,7 +40,7 @@
     </div>
     <div class="flex flex-wrap gap-3 info-block" >
       <div class="skills">
-          <p-selectButton [options]="buttons" [(ngModel)]="value" [multiple]="false" (ngModelChange)="chooseSkill(true)" optionLabel="name"></p-selectButton>
+          <p-selectButton [options]=buttons [(ngModel)]="value" [multiple]="false" (ngModelChange)="chooseSkill(true)" optionLabel="name"></p-selectButton>
       </div>
       <div class="skill-weight">
         <p-knob [(ngModel)]="weight" [readonly]="value ? false : true" (ngModelChange)="chooseSkill(false)"></p-knob>

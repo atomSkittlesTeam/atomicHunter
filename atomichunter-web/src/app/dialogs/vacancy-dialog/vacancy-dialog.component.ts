@@ -24,6 +24,7 @@ export class VacancyDialogComponent {
   weight: number = 0;
   summ = 0;
 
+
   constructor(private vacancyService: VacancyService,
               private positionService: PositionService,
               public messageService: MessageService) {
@@ -122,11 +123,14 @@ export class VacancyDialogComponent {
     return this.summ;
   }
   deleteSkill(skillName: string) {
-
+    let newArray = this.buttons;
     let index = this.buttons.findIndex( skill => skill.name === skillName);
     if (index != -1) {
-      this.buttons.slice(index,1);
+      newArray.splice(index,1);
+      this.buttons =[...newArray];
     }
+
+
   }
 
 
