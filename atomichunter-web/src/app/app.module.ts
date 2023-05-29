@@ -54,6 +54,8 @@ import { PasswordModule } from "primeng/password";
 import {NgOptimizedImage} from "@angular/common";
 import { VacancyComponent } from './tables/vacancy/vacancy.component';
 import { VacancyDialogComponent } from './dialogs/vacancy-dialog/vacancy-dialog.component';
+import { RadioButtonModule } from "primeng/radiobutton";
+import { KnobModule } from "primeng/knob";
 
 @NgModule({
     declarations: [
@@ -77,39 +79,41 @@ import { VacancyDialogComponent } from './dialogs/vacancy-dialog/vacancy-dialog.
         VacancyComponent,
         VacancyDialogComponent
     ],
-    imports: [
-        BrowserModule,
-        HttpClientModule,
-        AppRoutingModule,
-        MessageModule,
-        MessagesModule,
-        FormsModule,
-        ButtonModule,
-        TableModule,
-        ToastModule,
-        DialogModule,
-        SelectButtonModule,
-        ContextMenuModule,
-        BrowserAnimationsModule,
-        MultiSelectModule,
-        SpeedDialModule,
-        SplitterModule,
-        SidebarModule,
-        ToolbarModule,
-        InputSwitchModule,
-        BlockUIModule,
-        CheckboxModule,
-        ConfirmDialogModule,
-        ChartModule,
-        AgGridModule,
-        CalendarModule,
-        ChipsModule,
-        InputTextareaModule,
-        ReactiveFormsModule,
-        DropdownModule,
-        PasswordModule,
-        NgOptimizedImage
-    ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    MessageModule,
+    MessagesModule,
+    FormsModule,
+    ButtonModule,
+    TableModule,
+    ToastModule,
+    DialogModule,
+    SelectButtonModule,
+    ContextMenuModule,
+    BrowserAnimationsModule,
+    MultiSelectModule,
+    SpeedDialModule,
+    SplitterModule,
+    SidebarModule,
+    ToolbarModule,
+    InputSwitchModule,
+    BlockUIModule,
+    CheckboxModule,
+    ConfirmDialogModule,
+    ChartModule,
+    AgGridModule,
+    CalendarModule,
+    ChipsModule,
+    InputTextareaModule,
+    ReactiveFormsModule,
+    DropdownModule,
+    PasswordModule,
+    NgOptimizedImage,
+    RadioButtonModule,
+    KnobModule
+  ],
     providers: 
     [ConfigService,
     AuthGuard,

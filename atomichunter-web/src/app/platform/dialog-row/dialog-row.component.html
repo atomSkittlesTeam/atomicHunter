@@ -13,7 +13,7 @@
     </ng-template>
     <ng-template ngSwitchCase="date">
 
-        <p-calendar [(ngModel)]="item" [style]="{width: '50%'}" [showButtonBar]="true"
+        <p-calendar [(ngModel)]="item" [style]="{width: '50%', minWidth: '220px'}" [showButtonBar]="true"
                     (ngModelChange)="itemChange.emit(item)"
                     [placeholder]="title"
                     [showIcon]="true"

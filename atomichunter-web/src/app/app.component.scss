@@ -229,6 +229,7 @@
     &__nav-buttons {
       display: flex;
       gap: 10px;
+
       ::ng-deep {
         .p-button {
           border: none;
@@ -249,10 +250,12 @@
         display: flex;
         max-height: 44px;
         align-items: center;
+
         &:hover {
           border: 1px lightgrey solid;
         }
       }
+
       .telegram-status {
         border: 1px lightgrey solid;
         border-radius: 10px;
@@ -331,6 +334,10 @@
 
     &__info-ring {
       flex-direction: column;
+
+      .splitter {
+        display: none;
+      }
     }
   }
 
@@ -366,6 +373,7 @@
       }
     }
   }
+
   :host {
     ::ng-deep {
       .burger-menu__nav-buttons {

@@ -14,6 +14,7 @@ html, body {
       justify-content: flex-start;
       gap: 15px;
       position: relative;
+      overflow: auto;
     }
     .p-ripple {
       padding: 5px
@@ -46,6 +47,7 @@ nav {
   display: flex;
   justify-content: flex-start;
   gap: 10px;
+  min-width: max-content;
 }
 
 .request-position {

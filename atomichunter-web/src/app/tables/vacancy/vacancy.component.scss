@@ -1,45 +1,49 @@
 
 html, body {
-    height: 100%;
-    width: 100%;
-    padding: 5px;
-  }
-  
-  :host {
-    ::ng-deep {
-      .p-toolbar {
-        padding: 5px 10px;
-        max-height: 130px;
-        display: flex;
-        justify-content: flex-start;
-        gap: 15px;
-        position: relative;
-      }
-      .p-ripple {
-        padding: 5px
-      }
-      .p-button-rounded {
-        width: 15px;
-        height: 15px !important;
-        padding: 15px;
-      }
+  height: 100%;
+  width: 100%;
+  padding: 5px;
+}
+
+:host {
+  ::ng-deep {
+    .p-toolbar {
+      padding: 5px 10px;
+      max-height: 130px;
+      display: flex;
+      justify-content: flex-start;
+      gap: 15px;
+      position: relative;
+      overflow: auto;
+    }
+
+    .p-ripple {
+      padding: 5px
+    }
+
+    .p-button-rounded {
+      width: 15px;
+      height: 15px !important;
+      padding: 15px;
     }
   }
-  
-  .container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  nav {
-    display: flex;
-    justify-content: flex-start;
-    gap: 10px;
-  }
-  
-  .request-position {
-    height: 100%;
-    display: contents;
-  }
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+nav {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  min-width: max-content;
+}
+
+.request-position {
+  height: 100%;
+  display: contents;
+}
   
