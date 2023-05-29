@@ -28,6 +28,11 @@ export class VacancyService extends BaseService {
     ));
   }
 
+  async getVacancyById(id: number) {
+    const url = await this.getBackendUrl();
+    return await firstValueFrom(this.http.get<Vacancy>(url + `/vacancy/${id}`));
+  }
+
   async createVacancy(vacancy: Vacancy) {
     const url = await this.getBackendUrl();
     return await firstValueFrom(this.http.post(url + '/vacancy/create', vacancy));

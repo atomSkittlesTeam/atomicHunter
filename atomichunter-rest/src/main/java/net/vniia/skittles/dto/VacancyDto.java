@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -24,4 +25,6 @@ public class VacancyDto {
     private Instant createInstant;
 
     private Instant modifyInstant;
+
+    private List<CompetenceWeightDto> competenceWeight;
 }

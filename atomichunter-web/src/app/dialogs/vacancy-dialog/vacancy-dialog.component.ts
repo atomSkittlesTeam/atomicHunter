@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { MessageService } from "primeng/api";
-import { Position } from "src/app/dto/Position";
-import { Vacancy } from "src/app/dto/Vacancy";
-import { PositionService } from "src/app/services/position.service";
-import { VacancyService } from "src/app/services/vacancy.service";
+import { Position } from "../../dto/Position";
+import { Vacancy } from "../../dto/Vacancy";
+import { PositionService } from "../../services/position.service";
+import { VacancyService } from "../../services/vacancy.service";
 import { Competence } from "../../dto/Competence";
 import { CompetenceService } from "../../services/competence.service";
 import { CompetenceWeight } from "../../dto/CompetenceWeight";
@@ -34,21 +34,20 @@ export class VacancyDialogComponent {
               private competenceService: CompetenceService,
               private positionService: PositionService,
               public messageService: MessageService) {
-
   }
 
   async ngOnInit() {
     await this.getAllPositionsFromApi();
     if (this.editMode) {
+      this.item = await this.vacancyService.getVacancyById(this.item.id);
       this.dialogTitle = "Редактирование вакансии";
     } else {
       this.item = new Vacancy();
       this.item.position = new Position();
+      this.competences = await this.competenceService.getCompetencesByPositionId(1);
+      this.competences.forEach(comp => this.item.competenceWeight.push(new CompetenceWeight(comp, 10)));
       this.dialogTitle = "Регистрация вакансии";
     }
-    this.competences = await this.competenceService.getCompetencesByPositionId(1);
-    this.competences.forEach(comp => this.item.competenceWeight.push(new CompetenceWeight(comp, 10)));
-    console.log(this.item);
   }
 
   async onSubmit($event: any) {

@@ -5,6 +5,7 @@ import com.querydsl.core.types.QBean;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import net.vniia.skittles.dto.CompetenceWeightDto;
 import net.vniia.skittles.dto.VacancyDto;
 import net.vniia.skittles.entities.QPosition;
 import net.vniia.skittles.entities.QVacancy;
@@ -34,6 +35,8 @@ public class VacancyReader {
 
     private final JPAQueryFactory queryFactory;
 
+    private final VacancyCompetenceReader vacancyCompetenceReader;
+
     private JPAQuery<VacancyDto> vacancyQuery() {
         return queryFactory.from(vacancy)
                 .leftJoin(position).on(position.id.eq(vacancy.positionId))
@@ -47,8 +50,11 @@ public class VacancyReader {
     }
 
     public VacancyDto getVacancyById(Long vacancyId) {
-        return vacancyQuery()
+        VacancyDto vacancyDto = vacancyQuery()
                 .where(vacancy.id.eq(vacancyId))
                 .fetchFirst();
+        List<CompetenceWeightDto> competenceWeightDtos = vacancyCompetenceReader.getCompetencesForVacancy(vacancyId);
+        vacancyDto.setCompetenceWeight(competenceWeightDtos);
+        return vacancyDto;
     }
 }
