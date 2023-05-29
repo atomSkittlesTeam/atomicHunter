@@ -1,4 +1,5 @@
 import { Position } from "./Position";
+import { CompetenceWeight } from "./CompetenceWeight";
 
 export class  Vacancy {
     id: number;
@@ -10,4 +11,5 @@ export class  Vacancy {
     archive: boolean;
     createInstant: Date;
     modifyInstant: Date;
+    competenceWeight: CompetenceWeight[] = [];
 }

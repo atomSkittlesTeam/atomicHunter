@@ -4,6 +4,9 @@ import { Position } from "src/app/dto/Position";
 import { Vacancy } from "src/app/dto/Vacancy";
 import { PositionService } from "src/app/services/position.service";
 import { VacancyService } from "src/app/services/vacancy.service";
+import { Competence } from "../../dto/Competence";
+import { CompetenceService } from "../../services/competence.service";
+import { CompetenceWeight } from "../../dto/CompetenceWeight";
 
 @Component({
   selector: "app-vacancy-dialog",
@@ -24,26 +27,14 @@ export class VacancyDialogComponent {
   weight: number = 0;
   summ = 0;
 
+  competences: Competence[] = [];
+
 
   constructor(private vacancyService: VacancyService,
+              private competenceService: CompetenceService,
               private positionService: PositionService,
               public messageService: MessageService) {
 
-    this.buttons = [
-      {
-        name: "cheese", value: false, weight: 0
-      },
-      {
-        name: "kek", value: false, weight: 0
-      }
-      , {
-        name: "lol", value: false, weight: 0
-      },
-      {
-        name: "fofo", value: false, weight: 0
-      }
-
-    ];
   }
 
   async ngOnInit() {
@@ -55,6 +46,9 @@ export class VacancyDialogComponent {
       this.item.position = new Position();
       this.dialogTitle = "Регистрация вакансии";
     }
+    this.competences = await this.competenceService.getCompetencesByPositionId(1);
+    this.competences.forEach(comp => this.item.competenceWeight.push(new CompetenceWeight(comp, 10)));
+    console.log(this.item);
   }
 
   async onSubmit($event: any) {
@@ -107,28 +101,16 @@ export class VacancyDialogComponent {
     this.positions = await this.positionService.getPositions();
   }
 
-  chooseSkill(setOrGet: boolean) {
-    if (setOrGet) {
-      this.weight = this.value.weight;
-    } else {
-      this.value.weight = this.weight;
-    }
-    this.weightSum();
-    console.log(this.summ);
-  }
 
   weightSum() {
     this.summ = 0;
-    this.buttons.forEach(item => this.summ += item.weight);
+    this.item.competenceWeight.forEach(competence => this.summ += competence.weight);
     return this.summ;
   }
-  deleteSkill(skillName: string) {
-    let newArray = this.buttons;
-    let index = this.buttons.findIndex( skill => skill.name === skillName);
-    if (index != -1) {
-      newArray.splice(index,1);
-      this.buttons =[...newArray];
-    }
+
+  deleteSkill(id: number) {
+    this.item.competenceWeight = this.item.competenceWeight
+      .filter(e => e.competence.id !== id);
 
 
   }
