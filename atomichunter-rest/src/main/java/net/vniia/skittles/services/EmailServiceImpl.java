@@ -88,7 +88,6 @@ public class EmailServiceImpl implements EmailService {
         VEvent event = new VEvent();
         event.setSummary("Приглашение на собеседование");
         event.setDescription("Приглашаем вас пройти собеседование в компании");
-
         event.setDateStart(new Date());
         event.setDuration(new Duration.Builder()
                 .hours(1)
@@ -99,6 +98,8 @@ public class EmailServiceImpl implements EmailService {
         Attendee a = new Attendee(consumerEmail, consumerEmail);
         a.setParticipationLevel(ParticipationLevel.REQUIRED);
         event.addAttendee(a);
+        // сюда можно докинуть всех участников собрания
+//        event.addAttendee(new Attendee("artemsrv3@gmail.com", "artemsrv3@gmail.com"));
         ical.addEvent(event);
         return Biweekly.write(ical).go();
     }
@@ -115,7 +116,9 @@ public class EmailServiceImpl implements EmailService {
         mimeMessage.addHeaderLine("component=VEVENT");
         mimeMessage.setFrom(sender);
         mimeMessage.addRecipient(Message.RecipientType.TO, consumer);
+//        mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(""));
         mimeMessage.setSubject(subject);
+
         StringBuilder builder = new StringBuilder();
         builder.append(generateICalDataForInvite(consumerEmail));
 
@@ -126,8 +129,12 @@ public class EmailServiceImpl implements EmailService {
         messageBodyPart.setDataHandler(new DataHandler(
                 new ByteArrayDataSource(builder.toString(), "text/calendar;method=REQUEST;name=\"invite.ics\"")));
 
+        MimeBodyPart textPart = new MimeBodyPart();
+        textPart.setContent("<h1>Приглашаем вас пройти собесик!</h1>", "text/html; charset=utf-8");
+
         MimeMultipart multipart = new MimeMultipart();
 
+        multipart.addBodyPart(textPart);
         multipart.addBodyPart(messageBodyPart);
 
         mimeMessage.setContent(multipart);

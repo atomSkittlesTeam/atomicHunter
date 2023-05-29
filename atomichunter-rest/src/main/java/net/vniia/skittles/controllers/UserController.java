@@ -101,6 +101,6 @@ public class UserController {
 
     @GetMapping("getMailInvite")
     public void getMailInvite() throws Exception {
-        emailService.sendCalendarInvite("Приглашение на собес", "artemsrv3@gmail.com");
+        emailService.sendCalendarInvite("Приглашение на собеседование", "artemsrv@ya.ru");
     }
 }
