@@ -38,21 +38,24 @@
       <span class="personal-skills__text">Общий вес: {{summ}}</span>
       <span class="fail" *ngIf="summ > 100" style="color:red"> Общий вес не должен превышать 100</span>
     </div>
-    <div class="flex flex-wrap gap-3 info-block" >
-      <div class="skills">
-          <p-selectButton [options]=buttons [(ngModel)]="value" [multiple]="false" (ngModelChange)="chooseSkill(true)" optionLabel="name"></p-selectButton>
-      </div>
-      <div class="skill-weight">
-        <p-knob [(ngModel)]="weight" [readonly]="value ? false : true" (ngModelChange)="chooseSkill(false)"></p-knob>
+    <div class="flex flex-wrap gap-3 info-block">
+      <div class="skills" *ngFor="let skill of item.competenceWeight">
+        <div class="delete">
+          <p-button
+            icon="pi pi-trash"
+            styleClass="p-button-outlined p-button-danger"
+            (onClick)="deleteSkill(skill.competence.id)">
+          </p-button>
+        </div>
+        <div class="skills__title">
+          {{skill?.competence?.name}}
+        </div>
+        <div class="skills__weight">
+          <p-inputNumber [(ngModel)]="skill.weight" [min]=0 [max]=100 (ngModelChange)="weightSum()" [showButtons]="true"></p-inputNumber>
+        </div>
       </div>
 
-      <p-button label="Удалить"
-                class="delete-vacancy"
-                 icon="pi pi-trash"
-                 styleClass="p-button-outlined p-button-danger"
-                 *ngIf="value"
-                 (onClick)="deleteSkill(value?.name)">
-    </p-button>
+
 
     </div>
   </div>
