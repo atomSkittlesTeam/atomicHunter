@@ -19,7 +19,11 @@ import jakarta.mail.util.ByteArrayDataSource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.vniia.skittles.configs.MailConfiguration;
+import net.vniia.skittles.entities.ConfirmationToken;
+import net.vniia.skittles.repositories.ConfirmationTokenRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -27,6 +31,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.Date;
 import java.util.Objects;
 
@@ -35,6 +40,16 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
     private final JavaMailSender emailSender;
+
+    private final ConfirmationTokenRepository confirmationTokenRepository;
+
+    private final ResourceHelper resourceHelper;
+
+    @Value("${server.port}")
+    int runningPort;
+
+    @Value("classpath:/invite_mail.html")
+    private Resource inviteMailHtml;
 
     @Override
     public void sendSimpleMessage(
@@ -83,21 +98,22 @@ public class EmailServiceImpl implements EmailService {
 
     public static String generateICalDataForInvite(String consumerEmail) throws IOException {
         ICalendar ical = new ICalendar();
-        ical.addProperty(new Method(Method.REQUEST));
+        ical.addProperty(new Method(Method.PUBLISH));
 
         VEvent event = new VEvent();
         event.setSummary("Приглашение на собеседование");
         event.setDescription("Приглашаем вас пройти собеседование в компании");
         event.setDateStart(new Date());
+//        event.setDateEnd();
         event.setDuration(new Duration.Builder()
                 .hours(1)
                 .build());
 
-        event.setOrganizer(new Organizer("Atomic Hunter", MailConfiguration.SERVICE_EMAIL));
+//        event.setOrganizer(new Organizer("Atomic Hunter", MailConfiguration.SERVICE_EMAIL));
 
-        Attendee a = new Attendee(consumerEmail, consumerEmail);
-        a.setParticipationLevel(ParticipationLevel.REQUIRED);
-        event.addAttendee(a);
+//        Attendee a = new Attendee(consumerEmail, consumerEmail);
+//        a.setParticipationLevel(ParticipationLevel.REQUIRED);
+//        event.addAttendee(a);
         // сюда можно докинуть всех участников собрания
 //        event.addAttendee(new Attendee("artemsrv3@gmail.com", "artemsrv3@gmail.com"));
         ical.addEvent(event);
@@ -111,9 +127,9 @@ public class EmailServiceImpl implements EmailService {
         InternetAddress sender = new InternetAddress(MailConfiguration.SERVICE_EMAIL, "Atomic Hunter");
         InternetAddress consumer = new InternetAddress(consumerEmail);
 
-        mimeMessage.addHeaderLine("method=REQUEST");
-        mimeMessage.addHeaderLine("charset=UTF-8");
-        mimeMessage.addHeaderLine("component=VEVENT");
+//        mimeMessage.addHeaderLine("method=PUBLISH");
+//        mimeMessage.addHeaderLine("charset=UTF-8");
+//        mimeMessage.addHeaderLine("component=VEVENT");
         mimeMessage.setFrom(sender);
         mimeMessage.addRecipient(Message.RecipientType.TO, consumer);
 //        mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(""));
@@ -127,10 +143,19 @@ public class EmailServiceImpl implements EmailService {
         messageBodyPart.setHeader("Content-Class", "urn:content-classes:calendarmessage");
         messageBodyPart.setHeader("Content-ID", "calendar_message");
         messageBodyPart.setDataHandler(new DataHandler(
-                new ByteArrayDataSource(builder.toString(), "text/calendar;method=REQUEST;name=\"invite.ics\"")));
+                new ByteArrayDataSource(builder.toString(), "text/calendar;method=PUBLISH;name=\"invite.ics\"")));
 
         MimeBodyPart textPart = new MimeBodyPart();
-        textPart.setContent("<h1>Приглашаем вас пройти собесик!</h1>", "text/html; charset=utf-8");
+
+        ConfirmationToken confirmationToken = this.createConfirmationTokenInterviewInvite("aa");
+        textPart.setContent(resourceHelper.getResourceAsString(this.inviteMailHtml)
+                + "http://" +
+                        InetAddress.getLoopbackAddress().getHostAddress() +
+                        ":" +
+                        runningPort +
+                        "/confirmation?token="
+                        + confirmationToken.getConfirmationToken(),
+                "text/html; charset=utf-8");
 
         MimeMultipart multipart = new MimeMultipart();
 
@@ -144,4 +169,9 @@ public class EmailServiceImpl implements EmailService {
         System.out.println("Calendar invite sent");
     }
 
+    private ConfirmationToken createConfirmationTokenInterviewInvite(String login) {
+        ConfirmationToken confirmationToken = new ConfirmationToken(login);
+        confirmationToken = confirmationTokenRepository.save(confirmationToken);
+        return confirmationToken;
+    }
 }
