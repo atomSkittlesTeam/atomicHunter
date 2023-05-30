@@ -148,14 +148,12 @@ public class EmailServiceImpl implements EmailService {
         MimeBodyPart textPart = new MimeBodyPart();
 
         ConfirmationToken confirmationToken = this.createConfirmationTokenInterviewInvite("aa");
-        textPart.setContent(resourceHelper.getResourceAsString(this.inviteMailHtml)
-                + "http://" +
-                        InetAddress.getLoopbackAddress().getHostAddress() +
-                        ":" +
-                        runningPort +
-                        "/confirmation?token="
-                        + confirmationToken.getConfirmationToken(),
-                "text/html; charset=utf-8");
+        String html = resourceHelper.getResourceAsString(this.inviteMailHtml);
+        String address = "http://" + InetAddress.getLoopbackAddress().getHostAddress() + ":" + runningPort +
+                "/confirmation?token="
+                + confirmationToken.getConfirmationToken();
+        html = html.replaceAll("a href=\"#\"", String.format("a href=\"%s\"", address));
+        textPart.setContent(html + address, "text/html; charset=utf-8");
 
         MimeMultipart multipart = new MimeMultipart();
 
