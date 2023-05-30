@@ -6,8 +6,10 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.VacancyDto;
+import net.vniia.skittles.dto.VacancyRespondDto;
 import net.vniia.skittles.entities.QPosition;
 import net.vniia.skittles.entities.QVacancy;
+import net.vniia.skittles.entities.QVacancyRespond;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VacancyReader {
     public static final QVacancy vacancy = QVacancy.vacancy;
+    public static final QVacancyRespond vacancyRespond = QVacancyRespond.vacancyRespond;
     public static final QPosition position = QPosition.position;
 
     public static QBean<VacancyDto> getMappedSelectForVacancyDto() {
@@ -48,5 +51,29 @@ public class VacancyReader {
         return vacancyQuery()
                 .where(vacancy.id.eq(vacancyId))
                 .fetchFirst();
+    }
+
+    public static QBean<VacancyRespondDto> getMappedSelectForVacancyRespondDto() {
+        return Projections.bean(
+                VacancyRespondDto.class,
+                vacancyRespond.id,
+                vacancyRespond.vacancyId,
+                vacancyRespond.coverLetter,
+                vacancyRespond.pathToResume,
+                vacancyRespond.archive
+        );
+    }
+
+    private JPAQuery<VacancyRespondDto> vacancyRespondQuery() {
+        return queryFactory.from(vacancyRespond)
+                .leftJoin(vacancy).on(vacancy.id.eq(vacancyRespond.vacancyId))
+                .select(getMappedSelectForVacancyRespondDto());
+    }
+
+    public List<VacancyRespondDto> getVacancyRespondsByIds(List<Long> vacancyIds, boolean showArchive) {
+        return vacancyRespondQuery()
+                .where(vacancyRespond.vacancyId.in(vacancyIds))
+                .where(showArchive ? null : vacancyRespond.archive.eq(false))
+                .fetch();
     }
 }
