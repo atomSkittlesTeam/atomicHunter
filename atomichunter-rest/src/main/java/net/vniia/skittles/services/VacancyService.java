@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,15 +62,38 @@ public class VacancyService {
         );
         vacancy.update(vacancyDto);
 
-        List<VacancyCompetence> vacancyCompetences = vacancyCompetenceRepository.findAllByVacancyId(vacancy.getId());
-        vacancyCompetenceRepository.deleteAll(vacancyCompetences);
+//        List<VacancyCompetence> vacancyCompetences = vacancyCompetenceRepository.findAllByVacancyId(vacancy.getId());
+//        vacancyCompetenceRepository.deleteAll(vacancyCompetences);
+//
+//        List<VacancyCompetence> cmp = new ArrayList<>();
+//        for (CompetenceWeightDto competenceWeightDto : vacancyDto.getCompetenceWeight()) {
+//            VacancyCompetence vacancyCompetence = new VacancyCompetence(vacancy.getId(), competenceWeightDto);
+//            cmp.add(vacancyCompetence);
+//        }
+//        vacancyCompetenceRepository.saveAll(cmp);
 
-        List<VacancyCompetence> cmp = new ArrayList<>();
-        for (CompetenceWeightDto competenceWeightDto : vacancyDto.getCompetenceWeight()) {
-            VacancyCompetence vacancyCompetence = new VacancyCompetence(vacancy.getId(), competenceWeightDto);
-            cmp.add(vacancyCompetence);
+
+        List<VacancyCompetence> vacancyCompetences = vacancyCompetenceRepository.findAllByVacancyId(vacancy.getId());
+
+        Map<Long, VacancyCompetence> newMap = vacancyDto.getCompetenceWeight()
+                .stream()
+                .map(c -> new VacancyCompetence(vacancy.getId(), c))
+                .collect(Collectors.toMap(VacancyCompetence::getCompetenceId, Function.identity()));
+
+        List<VacancyCompetence> deletedCompetence = new ArrayList<>();
+        for (VacancyCompetence existingVacancyCompetence : vacancyCompetences) {
+            if (newMap.containsKey(existingVacancyCompetence.getCompetenceId())) {
+                VacancyCompetence competence = newMap.get(existingVacancyCompetence.getCompetenceId());
+                existingVacancyCompetence.setWeight(competence.getWeight());
+                newMap.remove(existingVacancyCompetence.getCompetenceId());
+            } else {
+                deletedCompetence.add(existingVacancyCompetence);
+            }
         }
-        vacancyCompetenceRepository.saveAll(cmp);
+        vacancyCompetenceRepository.deleteAll(deletedCompetence);
+        vacancyCompetences.removeAll(deletedCompetence);
+        vacancyCompetences.addAll(newMap.values());
+        vacancyCompetenceRepository.saveAll(vacancyCompetences);
 
         return vacancyReader.getVacancyById(vacancy.getId());
     }
