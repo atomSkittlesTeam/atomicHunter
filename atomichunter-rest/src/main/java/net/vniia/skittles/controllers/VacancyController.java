@@ -3,6 +3,8 @@ package net.vniia.skittles.controllers;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.VacancyDto;
+import net.vniia.skittles.dto.VacancyRespondDto;
+import net.vniia.skittles.readers.RequestReader;
 import net.vniia.skittles.readers.VacancyReader;
 import net.vniia.skittles.services.VacancyService;
 import org.springframework.web.bind.annotation.*;
@@ -44,5 +46,11 @@ public class VacancyController {
     @Transactional
     public void archiveVacancy(@PathVariable Long id) {
         this.vacancyService.archiveVacancy(id);
+    }
+
+    @PostMapping("respond-by-ids")
+    public List<VacancyRespondDto> getVacancyRespondsByIds(@RequestBody List<Long> vacancyIds,
+                                                         @RequestParam boolean showArchive) {
+        return vacancyReader.getVacancyRespondsByIds(vacancyIds, showArchive);
     }
 }

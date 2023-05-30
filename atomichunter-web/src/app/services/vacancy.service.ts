@@ -47,4 +47,15 @@ export class VacancyService extends BaseService {
     const url = await this.getBackendUrl();
     await firstValueFrom(this.http.delete(url + `/vacancy/${id}/archive`));
   }
+
+  async getVacancyRespondsByIds(ids: number[], showArchive: boolean) {
+    const url = await this.getBackendUrl();
+    return await firstValueFrom(this.http.post<Vacancy[]>(url + '/vacancy/respond-by-ids', ids,
+      {
+        params: {
+          showArchive: showArchive
+        }
+      }
+    ));
+  }
 }

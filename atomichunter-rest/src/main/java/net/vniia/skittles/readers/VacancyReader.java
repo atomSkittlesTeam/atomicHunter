@@ -7,8 +7,10 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.CompetenceWeightDto;
 import net.vniia.skittles.dto.VacancyDto;
+import net.vniia.skittles.dto.VacancyRespondDto;
 import net.vniia.skittles.entities.QPosition;
 import net.vniia.skittles.entities.QVacancy;
+import net.vniia.skittles.entities.QVacancyRespond;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,6 +20,8 @@ import java.util.List;
 public class VacancyReader {
     private static final QVacancy vacancy = QVacancy.vacancy;
     private static final QPosition position = QPosition.position;
+    public static final QVacancy vacancy = QVacancy.vacancy;
+    public static final QVacancyRespond vacancyRespond = QVacancyRespond.vacancyRespond;
 
     public static QBean<VacancyDto> getMappedSelectForVacancyDto() {
         return Projections.bean(
@@ -56,5 +60,29 @@ public class VacancyReader {
         List<CompetenceWeightDto> competenceWeightDtos = vacancyCompetenceReader.getCompetencesForVacancy(vacancyId);
         vacancyDto.setCompetenceWeight(competenceWeightDtos);
         return vacancyDto;
+    }
+
+    public static QBean<VacancyRespondDto> getMappedSelectForVacancyRespondDto() {
+        return Projections.bean(
+                VacancyRespondDto.class,
+                vacancyRespond.id,
+                vacancyRespond.vacancyId,
+                vacancyRespond.coverLetter,
+                vacancyRespond.pathToResume,
+                vacancyRespond.archive
+        );
+    }
+
+    private JPAQuery<VacancyRespondDto> vacancyRespondQuery() {
+        return queryFactory.from(vacancyRespond)
+                .leftJoin(vacancy).on(vacancy.id.eq(vacancyRespond.vacancyId))
+                .select(getMappedSelectForVacancyRespondDto());
+    }
+
+    public List<VacancyRespondDto> getVacancyRespondsByIds(List<Long> vacancyIds, boolean showArchive) {
+        return vacancyRespondQuery()
+                .where(vacancyRespond.vacancyId.in(vacancyIds))
+                .where(showArchive ? null : vacancyRespond.archive.eq(false))
+                .fetch();
     }
 }
