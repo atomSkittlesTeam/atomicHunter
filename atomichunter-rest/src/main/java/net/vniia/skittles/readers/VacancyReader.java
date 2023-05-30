@@ -20,7 +20,6 @@ import java.util.List;
 public class VacancyReader {
     private static final QVacancy vacancy = QVacancy.vacancy;
     private static final QPosition position = QPosition.position;
-    public static final QVacancy vacancy = QVacancy.vacancy;
     public static final QVacancyRespond vacancyRespond = QVacancyRespond.vacancyRespond;
 
     public static QBean<VacancyDto> getMappedSelectForVacancyDto() {
