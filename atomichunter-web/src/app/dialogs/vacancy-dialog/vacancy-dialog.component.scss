@@ -43,18 +43,12 @@
     width: auto;
     min-width: 40px;
     height: 20px;
+    gap: 10px;
   }
 
 
-
-
-  //::ng-deep {
-  //  .p-button {
-  //    min-width: 80px;
-  //    padding: 10px;
-  //  }
-  //}
 }
+
 
 .skill-weight {
   display: flex;
@@ -99,4 +93,56 @@
       width: auto !important;
     }
   }
+}
+
+
+@media only screen and (max-width: 520px) {
+  :host {
+
+    ::ng-deep {
+      .skills {
+        .p-inputtext {
+          width: 80px !important;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  :host {
+
+    ::ng-deep {
+      .skills {
+        .p-inputtext {
+          width: 50px !important;
+        }
+      }
+      .p-dialog-content {
+        overflow-y: auto;
+      }
+      .p-dialog {
+        min-width: 300px !important;
+      }
+      .p-dialog-footer {
+        background: var(--dialog-footer);
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        padding: 5px;
+        align-items: center;
+
+        .p-ripple {
+          padding: 10px;
+        }
+      }
+    }
+  }
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 20px;
 }

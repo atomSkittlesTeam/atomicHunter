@@ -16,7 +16,7 @@ import { CompetenceWeight } from "../../dto/CompetenceWeight";
 export class VacancyDialogComponent {
 
   @Input("openDialog") visible: boolean = false;
-  @Input("item") item: Vacancy;
+  @Input("item") item: Vacancy = new Vacancy();
   @Input("editMode") editMode: boolean;
   @Output() submit = new EventEmitter<any>();
   @Output() visibleChange = new EventEmitter<any>();
@@ -35,6 +35,7 @@ export class VacancyDialogComponent {
               private positionService: PositionService,
               public messageService: MessageService) {
 
+
   }
 
   async ngOnInit() {
@@ -46,12 +47,17 @@ export class VacancyDialogComponent {
       this.item.position = new Position();
       this.dialogTitle = "Регистрация вакансии";
     }
-    this.competences = await this.competenceService.getCompetencesByPositionId(1);
-    this.competences.forEach(comp => this.item.competenceWeight.push(new CompetenceWeight(comp, 10)));
     console.log(this.item);
   }
 
-  async onSubmit($event: any) {
+  async selectPosition() {
+    this.competences = [];
+    this.item.competenceWeight = [];
+    this.competences = await this.competenceService.getCompetencesByPositionId(this.item?.position?.id);
+    this.competences.map(comp => this.item.competenceWeight.push(new CompetenceWeight(comp, 10)));
+  }
+
+  async onSubmit($event?: any) {
     if ($event !== null) { // null передается, если закрыть форму без сохранения на крестик
       if (this.editMode) {
         await this.updateVacancy($event);
@@ -61,6 +67,15 @@ export class VacancyDialogComponent {
     }
     this.submit.emit($event);
     this.visible = false;
+  }
+
+  closeDialog($event?: any) {
+    this.submit.emit($event);
+    this.visible = false;
+  }
+
+  getSaveLabel() {
+    return this.editMode ? "Обновить" : "Создать";
   }
 
   async createVacancy(vacancy: Vacancy) {
@@ -111,8 +126,6 @@ export class VacancyDialogComponent {
   deleteSkill(id: number) {
     this.item.competenceWeight = this.item.competenceWeight
       .filter(e => e.competence.id !== id);
-
-
   }
 
 

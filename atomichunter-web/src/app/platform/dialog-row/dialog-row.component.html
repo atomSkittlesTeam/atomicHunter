@@ -1,65 +1,65 @@
 <ng-container [ngSwitch]="type">
-    <ng-template ngSwitchCase="number">
-        <div class="p-inputgroup">
+  <ng-template ngSwitchCase="number">
+    <div class="p-inputgroup">
     <span class="p-inputgroup-addon" *ngIf="icon">
         <i class="{{icon}}"></i>
     </span>
-            <input [(ngModel)]="item" required (ngModelChange)="itemChange.emit(item)"
-                   [disabled]=disabled
-                   type="number"
-                   [placeholder]="title" pInputText
-                   placeholder="Username"/>
-        </div>
-    </ng-template>
-    <ng-template ngSwitchCase="date">
+      <input [(ngModel)]="item" required (ngModelChange)="itemChange.emit(item)"
+             [disabled]=disabled
+             type="number"
+             [placeholder]="title" pInputText
+             placeholder="Username" />
+    </div>
+  </ng-template>
+  <ng-template ngSwitchCase="date">
 
-        <p-calendar [(ngModel)]="item" [style]="{width: '50%', minWidth: '220px'}" [showButtonBar]="true"
-                    (ngModelChange)="itemChange.emit(item)"
-                    [placeholder]="title"
-                    [showIcon]="true"
-                    dateFormat="dd.mm.yy"></p-calendar>
+    <p-calendar [(ngModel)]="item" [style]="{width: '50%', minWidth: '220px'}" [showButtonBar]="true"
+                (ngModelChange)="itemChange.emit(item)"
+                [placeholder]="title"
+                [showIcon]="true"
+                dateFormat="dd.mm.yy"></p-calendar>
 
-    </ng-template>
+  </ng-template>
 
-    <ng-template ngSwitchCase="time">
-        <div class="p-inputgroup">
+  <ng-template ngSwitchCase="time">
+    <div class="p-inputgroup">
     <span class="p-inputgroup-addon" *ngIf="icon">
         <i class="{{icon}}"></i>
     </span>
-            <p-calendar [(ngModel)]="item" [timeOnly]="true" inputId="timeonly" [placeholder]="title"></p-calendar>
-        </div>
-    </ng-template>
+      <p-calendar [(ngModel)]="item" [timeOnly]="true" inputId="timeonly" [placeholder]="title"></p-calendar>
+    </div>
+  </ng-template>
 
-    <ng-template ngSwitchCase="string">
-        <div class="p-inputgroup">
+  <ng-template ngSwitchCase="string">
+    <div class="p-inputgroup">
         <span class="p-inputgroup-addon" *ngIf="icon">
         <i class="{{icon}}"></i>
     </span>
-            <textarea [(ngModel)]="item"
-                      (ngModelChange)="itemChange.emit(item)"
-                      [disabled]=disabled
-                      pInputTextarea
-                      [placeholder]="title"></textarea>
-        </div>
-    </ng-template>
+      <textarea [(ngModel)]="item"
+                (ngModelChange)="itemChange.emit(item)"
+                [disabled]=disabled
+                pInputTextarea
+                [placeholder]="title"></textarea>
+    </div>
+  </ng-template>
 
-    <ng-template ngSwitchCase="list">
-        <div class="p-inputgroup">
+  <ng-template ngSwitchCase="list">
+    <div class="p-inputgroup">
             <span class="p-inputgroup-addon" *ngIf="icon">
                 <i class="{{icon}}"></i>
             </span>
-            <p-dropdown [options]="dropDown" [(ngModel)]="item" (ngModelChange)="itemChange.emit(item)"
-                        [style]="{width: '100%'}" [optionLabel]=dropDownField></p-dropdown>
-        </div>
-    </ng-template>
+      <p-dropdown [options]="dropDown" [(ngModel)]="item" (ngModelChange)="itemChange.emit(item)"
+                  [style]="{width: '100%'}" [optionLabel]=dropDownField></p-dropdown>
+    </div>
+  </ng-template>
 
-    <ng-template ngSwitchCase="select">
-        <p-selectButton [options]="dropDown"
-                        [(ngModel)]="item"
-                        [multiple]="false"
-                        (ngModelChange)="itemChange.emit(item)"
-                        [optionLabel]=dropDownField
-                        optionValue="name"></p-selectButton>
-    </ng-template>
+  <ng-template ngSwitchCase="select">
+    <p-selectButton [options]="dropDown"
+                    [(ngModel)]="item"
+                    [multiple]="false"
+                    (ngModelChange)="itemChange.emit(item)"
+                    [optionLabel]=dropDownField
+                    optionValue="name"></p-selectButton>
+  </ng-template>
 
 </ng-container>
