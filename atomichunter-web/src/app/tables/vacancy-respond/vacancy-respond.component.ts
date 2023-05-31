@@ -153,4 +153,22 @@ export class VacancyRespondComponent {
       });
     }
   }
+
+  async sendOffer() {
+    try {
+      await this.inviteService.sendOffer(this.selectedVacancyRespond);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Успех!',
+        detail: 'Оффер отправлен!',
+      });
+      await this.getRespondByVacancyIdFromApi();
+    } catch (e: any) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Ошибка...',
+        detail: e.error.message
+      });
+    }
+  }
 }

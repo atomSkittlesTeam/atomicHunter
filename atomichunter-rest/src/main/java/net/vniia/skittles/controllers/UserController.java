@@ -87,20 +87,4 @@ public class UserController {
     public void telegramUnsubscribe(@PathVariable String login) {
         telegramBotController.telegramUnsubscribe(login);
     }
-
-
-    @GetMapping("getOffer")
-    public void getOffer() throws IOException {
-        offerService.createPdf();
-    }
-
-    @GetMapping("getOfferMail")
-    public void getOfferMail() throws IOException, MessagingException {
-        offerService.createPdfAndSendByEmail();
-    }
-
-    @GetMapping("getMailInvite")
-    public void getMailInvite() throws Exception {
-        emailService.sendCalendarInvite("Приглашение на собеседование", "artemsrv@ya.ru", 1L);
-    }
 }

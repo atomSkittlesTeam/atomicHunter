@@ -62,10 +62,10 @@ public class OfferService {
         return path;
     }
 
-    public void createPdfAndSendByEmail() throws IOException, MessagingException {
+    public void createPdfAndSendByEmail(String email) throws IOException, MessagingException {
         String path = this.createPdf();
         this.emailService.sendEmailWithAttachment(
-                "artemsrv@ya.ru",
+                        email,
                 "Оффер",
                 "Здравствуйте! Компания Atomic Hunter высылает вам оффер",
                 path

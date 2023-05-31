@@ -21,4 +21,9 @@ export class InviteService extends BaseService {
     const url = await this.getBackendUrl();
     return await firstValueFrom(this.http.post(url + '/invite/interview', vacancyRespond));
   }
+
+  async sendOffer(vacancyRespond: VacancyRespond) {
+    const url = await this.getBackendUrl();
+    return await firstValueFrom(this.http.post(url + '/invite/offer', vacancyRespond));
+  }
 }

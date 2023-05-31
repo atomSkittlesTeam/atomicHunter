@@ -28,6 +28,13 @@
           (onClick)="inviteToInterview()">
         </p-button>
 
+        <p-button label="Отправить оффер"
+          icon="pi pi-search"
+          styleClass="p-button-outlined"
+          [disabled]="!vacancy || !selectedVacancyRespond || !selectedVacancyRespond.id"
+          (onClick)="sendOffer()">
+        </p-button>
+
         <p-button label="Удалить"
                   icon="pi pi-trash"
                   [disabled]="!vacancy || !selectedVacancyRespond || !selectedVacancyRespond.id"

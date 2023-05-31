@@ -23,4 +23,10 @@ public class InviteController {
         // @TODO отправлять дату начала собеса
         this.inviteService.inviteToInterview(vacancyRespondDto);
     }
+
+    @PostMapping("offer")
+    @Transactional
+    public void sendOffer(@RequestBody VacancyRespondDto vacancyRespondDto) throws Exception {
+        this.inviteService.sendOffer(vacancyRespondDto);
+    }
 }
