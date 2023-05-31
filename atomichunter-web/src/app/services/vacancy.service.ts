@@ -50,7 +50,7 @@ export class VacancyService extends BaseService {
 
   async getVacancyRespondsByIds(ids: number[], showArchive: boolean) {
     const url = await this.getBackendUrl();
-    return await firstValueFrom(this.http.post<Vacancy[]>(url + '/vacancy/respond-by-ids', ids,
+    return await firstValueFrom(this.http.post<Vacancy[]>(url + '/vacancy/respond/get-all-by-ids', ids,
       {
         params: {
           showArchive: showArchive
@@ -58,4 +58,10 @@ export class VacancyService extends BaseService {
       }
     ));
   }
+
+  async archiveVacancyRespond(vacancyRespondId: number) {
+    const url = await this.getBackendUrl();
+    await firstValueFrom(this.http.delete(url + `/vacancy/respond/${vacancyRespondId}/archive`));
+  }
+
 }

@@ -3,7 +3,6 @@ import { Vacancy } from "../../dto/Vacancy";
 import { VacancyRespond } from "../../dto/VacancyRespond";
 import { CellClickedEvent, ColDef, GridReadyEvent } from "ag-grid-community";
 import { AgGridAngular } from "ag-grid-angular";
-import { RequestService } from "../../services/request.service";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { LoadingCellRendererComponent } from "../../platform/loading-cell-renderer/loading-cell-renderer.component";
 import { VacancyService } from "../../services/vacancy.service";
@@ -28,7 +27,7 @@ export class VacancyRespondComponent {
   @Input('vacancy')
   public set vacancy(value: Vacancy) {
     this._vacancy = value;
-    this.getAllRequestPositionsFromApi();
+    this.getRespondByVacancyIdFromApi();
     this.selectedVacancyRespond = new VacancyRespond();
   }
 
@@ -40,8 +39,8 @@ export class VacancyRespondComponent {
 
   public columnDefs: ColDef[] = [
     {field: 'id', headerName: 'Идентификатор'},
-    {field: 'vacancyId', headerName: 'Ид заказа'},
-    {field: 'coverLetter', headerName: 'Примечание'},
+    {field: 'vacancyId', headerName: 'Номер вакансии'},
+    {field: 'coverLetter', headerName: 'Сопроводительное письмо'},
     // {field: 'product.designation', headerName: 'Продукт', width: 250},
     {field: 'archive', headerName: 'Архив', hide: !this.showArchive, cellRenderer: (params: { value: any; }) => {
         return `<input disabled="true" type='checkbox' ${params.value ? 'checked' : ''} />`;
@@ -61,13 +60,10 @@ export class VacancyRespondComponent {
 
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
 
-  async getAllRequestPositionsFromApi() {
+  async getRespondByVacancyIdFromApi() {
     if (this.vacancy && this.vacancy.id) {
       this.agGrid.api.showLoadingOverlay();
-      const responds = await this.vacancyService.getVacancyRespondsByIds([this.vacancy.id], this.showArchive);
-      this.rowData = responds;
-      // const requests = await this.requestService.getRequestPositions(this.request.id, this.showArchive);
-      // this.rowData = requests;
+      this.rowData = await this.vacancyService.getVacancyRespondsByIds([this.vacancy.id], this.showArchive);
     }
   }
 
@@ -78,7 +74,7 @@ export class VacancyRespondComponent {
 
   async onGridReady(params: GridReadyEvent) {
     if (this.vacancy && this.vacancy.id) {
-      await this.getAllRequestPositionsFromApi();
+      await this.getRespondByVacancyIdFromApi();
     }
   }
 
@@ -97,7 +93,7 @@ export class VacancyRespondComponent {
     this.agGrid.api.refreshHeader();
   }
 
-  createRequestPosition() {
+  openRespondDialog() {
     // this.openDialog = true;
     // this.editMode = false;
   }
@@ -107,13 +103,13 @@ export class VacancyRespondComponent {
       message: 'Отправить позицию в архив?',
       accept: async () => {
         try {
-          // await this.requestService.archiveRequestPosition(this.selectedVacancyRespond.id);
+          await this.vacancyService.archiveVacancyRespond(this.selectedVacancyRespond.id);
           this.messageService.add({
             severity: 'success',
             summary: 'Успех!',
             detail: 'Позиция переведена в архив',
           });
-          await this.getAllRequestPositionsFromApi();
+          await this.getRespondByVacancyIdFromApi();
         } catch (e: any) {
           this.messageService.add({
             severity: 'error',
@@ -132,7 +128,7 @@ export class VacancyRespondComponent {
     if (this.agGrid) {
       this.agGrid.columnApi.setColumnVisible('archive', this.showArchive);
     }
-    await this.getAllRequestPositionsFromApi();
+    await this.getRespondByVacancyIdFromApi();
   }
 
 }

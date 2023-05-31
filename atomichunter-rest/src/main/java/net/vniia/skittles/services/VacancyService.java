@@ -5,9 +5,11 @@ import net.vniia.skittles.dto.CompetenceWeightDto;
 import net.vniia.skittles.dto.VacancyDto;
 import net.vniia.skittles.entities.Vacancy;
 import net.vniia.skittles.entities.VacancyCompetence;
+import net.vniia.skittles.entities.VacancyRespond;
 import net.vniia.skittles.readers.VacancyReader;
 import net.vniia.skittles.repositories.VacancyCompetenceRepository;
 import net.vniia.skittles.repositories.VacancyRepository;
+import net.vniia.skittles.repositories.VacancyRespondRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,6 +25,8 @@ public class VacancyService {
     private final VacancyReader vacancyReader;
 
     private final VacancyRepository vacancyRepository;
+
+    private final VacancyRespondRepository vacancyRespondRepository;
 
     private final MessageService messageService;
 
@@ -106,5 +110,15 @@ public class VacancyService {
                 }
         );
         vacancy.archive();
+    }
+
+    @Transactional
+    public void archiveVacancyRespond(Long vacancyRespondId) {
+        VacancyRespond vacancyRespond = this.vacancyRespondRepository.findById(vacancyRespondId).orElseThrow(
+                () -> {
+                    throw new RuntimeException("Вакансия не найдена!");
+                }
+        );
+        vacancyRespond.archive();
     }
 }

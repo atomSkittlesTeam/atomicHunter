@@ -48,9 +48,16 @@ public class VacancyController {
         this.vacancyService.archiveVacancy(id);
     }
 
-    @PostMapping("respond-by-ids")
+    @PostMapping("respond/get-all-by-ids")
     public List<VacancyRespondDto> getVacancyRespondsByIds(@RequestBody List<Long> vacancyIds,
                                                          @RequestParam boolean showArchive) {
         return vacancyReader.getVacancyRespondsByIds(vacancyIds, showArchive);
     }
+
+    @DeleteMapping("respond/{vacancyRespondId}/archive")
+    @Transactional
+    public void archiveVacancyRespond(@PathVariable Long vacancyRespondId) {
+        this.vacancyService.archiveVacancyRespond(vacancyRespondId);
+    }
+
 }

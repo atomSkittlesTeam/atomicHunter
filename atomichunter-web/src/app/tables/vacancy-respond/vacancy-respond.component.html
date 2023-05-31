@@ -3,7 +3,7 @@
     <nav>
         <p-button icon="pi pi-sync"
                   styleClass="p-button-rounded p-button-warning p-button-outlined"
-                  (click)="getAllRequestPositionsFromApi()"
+                  (click)="getRespondByVacancyIdFromApi()"
                   [disabled]="!vacancy">
         </p-button>
 
@@ -15,10 +15,10 @@
         </p-button>
 
         <p-button label="Просмотреть"
-                  icon="pi pi-plus"
+                  icon="pi pi-search"
                   styleClass="p-button-outlined"
                   [disabled]="!vacancy"
-                  (onClick)="createRequestPosition()">
+                  (onClick)="openRespondDialog()">
         </p-button>
 
         <p-button label="Удалить"
