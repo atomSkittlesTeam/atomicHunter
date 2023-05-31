@@ -121,7 +121,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendCalendarInvite(String subject, String consumerEmail) throws Exception {
+    public void sendCalendarInvite(String subject, String consumerEmail, Long vacancyRespondId) throws Exception {
 
         MimeMessage mimeMessage = emailSender.createMimeMessage();
         InternetAddress sender = new InternetAddress(MailConfiguration.SERVICE_EMAIL, "Atomic Hunter");
@@ -147,7 +147,7 @@ public class EmailServiceImpl implements EmailService {
 
         MimeBodyPart textPart = new MimeBodyPart();
 
-        ConfirmationToken confirmationToken = this.createConfirmationTokenInterviewInvite("aa");
+        ConfirmationToken confirmationToken = this.createConfirmationTokenInterviewInvite(consumerEmail, vacancyRespondId);
         String html = resourceHelper.getResourceAsString(this.inviteMailHtml);
         String address = "http://" + InetAddress.getLoopbackAddress().getHostAddress() + ":" + runningPort +
                 "/confirmation?token="
@@ -167,8 +167,8 @@ public class EmailServiceImpl implements EmailService {
         System.out.println("Calendar invite sent");
     }
 
-    private ConfirmationToken createConfirmationTokenInterviewInvite(String login) {
-        ConfirmationToken confirmationToken = new ConfirmationToken(login);
+    private ConfirmationToken createConfirmationTokenInterviewInvite(String email, Long vacancyRespondId) {
+        ConfirmationToken confirmationToken = new ConfirmationToken(email, vacancyRespondId);
         confirmationToken = confirmationTokenRepository.save(confirmationToken);
         return confirmationToken;
     }

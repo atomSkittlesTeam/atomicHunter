@@ -26,12 +26,15 @@ public class ConfirmationToken {
     @Temporal(TemporalType.TIMESTAMP)
     private Instant createInstant;
 
-    private String login;
+    private String email;
+
+    private Long vacancyRespondId;
 
     private boolean accepted;
 
-    public ConfirmationToken(String login) {
+    public ConfirmationToken(String email, Long vacancyRespondId) {
         this.confirmationToken = UUID.randomUUID();
-        this.login = login;
+        this.email = email;
+        this.vacancyRespondId = vacancyRespondId;
     }
 }

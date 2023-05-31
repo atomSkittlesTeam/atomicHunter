@@ -4,4 +4,6 @@ export class  VacancyRespond {
     coverLetter: string;
     pathToResume: string;
     archive: boolean;
+    email: string;
+    interviewInviteAccepted: boolean;
 }

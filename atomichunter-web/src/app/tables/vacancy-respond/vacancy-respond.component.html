@@ -21,6 +21,13 @@
                   (onClick)="openRespondDialog()">
         </p-button>
 
+        <p-button label="Пригласить на собеседование"
+          icon="pi pi-search"
+          styleClass="p-button-outlined"
+          [disabled]="!vacancy || !selectedVacancyRespond || !selectedVacancyRespond.id"
+          (onClick)="inviteToInterview()">
+        </p-button>
+
         <p-button label="Удалить"
                   icon="pi pi-trash"
                   [disabled]="!vacancy || !selectedVacancyRespond || !selectedVacancyRespond.id"

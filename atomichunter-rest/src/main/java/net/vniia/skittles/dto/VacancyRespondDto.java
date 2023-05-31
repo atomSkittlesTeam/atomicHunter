@@ -13,4 +13,6 @@ public class VacancyRespondDto {
     private String coverLetter;
     private String pathToResume;
     private boolean archive;
+    private String email;
+    private boolean interviewInviteAccepted;
 }

@@ -87,7 +87,8 @@ public class VacancyGenerator {
                         String.valueOf(VacancyTemplate.allVacancyRespondCoverLetter
                                 .get(random.nextInt(0, VacancyTemplate.allVacancyRespondCoverLetter.size()))), //cover letter,
                         "//",
-                        false); //note
+                        false,
+                        "artemsrv@ya.ru"); //note
                 vacancyRespondList.add(vacancyRespond);
                 index++;
             }
@@ -107,7 +108,8 @@ public class VacancyGenerator {
                     String.valueOf(VacancyTemplate.allVacancyRespondCoverLetter
                             .get(random.nextInt(0, VacancyTemplate.allVacancyRespondCoverLetter.size()))), //cover letter,
                     "//",
-                    false);
+                    false,
+                    "artemsrv@ya.ru");
             vacancyRespondRepository.saveAndFlush(vacancyRespond);
         }
     }

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.CompetenceWeightDto;
 import net.vniia.skittles.dto.VacancyDto;
 import net.vniia.skittles.dto.VacancyRespondDto;
+import net.vniia.skittles.entities.QConfirmationToken;
 import net.vniia.skittles.entities.QPosition;
 import net.vniia.skittles.entities.QVacancy;
 import net.vniia.skittles.entities.QVacancyRespond;
@@ -21,6 +22,7 @@ public class VacancyReader {
     private static final QVacancy vacancy = QVacancy.vacancy;
     private static final QPosition position = QPosition.position;
     public static final QVacancyRespond vacancyRespond = QVacancyRespond.vacancyRespond;
+    public static final QConfirmationToken confirmationToken = QConfirmationToken.confirmationToken1;
 
     public static QBean<VacancyDto> getMappedSelectForVacancyDto() {
         return Projections.bean(
@@ -68,13 +70,16 @@ public class VacancyReader {
                 vacancyRespond.vacancyId,
                 vacancyRespond.coverLetter,
                 vacancyRespond.pathToResume,
-                vacancyRespond.archive
+                vacancyRespond.email,
+                vacancyRespond.archive,
+                confirmationToken.accepted.as("interviewInviteAccepted")
         );
     }
 
     private JPAQuery<VacancyRespondDto> vacancyRespondQuery() {
         return queryFactory.from(vacancyRespond)
                 .leftJoin(vacancy).on(vacancy.id.eq(vacancyRespond.vacancyId))
+                .leftJoin(confirmationToken).on(confirmationToken.vacancyRespondId.eq(vacancyRespond.id))
                 .select(getMappedSelectForVacancyRespondDto());
     }
 

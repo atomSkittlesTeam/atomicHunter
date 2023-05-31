@@ -6,6 +6,7 @@ import { AgGridAngular } from "ag-grid-angular";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { LoadingCellRendererComponent } from "../../platform/loading-cell-renderer/loading-cell-renderer.component";
 import { VacancyService } from "../../services/vacancy.service";
+import { InviteService } from "src/app/services/invite.service";
 
 @Component({
   selector: 'app-vacancy-respond',
@@ -15,7 +16,8 @@ import { VacancyService } from "../../services/vacancy.service";
 export class VacancyRespondComponent {
   constructor(private confirmationService: ConfirmationService,
               private messageService: MessageService,
-              private vacancyService: VacancyService) {
+              private vacancyService: VacancyService,
+              private inviteService: InviteService) {
   }
 
   private _vacancy: Vacancy;
@@ -41,7 +43,11 @@ export class VacancyRespondComponent {
     {field: 'id', headerName: 'Идентификатор'},
     {field: 'vacancyId', headerName: 'Номер вакансии'},
     {field: 'coverLetter', headerName: 'Сопроводительное письмо'},
+    {field: 'email', headerName: 'Email'},
     // {field: 'product.designation', headerName: 'Продукт', width: 250},
+    {field: 'interviewInviteAccepted', headerName: 'Согласен на собеседование', cellRenderer: (params: { value: any; }) => {
+      return `<input disabled="true" type='checkbox' ${params.value ? 'checked' : ''} />`;
+    } },
     {field: 'archive', headerName: 'Архив', hide: !this.showArchive, cellRenderer: (params: { value: any; }) => {
         return `<input disabled="true" type='checkbox' ${params.value ? 'checked' : ''} />`;
       } }
@@ -131,4 +137,21 @@ export class VacancyRespondComponent {
     await this.getRespondByVacancyIdFromApi();
   }
 
+  async inviteToInterview() {
+    try {
+      await this.inviteService.inviteToInterview(this.selectedVacancyRespond);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Успех!',
+        detail: 'Приглашение на собеседование отправлено!',
+      });
+      await this.getRespondByVacancyIdFromApi();
+    } catch (e: any) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Ошибка...',
+        detail: e.error.message
+      });
+    }
+  }
 }
