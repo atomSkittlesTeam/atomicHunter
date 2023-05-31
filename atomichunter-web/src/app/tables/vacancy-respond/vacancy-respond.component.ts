@@ -40,11 +40,10 @@ export class VacancyRespondComponent {
   public overlayLoadingTemplate = '<div class="loading-text"> <span>L</span> <span>O</span> <span>A</span> <span>D</span> <span>I</span> <span>N</span> <span>G</span> </div> '
 
   public columnDefs: ColDef[] = [
-    {field: 'id', headerName: 'Идентификатор'},
-    {field: 'vacancyId', headerName: 'Номер вакансии'},
-    {field: 'coverLetter', headerName: 'Сопроводительное письмо'},
-    {field: 'email', headerName: 'Email'},
-    // {field: 'product.designation', headerName: 'Продукт', width: 250},
+    {field: 'id', headerName: 'Идентификатор', filter: 'agTextColumnFilter'},
+    {field: 'vacancyId', headerName: 'Номер вакансии', filter: 'agTextColumnFilter'},
+    {field: 'coverLetter', headerName: 'Сопроводительное письмо', filter: 'agTextColumnFilter'},
+    {field: 'email', headerName: 'Email', filter: 'agTextColumnFilter'},
     {field: 'interviewInviteAccepted', headerName: 'Согласен на собеседование', cellRenderer: (params: { value: any; }) => {
       return `<input disabled="true" type='checkbox' ${params.value ? 'checked' : ''} />`;
     } },
