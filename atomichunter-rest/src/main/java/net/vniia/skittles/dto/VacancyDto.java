@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,4 +21,10 @@ public class VacancyDto {
     private String additional;
 
     private boolean archive;
+
+    private Instant createInstant;
+
+    private Instant modifyInstant;
+
+    private List<CompetenceWeightDto> competenceWeight;
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -63,7 +64,9 @@ public class VacancyGenerator {
                     String.valueOf(random.nextInt(0, 10000)) + " рублей", //salary
                     String.valueOf(random.nextInt(20, 30)) + " лет", //experience
                     String.valueOf(VacancyTemplate.allVacancyAdditional.get(random.nextInt(0, VacancyTemplate.allVacancyAdditional.size()))), //additional
-                    false
+                    false,
+                    Instant.now(),
+                    Instant.now()
             );
             vacancyList.add(vacancyOne);
         }
@@ -84,7 +87,8 @@ public class VacancyGenerator {
                         String.valueOf(VacancyTemplate.allVacancyRespondCoverLetter
                                 .get(random.nextInt(0, VacancyTemplate.allVacancyRespondCoverLetter.size()))), //cover letter,
                         "//",
-                        false); //note
+                        false,
+                        "artemsrv@ya.ru"); //note
                 vacancyRespondList.add(vacancyRespond);
                 index++;
             }
@@ -104,7 +108,8 @@ public class VacancyGenerator {
                     String.valueOf(VacancyTemplate.allVacancyRespondCoverLetter
                             .get(random.nextInt(0, VacancyTemplate.allVacancyRespondCoverLetter.size()))), //cover letter,
                     "//",
-                    false);
+                    false,
+                    "artemsrv@ya.ru");
             vacancyRespondRepository.saveAndFlush(vacancyRespond);
         }
     }

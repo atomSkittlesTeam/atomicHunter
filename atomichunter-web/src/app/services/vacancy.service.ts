@@ -28,6 +28,11 @@ export class VacancyService extends BaseService {
     ));
   }
 
+  async getVacancyById(id: number) {
+    const url = await this.getBackendUrl();
+    return await firstValueFrom(this.http.get<Vacancy>(url + `/vacancy/${id}`));
+  }
+
   async createVacancy(vacancy: Vacancy) {
     const url = await this.getBackendUrl();
     return await firstValueFrom(this.http.post(url + '/vacancy/create', vacancy));
@@ -42,4 +47,21 @@ export class VacancyService extends BaseService {
     const url = await this.getBackendUrl();
     await firstValueFrom(this.http.delete(url + `/vacancy/${id}/archive`));
   }
+
+  async getVacancyRespondsByIds(ids: number[], showArchive: boolean) {
+    const url = await this.getBackendUrl();
+    return await firstValueFrom(this.http.post<Vacancy[]>(url + '/vacancy/respond/get-all-by-ids', ids,
+      {
+        params: {
+          showArchive: showArchive
+        }
+      }
+    ));
+  }
+
+  async archiveVacancyRespond(vacancyRespondId: number) {
+    const url = await this.getBackendUrl();
+    await firstValueFrom(this.http.delete(url + `/vacancy/respond/${vacancyRespondId}/archive`));
+  }
+
 }

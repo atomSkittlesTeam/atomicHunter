@@ -23,17 +23,28 @@ export class VacancyComponent {
   selectedVacancy: Vacancy;
 
   public columnDefs: ColDef[] = [
-    {field: 'id', headerName: 'Идентификатор'},
-    {field: 'position.name', headerName: 'Должность'},
-    {field: 'salary', headerName: 'Зарплата'},
-    {field: 'experience', headerName: 'Опыт работы'},
-    {field: 'additional', headerName: 'Дополнительно'},
+    {field: 'id', headerName: 'Идентификатор', filter: 'agNumberColumnFilter'},
+    {field: 'position.name', headerName: 'Должность', filter: 'agTextColumnFilter'},
+    {field: 'salary', headerName: 'Зарплата', filter: 'agTextColumnFilter'},
+    {field: 'experience', headerName: 'Опыт работы', filter: 'agTextColumnFilter'},
+    {field: 'additional', headerName: 'Дополнительно', filter: 'agTextColumnFilter'},
     // {field: 'releaseDate', headerName: 'Дата поставки' , hide: this.showArchive, cellRenderer: (data: { value: string | number | Date; }) => {
     //         return data.value ? (new Date(data.value)).toLocaleDateString() : '';
     //     }},
-    {field: 'archive', headerName: 'Архив', hide: !this.showArchive, cellRenderer: (params: { value: any; }) => {
+    {field: 'archive', headerName: 'Архив', hide: !this.showArchive, 
+            cellRenderer: (params: { value: any; }) => {
             return `<input disabled="true" type='checkbox' ${params.value ? 'checked' : ''} />`;
-        } }
+        }},
+    {field: 'createInstant', headerName: 'Дата создания', filter: 'agTextColumnFilter',
+          cellRenderer: (data: {value: number}) => {
+          return data.value ? new Date(data.value * 1000).toLocaleDateString() 
+            + ' ' + new Date(data.value * 1000).toLocaleTimeString() : '';
+      }},
+    {field: 'modifyInstant', headerName: 'Дата последнего редактирования', filter: 'agTextColumnFilter',
+          cellRenderer: (data: {value: number}) => {
+          return data.value ? new Date(data.value * 1000).toLocaleDateString() 
+            +  ' ' + new Date(data.value * 1000).toLocaleTimeString() : '';
+    }},        
   ];
 
   public loadingCellRenderer: any = LoadingCellRendererComponent;

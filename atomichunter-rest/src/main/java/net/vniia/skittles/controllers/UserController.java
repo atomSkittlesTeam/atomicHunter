@@ -1,6 +1,8 @@
 package net.vniia.skittles.controllers;
 
 
+import jakarta.mail.MessagingException;
+import net.vniia.skittles.services.EmailService;
 import net.vniia.skittles.services.OfferService;
 import net.vniia.skittles.dto.PasswordChangeRequestDto;
 import net.vniia.skittles.dto.UserDto;
@@ -26,6 +28,8 @@ public class UserController {
     private final UserService userService;
     private final TelegramBotController telegramBotController;
     private final OfferService offerService;
+
+    private final EmailService emailService;
 
     @GetMapping("all")
     public List<UserDto> getAllUsers() {
@@ -82,13 +86,5 @@ public class UserController {
     @GetMapping("telegram-unsubscribe/{login}")
     public void telegramUnsubscribe(@PathVariable String login) {
         telegramBotController.telegramUnsubscribe(login);
-    }
-
-
-    @GetMapping("getOffer")
-    public void getOffer() throws IOException {
-        offerService.createPdf();
-//        return new FileSystemResource();
-
     }
 }

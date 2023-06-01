@@ -2,11 +2,10 @@ package net.vniia.skittles.controllers;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import net.vniia.skittles.dto.RequestDto;
 import net.vniia.skittles.dto.VacancyDto;
+import net.vniia.skittles.dto.VacancyRespondDto;
 import net.vniia.skittles.readers.RequestReader;
 import net.vniia.skittles.readers.VacancyReader;
-import net.vniia.skittles.services.RequestService;
 import net.vniia.skittles.services.VacancyService;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +22,12 @@ public class VacancyController {
     @GetMapping("all")
     public List<VacancyDto> getAllVacancies(@RequestParam boolean showArchive) {
         return vacancyReader.getAllVacancies(showArchive);
+    }
+
+    @GetMapping("{vacancyId}")
+    @Transactional
+    public VacancyDto getVacancyById(@PathVariable Long vacancyId) {
+        return vacancyReader.getVacancyById(vacancyId);
     }
 
     @PostMapping("create")
@@ -42,4 +47,17 @@ public class VacancyController {
     public void archiveVacancy(@PathVariable Long id) {
         this.vacancyService.archiveVacancy(id);
     }
+
+    @PostMapping("respond/get-all-by-ids")
+    public List<VacancyRespondDto> getVacancyRespondsByIds(@RequestBody List<Long> vacancyIds,
+                                                         @RequestParam boolean showArchive) {
+        return vacancyReader.getVacancyRespondsByIds(vacancyIds, showArchive);
+    }
+
+    @DeleteMapping("respond/{vacancyRespondId}/archive")
+    @Transactional
+    public void archiveVacancyRespond(@PathVariable Long vacancyRespondId) {
+        this.vacancyService.archiveVacancyRespond(vacancyRespondId);
+    }
+
 }

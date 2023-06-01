@@ -57,6 +57,7 @@ import { VacancyDialogComponent } from './dialogs/vacancy-dialog/vacancy-dialog.
 import { RadioButtonModule } from "primeng/radiobutton";
 import { KnobModule } from "primeng/knob";
 import { InputNumberModule } from "primeng/inputnumber";
+import { VacancyRespondComponent } from './tables/vacancy-respond/vacancy-respond.component';
 
 @NgModule({
     declarations: [
@@ -78,7 +79,8 @@ import { InputNumberModule } from "primeng/inputnumber";
         RegistrationFormComponent,
         UserDialogComponent,
         VacancyComponent,
-        VacancyDialogComponent
+        VacancyDialogComponent,
+        VacancyRespondComponent
     ],
   imports: [
     BrowserModule,

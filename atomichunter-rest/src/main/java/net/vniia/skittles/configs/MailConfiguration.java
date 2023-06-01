@@ -9,13 +9,16 @@ import java.util.Properties;
 
 @Configuration
 public class MailConfiguration {
+
+    public static final String SERVICE_EMAIL = "atomskittles@rambler.ru";
+
     @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.rambler.ru");
         mailSender.setPort(465);
 
-        mailSender.setUsername("atomskittles@rambler.ru");
+        mailSender.setUsername(SERVICE_EMAIL);
         mailSender.setPassword("Qazwsxedc123");
 
         Properties props = mailSender.getJavaMailProperties();
