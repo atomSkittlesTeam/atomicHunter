@@ -54,8 +54,17 @@ public class OfferService {
         document.add(new Paragraph("ЛИЧНО И КОНФИДЕНЦИАЛЬНО").setBold().setFont(font));
         document.add(new Paragraph("Наноеву Алексею").setFont(font));
         document.add(new Paragraph("Дата: " + LocalDateTime.now()).setFont(font));
-        document.add(new Paragraph("Компания: ООО Sidor-Pi...").setFont(font));
-        document.add(new Paragraph("ЗП: 45.000").setFont(font));
+        document.add(new Paragraph("Компания «AtomicHunter» хотела бы предложить Вам занять должность ... разработчика на следующих условиях:\n" +
+                "Ваш ежемесячный оклад будет составлять ... рублей. Дата начала действия трудового договора – открытая дата.").setFont(font));
+        document.add(new Paragraph("Мы хотим предложить Вам работать с нами," +
+                "на позиции Инженер-программист").setFont(font));
+        document.add(new Paragraph("Вам будет установлен испытательный срок 3 (три) месяца, " +
+                "по истечении которого Компания проведет Вашу аттестацию. " +
+                "В дальнейшем аттестация будет проводиться регулярно и, по ее результатам, " +
+                "может изменяться уровень компенсации и занимаемая Вами в Компании должность.").setFont(font));
+        document.add(new Paragraph("Ваш вклад в развитие Компании будет оцениваться руководством по следующим критериям:").setFont(font));
+        document.add(new Paragraph("1) Решение задач, входящих в непосредственную зону Вашей ответственности;").setFont(font));
+        document.add(new Paragraph("2) Вклад в развитие Компании в целом.").setFont(font));
 
         document.close();
 

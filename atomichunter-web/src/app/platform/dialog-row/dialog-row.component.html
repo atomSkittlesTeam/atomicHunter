@@ -57,6 +57,7 @@
     <p-selectButton [options]="dropDown"
                     [(ngModel)]="item"
                     [multiple]="false"
+                    appendTo="body"
                     (ngModelChange)="itemChange.emit(item)"
                     [optionLabel]=dropDownField
                     optionValue="name"></p-selectButton>

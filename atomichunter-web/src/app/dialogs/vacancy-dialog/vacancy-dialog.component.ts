@@ -59,9 +59,9 @@ export class VacancyDialogComponent {
   async onSubmit($event?: any) {
     if ($event !== null) { // null передается, если закрыть форму без сохранения на крестик
       if (this.editMode) {
-        await this.updateVacancy($event);
+        await this.updateVacancy(this.item);
       } else {
-        await this.createVacancy($event);
+        await this.createVacancy(this.item);
       }
     }
     this.submit.emit($event);

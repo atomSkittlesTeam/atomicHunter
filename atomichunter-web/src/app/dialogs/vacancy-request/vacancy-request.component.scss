@@ -1,0 +1,17 @@
+:host {
+  .flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+
+  ::ng-deep {
+    .p-dialog {
+      min-width: 300px !important;
+    }
+    textarea {
+      max-height: 100px;
+    }
+  }
+}

@@ -10,6 +10,8 @@ import {MasterDetailDetailComponent} from "./tables/master-detail-detail/master-
 import {TreeDataComponent} from "./tables/tree-data/tree-data.component";
 import {RegistrationFormComponent} from "./registration-form/registration-form.component";
 import { VacancyComponent } from './tables/vacancy/vacancy.component';
+import {VacancyRequest} from "./dto/VacancyRequest";
+import {VacancyRequestComponent} from "./dialogs/vacancy-request/vacancy-request.component";
 
 const routes: Routes = [
     {path: '', component: NavigationComponent, canActivate: [AuthGuard]},
@@ -20,7 +22,8 @@ const routes: Routes = [
     {path: 'request', component: RequestComponent},
     {path: 'analytics', component: AnalyticsComponent},
     {path: '3ple', component: MasterDetailDetailComponent},
-    {path: 'treeData', component: TreeDataComponent}
+    {path: 'treeData', component: TreeDataComponent},
+    {path: 'vacancyRequest', component: VacancyRequestComponent}
 ];
 
 @NgModule({

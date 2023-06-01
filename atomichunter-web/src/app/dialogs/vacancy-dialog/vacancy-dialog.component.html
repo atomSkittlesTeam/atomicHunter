@@ -8,6 +8,7 @@
                 <i class="pi pi-user"></i>
             </span>
         <p-dropdown [options]="positions"
+                    appendTo="body"
                     [(ngModel)]="item.position"
                     (ngModelChange)="selectPosition()"
                     name="position"
