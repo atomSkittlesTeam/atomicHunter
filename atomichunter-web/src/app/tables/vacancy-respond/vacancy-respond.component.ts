@@ -14,10 +14,34 @@ import { InviteService } from "src/app/services/invite.service";
   styleUrls: ['./vacancy-respond.component.scss']
 })
 export class VacancyRespondComponent {
+  items: any = [];
+  offer: any = [];
   constructor(private confirmationService: ConfirmationService,
               private messageService: MessageService,
               private vacancyService: VacancyService,
               private inviteService: InviteService) {
+    this.items = [
+      {
+        label: 'отправить на собес',
+        icon: 'pi pi-refresh',
+        command: () => {
+
+        }
+      },
+      { label: 'удалить', icon: 'pi pi-info' },
+      { separator: true },
+      { label: 'показать архивные', icon: 'pi pi-cog' }
+    ];
+
+    this.offer = [
+      {
+        label: 'Отправить офер',
+        icon: 'pi pi-times',
+        command: () => {
+        }
+      },
+      { label: 'удалить', icon: 'pi pi-info' },
+    ];
   }
 
   private _vacancy: Vacancy;
