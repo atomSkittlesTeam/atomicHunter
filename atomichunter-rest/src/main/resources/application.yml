@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: "pg"
+    active: pg,mail
 server:
   port: 8081
 api:

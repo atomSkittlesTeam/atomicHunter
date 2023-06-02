@@ -1,0 +1,17 @@
+spring:
+  mail:
+    host: smtp.mail.ru
+    port: 465
+    username: atomichunter@mail.ru
+    password: iKpsTSgg7r2ZAEpGwpTU
+    protocol: smtp
+    tls: true
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            enable: true
+          debug: true
