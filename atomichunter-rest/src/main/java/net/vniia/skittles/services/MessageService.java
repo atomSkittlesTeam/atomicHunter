@@ -34,7 +34,7 @@ public class MessageService {
 
     private final JPAQueryFactory queryFactory;
 
-    private final EmailServiceImpl emailService;
+    private final EmailService emailService;
 
     private final UserService userService;
 

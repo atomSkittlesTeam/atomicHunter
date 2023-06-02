@@ -23,7 +23,7 @@ public class InviteService {
         VacancyRespond vacancyRespond = vacancyRespondRepository.findById(vacancyRespondDto.getId())
                 .orElseThrow(() -> new RuntimeException("Отклик на вакансию не найден!"));
 
-        this.emailService.sendCalendarInvite("Приглашение на собеседование!",
+        this.emailService.sendInterviewInvite("Приглашение на собеседование!",
                 vacancyRespond.getEmail(), vacancyRespond.getId());
     }
 

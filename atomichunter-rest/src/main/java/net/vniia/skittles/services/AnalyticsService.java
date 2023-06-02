@@ -1,11 +1,7 @@
 package net.vniia.skittles.services;
 
-import com.querydsl.core.group.GroupBy;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import net.vniia.skittles.dto.MessageDto;
-import net.vniia.skittles.dto.RequestDto;
-import net.vniia.skittles.dto.RequestPositionDto;
 import net.vniia.skittles.entities.*;
 import net.vniia.skittles.readers.RequestReader;
 import net.vniia.skittles.repositories.MessageRepository;
@@ -14,11 +10,8 @@ import net.vniia.skittles.repositories.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.transaction.Transactional;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +25,7 @@ public class AnalyticsService {
 
     private final RequestPositionRepository requestPositionRepository;
 
-    private final EmailServiceImpl emailService;
+    private final EmailService emailService;
 
     private final UserService userService;
 
