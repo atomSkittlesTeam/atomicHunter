@@ -9,48 +9,61 @@ import { VacancyService } from "../../services/vacancy.service";
 import { InviteService } from "src/app/services/invite.service";
 
 @Component({
-  selector: 'app-vacancy-respond',
-  templateUrl: './vacancy-respond.component.html',
-  styleUrls: ['./vacancy-respond.component.scss']
+  selector: "app-vacancy-respond",
+  templateUrl: "./vacancy-respond.component.html",
+  styleUrls: ["./vacancy-respond.component.scss"]
 })
 export class VacancyRespondComponent {
-  items: any = [];
-  offer: any = [];
+  meetingItems: any = [];
+  offerItems: any = [];
+  openDialog: boolean = false;
+  dialogEditMode: boolean = false;
+
   constructor(private confirmationService: ConfirmationService,
               private messageService: MessageService,
               private vacancyService: VacancyService,
               private inviteService: InviteService) {
-    this.items = [
+    this.meetingItems = [
       {
-        label: 'отправить на собес',
-        icon: 'pi pi-refresh',
+        label: "отправить на собес",
+        icon: "pi pi-envelope",
         command: () => {
-
+          if (this.selectedVacancyRespond.id) {
+            this.inviteToInterview();
+          }
         }
       },
-      { label: 'удалить', icon: 'pi pi-info' },
+      { label: "удалить", icon: "pi pi-trash",
+      command: () => {
+        if (this.selectedVacancyRespond.id) {
+          this.archiveRequestPosition();
+        }
+      }},
       { separator: true },
-      { label: 'показать архивные', icon: 'pi pi-cog' }
+      { label: "показать архивные", icon: "pi pi-cog" }
     ];
 
-    this.offer = [
+    this.offerItems = [
       {
-        label: 'Отправить офер',
-        icon: 'pi pi-times',
+        label: "Отправить офер",
+        icon: "pi pi-envelope",
         command: () => {
+          if (this.selectedVacancyRespond.id) {
+            this.sendOffer();
+          }
         }
-      },
-      { label: 'удалить', icon: 'pi pi-info' },
+      }
     ];
   }
 
   private _vacancy: Vacancy;
   filter: boolean = false;
+
   public get vacancy(): Vacancy {
     return this._vacancy;
   }
 
-  @Input('vacancy')
+  @Input("vacancy")
   public set vacancy(value: Vacancy) {
     this._vacancy = value;
     this.getRespondByVacancyIdFromApi();
@@ -61,19 +74,37 @@ export class VacancyRespondComponent {
   showArchive = false;
   public rowData: any[] = [];
 
-  public overlayLoadingTemplate = '<div class="loading-text"> <span>L</span> <span>O</span> <span>A</span> <span>D</span> <span>I</span> <span>N</span> <span>G</span> </div> '
+  public overlayLoadingTemplate = "<div class=\"loading-text\"> <span>L</span> <span>O</span> <span>A</span> <span>D</span> <span>I</span> <span>N</span> <span>G</span> </div> ";
+
+  createVacancy() {
+    this.openDialog = true;
+    this.dialogEditMode = false;
+  }
+
+  async onDialogSubmit($event: any) {
+    this.openDialog = false;
+    if ($event) {
+      await this.getRespondByVacancyIdFromApi();
+    }
+  }
 
   public columnDefs: ColDef[] = [
-    {field: 'id', headerName: 'Идентификатор', filter: 'agTextColumnFilter'},
-    {field: 'vacancyId', headerName: 'Номер вакансии', filter: 'agTextColumnFilter'},
-    {field: 'coverLetter', headerName: 'Сопроводительное письмо', filter: 'agTextColumnFilter'},
-    {field: 'email', headerName: 'Email', filter: 'agTextColumnFilter'},
-    {field: 'interviewInviteAccepted', headerName: 'Согласен на собеседование', cellRenderer: (params: { value: any; }) => {
-      return `<input disabled="true" type='checkbox' ${params.value ? 'checked' : ''} />`;
-    } },
-    {field: 'archive', headerName: 'Архив', hide: !this.showArchive, cellRenderer: (params: { value: any; }) => {
-        return `<input disabled="true" type='checkbox' ${params.value ? 'checked' : ''} />`;
-      } }
+    { field: "id", headerName: "Идентификатор", filter: "agTextColumnFilter" },
+    { field: "vacancyId", headerName: "Номер вакансии", filter: "agTextColumnFilter" },
+    { field: "coverLetter", headerName: "Сопроводительное письмо", filter: "agTextColumnFilter" },
+    { field: "email", headerName: "Email", filter: "agTextColumnFilter" },
+    {
+      field: "interviewInviteAccepted",
+      headerName: "Согласен на собеседование",
+      cellRenderer: (params: { value: any; }) => {
+        return `<input disabled="true" type="checkbox" ${params.value ? "checked" : ""} />`;
+      }
+    },
+    {
+      field: "archive", headerName: "Архив", hide: !this.showArchive, cellRenderer: (params: { value: any; }) => {
+        return `<input disabled="true" type="checkbox" ${params.value ? "checked" : ""} />`;
+      }
+    }
   ];
 
   // DefaultColDef sets props common to all Columns
@@ -98,7 +129,7 @@ export class VacancyRespondComponent {
 
   public loadingCellRenderer: any = LoadingCellRendererComponent;
   public loadingCellRendererParams: any = {
-    loadingMessage: 'Подождите еще немного...',
+    loadingMessage: "Подождите еще немного..."
   };
 
   async onGridReady(params: GridReadyEvent) {
@@ -114,7 +145,7 @@ export class VacancyRespondComponent {
   showFilter() {
     this.filter = !this.filter;
     const columnDefs = this.agGrid.api.getColumnDefs();
-    columnDefs?.forEach((colDef:any, index:number)=> {
+    columnDefs?.forEach((colDef: any, index: number) => {
       colDef.floatingFilter = this.filter;
     });
     // @ts-ignore
@@ -129,20 +160,20 @@ export class VacancyRespondComponent {
 
   archiveRequestPosition() {
     this.confirmationService.confirm({
-      message: 'Отправить позицию в архив?',
+      message: "Отправить позицию в архив?",
       accept: async () => {
         try {
           await this.vacancyService.archiveVacancyRespond(this.selectedVacancyRespond.id);
           this.messageService.add({
-            severity: 'success',
-            summary: 'Успех!',
-            detail: 'Позиция переведена в архив',
+            severity: "success",
+            summary: "Успех!",
+            detail: "Позиция переведена в архив"
           });
           await this.getRespondByVacancyIdFromApi();
         } catch (e: any) {
           this.messageService.add({
-            severity: 'error',
-            summary: 'Ошибка...',
+            severity: "error",
+            summary: "Ошибка...",
             detail: e.error.message
           });
         }
@@ -155,42 +186,30 @@ export class VacancyRespondComponent {
 
   async showArchivePressed() {
     if (this.agGrid) {
-      this.agGrid.columnApi.setColumnVisible('archive', this.showArchive);
+      this.agGrid.columnApi.setColumnVisible("archive", this.showArchive);
     }
     await this.getRespondByVacancyIdFromApi();
   }
 
   async inviteToInterview() {
-    try {
-      await this.inviteService.inviteToInterview(this.selectedVacancyRespond);
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Успех!',
-        detail: 'Приглашение на собеседование отправлено!',
-      });
-      await this.getRespondByVacancyIdFromApi();
-    } catch (e: any) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Ошибка...',
-        detail: e.error.message
-      });
-    }
+    this.openDialog = true;
+    this.dialogEditMode = false;
   }
+
 
   async sendOffer() {
     try {
       await this.inviteService.sendOffer(this.selectedVacancyRespond);
       this.messageService.add({
-        severity: 'success',
-        summary: 'Успех!',
-        detail: 'Оффер отправлен!',
+        severity: "success",
+        summary: "Успех!",
+        detail: "Оффер отправлен!"
       });
       await this.getRespondByVacancyIdFromApi();
     } catch (e: any) {
       this.messageService.add({
-        severity: 'error',
-        summary: 'Ошибка...',
+        severity: "error",
+        summary: "Ошибка...",
         detail: e.error.message
       });
     }
