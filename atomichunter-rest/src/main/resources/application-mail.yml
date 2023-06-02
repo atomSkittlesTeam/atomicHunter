@@ -6,6 +6,7 @@ spring:
     password: iKpsTSgg7r2ZAEpGwpTU
     protocol: smtp
     tls: true
+    debug: true
     properties:
       mail:
         smtp:
@@ -14,4 +15,3 @@ spring:
             enable: true
           ssl:
             enable: true
-          debug: true

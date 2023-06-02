@@ -71,11 +71,12 @@
             <div class="message__icon" (click)="closeOneInfo(message.id, idx)"><i class="pi pi-times"></i></div>
             <div class="message__text">{{message.customText}}</div>
             <p-button
-                    [pTooltip]="'Создать заявку на ремонт'"
+                    [pTooltip]="'Прочитано'"
                     tooltipPosition="left"
                     class="approve"
-                    icon="pi pi-check" styleClass="p-button-success"
-            ></p-button>
+                    (onClick)="readMessage(message)"
+                    icon="pi pi-check" styleClass="p-button-success">
+            </p-button>
         </div>
     </div>
     <div style="width: 100%; text-align: center; padding-top: 10px">

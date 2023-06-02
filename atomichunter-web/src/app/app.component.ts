@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { UserService } from "./services/user.service";
 import { Router } from "@angular/router";
-import { MenuItem } from "primeng/api";
+import { MenuItem, MessageService } from "primeng/api";
 import { Message } from "./dto/Message";
 import { RequestService } from "./services/request.service";
 import { interval } from "rxjs";
@@ -38,7 +38,8 @@ export class AppComponent implements OnInit {
     public router: Router,
     private userService: UserService,
     public requestService: RequestService,
-    public notificationService: NotificationService) {
+    public notificationService: NotificationService,
+    public messageService: MessageService) {
     // this.getMessagesByTime();
     // @ts-ignore
     this.userService.currentUser.subscribe(x => this.initUser(JSON.parse(x)));
@@ -109,4 +110,17 @@ export class AppComponent implements OnInit {
     this.displayUserDialog = true;
   }
 
+  async readMessage(message: Message) {
+    try {
+      let ids = this.messages.map(e => e.id).filter(c => c === message.id);
+      await this.notificationService.messageSetFrontSing(ids);
+      this.messages = this.messages.filter(e => e.id !== message.id);
+    } catch(e: any) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Ошибка...',
+        detail: e.error.message
+      });
+    }
+  }
 }
