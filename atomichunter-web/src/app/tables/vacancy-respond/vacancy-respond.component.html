@@ -1,55 +1,62 @@
 <p-toolbar>
-    <div class="table-name">Отклики</div>
-    <nav>
-        <p-button icon="pi pi-sync"
-                  styleClass="p-button-rounded p-button-warning p-button-outlined"
-                  (click)="getRespondByVacancyIdFromApi()"
-                  [disabled]="!vacancy">
-        </p-button>
+  <div class="table-name">Отклики</div>
+  <nav>
+    <p-button icon="pi pi-sync"
+              styleClass="p-button-rounded p-button-warning p-button-outlined"
+              (click)="getRespondByVacancyIdFromApi()"
+              [disabled]="!vacancy">
+    </p-button>
 
-        <p-button
-                icon="pi pi-filter"
-                styleClass="p-button-outlined p-button-warning"
-                (onClick)="showFilter()"
-                [disabled]="!vacancy">
-        </p-button>
+    <p-button
+      icon="pi pi-filter"
+      styleClass="p-button-outlined p-button-warning"
+      (onClick)="showFilter()"
+      [disabled]="!vacancy">
+    </p-button>
 
-        <p-button label="Просмотреть"
-                  icon="pi pi-search"
-                  styleClass="p-button-outlined"
-                  [disabled]="!vacancy"
-                  (onClick)="openRespondDialog()">
-        </p-button>
+    <p-button
+      icon="pi pi-search"
+      styleClass="p-button-outlined"
+      [disabled]="!vacancy"
+      (onClick)="openRespondDialog()">
+    </p-button>
 
-        <p-button label="Пригласить на собеседование"
-          icon="pi pi-search"
-          styleClass="p-button-outlined"
-          [disabled]="!vacancy || !selectedVacancyRespond || !selectedVacancyRespond.id"
-          (onClick)="inviteToInterview()">
-        </p-button>
 
-        <p-button label="Отправить оффер"
-          icon="pi pi-search"
-          styleClass="p-button-outlined"
-          [disabled]="!vacancy || !selectedVacancyRespond || !selectedVacancyRespond.id"
-          (onClick)="sendOffer()">
-        </p-button>
+    <p-splitButton styleClass="p-button-outlined" appendTo="body" label="упр.откликами"
+                   [model]="meetingItems"></p-splitButton>
+    <p-splitButton styleClass="p-button-outlined" appendTo="body" label="упр.оффером"
+                   [model]="offerItems"></p-splitButton>
 
-        <p-button label="Удалить"
-                  icon="pi pi-trash"
-                  [disabled]="!vacancy || !selectedVacancyRespond || !selectedVacancyRespond.id"
-                  styleClass="p-button-outlined p-button-danger"
-                  (onClick)="archiveRequestPosition()">
-        </p-button>
 
-        <p-checkbox [disabled]="!vacancy || !selectedVacancyRespond"
-                    [(ngModel)]="showArchive"
-                    label="Показывать архив"
-                    [binary]="true"
-                    inputId="binary"
-                    (ngModelChange)="showArchivePressed()">
-        </p-checkbox>
-    </nav>
+    <!--        <p-button-->
+    <!--          icon="pi pi-search"-->
+    <!--          styleClass="p-button-outlined"-->
+    <!--          [disabled]="!vacancy || !selectedVacancyRespond || !selectedVacancyRespond.id"-->
+    <!--          (onClick)="inviteToInterview()">-->
+    <!--        </p-button>-->
+
+    <!--        <p-button label="Отправить оффер"-->
+    <!--          icon="pi pi-search"-->
+    <!--          styleClass="p-button-outlined"-->
+    <!--          [disabled]="!vacancy || !selectedVacancyRespond || !selectedVacancyRespond.id"-->
+    <!--          (onClick)="sendOffer()">-->
+    <!--        </p-button>-->
+
+    <!--        <p-button label="Удалить"-->
+    <!--                  icon="pi pi-trash"-->
+    <!--                  [disabled]="!vacancy || !selectedVacancyRespond || !selectedVacancyRespond.id"-->
+    <!--                  styleClass="p-button-outlined p-button-danger"-->
+    <!--                  (onClick)="archiveRequestPosition()">-->
+    <!--        </p-button>-->
+
+    <!--        <p-checkbox [disabled]="!vacancy || !selectedVacancyRespond"-->
+    <!--                    [(ngModel)]="showArchive"-->
+    <!--                    label="Показывать архив"-->
+    <!--                    [binary]="true"-->
+    <!--                    inputId="binary"-->
+    <!--                    (ngModelChange)="showArchivePressed()">-->
+    <!--        </p-checkbox>-->
+  </nav>
 
 </p-toolbar>
 
@@ -68,3 +75,10 @@
   (gridReady)="onGridReady($event)"
   (cellClicked)="onCellClicked($event)">
 </ag-grid-angular>
+
+<app-vacancy-request [openDialog]="openDialog"
+                     *ngIf="openDialog"
+                     [editMode]="dialogEditMode"
+                     [selectedVacancyRespond]="this.selectedVacancyRespond"
+                     (submit)="onDialogSubmit($event)">
+</app-vacancy-request>

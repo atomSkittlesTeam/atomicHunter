@@ -13,18 +13,18 @@
                 (onClick)="showFilter()">
             </p-button>
 
-            <p-button label="Завести вакансию"
+            <p-button
                       icon="pi pi-plus"
                       styleClass="p-button-outlined"
                       (click)="createVacancy()">
             </p-button>
-            <p-button label="Изменить"
+            <p-button
                       icon="pi pi-pencil"
                       styleClass="p-button-outlined p-button-help"
                       [disabled]="!selectedVacancy"
                       (onClick)="updateVacancy()">
             </p-button>
-            <p-button label="Удалить"
+            <p-button
                       icon="pi pi-trash"
                       styleClass="p-button-outlined p-button-danger"
                       [disabled]="!selectedVacancy"
