@@ -51,6 +51,9 @@ public class EmailService {
     @Value("${spring.mail.username}")
     private String serviceMail;
 
+    @Value("${server.address:#{null}}")
+    private String serviceAddress;
+
     public void sendSimpleMessage(
             String to, String subject, String text) {
         try {
@@ -146,10 +149,15 @@ public class EmailService {
 
         ConfirmationToken confirmationToken = this.createConfirmationTokenInterviewInvite(consumerEmail, vacancyRespondId);
         String html = resourceHelper.getResourceAsString(this.inviteMailHtml);
-        String address = "http://" + InetAddress.getLoopbackAddress().getHostAddress() + ":" + runningPort +
+
+        if (this.serviceAddress == null) {
+            this.serviceAddress = InetAddress.getLoopbackAddress().getHostAddress();
+        }
+
+        String address = "http://" + this.serviceAddress + ":" + runningPort +
                 "/confirmation?token="
                 + confirmationToken.getConfirmationToken();
-        html = html.replaceAll("a href=\"#\"", String.format("a href=\"%s\"", address));
+        html = html.replaceAll("a href=\"#\"", String.format("a href=\"%s\"", serviceAddress));
         textPart.setContent(html + address, "text/html; charset=utf-8");
 
         MimeMultipart multipart = new MimeMultipart();

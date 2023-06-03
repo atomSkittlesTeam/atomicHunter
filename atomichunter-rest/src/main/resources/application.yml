@@ -3,6 +3,7 @@ spring:
     active: pg,mail
 server:
   port: 8081
+#  address: 192.168.1.121
 api:
   url: "http://192.168.1.44:1040"
 scheduled:
