@@ -2,7 +2,7 @@
           [style]="{height: '80vh',width: '50vw'}"
           (onHide)="closeDialog($event)">
   <form #f="ngForm" name="vacancy" novalidate>
-    <div class="flex">
+    <div class="flex" *ngIf="!loading">
       <div class="p-inputgroup">
             <span class="p-inputgroup-addon">
                 <i class="pi pi-user"></i>
@@ -87,4 +87,8 @@
       </p-button>
     </div>
   </p-footer>
+  <ng-container *ngIf="loading">
+    <div *ngIf="loading" class="loading">Загрузка...</div>
+  </ng-container>
 </p-dialog>
+

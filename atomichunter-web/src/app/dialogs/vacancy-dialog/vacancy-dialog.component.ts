@@ -21,13 +21,14 @@ export class VacancyDialogComponent {
   @Output() submit = new EventEmitter<any>();
   @Output() visibleChange = new EventEmitter<any>();
   dialogTitle = "Заведение вакансии";
-  positions: any[] = [];
+  positions: Position[] = [];
   buttons: any[] = [];
   value: any;
   weight: number = 0;
   summ = 0;
 
   competences: Competence[] = [];
+  loading: boolean = false;
 
 
   constructor(private vacancyService: VacancyService,
@@ -37,6 +38,7 @@ export class VacancyDialogComponent {
   }
 
   async ngOnInit() {
+    this.loading = true;
     await this.getAllPositionsFromApi();
     if (this.editMode) {
       this.item = await this.vacancyService.getVacancyById(this.item.id);
@@ -46,6 +48,7 @@ export class VacancyDialogComponent {
       this.item.position = new Position();
       this.dialogTitle = "Регистрация вакансии";
     }
+    this.loading = false;
     console.log(this.item);
   }
 
