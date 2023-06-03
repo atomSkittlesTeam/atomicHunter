@@ -37,3 +37,11 @@
     }
   }
 }
+
+@media only screen and (max-height: 700px) {
+  .nav__buttons {
+    button {
+      padding: 22px;
+    }
+  }
+}
