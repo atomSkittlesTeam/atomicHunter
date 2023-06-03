@@ -10,6 +10,7 @@
     border: 1px solid black;
   }
 
+
   .left-side {
     background-color: #333333;
     padding: 15px;
@@ -52,9 +53,14 @@
   }
 
   .right-side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .img1{
       height: 100%;
     }
+    background: white;
+
   }
 }
 

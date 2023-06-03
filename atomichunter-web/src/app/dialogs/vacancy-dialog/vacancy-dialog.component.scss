@@ -92,6 +92,18 @@
     .p-dialog {
       width: auto !important;
     }
+    .p-dialog-footer {
+      background: var(--dialog-footer);
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 5px;
+      align-items: center;
+
+      .p-ripple {
+        padding: 10px;
+      }
+    }
   }
 }
 
