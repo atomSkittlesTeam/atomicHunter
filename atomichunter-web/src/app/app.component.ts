@@ -69,7 +69,9 @@ export class AppComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.getTelegramBotCondition();
     this.user = await this.userService.getUser();
-    this.userTelegramSubscriber = await this.userService.getTelegramSubscribeStatus();
+    if (!!this.user) {
+      this.userTelegramSubscriber = await this.userService.getTelegramSubscribeStatus();
+    }
     this.messages = await this.notificationService.getNewMessages();
   }
 
