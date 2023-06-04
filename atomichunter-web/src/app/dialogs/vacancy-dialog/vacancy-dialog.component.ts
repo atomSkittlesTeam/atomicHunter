@@ -82,6 +82,7 @@ export class VacancyDialogComponent {
 
   async createVacancy(vacancy: Vacancy) {
     try {
+      this.loading = true;
       const rq = await this.vacancyService.createVacancy(vacancy);
       this.messageService.add({
         severity: "success",
@@ -94,11 +95,14 @@ export class VacancyDialogComponent {
         summary: "Ошибка...",
         detail: e.error.message
       });
+    } finally {
+      this.loading = false;
     }
   }
 
   async updateVacancy(vacancy: Vacancy) {
     try {
+      this.loading = true;
       const rq = await this.vacancyService.updateVacancy(vacancy.id, vacancy);
       this.messageService.add({
         severity: "success",
@@ -111,6 +115,8 @@ export class VacancyDialogComponent {
         summary: "Ошибка...",
         detail: e.error.message
       });
+    } finally {
+      this.loading = false;
     }
   }
 
