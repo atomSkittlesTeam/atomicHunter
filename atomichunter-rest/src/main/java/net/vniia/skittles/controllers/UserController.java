@@ -84,4 +84,19 @@ public class UserController {
     public void telegramUnsubscribe(@PathVariable String login) {
         telegramBotController.telegramUnsubscribe(login);
     }
+
+    @PostMapping("recover/send-recover-letter")
+    public Boolean sendRecoverLetter(@RequestBody String email) {
+        return true;
+    }
+
+    @PostMapping("recover/verify-recover-code")
+    public Boolean verifyRecoverCOde(@RequestBody String recoverCode) {
+        return true;
+    }
+
+    @PostMapping("recover/save-new-password")
+    public Boolean saveNewPassword(@RequestBody String newPassword) {
+        return true;
+    }
 }

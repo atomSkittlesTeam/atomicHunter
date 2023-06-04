@@ -124,4 +124,22 @@ export class UserService extends BaseService {
         const url = await this.getBackendUrl();
         return await firstValueFrom(this.http.get<boolean>(url + '/user/telegram-enable'));
     }
+
+    async sendPasswordRecoverLetterToEmail(email: string) {
+        const url = await this.getBackendUrl();
+        return await firstValueFrom(
+            this.http.post<boolean>(url + '/recover/send-recover-letter', email));
+    }
+
+    async verifyRecoverCode(recoverCode: string, email: string) {
+        const url = await this.getBackendUrl();
+        return await firstValueFrom(
+            this.http.post<boolean>(url + '/recover/verify-recover-code', [recoverCode, email]));
+    }
+
+    async saveNewPassword(newPassword: string, email: string) {
+        const url = await this.getBackendUrl();
+        return await firstValueFrom(
+            this.http.post<boolean>(url + '/recover/save-new-password', [newPassword, email]));
+    }
 }
