@@ -97,12 +97,12 @@ public class OfferService {
 
     public void createPdfAndSendByEmail(String email) throws IOException, MessagingException {
         String path = this.createPdf();
-//        this.emailService.sendEmailWithAttachment(
-//                        email,
-//                "Оффер",
-//                "Здравствуйте! Компания Atomic Hunter высылает вам оффер",
-//                path
-//        );
+        this.emailService.sendEmailWithAttachment(
+                        email,
+                "Оффер",
+                "Здравствуйте! Компания Atomic Hunter высылает вам оффер",
+                path
+        );
     }
 
     private void createFolder() {
