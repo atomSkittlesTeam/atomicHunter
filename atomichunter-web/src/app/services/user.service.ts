@@ -21,8 +21,7 @@ export class UserService extends BaseService {
                 public override configService: ConfigService) {
 
         super(configService);
-        // @ts-ignore
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser') as string));
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
@@ -69,8 +68,7 @@ export class UserService extends BaseService {
 
     logout() {
         localStorage.removeItem('currentUser');
-        // @ts-ignore
-        this.currentUserSubject.next(null);
+        this.currentUserSubject.next(null as unknown as User);
     }
 
     async updateUser(userDto: User) {
