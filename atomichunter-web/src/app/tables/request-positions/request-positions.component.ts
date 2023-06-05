@@ -97,8 +97,9 @@ export class RequestPositionsComponent {
         columnDefs?.forEach((colDef:any, index:number)=> {
             colDef.floatingFilter = this.filter;
         });
-        // @ts-ignore
-        this.agGrid.api.setColumnDefs(columnDefs);
+        if (columnDefs) {
+            this.agGrid.api.setColumnDefs(columnDefs);
+        }
         this.agGrid.api.refreshHeader();
     }
 
