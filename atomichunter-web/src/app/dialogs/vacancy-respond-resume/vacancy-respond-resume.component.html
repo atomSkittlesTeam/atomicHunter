@@ -1,0 +1,9 @@
+<p-dialog *ngIf="true" [(visible)]="this.showPdfResume" (onHide)="this.hidePdfResume.emit()"
+          [header]="this.header">
+  <pdf-viewer
+    [src]="this.pdfResume"
+    [render-text]="true"
+    [original-size]="false"
+    style="width: 800px; height: 600px"
+  ></pdf-viewer>
+</p-dialog>

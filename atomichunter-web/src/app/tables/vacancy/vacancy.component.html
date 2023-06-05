@@ -58,7 +58,11 @@
             (cellClicked)="onCellClicked($event)">
     </ag-grid-angular>
 
-    <app-vacancy-respond [vacancy]="selectedVacancy" class="vacancy-respond"></app-vacancy-respond>
+    <app-vacancy-respond [vacancy]="selectedVacancy" (pdfResume)="this.pdfResumeAssign($event)"
+                         (showPdfResume)="this.showPdfResumeAssign($event)" class="vacancy-respond"></app-vacancy-respond>
+
+    <app-vacancy-respond-resume [pdfResume]="pdfResume" [showPdfResume]="showPdfResume"
+                                (hidePdfResume)="this.hidePdfResume($event)"></app-vacancy-respond-resume>
 
     <app-vacancy-dialog [openDialog]="openDialog"
                     *ngIf="openDialog"

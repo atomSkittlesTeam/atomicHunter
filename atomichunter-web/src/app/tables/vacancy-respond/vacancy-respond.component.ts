@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from "@angular/core";
+import { Component, EventEmitter, Input, Output, ViewChild } from "@angular/core";
 import { Vacancy } from "../../dto/Vacancy";
 import { VacancyRespond } from "../../dto/VacancyRespond";
 import { CellClickedEvent, ColDef, GridReadyEvent } from "ag-grid-community";
@@ -69,6 +69,9 @@ export class VacancyRespondComponent {
     this.getRespondByVacancyIdFromApi();
     this.selectedVacancyRespond = new VacancyRespond();
   }
+
+  @Output("pdfResume") pdfResume = new EventEmitter<string>();
+  @Output("showPdfResume") showPdfResume = new EventEmitter<boolean>();
 
   selectedVacancyRespond: VacancyRespond;
   showArchive = false;
@@ -153,9 +156,9 @@ export class VacancyRespondComponent {
     this.agGrid.api.refreshHeader();
   }
 
-  openRespondDialog() {
-    // this.openDialog = true;
-    // this.editMode = false;
+  openRespondPdfResumeDialog() {
+    this.showPdfResume.emit(true);
+    this.pdfResume.emit('https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf');
   }
 
   archiveRequestPosition() {
