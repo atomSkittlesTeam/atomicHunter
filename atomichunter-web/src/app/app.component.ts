@@ -41,7 +41,13 @@ export class AppComponent implements OnInit {
     public notificationService: NotificationService,
     public messageService: MessageService) {
     // this.getMessagesByTime();
-    this.userService.currentUser.subscribe(x => this.initUser(JSON.parse(x as unknown as string) ));
+    this.userService.currentUser.subscribe(x => {
+      if (typeof x === "string") {
+        this.initUser(JSON.parse(x));
+      } else if (x instanceof User) {
+        this.initUser(x);
+      }
+    });
   }
 
   async initUser(user: User) {
