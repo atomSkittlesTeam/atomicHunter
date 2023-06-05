@@ -21,6 +21,8 @@ export class VacancyComponent {
   openDialog: boolean = false;
   dialogEditMode: boolean = false;
   selectedVacancy: Vacancy;
+  pdfResume: string = "";
+  showPdfResume: boolean = false;
 
   public columnDefs: ColDef[] = [
     {field: 'id', headerName: 'Идентификатор', filter: 'agNumberColumnFilter'},
@@ -156,5 +158,10 @@ export class VacancyComponent {
     if ($event) {
         await this.getAllVacanciesFromApi();
     }
+  }
+
+  pdfResumeAssign(event: string) {
+    this.pdfResume = event;
+    window.open(this.pdfResume, '_blank');
   }
 }

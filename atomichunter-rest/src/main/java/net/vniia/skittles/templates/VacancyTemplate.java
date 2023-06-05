@@ -39,6 +39,13 @@ public class VacancyTemplate {
             "Хочу работать у вас!"
     );
 
+    public static List<String> allVacancyRespondPaths = Arrays.asList(
+            "https://math-ege.sdamgia.ru/pdf/98736f0a673a970fac4f0ecb37c50abd.pdf",
+            "https://math-ege.sdamgia.ru/pdf/e72e98fbf9722fc9de07e6eaea1e3fc5.pdf",
+            "https://math-ege.sdamgia.ru/pdf/1b87c54f8314b6c5f0d337af63542cc7.pdf",
+            "https://math-ege.sdamgia.ru/pdf/481983c31e9e7fed33746e8ae6f8f358.pdf"
+    );
+
     public static List<String> allCompetencesNames = Arrays.asList(
             "Soft Skills",
             "Навык работы со станком",
