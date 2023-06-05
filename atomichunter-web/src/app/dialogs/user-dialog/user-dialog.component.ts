@@ -79,6 +79,10 @@ export class UserDialogComponent implements OnInit {
         this.messageService.add({
           severity: "success", summary: "Сохранено", detail: "Пароль обновлен"
         });
+        this.closeDialog();
+        await this.router.navigate(['/login']);
+        localStorage.removeItem("AUTH");
+        this.userService.logout();
       } else {
         this.messageService.add({
           severity: "error", summary: "Ошибка", detail: "Введенный пароль неправильный"

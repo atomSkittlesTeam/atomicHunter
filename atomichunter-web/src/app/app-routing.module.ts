@@ -12,11 +12,13 @@ import {RegistrationFormComponent} from "./registration-form/registration-form.c
 import { VacancyComponent } from './tables/vacancy/vacancy.component';
 import {VacancyRequest} from "./dto/VacancyRequest";
 import {VacancyRequestComponent} from "./dialogs/vacancy-request/vacancy-request.component";
+import {PasswordRecoverFormComponent} from "./password-recover-form/password-recover-form.component";
 
 const routes: Routes = [
     {path: '', component: NavigationComponent, canActivate: [AuthGuard]},
     {path: 'login', component: LoginFormComponent},
     {path: 'registration', component: RegistrationFormComponent},
+    {path: 'password-recover', component: PasswordRecoverFormComponent},
     {path: 'admin', component: AdminComponent},
     {path: 'vacancy', component: VacancyComponent},
     {path: 'request', component: RequestComponent},

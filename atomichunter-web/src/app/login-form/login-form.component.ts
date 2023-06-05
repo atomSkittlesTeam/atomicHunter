@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {User} from "../dto/User";
 import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";

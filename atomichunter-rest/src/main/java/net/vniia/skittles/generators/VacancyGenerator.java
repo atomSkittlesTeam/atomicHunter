@@ -86,7 +86,8 @@ public class VacancyGenerator {
                         (long) vacancyIds.get(i), //vacancyId
                         String.valueOf(VacancyTemplate.allVacancyRespondCoverLetter
                                 .get(random.nextInt(0, VacancyTemplate.allVacancyRespondCoverLetter.size()))), //cover letter,
-                        "//",
+                        String.valueOf(VacancyTemplate.allVacancyRespondPaths
+                                .get(random.nextInt(0, VacancyTemplate.allVacancyRespondPaths.size()))), //path to resume
                         false,
                         "rogbond@mail.ru"); //note
                 vacancyRespondList.add(vacancyRespond);
@@ -107,7 +108,8 @@ public class VacancyGenerator {
                     (long) vacancyIds.get(vacancyIndex), //vacancyId
                     String.valueOf(VacancyTemplate.allVacancyRespondCoverLetter
                             .get(random.nextInt(0, VacancyTemplate.allVacancyRespondCoverLetter.size()))), //cover letter,
-                    "//",
+                    String.valueOf(VacancyTemplate.allVacancyRespondPaths
+                            .get(random.nextInt(0, VacancyTemplate.allVacancyRespondPaths.size()))), //path to resume
                     false,
                     "rogbond@mail.ru");
             vacancyRespondRepository.saveAndFlush(vacancyRespond);

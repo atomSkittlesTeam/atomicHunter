@@ -12,13 +12,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class User {
     @Id
     @Column(nullable = false, unique = true)
     public String login;
     private String password;
     private String fullName;
+    @Column(name = "email")
     private String email;
 
     @JoinTable(

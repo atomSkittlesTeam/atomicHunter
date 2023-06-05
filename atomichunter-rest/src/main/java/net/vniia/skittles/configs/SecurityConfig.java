@@ -50,7 +50,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests().requestMatchers(
                         "/registration",
                         "/login",
-                        "/confirmation").permitAll()
+                        "/confirmation",
+                        "recover/send-recover-letter",
+                        "recover/verify-recover-code",
+                        "recover/save-new-password").permitAll()
                 .and()
                 .authorizeHttpRequests().anyRequest().authenticated().and().httpBasic(Customizer.withDefaults());
         return http.build();

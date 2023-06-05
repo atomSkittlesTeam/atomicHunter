@@ -17,8 +17,8 @@
     <p-button
       icon="pi pi-search"
       styleClass="p-button-outlined"
-      [disabled]="!vacancy"
-      (onClick)="openRespondDialog()">
+      [disabled]="!vacancy || !this.selectedVacancyRespond?.vacancyId"
+      (onClick)="openRespondPdfResumeDialog()">
     </p-button>
 
 
