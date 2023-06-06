@@ -1,12 +1,10 @@
 package net.vniia.skittles.controllers;
 
 
-import net.vniia.skittles.services.EmailService;
-import net.vniia.skittles.services.OfferService;
+import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.PasswordChangeRequestDto;
 import net.vniia.skittles.dto.UserDto;
 import net.vniia.skittles.services.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,8 +23,6 @@ public class UserController {
 
     private final UserService userService;
     private final TelegramBotController telegramBotController;
-    private final OfferService offerService;
-    private final EmailService emailService;
 
     @GetMapping("all")
     public List<UserDto> getAllUsers() {
