@@ -122,10 +122,10 @@ export class AppComponent implements OnInit {
       let ids = this.messages.map(e => e.id).filter(c => c === message.id);
       await this.notificationService.messageSetFrontSing(ids);
       this.messages = this.messages.filter(e => e.id !== message.id);
-    } catch(e: any) {
+    } catch (e: any) {
       this.messageService.add({
-        severity: 'error',
-        summary: 'Ошибка...',
+        severity: "error",
+        summary: "Ошибка...",
         detail: e.error.message
       });
     }

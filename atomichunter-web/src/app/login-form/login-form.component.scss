@@ -73,6 +73,12 @@
         width: 100%;
       }
     }
+    .button {
+      .p-button-raised {
+        display: flex;
+        justify-content: center;
+      }
+    }
 
   }
 }
