@@ -97,6 +97,7 @@
 </p-dialog>
 <p-sidebar [(visible)]="showSidebarWithAllSkills" *ngIf="showSidebarWithAllSkills" position="right">
   <div class="container">
+    <h1>Список всех навыков</h1>
     <div class="main-block" *ngFor="let competence of competencesAll; let idex = index">
       <div class="main-block__title">{{competence.name}}</div>
       <div class="main-block__add">
