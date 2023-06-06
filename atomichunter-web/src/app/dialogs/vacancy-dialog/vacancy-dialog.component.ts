@@ -27,9 +27,11 @@ export class VacancyDialogComponent {
   weight: number = 0;
   summ = 0;
 
-  competences: Competence[] = [];
-  loading: boolean = false;
 
+  competences: Competence[] = [];
+  competencesAll: Competence[] = [];
+  loading: boolean = false;
+  showSidebarWithAllSkills: boolean = false;
 
   constructor(private vacancyService: VacancyService,
               private competenceService: CompetenceService,
@@ -78,6 +80,32 @@ export class VacancyDialogComponent {
 
   getSaveLabel() {
     return this.editMode ? "Обновить" : "Создать";
+  }
+
+  async openSidebarWithAllSkills() {
+    this.showSidebarWithAllSkills = true;
+    this.competencesAll = await this.competenceService.getAllCompetences();
+    // let alreadyHas: number[] = [];
+    // console.log(this.competencesAll, "fwafawf");
+    //
+    // this.competencesAll = this.competencesAll.map((e, idx) => {
+    //   if (this.competences.find(com => com.name = e.name)) {
+    //     alreadyHas.push(idx);
+    //   }
+    //   return e;
+    // });
+    // alreadyHas.forEach(index => this.competencesAll.splice(index, 1));
+  }
+
+  pushNewSkill(idx: number) {
+    let pickedSkill: Competence = this.competencesAll[idx];
+    this.item.competenceWeight = [];
+    let newArray = this.competences;
+    if (!(newArray.find(com => com.id === pickedSkill.id))) {
+      newArray.push(pickedSkill);
+    }
+    this.competences = newArray;
+    this.competences.map(comp => this.item.competenceWeight.push(new CompetenceWeight(comp, 10)));
   }
 
   async createVacancy(vacancy: Vacancy) {
@@ -134,7 +162,7 @@ export class VacancyDialogComponent {
   deleteSkill(id: number) {
     this.item.competenceWeight = this.item.competenceWeight
       .filter(e => e.competence.id !== id);
+
+    this.competences = this.competences.filter(e => e.id !== id);
   }
-
-
 }
