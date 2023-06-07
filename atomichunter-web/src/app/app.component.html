@@ -52,7 +52,7 @@
                     <div class="telegram-status" *ngIf=" this.userRole == 'admin'">
                         <div class="flex align-items-center gap-1"
                              style="display:flex; flex-direction: column; align-items: center"
-                             *ngIf="userAuth && !this.telegramBotIsEnable">
+                             *ngIf="userAuth && this.telegramBotIsEnable">
                             <span style="font-size: 20px">Telegram BOT</span>
                             <p-checkbox [disabled]=true [value]=this.telegramBotIsEnable></p-checkbox>
                         </div>
