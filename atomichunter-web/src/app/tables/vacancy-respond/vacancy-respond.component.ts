@@ -34,14 +34,22 @@ export class VacancyRespondComponent {
           }
         }
       },
-      { label: "удалить", icon: "pi pi-trash",
-      command: () => {
-        if (this.selectedVacancyRespond.id) {
-          this.archiveRequestPosition();
+      {
+        label: "удалить", icon: "pi pi-trash",
+        command: () => {
+          if (this.selectedVacancyRespond.id) {
+            this.archiveRequestPosition();
+          }
         }
-      }},
+      },
       { separator: true },
-      { label: "показать архивные", icon: "pi pi-cog" }
+      {
+        label: `показывать ${this.showArchive ? "без архива" : "с архивом"}`, icon: "pi pi-cog",
+        command: () => {
+          this.showArchive = !this.showArchive;
+          this.getRespondByVacancyIdFromApi();
+        }
+      }
     ];
 
     this.offerItems = [
@@ -104,7 +112,7 @@ export class VacancyRespondComponent {
       }
     },
     {
-      field: "archive", headerName: "Архив", hide: !this.showArchive, cellRenderer: (params: { value: any; }) => {
+      field: "archive", headerName: "Архив", cellRenderer: (params: { value: any; }) => {
         return `<input disabled="true" type="checkbox" ${params.value ? "checked" : ""} />`;
       }
     }
