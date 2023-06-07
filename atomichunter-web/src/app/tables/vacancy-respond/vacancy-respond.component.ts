@@ -171,6 +171,7 @@ export class VacancyRespondComponent {
 
   archiveRequestPosition() {
     this.confirmationService.confirm({
+      key: "vacancy-respond-archive",
       message: "Отправить позицию в архив?",
       accept: async () => {
         try {

@@ -122,6 +122,7 @@ export class VacancyComponent {
 
   archiveVacancy() {
     this.confirmationService.confirm({
+        key: "vacancy-archive",
         message: 'Отправить позицию в архив?',
         accept: async () => {
             try {
@@ -131,7 +132,7 @@ export class VacancyComponent {
                     summary: 'Успех!',
                     detail: 'Вакансия переведена в архив',
                 });
-                await this.getAllVacanciesFromApi();
+                // await this.getAllVacanciesFromApi();
             } catch (e: any) {
                 this.messageService.add({
                     severity: 'error',
