@@ -25,7 +25,7 @@
     <p-splitButton styleClass="p-button-outlined" appendTo="body" label="упр.откликами"
                    [model]="meetingItems"></p-splitButton>
     <p-splitButton styleClass="p-button-outlined" appendTo="body" label="упр.оффером"
-                   [model]="offerItems"></p-splitButton>
+                   [model]="offerItems" [disabled]="!vacancy || !selectedVacancyRespond || !selectedVacancyRespond.id"></p-splitButton>
 
 
     <!--        <p-button-->

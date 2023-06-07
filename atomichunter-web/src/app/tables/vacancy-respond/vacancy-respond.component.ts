@@ -7,6 +7,7 @@ import { ConfirmationService, MessageService } from "primeng/api";
 import { LoadingCellRendererComponent } from "../../platform/loading-cell-renderer/loading-cell-renderer.component";
 import { VacancyService } from "../../services/vacancy.service";
 import { InviteService } from "src/app/services/invite.service";
+import { VacancyWithVacancyRespond } from "../../dto/VacancyWithVacancyRespond";
 
 @Component({
   selector: "app-vacancy-respond",
@@ -201,7 +202,10 @@ export class VacancyRespondComponent {
 
   async sendOffer() {
     try {
-      await this.inviteService.sendOffer(this.selectedVacancyRespond);
+      let vacancyWithVacancyRespond = new VacancyWithVacancyRespond();
+      vacancyWithVacancyRespond.vacancy = this._vacancy;
+      vacancyWithVacancyRespond.vacancyRespond = this.selectedVacancyRespond;
+      await this.inviteService.sendOffer(vacancyWithVacancyRespond);
       this.messageService.add({
         severity: "success",
         summary: "Успех!",

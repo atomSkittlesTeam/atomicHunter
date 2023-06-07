@@ -14,5 +14,6 @@ public class VacancyRespondDto {
     private String pathToResume;
     private boolean archive;
     private String email;
+    private String fullName;
     private boolean interviewInviteAccepted;
 }

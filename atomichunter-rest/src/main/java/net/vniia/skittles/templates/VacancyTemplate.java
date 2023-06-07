@@ -46,6 +46,12 @@ public class VacancyTemplate {
             "https://math-ege.sdamgia.ru/pdf/481983c31e9e7fed33746e8ae6f8f358.pdf"
     );
 
+    public static List<String> allVacancyRespondFullNames = Arrays.asList(
+            "Иван Иванович Иванов",
+            "Евгений Иванович Забабахин",
+            "Julius Robert Oppenheimer"
+    );
+
     public static List<String> allCompetencesNames = Arrays.asList(
             "Soft Skills",
             "Навык работы со станком",

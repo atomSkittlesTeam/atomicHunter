@@ -17,6 +17,10 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.TextAlignment;
 import jakarta.mail.MessagingException;
+import net.vniia.skittles.dto.UserDto;
+import net.vniia.skittles.dto.VacancyDto;
+import net.vniia.skittles.dto.VacancyWithVacancyRespondDto;
+import net.vniia.skittles.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -39,9 +43,11 @@ public class OfferService {
     @Autowired
     private EmailService emailService;
 
-    public String createPdf() throws IOException {
+    public String createPdf(VacancyWithVacancyRespondDto vacancyWithRespondDto, User currentUser, UserDto currentHR)
+            throws IOException {
         this.createFolder();
-        String path = OFFER_PATH + "offer1.pdf";
+        String path = OFFER_PATH + "offer_to_" + vacancyWithRespondDto.getVacancyRespond().getId() + "_respond.pdf";
+        VacancyDto vacancy = vacancyWithRespondDto.getVacancy();
 
         FontProgram fontProgram = FontProgramFactory.createFont(font.getContentAsByteArray());
         PdfFont font = PdfFontFactory.createFont(fontProgram);
@@ -61,14 +67,18 @@ public class OfferService {
 
         document.add(img).setTextAlignment(TextAlignment.JUSTIFIED);
         document.add(new Paragraph("ЛИЧНО И КОНФИДЕНЦИАЛЬНО").setBold().setFont(font));
-        document.add(new Paragraph("Наноеву Алексею").setFont(font));
+        document.add(new Paragraph(vacancyWithRespondDto.getVacancyRespond().getFullName()).setFont(font));
         document.add(new Paragraph("Дата: " + LocalDate.now()).setFont(font));
-        document.add(new Paragraph("Компания «AtomicHunter» хотела бы предложить Вам занять должность ... разработчика на следующих условиях:\n" +
-                "Ваш ежемесячный оклад будет составлять ... рублей. Дата начала действия трудового договора – открытая дата.").setFont(font));
+
+        document.add(new Paragraph(
+                "Компания «AtomicHunter» хотела бы предложить Вам занять должность " + vacancy.getPosition().getName()
+                + " на следующих условиях: ваш ежемесячный оклад будет составлять " + vacancy.getSalary() + " рублей. "
+                + "Дата начала действия трудового договора – открытая дата.").setFont(font)
+                .setTextAlignment(TextAlignment.JUSTIFIED));
         document.add(new Paragraph("Вам будет установлен испытательный срок 3 (три) месяца, " +
-                "по истечении которого Компания проведет Вашу аттестацию. " +
-                "В дальнейшем аттестация будет проводиться регулярно и, по ее результатам, " +
-                "может изменяться уровень компенсации и занимаемая Вами в Компании должность.").setFont(font));
+                "по истечении которого компания проведет Вашу аттестацию. " +
+                "В дальнейшем аттестация будет проводиться регулярно, и по ее результатам " +
+                "может изменяться уровень компенсации и занимаемая Вами в компании должность.").setFont(font));
         document.add(new Paragraph("Ваш вклад в развитие Компании будет оцениваться руководством по следующим критериям:").setFont(font));
         document.add(new Paragraph("1) Решение задач, входящих в непосредственную зону Вашей ответственности;").setFont(font));
         document.add(new Paragraph("2) Вклад в развитие Компании в целом.").setFont(font));
@@ -76,8 +86,8 @@ public class OfferService {
         Table twoColTable = new Table(twoColumnWidth);
         twoColTable.addCell(getBoldTitleCell("Директор").setFont(font));
         twoColTable.addCell(getBoldTitleCell("Отдел кадров").setFont(font));
-        twoColTable.addCell(getNotBoldTitleCell("Воппер Леха").setFont(font));
-        twoColTable.addCell(getNotBoldTitleCell("Сидоров Артемка").setFont(font));
+        twoColTable.addCell(getNotBoldTitleCell(currentUser.getFullName()).setFont(font));
+        twoColTable.addCell(getNotBoldTitleCell(currentHR.getFullName()).setFont(font));
         document.add(twoColTable.setMarginBottom(12f));
 
         document.close();
@@ -95,10 +105,12 @@ public class OfferService {
                 .setTextAlignment(TextAlignment.LEFT);
     }
 
-    public void createPdfAndSendByEmail(String email) throws IOException, MessagingException {
-        String path = this.createPdf();
+    public void createPdfAndSendByEmail(VacancyWithVacancyRespondDto vacancyWithVacancyRespondDto,
+                                        User currentUser, UserDto currentHR)
+            throws IOException, MessagingException {
+        String path = this.createPdf(vacancyWithVacancyRespondDto, currentUser, currentHR);
         this.emailService.sendEmailWithAttachment(
-                        email,
+                        vacancyWithVacancyRespondDto.getVacancyRespond().getEmail(),
                 "Оффер",
                 "Здравствуйте! Компания Atomic Hunter высылает вам оффер",
                 path
