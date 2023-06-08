@@ -48,8 +48,14 @@
 
       <div class="personal-skills">
         <div class="personal-skills__toolbar">
-          <button pButton type="button" class="p-button-success" label="Добавить новый навык"
-                  icon="pi pi-cog"></button>
+          <!--          <button pButton type="button" class="p-button-success" label="Добавить новый навык"-->
+          <!--                  icon="pi pi-cog"></button>-->
+          <p-button
+            icon="pi pi-plus"
+            styleClass="p-button-outlined"
+            (click)="openSidebarWithAllSkills()"
+          >
+          </p-button>
           <span class="personal-skills__text">Общий вес: {{summ}}</span>
           <span class="fail" *ngIf="summ > 100" style="color:red"> Общий вес не должен превышать 100</span>
         </div>
@@ -70,8 +76,6 @@
                              [showButtons]="true"></p-inputNumber>
             </div>
           </div>
-
-
         </div>
       </div>
     </div>
@@ -91,4 +95,18 @@
     <div *ngIf="loading" class="loading">Загрузка...</div>
   </ng-container>
 </p-dialog>
-
+<p-sidebar [(visible)]="showSidebarWithAllSkills" *ngIf="showSidebarWithAllSkills" position="right">
+  <div class="container">
+    <h1>Список всех навыков</h1>
+    <div class="main-block" *ngFor="let competence of competencesAll; let idex = index">
+      <div class="main-block__title">{{competence.name}}</div>
+      <div class="main-block__add">
+        <p-button
+          icon="pi pi-plus"
+          styleClass="p-button-outlined p-button-help"
+        (onClick)="pushNewSkill(idex)">
+        </p-button>
+      </div>
+    </div>
+  </div>
+</p-sidebar>
