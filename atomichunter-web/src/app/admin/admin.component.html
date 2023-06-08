@@ -2,6 +2,10 @@
     <p-toolbar>
         <div style="width: max-content" class="table-name">Управление пользователями</div>
         <nav>
+            <p-button icon="pi pi-sync"
+                      styleClass="p-button-rounded p-button-warning p-button-outlined"
+                      (click)="getAllUsersFromApi()">
+            </p-button>
             <p-button
                 icon="pi pi-filter"
                 styleClass="p-button-outlined p-button-warning"

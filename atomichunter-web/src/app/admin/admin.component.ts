@@ -85,6 +85,7 @@ export class AdminComponent implements OnInit {
             summary: 'Успех!',
             detail: 'Пользователь отписан от телеграм-бота',
         });
+        this.getAllUsersFromApi();
     }
 
     async getTelegramBotCondition() {
