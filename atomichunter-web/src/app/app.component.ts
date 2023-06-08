@@ -69,14 +69,16 @@ export class AppComponent implements OnInit {
 
   getMessagesByTime() {
     interval(5000).subscribe(async () => {
-      this.messages = await this.notificationService.getNewMessages();
+      if (this.user) {
+        this.messages = await this.notificationService.getNewMessages();
+      }
     });
   }
 
   async ngOnInit(): Promise<void> {
     await this.getTelegramBotCondition();
     this.user = await this.userService.getUser();
-    if (!!this.user) {
+    if (this.user) {
       this.userTelegramSubscriber = await this.userService.getTelegramSubscribeStatus();
     }
     this.messages = await this.notificationService.getNewMessages();
