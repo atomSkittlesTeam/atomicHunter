@@ -3,7 +3,7 @@ import { Vacancy } from "../../dto/Vacancy";
 import { VacancyRespond } from "../../dto/VacancyRespond";
 import { CellClickedEvent, ColDef, GridReadyEvent } from "ag-grid-community";
 import { AgGridAngular } from "ag-grid-angular";
-import { ConfirmationService, MessageService } from "primeng/api";
+import { ConfirmationService, MenuItem, MessageService } from "primeng/api";
 import { LoadingCellRendererComponent } from "../../platform/loading-cell-renderer/loading-cell-renderer.component";
 import { VacancyService } from "../../services/vacancy.service";
 import { InviteService } from "src/app/services/invite.service";
@@ -16,44 +16,59 @@ import { InviteService } from "src/app/services/invite.service";
 export class VacancyRespondComponent {
   meetingItems: any = [];
   offerItems: any = [];
+  items: MenuItem[];
   openDialog: boolean = false;
   dialogEditMode: boolean = false;
+
+
 
   constructor(private confirmationService: ConfirmationService,
               private messageService: MessageService,
               private vacancyService: VacancyService,
               private inviteService: InviteService) {
-    this.meetingItems = [
+    this.items = [
       {
-        label: "отправить на собес",
-        icon: "pi pi-envelope",
-        command: () => {
-          if (this.selectedVacancyRespond.id) {
-            this.inviteToInterview();
+        label: "Откликами",
+        items: [
+          {
+            label: "Отправить на собеседование",
+            disabled: !!this.selectedVacancyRespond,
+            icon: "pi pi-envelope",
+            command: () => {
+              // if (this.selectedVacancyRespond.id) {
+              //   this.inviteToInterview();
+              // }
+              console.log(this.selectedVacancyRespond);
+            }
+          },
+          {
+            label: "Удалить",
+            disabled: !!this.selectedVacancyRespond?.id,
+            icon: "pi pi-trash",
+            command: () => {
+              if (this.selectedVacancyRespond.id) {
+                this.archiveRequestPosition();
+              }
+            }
           }
-        }
+        ]
       },
-      { label: "удалить", icon: "pi pi-trash",
-      command: () => {
-        if (this.selectedVacancyRespond.id) {
-          this.archiveRequestPosition();
-        }
-      }},
-      { separator: true },
-      { label: "показать архивные", icon: "pi pi-cog" }
-    ];
-
-    this.offerItems = [
       {
-        label: "Отправить офер",
-        icon: "pi pi-envelope",
-        command: () => {
-          if (this.selectedVacancyRespond.id) {
-            this.sendOffer();
+        label: "Офферами",
+        items: [
+          {
+            label: "Отправить офер",
+            icon: "pi pi-envelope",
+            command: () => {
+              if (this.selectedVacancyRespond.id) {
+                this.sendOffer();
+              }
+            }
           }
-        }
+        ]
       }
     ];
+
   }
 
   private _vacancy: Vacancy;
