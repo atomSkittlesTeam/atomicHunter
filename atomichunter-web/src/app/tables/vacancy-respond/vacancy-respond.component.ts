@@ -39,6 +39,8 @@ export class VacancyRespondComponent {
   public set vacancy(value: Vacancy) {
     this._vacancy = value;
     this.getRespondByVacancyIdFromApi();
+    this.selectedVacancyRespond = new VacancyRespond();
+    this.renderMenu();
   }
 
   @Output("pdfResume") pdfResume = new EventEmitter<string>();
@@ -61,7 +63,7 @@ export class VacancyRespondComponent {
         items: [
           {
             label: "Отправить на собеседование",
-            disabled: !this.selectedVacancyRespond,
+            disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id,
             icon: "pi pi-envelope",
             command: () => {
               if (this.selectedVacancyRespond.id) {
@@ -71,7 +73,7 @@ export class VacancyRespondComponent {
           },
           {
             label: "Удалить",
-            disabled: !this.selectedVacancyRespond,
+            disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id,
             icon: "pi pi-trash",
             command: () => {
               if (this.selectedVacancyRespond.id) {
@@ -86,7 +88,7 @@ export class VacancyRespondComponent {
         items: [
           {
             label: "Отправить оффер",
-            disabled: !this.selectedVacancyRespond,
+            disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id,
             icon: "pi pi-envelope",
             command: () => {
               if (this.selectedVacancyRespond.id) {
