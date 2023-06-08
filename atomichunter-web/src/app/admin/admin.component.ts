@@ -30,11 +30,11 @@ export class AdminComponent implements OnInit {
 
     public rowData!: any[];
     public columnDefs: ColDef[] = [
-        {field: 'login', headerName: 'Логин'},
-        {field: 'role', headerName: 'Роль'},
-        {field: 'email', headerName: 'Почта', width: 250},
-        {field: 'fullName', headerName: 'ФИО', width: 250},
-        {field: 'telegramSubscriber.login', headerName: 'Телеграм'}
+        {field: 'login', headerName: 'Логин', filter: "agTextColumnFilter" },
+        {field: 'role', headerName: 'Роль', filter: "agTextColumnFilter" },
+        {field: 'email', headerName: 'Почта', width: 250, filter: "agTextColumnFilter" },
+        {field: 'fullName', headerName: 'ФИО', width: 250, filter: "agTextColumnFilter" },
+        {field: 'telegramSubscriber.login', headerName: 'Телеграм', filter: "agTextColumnFilter" }
     ];
     public defaultColDef: ColDef = {
         editable: false,
