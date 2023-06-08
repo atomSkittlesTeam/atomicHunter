@@ -7,6 +7,7 @@ import { ConfirmationService, MessageService } from "primeng/api";
 import { LoadingCellRendererComponent } from "../../platform/loading-cell-renderer/loading-cell-renderer.component";
 import { VacancyService } from "../../services/vacancy.service";
 import { InviteService } from "src/app/services/invite.service";
+import { VacancyWithVacancyRespond } from "../../dto/VacancyWithVacancyRespond";
 
 @Component({
   selector: "app-vacancy-respond",
@@ -33,14 +34,22 @@ export class VacancyRespondComponent {
           }
         }
       },
-      { label: "удалить", icon: "pi pi-trash",
-      command: () => {
-        if (this.selectedVacancyRespond.id) {
-          this.archiveRequestPosition();
+      {
+        label: "удалить", icon: "pi pi-trash",
+        command: () => {
+          if (this.selectedVacancyRespond.id) {
+            this.archiveRequestPosition();
+          }
         }
-      }},
+      },
       { separator: true },
-      { label: "показать архивные", icon: "pi pi-cog" }
+      {
+        label: `показывать ${this.showArchive ? "без архива" : "с архивом"}`, icon: "pi pi-cog",
+        command: () => {
+          this.showArchive = !this.showArchive;
+          this.getRespondByVacancyIdFromApi();
+        }
+      }
     ];
 
     this.offerItems = [
@@ -103,7 +112,7 @@ export class VacancyRespondComponent {
       }
     },
     {
-      field: "archive", headerName: "Архив", hide: !this.showArchive, cellRenderer: (params: { value: any; }) => {
+      field: "archive", headerName: "Архив", cellRenderer: (params: { value: any; }) => {
         return `<input disabled="true" type="checkbox" ${params.value ? "checked" : ""} />`;
       }
     }
@@ -162,6 +171,7 @@ export class VacancyRespondComponent {
 
   archiveRequestPosition() {
     this.confirmationService.confirm({
+      key: "vacancy-respond-archive",
       message: "Отправить позицию в архив?",
       accept: async () => {
         try {
@@ -201,7 +211,10 @@ export class VacancyRespondComponent {
 
   async sendOffer() {
     try {
-      await this.inviteService.sendOffer(this.selectedVacancyRespond);
+      let vacancyWithVacancyRespond = new VacancyWithVacancyRespond();
+      vacancyWithVacancyRespond.vacancy = this._vacancy;
+      vacancyWithVacancyRespond.vacancyRespond = this.selectedVacancyRespond;
+      await this.inviteService.sendOffer(vacancyWithVacancyRespond);
       this.messageService.add({
         severity: "success",
         summary: "Успех!",

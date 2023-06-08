@@ -89,7 +89,9 @@ public class VacancyGenerator {
                         String.valueOf(VacancyTemplate.allVacancyRespondPaths
                                 .get(random.nextInt(0, VacancyTemplate.allVacancyRespondPaths.size()))), //path to resume
                         false,
-                        "rogbond@mail.ru"); //note
+                        "sergej.davidyuk@yandex.ru",
+                        String.valueOf(VacancyTemplate.allVacancyRespondFullNames
+                                .get(random.nextInt(0, VacancyTemplate.allVacancyRespondFullNames.size())))); //fullname
                 vacancyRespondList.add(vacancyRespond);
                 index++;
             }
@@ -111,7 +113,9 @@ public class VacancyGenerator {
                     String.valueOf(VacancyTemplate.allVacancyRespondPaths
                             .get(random.nextInt(0, VacancyTemplate.allVacancyRespondPaths.size()))), //path to resume
                     false,
-                    "rogbond@mail.ru");
+                    "sergej.davidyuk@yandex.ru",
+                    String.valueOf(VacancyTemplate.allVacancyRespondFullNames
+                            .get(random.nextInt(0, VacancyTemplate.allVacancyRespondFullNames.size())))); //fullname
             vacancyRespondRepository.saveAndFlush(vacancyRespond);
         }
     }

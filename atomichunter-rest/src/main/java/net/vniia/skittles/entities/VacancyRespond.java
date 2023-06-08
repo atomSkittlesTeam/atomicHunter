@@ -25,6 +25,7 @@ public class VacancyRespond {
     private boolean archive;
 
     private String email;
+    private String fullName;
 
     public VacancyRespond(VacancyRespondDto vacancyRespondDto) {
         this.update(vacancyRespondDto);
@@ -35,6 +36,7 @@ public class VacancyRespond {
         this.coverLetter = vacancyRespondDto.getCoverLetter();
         this.pathToResume = vacancyRespondDto.getPathToResume();
         this.email = vacancyRespondDto.getEmail();
+        this.fullName = vacancyRespondDto.getFullName();
     }
 
     public void archive() {

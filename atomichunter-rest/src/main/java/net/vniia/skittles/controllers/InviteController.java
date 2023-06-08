@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.VacancyDto;
 import net.vniia.skittles.dto.VacancyRespondDto;
+import net.vniia.skittles.dto.VacancyWithVacancyRespondDto;
 import net.vniia.skittles.services.InviteService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +27,7 @@ public class InviteController {
 
     @PostMapping("offer")
     @Transactional
-    public void sendOffer(@RequestBody VacancyRespondDto vacancyRespondDto) throws Exception {
-        this.inviteService.sendOffer(vacancyRespondDto);
+    public void sendOffer(@RequestBody VacancyWithVacancyRespondDto vacancyWithVacancyRespondDto) throws Exception {
+        this.inviteService.sendOffer(vacancyWithVacancyRespondDto);
     }
 }

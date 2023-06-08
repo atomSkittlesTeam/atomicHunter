@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { BaseService } from './base.service';
 import { VacancyRespond } from '../dto/VacancyRespond';
 import { firstValueFrom } from 'rxjs';
+import { VacancyWithVacancyRespond } from "../dto/VacancyWithVacancyRespond";
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,8 @@ export class InviteService extends BaseService {
     return await firstValueFrom(this.http.post(url + '/invite/interview', vacancyRespond));
   }
 
-  async sendOffer(vacancyRespond: VacancyRespond) {
+  async sendOffer(vacancyWithVacancyRespond: VacancyWithVacancyRespond) {
     const url = await this.getBackendUrl();
-    return await firstValueFrom(this.http.post(url + '/invite/offer', vacancyRespond));
+    return await firstValueFrom(this.http.post(url + '/invite/offer', vacancyWithVacancyRespond));
   }
 }

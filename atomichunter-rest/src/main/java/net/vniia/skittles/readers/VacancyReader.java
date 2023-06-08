@@ -71,6 +71,7 @@ public class VacancyReader {
                 vacancyRespond.coverLetter,
                 vacancyRespond.pathToResume,
                 vacancyRespond.email,
+                vacancyRespond.fullName,
                 vacancyRespond.archive,
                 confirmationToken.accepted.as("interviewInviteAccepted")
         );

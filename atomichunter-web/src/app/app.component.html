@@ -49,12 +49,12 @@
                          (click)="toTelegramSubscribe()" pTooltip="Не подписан на телеграм-бота? Подпишись сейчас!">
                     </div>
 
-                    <div class="telegram-status" *ngIf=" this.userRole == 'admin'">
+                    <div class="telegram-status" *ngIf="this.userRole == 'admin'  && this.telegramBotIsEnable">
                         <div class="flex align-items-center gap-1"
                              style="display:flex; flex-direction: column; align-items: center"
-                             *ngIf="userAuth && !this.telegramBotIsEnable">
-                            <span style="font-size: 20px">Telegram BOT</span>
-                            <p-checkbox [disabled]=true [value]=this.telegramBotIsEnable></p-checkbox>
+                             *ngIf="userAuth && this.telegramBotIsEnable">
+                            <span style="font-size: 20px">Подписка на телеграм</span>
+                            <label>{{!!this.userTelegramSubscriber ? "Активна" : "Неактивна"}}</label>
                         </div>
                     </div>
                 </div>
