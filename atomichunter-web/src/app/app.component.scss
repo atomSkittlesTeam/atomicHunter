@@ -27,6 +27,17 @@
   }
 }
 
+.tg {
+  img {
+    height: 30px;
+  }
+}
+
+.tg:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
 .logo:hover {
   transform: scale(1.1);
   cursor: pointer;

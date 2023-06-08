@@ -21,8 +21,11 @@ export class UserService extends BaseService {
                 public override configService: ConfigService) {
 
         super(configService);
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser') as string));
-        this.currentUser = this.currentUserSubject.asObservable();
+        const user = localStorage.getItem('currentUser');
+        if (user) {
+            this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(user));
+            this.currentUser = this.currentUserSubject.asObservable();
+        }
     }
 
     public get currentUserValue(): User {

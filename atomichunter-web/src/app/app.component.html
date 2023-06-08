@@ -40,23 +40,17 @@
 
                     <div class="splitter"></div>
 
+                    <h3 class="tg">
+                        <img pTooltip="Открыть telegram-бот"
+                            (click)="toTelegramSubscribe()"
+                             src="assets/telegram.svg">
+                    </h3>
+
                     <div *ngIf="userAuth" (click)="showNewPositions()" class="ring" pTooltip="Посмотреть уведомления">
                         <i style="font-size: 26px" [class.bell-anim]="messages.length > 0" class="pi pi-bell"></i>
                         <span style="font-size: 22px; margin-left: 10px">({{messages.length}})</span>
                     </div>
 
-                    <div *ngIf="userAuth && !this.userTelegramSubscriber && this.telegramBotIsEnable"
-                         (click)="toTelegramSubscribe()" pTooltip="Не подписан на телеграм-бота? Подпишись сейчас!">
-                    </div>
-
-                    <div class="telegram-status" *ngIf=" this.userRole == 'admin'">
-                        <div class="flex align-items-center gap-1"
-                             style="display:flex; flex-direction: column; align-items: center"
-                             *ngIf="userAuth && !this.telegramBotIsEnable">
-                            <span style="font-size: 20px">Telegram BOT</span>
-                            <p-checkbox [disabled]=true [value]=this.telegramBotIsEnable></p-checkbox>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

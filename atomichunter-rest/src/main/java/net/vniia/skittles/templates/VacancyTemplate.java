@@ -33,9 +33,7 @@ public class VacancyTemplate {
     );
 
     public static List<String> allVacancyRespondCoverLetter = Arrays.asList(
-            "Я такой крутой, такой крутой!",
-            "Готов стать админом вашей хуйни",
-            "Сопроводительные письма презираю",
+            "Сопроводительное письмо",
             "Хочу работать у вас!"
     );
 
@@ -44,6 +42,12 @@ public class VacancyTemplate {
             "https://math-ege.sdamgia.ru/pdf/e72e98fbf9722fc9de07e6eaea1e3fc5.pdf",
             "https://math-ege.sdamgia.ru/pdf/1b87c54f8314b6c5f0d337af63542cc7.pdf",
             "https://math-ege.sdamgia.ru/pdf/481983c31e9e7fed33746e8ae6f8f358.pdf"
+    );
+
+    public static List<String> allVacancyRespondFullNames = Arrays.asList(
+            "Иван Иванович Иванов",
+            "Евгений Иванович Забабахин",
+            "Julius Robert Oppenheimer"
     );
 
     public static List<String> allCompetencesNames = Arrays.asList(
