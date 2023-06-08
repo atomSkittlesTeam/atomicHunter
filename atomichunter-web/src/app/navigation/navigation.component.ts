@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import { UserService } from "../services/user.service";
+import { User } from "../dto/User";
 
 @Component({
     selector: 'app-navigation',
@@ -6,11 +8,12 @@ import {Component} from '@angular/core';
     styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent {
+    user: User;
     login: any = ""
     userAuth: boolean = false;
-    userRole: string = '';
+    userRole?: string = '';
 
-    constructor() {
+    constructor(private userService: UserService) {
         // this.userAuth = this.authService.userAuth;
         // this.userRole = this.authService.userRole;
 
@@ -19,5 +22,14 @@ export class NavigationComponent {
 
     ngOnInit(): void {
         this.login = localStorage.getItem("LOGIN");
+        this.getUser();
+    }
+
+    async getUser() {
+        this.user = await this.userService.getUser();
+        if (this.user) {
+            this.userAuth = true;
+            this.userRole = this.user.role;
+        }
     }
 }
