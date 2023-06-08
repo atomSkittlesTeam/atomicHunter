@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   userTelegramSubscriber: boolean = false;
   userRole: string | undefined = "";
   userLogin: string | null = "";
+  userFullName: string | null = "";
   items: MenuItem[] = [];
   telegramBotIsEnable: boolean = false;
   displayUserDialog = false;
@@ -55,6 +56,7 @@ export class AppComponent implements OnInit {
     if (this.user) {
       this.userAuth = true;
       this.userLogin = this.user.login;
+      this.userFullName = this.user.fullName;
       this.userRole = this.user.role;
     }
   }
