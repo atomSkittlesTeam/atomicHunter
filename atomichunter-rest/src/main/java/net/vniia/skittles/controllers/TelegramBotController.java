@@ -130,7 +130,7 @@ public class TelegramBotController extends TelegramLongPollingBot {
             try {
                 execute(sendMessage);
             } catch (TelegramApiException e) {
-                throw new RuntimeException(e);
+                System.out.println("Не найдено такого пользователя");
             }
         }
     }
