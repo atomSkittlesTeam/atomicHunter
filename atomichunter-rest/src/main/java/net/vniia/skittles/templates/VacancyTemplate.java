@@ -33,9 +33,7 @@ public class VacancyTemplate {
     );
 
     public static List<String> allVacancyRespondCoverLetter = Arrays.asList(
-            "Я такой крутой, такой крутой!",
-            "Готов стать админом вашей хуйни",
-            "Сопроводительные письма презираю",
+            "Сопроводительное письмо",
             "Хочу работать у вас!"
     );
 
