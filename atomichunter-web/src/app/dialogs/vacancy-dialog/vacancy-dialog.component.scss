@@ -49,7 +49,6 @@
 
 }
 
-
 .skill-weight {
   display: flex;
   justify-content: center;
@@ -75,6 +74,22 @@
 
 }
 
+.container {
+  height: auto;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.main-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 @media only screen and (max-width: 350px) {
   /* For mobile phones: */
 
@@ -92,6 +107,7 @@
     .p-dialog {
       width: auto !important;
     }
+
     .p-dialog-footer {
       background: var(--dialog-footer);
       display: flex;
@@ -110,7 +126,6 @@
 
 @media only screen and (max-width: 520px) {
   :host {
-
     ::ng-deep {
       .skills {
         .p-inputtext {
@@ -130,12 +145,15 @@
           width: 50px !important;
         }
       }
+
       .p-dialog-content {
         overflow-y: auto;
       }
+
       .p-dialog {
         min-width: 300px !important;
       }
+
       .p-dialog-footer {
         background: var(--dialog-footer);
         display: flex;

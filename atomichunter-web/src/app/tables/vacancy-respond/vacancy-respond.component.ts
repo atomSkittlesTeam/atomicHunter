@@ -3,7 +3,7 @@ import { Vacancy } from "../../dto/Vacancy";
 import { VacancyRespond } from "../../dto/VacancyRespond";
 import { CellClickedEvent, ColDef, GridReadyEvent } from "ag-grid-community";
 import { AgGridAngular } from "ag-grid-angular";
-import { ConfirmationService, MessageService } from "primeng/api";
+import { ConfirmationService, MenuItem, MessageService } from "primeng/api";
 import { LoadingCellRendererComponent } from "../../platform/loading-cell-renderer/loading-cell-renderer.component";
 import { VacancyService } from "../../services/vacancy.service";
 import { InviteService } from "src/app/services/invite.service";
@@ -17,6 +17,7 @@ import { VacancyWithVacancyRespond } from "../../dto/VacancyWithVacancyRespond";
 export class VacancyRespondComponent {
   meetingItems: any = [];
   offerItems: any = [];
+  items: MenuItem[];
   openDialog: boolean = false;
   dialogEditMode: boolean = false;
 
@@ -24,45 +25,7 @@ export class VacancyRespondComponent {
               private messageService: MessageService,
               private vacancyService: VacancyService,
               private inviteService: InviteService) {
-    this.meetingItems = [
-      {
-        label: "отправить на собес",
-        icon: "pi pi-envelope",
-        command: () => {
-          if (this.selectedVacancyRespond.id) {
-            this.inviteToInterview();
-          }
-        }
-      },
-      {
-        label: "удалить", icon: "pi pi-trash",
-        command: () => {
-          if (this.selectedVacancyRespond.id) {
-            this.archiveRequestPosition();
-          }
-        }
-      },
-      { separator: true },
-      {
-        label: `показывать ${this.showArchive ? "без архива" : "с архивом"}`, icon: "pi pi-cog",
-        command: () => {
-          this.showArchive = !this.showArchive;
-          this.getRespondByVacancyIdFromApi();
-        }
-      }
-    ];
-
-    this.offerItems = [
-      {
-        label: "Отправить офер",
-        icon: "pi pi-envelope",
-        command: () => {
-          if (this.selectedVacancyRespond.id) {
-            this.sendOffer();
-          }
-        }
-      }
-    ];
+    this.renderMenu();
   }
 
   private _vacancy: Vacancy;
@@ -76,7 +39,6 @@ export class VacancyRespondComponent {
   public set vacancy(value: Vacancy) {
     this._vacancy = value;
     this.getRespondByVacancyIdFromApi();
-    this.selectedVacancyRespond = new VacancyRespond();
   }
 
   @Output("pdfResume") pdfResume = new EventEmitter<string>();
@@ -90,6 +52,51 @@ export class VacancyRespondComponent {
   createVacancy() {
     this.openDialog = true;
     this.dialogEditMode = false;
+  }
+
+  renderMenu() {
+    this.items = [
+      {
+        label: "Отклики",
+        items: [
+          {
+            label: "Отправить на собеседование",
+            disabled: !this.selectedVacancyRespond,
+            icon: "pi pi-envelope",
+            command: () => {
+              if (this.selectedVacancyRespond.id) {
+                this.inviteToInterview();
+              }
+            }
+          },
+          {
+            label: "Удалить",
+            disabled: !this.selectedVacancyRespond,
+            icon: "pi pi-trash",
+            command: () => {
+              if (this.selectedVacancyRespond.id) {
+                this.archiveRequestPosition();
+              }
+            }
+          }
+        ]
+      },
+      {
+        label: "Оффер",
+        items: [
+          {
+            label: "Отправить оффер",
+            disabled: !this.selectedVacancyRespond,
+            icon: "pi pi-envelope",
+            command: () => {
+              if (this.selectedVacancyRespond.id) {
+                this.sendOffer();
+              }
+            }
+          }
+        ]
+      }
+    ];
   }
 
   async onDialogSubmit($event: any) {
@@ -112,7 +119,7 @@ export class VacancyRespondComponent {
       }
     },
     {
-      field: "archive", headerName: "Архив", cellRenderer: (params: { value: any; }) => {
+      field: "archive", headerName: "Архив", hide: !this.showArchive, cellRenderer: (params: { value: any; }) => {
         return `<input disabled="true" type="checkbox" ${params.value ? "checked" : ""} />`;
       }
     }
@@ -151,6 +158,7 @@ export class VacancyRespondComponent {
 
   onCellClicked(e: CellClickedEvent): void {
     this.selectedVacancyRespond = e.data;
+    this.renderMenu();
   }
 
   showFilter() {

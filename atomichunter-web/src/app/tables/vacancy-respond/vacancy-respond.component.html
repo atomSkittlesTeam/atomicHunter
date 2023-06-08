@@ -17,15 +17,24 @@
     <p-button
       icon="pi pi-search"
       styleClass="p-button-outlined"
-      [disabled]="!vacancy || !this.selectedVacancyRespond.vacancyId"
+      [disabled]="!vacancy || !this.selectedVacancyRespond || !this.selectedVacancyRespond.vacancyId"
       (onClick)="openRespondPdfResumeDialog()">
     </p-button>
+    <!--    <p-menubar [model]="items" appendTo="body"></p-menubar>-->
+    <div class="card flex justify-content-center">
+      <p-button
+        icon="pi pi-bars"
+        styleClass="p-button-outlined"
+        #btn
+        (onClick)="menu.toggle($event)">
+      </p-button>
+      <p-menu #menu [model]="items" [popup]="true" appendTo="body"></p-menu>
+    </div>
 
-
-    <p-splitButton styleClass="p-button-outlined" appendTo="body" label="упр.откликами"
-                   [model]="meetingItems"></p-splitButton>
-    <p-splitButton styleClass="p-button-outlined" appendTo="body" label="упр.оффером"
-                   [model]="offerItems" [disabled]="!vacancy || !selectedVacancyRespond || !selectedVacancyRespond.id"></p-splitButton>
+    <!--    <div class="card flex justify-content-center">-->
+    <!--      <p-inputSwitch [(ngModel)]="showArchive" (ngModelChange)="showArchivePressed()">Показывать архив</p-inputSwitch>-->
+    <!--      <span>Показывать архив</span>-->
+    <!--    </div>-->
 
 
     <!--        <p-button-->
@@ -49,13 +58,13 @@
     <!--                  (onClick)="archiveRequestPosition()">-->
     <!--        </p-button>-->
 
-    <!--        <p-checkbox [disabled]="!vacancy || !selectedVacancyRespond"-->
-    <!--                    [(ngModel)]="showArchive"-->
-    <!--                    label="Показывать архив"-->
-    <!--                    [binary]="true"-->
-    <!--                    inputId="binary"-->
-    <!--                    (ngModelChange)="showArchivePressed()">-->
-    <!--        </p-checkbox>-->
+    <p-checkbox [disabled]="!vacancy || !selectedVacancyRespond"
+                [(ngModel)]="showArchive"
+                label="Архив"
+                [binary]="true"
+                inputId="binary"
+                (ngModelChange)="showArchivePressed()">
+    </p-checkbox>
   </nav>
 
 </p-toolbar>
@@ -85,10 +94,10 @@
 
 <p-confirmDialog #cd [style]="{width: '50vw'}" key="vacancy-respond-archive">
   <ng-template pTemplate="header">
-      <h3>Архивация</h3>
+    <h3>Архивация</h3>
   </ng-template>
   <ng-template pTemplate="footer">
-      <button type="button" pButton icon="pi pi-check" label="Да" (click)="cd.accept()"></button>
-      <button type="button" pButton icon="pi pi-times" label="Нет" (click)="cd.reject()"></button>
+    <button type="button" pButton icon="pi pi-check" label="Да" (click)="cd.accept()"></button>
+    <button type="button" pButton icon="pi pi-times" label="Нет" (click)="cd.reject()"></button>
   </ng-template>
 </p-confirmDialog>

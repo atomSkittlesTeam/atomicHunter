@@ -68,7 +68,7 @@ public class UserController {
 
     @GetMapping("telegram-link")
     public List<String> getTelegramLink() {
-        return Collections.singletonList("https://" + telegramLink);
+        return Collections.singletonList(telegramLink);
     }
 
     @GetMapping("telegram-enable")
