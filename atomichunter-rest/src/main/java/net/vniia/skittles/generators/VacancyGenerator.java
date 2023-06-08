@@ -60,7 +60,7 @@ public class VacancyGenerator {
         for (int i = 0; i < vacancyCount; i++) {
             Vacancy vacancyOne = new Vacancy(
                     (long) i, //id - автогенерируется, здесь как заглушка для allArgs
-                    1L,
+                    (long) (random.nextInt(0, VacancyTemplate.allPositionNames.size())),
                     String.valueOf(random.nextInt(0, 10000)) + " рублей", //salary
                     String.valueOf(random.nextInt(20, 30)) + " лет", //experience
                     String.valueOf(VacancyTemplate.allVacancyAdditional.get(random.nextInt(0, VacancyTemplate.allVacancyAdditional.size()))), //additional

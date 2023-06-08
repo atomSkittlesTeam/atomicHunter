@@ -19,19 +19,19 @@
             <div class="burger-menu"  [ngClass]="{'active': isActiveBurger}">
                 <div class="burger-menu__nav-buttons">
                     <p-button label="Главная"
-                              icon="pi pi-plus"
+                              icon="pi pi-home"
                               styleClass="p-button-outlined"
                               routerLink="/">
                     </p-button>
                     <p-button label="Вакансии"
-                              icon="pi pi-pencil"
+                              icon="pi pi-file-edit"
                               styleClass="p-button-outlined"
                               routerLink="/vacancy">
                     </p-button>
                 </div>
                 <div class="burger-menu__info-ring">
 
-                  <p-button [label]="'Пользователь: ' + userLogin"
+                  <p-button [label]="'Пользователь: ' + userFullName"
                             [pTooltip]="'Роль пользователя: ' + userRole"
                             (onClick)="openUserDialog()"
                             class="person_info"
@@ -79,7 +79,8 @@
     </div>
 </p-sidebar>
 
-<app-user-dialog #userDialogComponent *ngIf="user" [openDialog]="displayUserDialog" [currentUser]="this.user" (submit)="displayUserDialog = $event">
+<app-user-dialog #userDialogComponent *ngIf="user" [openDialog]="displayUserDialog" [currentUser]="this.user"
+                 (submit)="displayUserDialog = $event" (reloadUser)="this.reloadUser($event)">
 </app-user-dialog>
 
 <p-toast></p-toast>

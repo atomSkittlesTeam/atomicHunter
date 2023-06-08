@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   userTelegramSubscriber: boolean = false;
   userRole: string | undefined = "";
   userLogin: string | null = "";
+  userFullName: string | null = "";
   items: MenuItem[] = [];
   telegramBotIsEnable: boolean = false;
   displayUserDialog = false;
@@ -40,7 +41,7 @@ export class AppComponent implements OnInit {
     public requestService: RequestService,
     public notificationService: NotificationService,
     public messageService: MessageService) {
-    // this.getMessagesByTime();
+    this.getMessagesByTime();
     this.userService.currentUser.subscribe(x => {
       if (typeof x === "string") {
         this.initUser(JSON.parse(x));
@@ -51,10 +52,12 @@ export class AppComponent implements OnInit {
   }
 
   async initUser(user: User) {
-    this.user = user || await this.userService.getUser();
+    // this.user = user || await this.userService.getUser();
+    this.user = await this.userService.getUser();
     if (this.user) {
       this.userAuth = true;
       this.userLogin = this.user.login;
+      this.userFullName = this.user.fullName;
       this.userRole = this.user.role;
     }
   }
@@ -67,7 +70,6 @@ export class AppComponent implements OnInit {
   getMessagesByTime() {
     interval(5000).subscribe(async () => {
       this.messages = await this.notificationService.getNewMessages();
-
     });
   }
 
@@ -115,6 +117,17 @@ export class AppComponent implements OnInit {
   async openUserDialog() {
     await this.userDialogComponent.ngOnInit(this.user);
     this.displayUserDialog = true;
+  }
+
+  async reloadUser(event: any) {
+    this.user = await this.userService.getUser();
+    if (!!this.user) {
+      this.userTelegramSubscriber = await this.userService.getTelegramSubscribeStatus();
+      this.userAuth = true;
+      this.userLogin = this.user.login;
+      this.userFullName = this.user.fullName;
+      this.userRole = this.user.role;
+    }
   }
 
   async readMessage(message: Message) {

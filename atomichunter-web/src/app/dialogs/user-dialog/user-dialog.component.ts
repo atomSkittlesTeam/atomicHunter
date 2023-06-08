@@ -16,6 +16,7 @@ export class UserDialogComponent implements OnInit {
   @Input("openDialog") visible: boolean = false;
   @Input("currentUser") currentUser: User = new User();
   @Output() submit = new EventEmitter<any>();
+  @Output() reloadUser = new EventEmitter<any>();
   @Output() visibleChange = new EventEmitter<any>();
   dialogTitle = "Мои настройки";
   roles: { name: string }[];
@@ -48,6 +49,7 @@ export class UserDialogComponent implements OnInit {
   async fullNameSave() {
     this.fullNameChangeEnabled = false;
     await this.userService.userDataChange(this.currentUser);
+    this.reloadUser.emit();
   }
 
   fullNameChange() {
@@ -57,6 +59,7 @@ export class UserDialogComponent implements OnInit {
   async emailSave() {
     this.emailChangeEnabled = false;
     await this.userService.userDataChange(this.currentUser);
+    this.reloadUser.emit();
   }
 
   emailChange() {
@@ -106,8 +109,15 @@ export class UserDialogComponent implements OnInit {
     return !!this.currentUser.telegramSubscriber;
   }
 
-  telegramUnsubscribe() {
-    this.userService.telegramUnsubscribe(this.currentUser.login);
+  async telegramUnsubscribe() {
+    try {
+      await this.userService.telegramUnsubscribe(this.currentUser.login);
+    } catch (e) {
+      //nothing
+    } finally {
+      this.currentUser = await this.userService.getUser();
+      this.reloadUser.emit();
+    }
   }
 
   async telegramUnsubscribeConfirmDialogHide(event: any) {
