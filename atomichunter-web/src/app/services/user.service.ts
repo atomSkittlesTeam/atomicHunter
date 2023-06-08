@@ -44,7 +44,7 @@ export class UserService extends BaseService {
 
     async getUser() {
         // if (this.user) {
-        //     return this.user;  эта хуйня мне всё ломает
+        //     return this.user;
         // } else {
             const url = await this.getBackendUrl();
             if (this.router.url !== '/login' && this.router.url !== '/registration')
