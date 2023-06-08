@@ -131,6 +131,7 @@ export class UserDialogComponent implements OnInit {
 
   signOut() {
     this.router.navigate(['/login']);
+    this.userService.logout();
     this.visible = false;
   }
 
