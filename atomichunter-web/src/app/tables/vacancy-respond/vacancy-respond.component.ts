@@ -25,48 +25,7 @@ export class VacancyRespondComponent {
               private messageService: MessageService,
               private vacancyService: VacancyService,
               private inviteService: InviteService) {
-    this.items = [
-      {
-        label: "Откликами",
-        items: [
-          {
-            label: "Отправить на собеседование",
-            disabled: !!this.selectedVacancyRespond,
-            icon: "pi pi-envelope",
-            command: () => {
-              // if (this.selectedVacancyRespond.id) {
-              //   this.inviteToInterview();
-              // }
-              console.log(this.selectedVacancyRespond);
-            }
-          },
-          {
-            label: "Удалить",
-            disabled: !!this.selectedVacancyRespond?.id,
-            icon: "pi pi-trash",
-            command: () => {
-              if (this.selectedVacancyRespond.id) {
-                this.archiveRequestPosition();
-              }
-            }
-          }
-        ]
-      },
-      {
-        label: "Офферами",
-        items: [
-          {
-            label: "Отправить офер",
-            icon: "pi pi-envelope",
-            command: () => {
-              if (this.selectedVacancyRespond.id) {
-                this.sendOffer();
-              }
-            }
-          }
-        ]
-      }
-    ];
+    this.renderMenu();
   }
 
   private _vacancy: Vacancy;
@@ -80,7 +39,6 @@ export class VacancyRespondComponent {
   public set vacancy(value: Vacancy) {
     this._vacancy = value;
     this.getRespondByVacancyIdFromApi();
-    this.selectedVacancyRespond = new VacancyRespond();
   }
 
   @Output("pdfResume") pdfResume = new EventEmitter<string>();
@@ -94,6 +52,51 @@ export class VacancyRespondComponent {
   createVacancy() {
     this.openDialog = true;
     this.dialogEditMode = false;
+  }
+
+  renderMenu() {
+    this.items = [
+      {
+        label: "Отклики",
+        items: [
+          {
+            label: "Отправить на собеседование",
+            disabled: !this.selectedVacancyRespond,
+            icon: "pi pi-envelope",
+            command: () => {
+              if (this.selectedVacancyRespond.id) {
+                this.inviteToInterview();
+              }
+            }
+          },
+          {
+            label: "Удалить",
+            disabled: !this.selectedVacancyRespond,
+            icon: "pi pi-trash",
+            command: () => {
+              if (this.selectedVacancyRespond.id) {
+                this.archiveRequestPosition();
+              }
+            }
+          }
+        ]
+      },
+      {
+        label: "Оффер",
+        items: [
+          {
+            label: "Отправить оффер",
+            disabled: !this.selectedVacancyRespond,
+            icon: "pi pi-envelope",
+            command: () => {
+              if (this.selectedVacancyRespond.id) {
+                this.sendOffer();
+              }
+            }
+          }
+        ]
+      }
+    ];
   }
 
   async onDialogSubmit($event: any) {
@@ -155,6 +158,7 @@ export class VacancyRespondComponent {
 
   onCellClicked(e: CellClickedEvent): void {
     this.selectedVacancyRespond = e.data;
+    this.renderMenu();
   }
 
   showFilter() {

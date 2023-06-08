@@ -13,10 +13,12 @@
 }
 
 .person_info {
+
   ::ng-deep {
     .p-ripple {
+      border: 1px solid #0ABAB5 ;
       background: none;
-      color: black;
+      color: #0ABAB5;
     }
   }
 }
@@ -244,6 +246,7 @@
       ::ng-deep {
         .p-button {
           border: none;
+          color: #0ABAB5;
         }
       }
     }
@@ -252,7 +255,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 5px;
+      gap: 20px;
       color: #0ABAB5;
 
       .ring {
@@ -322,7 +325,7 @@
 }
 
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 780px) {
   /* For mobile phones: */
   .burger-menu {
     display: block;
@@ -363,6 +366,7 @@
     .burger-button {
       display: block;
       z-index: 4;
+      top: 15px;
 
       &::before {
         content: '';

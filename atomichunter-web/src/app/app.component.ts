@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
     public requestService: RequestService,
     public notificationService: NotificationService,
     public messageService: MessageService) {
-    // this.getMessagesByTime();
+    this.getMessagesByTime();
     this.userService.currentUser.subscribe(x => {
       if (typeof x === "string") {
         this.initUser(JSON.parse(x));
@@ -67,7 +67,6 @@ export class AppComponent implements OnInit {
   getMessagesByTime() {
     interval(5000).subscribe(async () => {
       this.messages = await this.notificationService.getNewMessages();
-
     });
   }
 
