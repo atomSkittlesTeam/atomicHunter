@@ -85,7 +85,8 @@
     </div>
 </p-sidebar>
 
-<app-user-dialog #userDialogComponent *ngIf="user" [openDialog]="displayUserDialog" [currentUser]="this.user" (submit)="displayUserDialog = $event">
+<app-user-dialog #userDialogComponent *ngIf="user" [openDialog]="displayUserDialog" [currentUser]="this.user"
+                 (submit)="displayUserDialog = $event" (reloadUser)="this.reloadUser($event)">
 </app-user-dialog>
 
 <p-toast></p-toast>
