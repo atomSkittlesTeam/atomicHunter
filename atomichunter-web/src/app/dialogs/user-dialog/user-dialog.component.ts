@@ -18,6 +18,7 @@ export class UserDialogComponent implements OnInit {
   @Output() submit = new EventEmitter<any>();
   @Output() reloadUser = new EventEmitter<any>();
   @Output() visibleChange = new EventEmitter<any>();
+  @Output() logout = new EventEmitter<any>();
   dialogTitle = "Мои настройки";
   roles: { name: string }[];
 
@@ -132,6 +133,7 @@ export class UserDialogComponent implements OnInit {
   signOut() {
     this.router.navigate(['/login']);
     this.userService.logout();
+    this.logout.emit();
     this.visible = false;
   }
 
