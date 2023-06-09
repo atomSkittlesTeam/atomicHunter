@@ -49,7 +49,7 @@ export class VacancyRespondComponent {
   showArchive = false;
   public rowData: any[] = [];
 
-  public overlayLoadingTemplate = "<div class=\"loading-text\"> <span>L</span> <span>O</span> <span>A</span> <span>D</span> <span>I</span> <span>N</span> <span>G</span> </div> ";
+  public overlayLoadingTemplate = "<div class=\"loading-text\"> Загрузка...</div> ";
 
   createVacancy() {
     this.openDialog = true;
