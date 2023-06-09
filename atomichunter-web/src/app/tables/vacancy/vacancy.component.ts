@@ -165,4 +165,6 @@ export class VacancyComponent {
     this.pdfResume = event;
     window.open(this.pdfResume, '_blank');
   }
+
+    protected readonly Vacancy = Vacancy;
 }

@@ -26,15 +26,59 @@
   border: unset !important;
 }
 
+.p-button:not(.tiffany-button, .tiffany-button-secondary), button:not(.tiffany-button, .tiffany-button-secondary) {
+  &:disabled {
+    border: 1px solid grey !important;
+    color: grey !important;
+  }
+}
+
+input, textarea {
+  &:focus {
+    outline: 0 none !important;
+    outline-offset: 0 !important;
+    box-shadow: none !important;
+    border-color: var(--tiffany-color) !important;
+  }
+}
+
+
+
 .tiffany-button {
   background-color: var(--tiffany-color) !important;
   border: 1px solid var(--tiffany-color) !important;
+
   &:hover:not(:disabled) {
     background-color: white !important;
     color: var(--tiffany-color) !important;
   }
 }
 
+.p-inputnumber-button-up{
+  background-color: white !important;
+  color: var(--tiffany-color) !important;
+  border: 1px solid #ced4da !important;
+  border-left: none !important;
+  border-bottom: none !important;
+
+  &:hover:not(:disabled) {
+    background-color: var(--tiffany-color) !important;
+    color: white !important;
+
+  }
+}
+.p-inputnumber-button-down{
+  background-color: white !important;
+  color: var(--tiffany-color) !important;
+  border: 1px solid #ced4da !important;
+  border-left: none !important;
+
+  &:hover:not(:disabled) {
+    background-color: var(--tiffany-color) !important;
+    color: white !important;
+
+  }
+}
 .tiffany-button-secondary {
   background-color: white !important;
   color: var(--tiffany-color) !important;
@@ -54,7 +98,7 @@
 .small-text-link {
   font-size: 10px !important;
   color: var(--tiffany-color) !important;
-  cursor:pointer;
+  cursor: pointer;
   text-align: center;
   text-underline: #0ABAB5;
   text-decoration: underline;
@@ -121,8 +165,8 @@ body {
 
 .loading {
   position: absolute;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   height: 100%;
   width: 100%;
   background: #6fd4d0;
@@ -134,11 +178,22 @@ body {
 }
 
 .table-name {
-  width: 200px;
+  width: 150px;
+  text-align: center;
+
   word-break: break-all;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 16px;
 }
+
+.p-dialog-footer {
+  border-top: 1px solid grey !important;
+  text-align: center !important;
+  padding: 10px !important;
+}
+
+
+
 
 b {
   font-size: 20px;
@@ -191,7 +246,7 @@ select {
 
 .formDisabled {
   pointer-events: none;
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
 .cellDisabled {

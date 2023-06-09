@@ -3,7 +3,7 @@
   min-width: 275px;
   height: auto;
   border-radius: 5px;
-  border: 1px solid black;
+  border: 1px solid grey;;
   display: flex;
   padding: 10px;
   flex-direction: column;
@@ -62,10 +62,6 @@
   flex-direction: column;
 }
 
-.fail {
-  display: flex;
-  max-width: 150px;
-}
 
 .delete-vacancy {
   position: absolute;
@@ -108,18 +104,7 @@
       width: auto !important;
     }
 
-    .p-dialog-footer {
-      background: var(--dialog-footer);
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      padding: 5px;
-      align-items: center;
 
-      .p-ripple {
-        padding: 10px;
-      }
-    }
   }
 }
 
@@ -154,18 +139,7 @@
         min-width: 300px !important;
       }
 
-      .p-dialog-footer {
-        background: var(--dialog-footer);
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        padding: 5px;
-        align-items: center;
 
-        .p-ripple {
-          padding: 10px;
-        }
-      }
     }
   }
 }

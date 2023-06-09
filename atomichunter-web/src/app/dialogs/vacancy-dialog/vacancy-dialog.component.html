@@ -1,112 +1,106 @@
 <p-dialog class="dialog" [header]="dialogTitle" [(visible)]="visible" [modal]="true"
-          [style]="{height: '80vh',width: '50vw'}"
+          [style]="{maxHeight: '80vh',width: '50vw'}"
           (onHide)="closeDialog($event)">
-  <form #f="ngForm" name="vacancy" novalidate>
-    <div class="flex" *ngIf="!loading">
-      <div class="p-inputgroup">
-            <span class="p-inputgroup-addon">
-                <i class="pi pi-user"></i>
-            </span>
-        <p-dropdown [options]="positions"
-                    appendTo="body"
-                    [(ngModel)]="item.position"
-                    (ngModelChange)="selectPosition()"
-                    name="position"
-                    [style]="{width: '100%'}" [optionLabel]="'name'"></p-dropdown>
-      </div>
-
-      <div class="p-inputgroup">
-    <span class="p-inputgroup-addon">
-        <i class="pi pi-user"></i>
-    </span>
-        <input [(ngModel)]="item.salary" required
-               name="salary"
-               type="number"
-               placeholder="Зарплата" pInputText />
-      </div>
-
-      <div class="p-inputgroup">
-    <span class="p-inputgroup-addon">
-        <i class="pi pi-user"></i>
-    </span>
-        <input [(ngModel)]="item.experience" required
-               name="experience"
-               type="string"
-               placeholder="Опыт работы" pInputText />
-      </div>
-
-      <div class="p-inputgroup">
-    <span class="p-inputgroup-addon">
-        <i class="pi pi-user"></i>
-    </span>
-        <input [(ngModel)]="item.additional" required
-               name="additional"
-               type="string"
-               placeholder="Дополнительно" pInputText />
-      </div>
-
-
-      <div class="personal-skills">
-        <div class="personal-skills__toolbar">
-          <!--          <button pButton type="button" class="p-button-success" label="Добавить новый навык"-->
-          <!--                  icon="pi pi-cog"></button>-->
-          <p-button
-            icon="pi pi-plus"
-            styleClass="p-button-outlined"
-            (click)="openSidebarWithAllSkills()"
-          >
-          </p-button>
-          <span class="personal-skills__text">Общий вес: {{summ}}</span>
-          <span class="fail" *ngIf="summ > 100" style="color:red"> Общий вес не должен превышать 100</span>
-        </div>
-        <div class="flex flex-wrap gap-3 info-block">
-          <div class="skills" *ngFor="let skill of item.competenceWeight">
-
-            <div class="skills__title">
-              <p-button
-                icon="pi pi-trash"
-                styleClass="p-button-outlined p-button-danger"
-                (onClick)="deleteSkill(skill.competence.id)">
-              </p-button>
-              {{skill?.competence?.name}}
+    <form #f="ngForm" name="vacancy" novalidate>
+        <div class="flex" [class.formDisabled] = "loading">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon" style="width: 120px">Должность</span>
+                <p-dropdown [options]="positions"
+                            appendTo="body"
+                            [(ngModel)]="item.position"
+                            (ngModelChange)="selectPosition()"
+                            name="position"
+                            [style]="{width: '100%'}"
+                            [optionLabel]="'name'"></p-dropdown>
             </div>
-            <div class="skills__weight">
-              <p-inputNumber [(ngModel)]="skill.weight" [min]=0 [max]=100 (ngModelChange)="weightSum()"
-                             name="weight" [required]=true
-                             [showButtons]="true"></p-inputNumber>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
 
-  <p-footer>
-    <div class="flex justify-content-center">
-      <p-button icon="pi pi-check"
-                (onClick)="onSubmit($event)"
-                [disabled]="!f.valid"
-                [label]="getSaveLabel()"
-                styleClass="p-button-info">
-      </p-button>
-    </div>
-  </p-footer>
-  <ng-container *ngIf="loading">
-    <div *ngIf="loading" class="loading">Загрузка...</div>
-  </ng-container>
+            <div class="p-inputgroup">
+
+                <span class="p-inputgroup-addon" style="width: 120px">Зарплата</span>
+                <input [(ngModel)]="item.salary" required
+                       name="salary"
+                       type="number"
+                       placeholder="Укажите з/п для должности" pInputText/>
+            </div>
+
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon" style="width: 120px">Опыт работы</span>
+                <input [(ngModel)]="item.experience"
+                       name="experience"
+                       placeholder="Введите требуемый опыт работы" pInputText/>
+            </div>
+
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon" style="width: 120px">Описание</span>
+
+                <textarea [(ngModel)]="item.additional" required
+                          [autoResize]="true"
+                          name="additional"
+                          placeholder="Введите доп. информацию" pInputTextarea></textarea>
+            </div>
+
+            <span class="fail" *ngIf="isInvalidSumWeight()" style="color:red"> Общий вес должен быть равен 100</span>
+
+            <div class="personal-skills">
+
+                <div class="personal-skills__toolbar">
+                    <!--          <button pButton type="button" class="p-button-success" label="Добавить новый навык"-->
+                    <!--                  icon="pi pi-cog"></button>-->
+                    <p-button
+                            icon="pi pi-plus"
+                            pTooltip="Добавить компетенцию"
+                            label="Компетенция"
+                            styleClass="tiffany-button"
+                            (click)="openSidebarWithAllSkills()"
+                    >
+                    </p-button>
+                    <span class="personal-skills__text">Общий вес: {{sum}}</span>
+                </div>
+                <div class="flex flex-wrap gap-3 info-block">
+                    <div class="skills" *ngFor="let skill of item.competenceWeight">
+
+                        <div class="skills__title">
+                            <button pButton
+                                    icon="pi pi-times"
+                                    class="tiffany-button-secondary"
+                                    [style]="{border: 'none !important'  }"
+                                    (click)="deleteSkill(skill.competence.id)">
+                            </button>
+                            {{skill?.competence?.name}}
+                        </div>
+                        <div class="skills__weight">
+                            <p-inputNumber [(ngModel)]="skill.weight" [min]=0 [max]=100
+                                           name="weight" [required]=true
+                                           [showButtons]="true"></p-inputNumber>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <p-footer>
+
+        <p-button icon="pi pi-check"
+                  (onClick)="onSubmit($event)"
+                  [disabled]="!f.valid || isInvalidSumWeight()"
+                  [label]="getSaveLabel()"
+                  styleClass="tiffany-button">
+        </p-button>
+    </p-footer>
 </p-dialog>
 <p-sidebar [(visible)]="showSidebarWithAllSkills" *ngIf="showSidebarWithAllSkills" position="right">
-  <div class="container">
-    <h1>Список всех навыков</h1>
-    <div class="main-block" *ngFor="let competence of competencesAll; let idex = index">
-      <div class="main-block__title">{{competence.name}}</div>
-      <div class="main-block__add">
-        <p-button
-          icon="pi pi-plus"
-          styleClass="p-button-outlined p-button-help"
-        (onClick)="pushNewSkill(idex)">
-        </p-button>
-      </div>
+    <div class="container">
+        <h1>Список всех навыков</h1>
+        <div class="main-block" *ngFor="let competence of competencesAll; let idex = index">
+            <div class="main-block__title">{{competence.name}}</div>
+            <div class="main-block__add">
+                <p-button
+                        icon="pi pi-plus"
+                        styleClass="p-button-outlined p-button-help"
+                        (onClick)="pushNewSkill(idex)">
+                </p-button>
+            </div>
+        </div>
     </div>
-  </div>
 </p-sidebar>

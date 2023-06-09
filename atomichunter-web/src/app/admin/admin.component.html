@@ -11,13 +11,13 @@
                 styleClass="p-button-outlined p-button-warning"
                 (onClick)="showFilter()">
             </p-button>
-            <p-button [label]="'Изменить роль'"
+            <p-button [pTooltip]="'Изменить роль'"
                       styleClass="p-button-outlined"
                       icon="pi pi-fw pi-pencil"
                       [disabled]="!selectedUser"
                       (onClick)="this.showDialog()">
             </p-button>
-            <p-button [label]="this.telegramUnsubscribeLabel"
+            <p-button [pTooltip]="this.telegramUnsubscribeLabel"
                       styleClass="p-button-outlined"
                       [disabled]="!selectedUser || selectedUser.telegramSubscriber == null || !telegramBotIsEnable"
                       icon="pi pi-sign-out"
