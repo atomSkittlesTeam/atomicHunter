@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
   messages: Message[] = [];
 
   display: boolean = false;
-  user: User;
+  user: User | null;
   isActiveBurger: boolean = false;
 
   @ViewChild("userDialogComponent") userDialogComponent: UserDialogComponent;
@@ -117,8 +117,10 @@ export class AppComponent implements OnInit {
   }
 
   async openUserDialog() {
-    await this.userDialogComponent.ngOnInit(this.user);
-    this.displayUserDialog = true;
+    if (this.user) {
+      await this.userDialogComponent.ngOnInit(this.user);
+      this.displayUserDialog = true;
+    }
   }
 
   async reloadUser(event: any) {
@@ -130,6 +132,15 @@ export class AppComponent implements OnInit {
       this.userFullName = this.user.fullName;
       this.userRole = this.user.role;
     }
+  }
+
+  async logoutUser(event: any) {
+    this.user = null;
+    // this.userTelegramSubscriber = await this.userService.getTelegramSubscribeStatus();
+    this.userAuth = false;
+    this.userLogin = null;
+    this.userFullName = null;
+    this.userRole = undefined;
   }
 
   async readMessage(message: Message) {

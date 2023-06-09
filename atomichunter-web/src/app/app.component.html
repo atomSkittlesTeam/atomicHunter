@@ -80,7 +80,8 @@
 </p-sidebar>
 
 <app-user-dialog #userDialogComponent *ngIf="user" [openDialog]="displayUserDialog" [currentUser]="this.user"
-                 (submit)="displayUserDialog = $event" (reloadUser)="this.reloadUser($event)">
+                 (submit)="displayUserDialog = $event" (reloadUser)="this.reloadUser($event)"
+                 (logout)="this.logoutUser($event)">
 </app-user-dialog>
 
 <p-toast></p-toast>
