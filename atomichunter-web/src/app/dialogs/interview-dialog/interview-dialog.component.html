@@ -1,0 +1,53 @@
+<div class="click" (click)="this.visible = !this.visible">OpenDialog</div>
+<p-dialog class="dialog" [header]="dialogTitle" [(visible)]="visible" [modal]="true"
+          [style]="{maxHeight: '80vh',width: '50vw'}"
+          (onHide)="closeDialog($event)">
+    <form #f="ngForm" name="interview" novalidate>
+        <div class="flex">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon" style="min-width: 170px">Место собеседования</span>
+                <input pInputText
+                       [(ngModel)]="interview.meeting"
+                       name="meetingUrl"
+                       required
+                       placeholder="Укажите место или url"
+                       [style]="{width: '100%'}"/>
+            </div>
+
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon" style="width: 170px">Дата начала</span>
+                <p-calendar name="dateStart"
+                            [(ngModel)]="interview.dateStart"
+                            [showTime]="true"
+                            appendTo="body"
+                            [required]="true"
+                            placeholder="Введите дату и время"
+                ></p-calendar>
+            </div>
+
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon" style="width: 170px">Дата окончания</span>
+
+                <p-calendar name="dateStart"
+                            [(ngModel)]="interview.dateEnd"
+                            [showTime]="true"
+                            [required]="true"
+                            appendTo="body"
+                            placeholder="Введите дату и время"
+                ></p-calendar>
+            </div>
+
+        </div>
+    </form>
+
+    <p-footer>
+        <div class="flex justify-content-center">
+            <p-button icon="pi pi-check"
+                      (onClick)="onSubmit($event)"
+                      [disabled]="!f.valid"
+                      [label]="getSaveLabel()"
+                      styleClass="tiffany-button">
+            </p-button>
+        </div>
+    </p-footer>
+</p-dialog>

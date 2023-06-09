@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { ConfigService } from '../config/config.service';
 import { HttpClient } from '@angular/common/http';
 import { BaseService } from './base.service';
-import { VacancyRespond } from '../dto/VacancyRespond';
 import { firstValueFrom } from 'rxjs';
 import { VacancyWithVacancyRespond } from "../dto/VacancyWithVacancyRespond";
+import { Interview } from '../dto/Interview';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +18,14 @@ export class InviteService extends BaseService {
     super(configService);
   }
 
-  async inviteToInterview(vacancyRespond: VacancyRespond) {
+  async inviteToInterview(vacancyRespondId: number, interview: Interview) {   
     const url = await this.getBackendUrl();
-    return await firstValueFrom(this.http.post(url + '/invite/interview', vacancyRespond));
+    return await firstValueFrom(this.http.post(url + `/invite/interview/vacancy-respond/${vacancyRespondId}`, interview));
+  }
+
+  async getInterviewById(interviewId: number) {
+    const url = await this.getBackendUrl();
+    return await firstValueFrom(this.http.get<Interview>(url + `/invite/interview/${interviewId}`));
   }
 
   async sendOffer(vacancyWithVacancyRespond: VacancyWithVacancyRespond) {

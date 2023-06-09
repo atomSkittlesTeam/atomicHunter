@@ -16,4 +16,5 @@ public class VacancyRespondDto {
     private String email;
     private String fullName;
     private boolean interviewInviteAccepted;
+    private Long interviewId;
 }

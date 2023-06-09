@@ -10,8 +10,8 @@ import {MasterDetailDetailComponent} from "./tables/master-detail-detail/master-
 import {TreeDataComponent} from "./tables/tree-data/tree-data.component";
 import {RegistrationFormComponent} from "./registration-form/registration-form.component";
 import { VacancyComponent } from './tables/vacancy/vacancy.component';
-import {VacancyRequest} from "./dto/VacancyRequest";
-import {VacancyRequestComponent} from "./dialogs/vacancy-request/vacancy-request.component";
+import {Interview} from "./dto/Interview";
+import {VacancyRequestComponent} from "./dialogs/interview-dialog/interview-dialog.component";
 import {PasswordRecoverFormComponent} from "./password-recover-form/password-recover-form.component";
 
 const routes: Routes = [
@@ -19,9 +19,9 @@ const routes: Routes = [
     {path: 'login', component: LoginFormComponent},
     {path: 'registration', component: RegistrationFormComponent},
     {path: 'password-recover', component: PasswordRecoverFormComponent},
-    {path: 'admin', component: AdminComponent},
-    {path: 'vacancy', component: VacancyComponent},
-    {path: 'request', component: RequestComponent},
+    {path: 'admin', component: AdminComponent,canActivate: [AuthGuard]},
+    {path: 'vacancy', component: VacancyComponent,canActivate: [AuthGuard]},
+    {path: 'request', component: RequestComponent,canActivate: [AuthGuard]},
     {path: 'analytics', component: AnalyticsComponent},
     {path: '3ple', component: MasterDetailDetailComponent},
     {path: 'treeData', component: TreeDataComponent},

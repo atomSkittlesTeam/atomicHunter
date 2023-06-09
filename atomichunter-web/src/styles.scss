@@ -43,7 +43,6 @@ input, textarea {
 }
 
 
-
 .tiffany-button {
   background-color: var(--tiffany-color) !important;
   border: 1px solid var(--tiffany-color) !important;
@@ -54,7 +53,7 @@ input, textarea {
   }
 }
 
-.p-inputnumber-button-up{
+.p-inputnumber-button-up {
   background-color: white !important;
   color: var(--tiffany-color) !important;
   border: 1px solid #ced4da !important;
@@ -67,7 +66,8 @@ input, textarea {
 
   }
 }
-.p-inputnumber-button-down{
+
+.p-inputnumber-button-down {
   background-color: white !important;
   color: var(--tiffany-color) !important;
   border: 1px solid #ced4da !important;
@@ -79,6 +79,7 @@ input, textarea {
 
   }
 }
+
 .tiffany-button-secondary {
   background-color: white !important;
   color: var(--tiffany-color) !important;
@@ -154,7 +155,6 @@ dd {
 
 /* Выставляем основные настройки по-умолчанию для body */
 body {
-  height: 100vh;
   padding-top: 92px;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
@@ -191,8 +191,6 @@ body {
   text-align: center !important;
   padding: 10px !important;
 }
-
-
 
 
 b {

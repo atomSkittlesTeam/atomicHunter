@@ -8,6 +8,7 @@ import { interval } from "rxjs";
 import { User } from "./dto/User";
 import { NotificationService } from "./services/notification.service";
 import { UserDialogComponent } from "./dialogs/user-dialog/user-dialog.component";
+import {style} from "@angular/animations";
 
 
 @Component({
