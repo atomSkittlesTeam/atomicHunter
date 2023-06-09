@@ -78,6 +78,4 @@ export class RequestDialogComponent implements OnInit {
             });
         }
     }
-
-
 }

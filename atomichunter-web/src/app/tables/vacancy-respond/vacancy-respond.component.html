@@ -85,12 +85,12 @@
   (cellClicked)="onCellClicked($event)">
 </ag-grid-angular>
 
-<app-vacancy-request [openDialog]="openDialog"
+<app-interview-dialog [openDialog]="openDialog"
                      *ngIf="openDialog"
                      [editMode]="dialogEditMode"
                      [selectedVacancyRespond]="this.selectedVacancyRespond"
                      (submit)="onDialogSubmit($event)">
-</app-vacancy-request>
+</app-interview-dialog>
 
 <p-confirmDialog #cd [style]="{width: '50vw'}" key="vacancy-respond-archive">
   <ng-template pTemplate="header">

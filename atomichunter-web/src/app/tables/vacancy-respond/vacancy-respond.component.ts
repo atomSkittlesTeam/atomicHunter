@@ -62,7 +62,8 @@ export class VacancyRespondComponent {
         label: "Отклики",
         items: [
           {
-            label: "Отправить на собеседование",
+            label: this.selectedVacancyRespond && this.selectedVacancyRespond.interviewId 
+            ? "Редактировать приглашение" : "Пригласить на собеседование",
             disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id,
             icon: "pi pi-envelope",
             command: () => {
@@ -113,6 +114,13 @@ export class VacancyRespondComponent {
     { field: "vacancyId", headerName: "Номер вакансии", filter: "agTextColumnFilter" },
     { field: "coverLetter", headerName: "Сопроводительное письмо", filter: "agTextColumnFilter" },
     { field: "email", headerName: "Email", filter: "agTextColumnFilter" },
+    {
+      field: "interviewId",
+      headerName: "Приглашен на собеседование",
+      cellRenderer: (params: { value: any; }) => {
+        return `<input disabled="true" type="checkbox" ${params.value ? "checked" : ""} />`;
+      }
+    },
     {
       field: "interviewInviteAccepted",
       headerName: "Согласен на собеседование",
@@ -215,9 +223,12 @@ export class VacancyRespondComponent {
 
   async inviteToInterview() {
     this.openDialog = true;
-    this.dialogEditMode = false;
+    if (this.selectedVacancyRespond.interviewId) {
+      this.dialogEditMode = true;
+    } else {
+      this.dialogEditMode = false;
+    }
   }
-
 
   async sendOffer() {
     try {

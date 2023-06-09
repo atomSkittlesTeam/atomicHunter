@@ -2,16 +2,16 @@
 <p-dialog class="dialog" [header]="dialogTitle" [(visible)]="visible" [modal]="true"
           [style]="{height: '80vh',width: '50vw'}"
           (onHide)="closeDialog($event)">
-    <form #f="ngForm" name="vacancy" novalidate>
+    <form #f="ngForm" name="interview" novalidate>
         <div class="flex">
             <div class="p-inputgroup">
             <span class="p-inputgroup-addon">
                 <i class="pi pi-video"></i>
             </span>
                 <textarea
-                        [(ngModel)]="item.meetingUrl"
+                        [(ngModel)]="interview.meeting"
                         name="meetingUrl"
-                        placeholder="Ссылка на собрание"
+                        placeholder="Место собеседования"
                         [style]="{width: '100%'}"></textarea>
             </div>
 
@@ -20,10 +20,10 @@
                 <i class="pi pi-calendar"></i>
             </span>
                 <p-calendar name="dateStart"
-                            [(ngModel)]="item.dateStart"
+                            [(ngModel)]="interview.dateStart"
                             [showTime]="true"
                             appendTo="body"
-                            placeholder="Дата начала собрания"
+                            placeholder="Дата начала собеседования"
                 ></p-calendar>
             </div>
 
@@ -32,10 +32,10 @@
                 <i class="pi pi-calendar"></i>
             </span>
                 <p-calendar name="dateStart"
-                            [(ngModel)]="item.dateEnd"
+                            [(ngModel)]="interview.dateEnd"
                             [showTime]="true"
                             appendTo="body"
-                            placeholder="Дата окончания собрания"
+                            placeholder="Дата окончания собеседования"
                 ></p-calendar>
             </div>
 

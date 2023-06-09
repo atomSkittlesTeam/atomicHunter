@@ -58,7 +58,7 @@ import { RadioButtonModule } from "primeng/radiobutton";
 import { KnobModule } from "primeng/knob";
 import { InputNumberModule } from "primeng/inputnumber";
 import { VacancyRespondComponent } from './tables/vacancy-respond/vacancy-respond.component';
-import { VacancyRequestComponent } from './dialogs/vacancy-request/vacancy-request.component';
+import { VacancyRequestComponent } from './dialogs/interview-dialog/interview-dialog.component';
 import {SplitButtonModule} from "primeng/splitbutton";
 import { PasswordRecoverFormComponent } from './password-recover-form/password-recover-form.component';
 import { MenubarModule } from "primeng/menubar";

@@ -10,8 +10,8 @@ import {MasterDetailDetailComponent} from "./tables/master-detail-detail/master-
 import {TreeDataComponent} from "./tables/tree-data/tree-data.component";
 import {RegistrationFormComponent} from "./registration-form/registration-form.component";
 import { VacancyComponent } from './tables/vacancy/vacancy.component';
-import {VacancyRequest} from "./dto/VacancyRequest";
-import {VacancyRequestComponent} from "./dialogs/vacancy-request/vacancy-request.component";
+import {Interview} from "./dto/Interview";
+import {VacancyRequestComponent} from "./dialogs/interview-dialog/interview-dialog.component";
 import {PasswordRecoverFormComponent} from "./password-recover-form/password-recover-form.component";
 
 const routes: Routes = [
