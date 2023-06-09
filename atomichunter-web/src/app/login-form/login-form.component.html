@@ -1,8 +1,13 @@
 <div class="container">
   <div class="left-side">
+
     <div class="form-block">
+      <div class="logo">
+        <img ngSrc="../../assets/logo.svg" class="img1" alt="" height="200" width="200">
+
+      </div>
       <div class="form-block__container">
-        <div class="text block">{{title}}</div>
+        <div class="text block" style="color:#0ABAB5">{{title}}</div>
         <div class="block">
           <div class="col-12 md:col-4">
             <div class="p-inputgroup">
@@ -29,7 +34,7 @@
 
           <div class="button">
             <button
-              class="button"
+              class="button tiffany-button"
               [label]="'Войти'"
               pButton
               [disabled]="!user?.password || !user?.login"
@@ -40,14 +45,13 @@
           <div class="button">
             <button pButton pRipple [style]="{'height':'50px', 'width':'100%'}"
                     type="button" routerLink="/registration"
-                    label="Зарегистрироваться"
-                    class="p-button-raised p-button-success"></button>
+                    label="Регистрация"
+                    class="button tiffany-button-secondary"></button>
           </div>
           <div class="button">
-            <button pButton [style]="{'height':'50px', 'width':'100%', 'border':'none'}"
-                    label="Восстановить пароль"
+            <div
                     routerLink="/password-recover"
-                    class="p-button-outlined"></button>
+                    class="small-text-link">Забыли пароль?</div>
           </div>
         </div>
       </div>
