@@ -1,4 +1,4 @@
-![Atomic Hunter](./images/logo.png)
+![Atomic Hunter](./images/forReadme.svg)
 
 # Atomic Hunter
 Приложение для оптимизации найма специалистов. Разработано командой разработчиков ФГУП ВНИИА.
