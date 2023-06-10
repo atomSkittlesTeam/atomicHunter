@@ -20,6 +20,19 @@ Backend представлет собой сервис, разработанны
 
 Вся бизнес-логика системы реализована на данном уровне. Взаимодействие с сервисом осуществляется с помощью REST API посредством протокола HTTP. Сервис взаимодействует с СУБД с помощью библиотеки объектно-реляционного отображения Hibernate. Данное решение реализует технологию, которая «соединяет» программные сущности и соответствующие записи в базе. Для написания запросов к базе используется надстройка над Hibernate в виде библиотеки queryDsl. Данная библиотека позволяет писать с помощью языка программирования Java запросы к базе похожие на язык SQL.
 
+```mermaid
+  graph TD
+    subgraph "Atomic Hunter Rest Backend"
+    db[(Database)]
+    Controller --> Service
+      Hibernate --> queryDsl
+    Hibernate <--> db
+    Reader --> Controller
+    Service --> Hibernate
+    queryDsl --> Reader
+  end
+```
+
 ---
 ## Описание frontend
 Клиентское веб-приложение представляется собой SPA (Single Page Application), которое разработано с помощью фреймворка **Angular 15**. Angular является открытой и свободной платформой для разработки веб-приложений, написанной на языке **TypeScript**, разрабатываемая сообществом разработчиков из различных компаний. 
@@ -33,7 +46,38 @@ Backend представлет собой сервис, разработанны
 Данная система работает с помощью СУБД PostgreSQL.
 
 
-Вставить ER-диаграмму
+Структура данных разработана на основе ER-диаграммы представленной ниже.
+```mermaid
+  erDiagram
+      VACANCY ||--o{ VACANCY_RESPOND : has
+      VACANCY ||--|| POSITION : has
+      MATRIX_COMPETENCE ||--|| POSITION : has
+      MATRIX_COMPETENCE ||--|| COMPETENCE : has
+      VACANCY {
+          int id
+          int salary
+          string description
+          int positionId
+      }
+      VACANCY_RESPOND {
+          int id
+          string email
+      }
+      POSITION {
+          int id
+          string name
+      }
+      COMPETENCE {
+          int id
+          string name
+          string description
+      }
+      MATRIX_COMPETENCE {
+          int id
+          int position_id
+          int competence_ud
+      }
+```
 
 ---
 ## Масштабирование
