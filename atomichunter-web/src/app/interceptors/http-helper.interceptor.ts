@@ -32,11 +32,32 @@ export class HttpHelperInterceptor implements HttpInterceptor {
           } else {
               // 'This is server side error'
               if (error instanceof HttpErrorResponse) {
-                  this.messageService.add({
-                    severity: 'error',
-                    summary: `Ошибка код HTTP: ${error.status}`,
-                    detail:  `Произошла ошибка на сервере: ${error.message}`
-                  });
+                  switch(error.status) {
+                    case 500: {
+                      this.messageService.add({
+                        severity: 'error',
+                        summary: `Ошибка код HTTP: ${error.status}`,
+                        detail:  `Произошла ошибка на сервере: ${error.message}`
+                      });
+                      break;
+                    }
+                    case 404: {
+                      this.messageService.add({
+                        severity: 'error',
+                        summary: `Ошибка код HTTP: ${error.status}`,
+                        detail:  `Проверьте адрес обращения к серверу`
+                      });
+                      break;
+                    }
+                    case 0: {
+                      this.messageService.add({
+                        severity: 'error',
+                        summary: `Ошибка обращения к серверу`,
+                        detail:  `Сервер не запущен или указан неправильный путь`
+                      });
+                      break;
+                    }
+                  }
               }
               errorMsg = `Error Code: ${error.status},  Message: ${error.message}`;
           }
