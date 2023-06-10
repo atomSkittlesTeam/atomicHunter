@@ -84,6 +84,7 @@ export class AdminComponent implements OnInit {
             severity: 'success',
             summary: 'Успех!',
             detail: 'Пользователь отписан от телеграм-бота',
+            life: 5000
         });
         this.getAllUsersFromApi();
     }
@@ -118,13 +119,15 @@ export class AdminComponent implements OnInit {
                     severity: 'success',
                     summary: 'Успех!',
                     detail: 'Пользователь обновлён!',
+                    life: 5000
                 });
                 await this.getAllUsersFromApi();
             } catch(e: any) {
                 this.messageService.add({
                     severity: 'error',
                     summary: 'Ошибка!',
-                    detail: e.error.message
+                    detail: e.error.message,
+                    life: 5000
                 });
             }
         }

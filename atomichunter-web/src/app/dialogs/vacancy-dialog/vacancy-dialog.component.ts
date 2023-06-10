@@ -130,13 +130,15 @@ export class VacancyDialogComponent {
             this.messageService.add({
                 severity: "success",
                 summary: "Успех!",
-                detail: "Вакания создана"
+                detail: "Вакания создана",
+                life: 5000
             });
         } catch (e: any) {
             this.messageService.add({
                 severity: "error",
                 summary: "Ошибка...",
-                detail: e.error.message
+                detail: e.error.message,
+                life: 5000
             });
         } finally {
             this.loading = false;
@@ -150,13 +152,15 @@ export class VacancyDialogComponent {
             this.messageService.add({
                 severity: "success",
                 summary: "Успех!",
-                detail: "Вакансия обновлена"
+                detail: "Вакансия обновлена",
+                life: 5000
             });
         } catch (e: any) {
             this.messageService.add({
                 severity: "error",
                 summary: "Ошибка...",
-                detail: e.error.message
+                detail: e.error.message,
+                life: 5000
             });
         } finally {
             this.loading = false;

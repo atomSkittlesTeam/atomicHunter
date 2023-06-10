@@ -128,13 +128,15 @@ export class RequestPositionsComponent {
                         severity: 'success',
                         summary: 'Успех!',
                         detail: 'Позиция переведена в архив',
+                        life: 5000
                     });
                     await this.getAllRequestPositionsFromApi();
                 } catch (e: any) {
                     this.messageService.add({
                         severity: 'error',
                         summary: 'Ошибка...',
-                        detail: e.error.message
+                        detail: e.error.message,
+                        life: 5000
                     });
                 }
             },

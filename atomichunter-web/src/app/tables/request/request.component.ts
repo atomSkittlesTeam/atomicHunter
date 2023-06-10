@@ -152,13 +152,15 @@ export class RequestComponent implements OnInit  {
                         severity: 'success',
                         summary: 'Успех!',
                         detail: 'Позиция переведена в архив',
+                        life: 5000
                     });
                     await this.getAllRequestsFromApi();
                 } catch (e: any) {
                     this.messageService.add({
                         severity: 'error',
                         summary: 'Ошибка...',
-                        detail: e.error.message
+                        detail: e.error.message,
+                        life: 5000
                     });
                 }
             },

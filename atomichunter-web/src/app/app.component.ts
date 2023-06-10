@@ -153,7 +153,8 @@ export class AppComponent implements OnInit {
       this.messageService.add({
         severity: "error",
         summary: "Ошибка...",
-        detail: e.error.message
+        detail: e.error.message,
+        life: 5000
       });
     }
   }

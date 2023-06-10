@@ -29,7 +29,11 @@ export class NotificationService extends BaseService {
         try {
             user = await this.userService.getUser();
         } catch (e: any) {
-            this.messageService.add({severity: "error", summary: "Ошибка...", detail: e.error.message});
+            this.messageService.add({severity: "error", 
+            summary: "Ошибка...", 
+            detail: e.error.message,
+            life: 5000
+        });
         } finally {
             if (user != null) {
                 newMessages = await firstValueFrom(this.http.get<Message[]>(url + `/messages/new-messages/${user.login}`));
