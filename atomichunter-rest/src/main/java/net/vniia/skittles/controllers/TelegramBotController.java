@@ -74,10 +74,6 @@ public class TelegramBotController extends TelegramLongPollingBot {
                         String response = telegramBotService.commandShowHelp(message, userIsNotAuthorized, subscriber);
                         sendMsg(message, response);
                     }
-                    case "/joke" -> {
-                        String response = telegramBotService.commandJoke(message);
-                        sendMsg(message, response);
-                    }
                     case "/user" -> {
                         String response = telegramBotService.commandUser(message, subscriber);
                         sendMsg(message, response);
@@ -153,24 +149,6 @@ public class TelegramBotController extends TelegramLongPollingBot {
             throw new RuntimeException(e);
         }
     }
-
-//    public void setButtons(SendMessage sendMessage) {
-//        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-//        sendMessage.setReplyMarkup(replyKeyboardMarkup);
-//        replyKeyboardMarkup.setSelective(true);
-//        replyKeyboardMarkup.setResizeKeyboard(true);
-//        replyKeyboardMarkup.setOneTimeKeyboard(false);
-//
-//        List<KeyboardRow> keyboardRowList = new ArrayList<>();
-//        KeyboardRow keyboardSupplyRow = new KeyboardRow();
-//        keyboardSupplyRow.add(new KeyboardButton("/help"));
-//        keyboardSupplyRow.add(new KeyboardButton("/test"));
-//        keyboardRowList.add(keyboardSupplyRow);
-//        KeyboardRow keyboardJokeRow = new KeyboardRow();
-//        keyboardJokeRow.add(new KeyboardButton("/joke"));
-//        keyboardRowList.add(keyboardJokeRow);
-//        replyKeyboardMarkup.setKeyboard(keyboardRowList);
-//    }
 
     private void inputNumber(Message message) {
         List<String> messageParts = Arrays.stream(message.getText().split(" ")).toList();

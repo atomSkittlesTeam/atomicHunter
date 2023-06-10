@@ -7,7 +7,6 @@ import net.vniia.skittles.dto.TelegramCommandDto;
 import net.vniia.skittles.entities.*;
 import net.vniia.skittles.enums.TelegramMailingType;
 import net.vniia.skittles.repositories.*;
-import net.vniia.skittles.templates.JokesTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -78,14 +77,6 @@ public class TelegramBotService {
                     + " message: " + messageToSaving;
             loggingAndSavingChatHistory(messageToLogging, message, messageToSaving);
         }
-        return messageToTelegramChat;
-    }
-
-    public String commandJoke(Message message) {
-        String messageToTelegramChat;
-        Random random = new Random();
-        messageToTelegramChat = JokesTemplate.allJokes.get(random.nextInt(0, JokesTemplate.allJokes.size()));
-        loggingAndSavingChatHistory(standardMessageToLogging(message), message, null);
         return messageToTelegramChat;
     }
 

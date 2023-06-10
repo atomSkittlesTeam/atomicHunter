@@ -132,7 +132,7 @@ export class VacancyComponent {
                     summary: 'Успех!',
                     detail: 'Вакансия переведена в архив',
                 });
-                // await this.getAllVacanciesFromApi();
+                await this.getAllVacanciesFromApi();
             } catch (e: any) {
                 this.messageService.add({
                     severity: 'error',

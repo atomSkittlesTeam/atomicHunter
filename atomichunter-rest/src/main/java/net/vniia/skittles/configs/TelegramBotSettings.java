@@ -25,9 +25,6 @@ public class TelegramBotSettings {
             new TelegramCommandDto("/login",
                     "Залогиниться в чат-боте. Введите /login Логин Пароль' через пробел",
                     null, true, false),
-//            new TelegramCommandDto("/joke",
-//                    "Показать юмореску",
-//                    null, false, true),
             new TelegramCommandDto("/user",
                     "Команда, доступная всем ролям",
                     null, false, true),
@@ -38,15 +35,6 @@ public class TelegramBotSettings {
                     "Команда, видимая и доступная админу и шефу",
                     List.of("admin", "chief"), false, true)
     );
-
-    //deprecated
-//    public static Map<String, String> commandsWithDescription = new HashMap<>(
-//            Map.of("/help", "Вызов доступных команд",
-//                    "/login", "Залогиниться в чат-боте. Введите /login Логин Пароль' через пробел",
-//                    "/joke", "Показать юмореску",
-//                    "/test", "Введите '/test число' через запятую. Затем ничего не произойдет"
-//                    ));
-
 
 
 }
