@@ -39,7 +39,7 @@
                           placeholder="Введите доп. информацию" pInputTextarea></textarea>
             </div>
 
-            <span class="fail" *ngIf="isInvalidSumWeight()" style="color:red"> Общий вес должен быть равен 100</span>
+            <span class="fail" *ngIf="isInvalidSumWeight()" style="color:red"> Общий вес должен быть равен {{this.competenceWeightMaxSum}}</span>
 
             <div class="personal-skills">
 
@@ -52,6 +52,14 @@
                             label="Компетенция"
                             styleClass="tiffany-button"
                             (click)="openSidebarWithAllSkills()"
+                    >
+                    </p-button>
+                    <p-button
+                      icon="pi pi-calculator"
+                      pTooltip="Довести общую сумму весов до 100"
+                      label="Нормировать веса"
+                      styleClass="tiffany-button"
+                      (click)="setCompetenceWeightSumToMax()"
                     >
                     </p-button>
                     <span class="personal-skills__text">Общий вес: {{sum}}</span>
@@ -70,7 +78,7 @@
                         </div>
                         <div class="skills__weight">
                             <p-inputNumber [(ngModel)]="skill.weight" [min]=0 [max]=100
-                                           name="weight" [required]=true
+                                           [name]="'weight' + skill?.competence?.id" [required]=true
                                            [showButtons]="true"></p-inputNumber>
                         </div>
                     </div>
@@ -92,13 +100,13 @@
 <p-sidebar [(visible)]="showSidebarWithAllSkills" *ngIf="showSidebarWithAllSkills" position="right">
     <div class="container">
         <h1>Список всех навыков</h1>
-        <div class="main-block" *ngFor="let competence of competencesAll; let idex = index">
+        <div class="main-block" *ngFor="let competence of competencesAll; let index = index">
             <div class="main-block__title">{{competence.name}}</div>
             <div class="main-block__add">
                 <p-button
                         icon="pi pi-plus"
                         styleClass="p-button-outlined p-button-help"
-                        (onClick)="pushNewSkill(idex)">
+                        (onClick)="pushNewSkill(index)">
                 </p-button>
             </div>
         </div>

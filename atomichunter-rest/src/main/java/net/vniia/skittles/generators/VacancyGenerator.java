@@ -104,19 +104,21 @@ public class VacancyGenerator {
         if (generatorVacancyRespondOnlineEnable) {
             Random random = new Random();
             List<Long> vacancyIds = vacancyRepository.findAll().stream().map(Vacancy::getId).toList();
-            int vacancyIndex = random.nextInt(0, vacancyIds.size());
-            VacancyRespond vacancyRespond = new VacancyRespond(
-                    (long) 0, //id - автогенерируется, здесь как заглушка для allArgs
-                    (long) vacancyIds.get(vacancyIndex), //vacancyId
-                    String.valueOf(VacancyTemplate.allVacancyRespondCoverLetter
-                            .get(random.nextInt(0, VacancyTemplate.allVacancyRespondCoverLetter.size()))), //cover letter,
-                    String.valueOf(VacancyTemplate.allVacancyRespondPaths
-                            .get(random.nextInt(0, VacancyTemplate.allVacancyRespondPaths.size()))), //path to resume
-                    false,
-                    "rogbond@mail.ru",
-                    String.valueOf(VacancyTemplate.allVacancyRespondFullNames
-                            .get(random.nextInt(0, VacancyTemplate.allVacancyRespondFullNames.size())))); //fullname
-            vacancyRespondRepository.saveAndFlush(vacancyRespond);
+            if (vacancyIds.size() > 0) {
+                int vacancyIndex = random.nextInt(0, vacancyIds.size());
+                VacancyRespond vacancyRespond = new VacancyRespond(
+                        (long) 0, //id - автогенерируется, здесь как заглушка для allArgs
+                        (long) vacancyIds.get(vacancyIndex), //vacancyId
+                        String.valueOf(VacancyTemplate.allVacancyRespondCoverLetter
+                                .get(random.nextInt(0, VacancyTemplate.allVacancyRespondCoverLetter.size()))), //cover letter,
+                        String.valueOf(VacancyTemplate.allVacancyRespondPaths
+                                .get(random.nextInt(0, VacancyTemplate.allVacancyRespondPaths.size()))), //path to resume
+                        false,
+                        "rogbond@mail.ru",
+                        String.valueOf(VacancyTemplate.allVacancyRespondFullNames
+                                .get(random.nextInt(0, VacancyTemplate.allVacancyRespondFullNames.size())))); //fullname
+                vacancyRespondRepository.saveAndFlush(vacancyRespond);
+            }
         }
     }
 }

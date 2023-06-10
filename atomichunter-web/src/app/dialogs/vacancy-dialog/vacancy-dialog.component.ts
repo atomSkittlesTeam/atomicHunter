@@ -36,6 +36,8 @@ export class VacancyDialogComponent {
     positions: Position[] = [];
     value: any;
 
+    competenceWeightMaxSum = 100; //todo МБ статиком куда-нибудь вынести?
+
 
     get sum(): number {
         return this.weightSum();
@@ -114,13 +116,17 @@ export class VacancyDialogComponent {
 
     pushNewSkill(idx: number) {
         let pickedSkill: Competence = this.competencesAll[idx];
-        this._item.competenceWeight = [];
-        let newArray = this.competences;
-        if (!(newArray.find(com => com.id === pickedSkill.id))) {
-            newArray.push(pickedSkill);
+        if (this._item.competenceWeight == null) {
+            this._item.competenceWeight = [];
         }
-        this.competences = newArray;
-        this.competences.map(comp => this._item.competenceWeight.push(new CompetenceWeight(comp, 10)));
+        if (!(this.competences.find(com => com.id === pickedSkill.id))) {
+            this.competences.push(pickedSkill);
+        }
+        this.competences.map(comp => {
+            if (!this._item.competenceWeight.map(e => e.competence.id).includes(comp.id)) {
+                this._item.competenceWeight.push(new CompetenceWeight(comp, 10));
+            }
+        });
     }
 
     async createVacancy(vacancy: Vacancy) {
@@ -183,7 +189,7 @@ export class VacancyDialogComponent {
     }
 
     isInvalidSumWeight(): boolean {
-        return this.sum != 100;
+        return this.sum != this.competenceWeightMaxSum;
     }
 
     deleteSkill(id: number) {
@@ -191,5 +197,23 @@ export class VacancyDialogComponent {
             .filter(e => e.competence.id !== id);
 
         this.competences = this.competences.filter(e => e.id !== id);
+    }
+
+    setCompetenceWeightSumToMax() {
+        let normalizationCoefficient = (this.competenceWeightMaxSum / this.sum); //на него умножаем каждый вес
+        this._item.competenceWeight.map(e => {
+            e.weight = Math.round(e.weight * normalizationCoefficient);
+        });
+        if (this.sum > this.competenceWeightMaxSum) {
+            this.roundingWeightsToMaxSum(this.sum - this.competenceWeightMaxSum, true);
+        } else if (this.sum < this.competenceWeightMaxSum) {
+            this.roundingWeightsToMaxSum(this.competenceWeightMaxSum - this.sum, false);
+        }
+    }
+
+    roundingWeightsToMaxSum(differenceCurrentAndMax: number, isHigher: boolean) {
+        for(let i = 0; i < differenceCurrentAndMax; i++) {
+            this._item.competenceWeight[i].weight += isHigher ? -1 : 1;
+        }
     }
 }
