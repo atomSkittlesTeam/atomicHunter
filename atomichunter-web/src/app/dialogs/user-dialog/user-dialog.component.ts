@@ -81,7 +81,10 @@ export class UserDialogComponent implements OnInit {
     } finally {
       if (success) {
         this.messageService.add({
-          severity: "success", summary: "Сохранено", detail: "Пароль обновлен"
+          severity: "success", 
+          summary: "Сохранено",
+          detail: "Пароль обновлен", 
+          life: 5000
         });
         this.closeDialog();
         await this.router.navigate(['/login']);
@@ -89,7 +92,10 @@ export class UserDialogComponent implements OnInit {
         this.userService.logout();
       } else {
         this.messageService.add({
-          severity: "error", summary: "Ошибка", detail: "Введенный пароль неправильный"
+          severity: "error", 
+          summary: "Ошибка", 
+          detail: "Введенный пароль неправильный",
+          life: 5000
         });
       }
     }

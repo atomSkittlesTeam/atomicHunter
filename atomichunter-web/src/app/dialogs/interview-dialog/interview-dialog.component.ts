@@ -44,13 +44,15 @@ export class VacancyRequestComponent {
       this.messageService.add({
         severity: "success",
         summary: "Успех!",
-        detail: "Приглашение на собеседование отправлено!"
+        detail: "Приглашение на собеседование отправлено!",
+        life: 5000
       });
     } catch (e: any) {
       this.messageService.add({
         severity: "error",
         summary: "Ошибка...",
-        detail: e.error.message
+        detail: e.error.message,
+        life: 5000
       });
     }
     this.submit.emit($event);

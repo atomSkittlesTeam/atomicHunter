@@ -52,6 +52,7 @@ export class PasswordRecoverFormComponent {
         severity: 'success',
         summary: 'Успешно',
         detail: 'Письмо отправлено',
+        life: 5000
       });
       this.incrementOrDecrementPasswordRecoverState(true);
     } catch (e) {
@@ -59,6 +60,7 @@ export class PasswordRecoverFormComponent {
         severity: 'error',
         summary: 'Ошибка',
         detail: 'Не найдена учетная запись с введенным email',
+        life: 5000
       });
     } finally {
       // this.incrementOrDecrementPasswordRecoverState(true);
@@ -72,6 +74,7 @@ export class PasswordRecoverFormComponent {
         severity: 'success',
         summary: 'Успешно',
         detail: 'Код восстановления введен верно',
+        life: 5000
       });
       this.incrementOrDecrementPasswordRecoverState(true);
     } catch (e) {
@@ -79,6 +82,7 @@ export class PasswordRecoverFormComponent {
         severity: 'error',
         summary: 'Ошибка',
         detail: 'Код восстановления введен неверно, либо устарел',
+        life: 5000
       });
     } finally {
       // this.incrementOrDecrementPasswordRecoverState(true);
@@ -92,12 +96,14 @@ export class PasswordRecoverFormComponent {
         severity: 'success',
         summary: 'Успешно',
         detail: 'Пароль успешно изменен',
+        life: 5000
       });
     } catch (e) {
       this.messageService.add({
         severity: 'error',
         summary: 'Ошибка',
         detail: 'Произошла ошибка сохранения пароля',
+        life: 5000
       });
     } finally {
       await this.router.navigate(['/login']);

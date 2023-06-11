@@ -23,6 +23,7 @@ export class RegistrationFormComponent {
       severity: 'error',
       summary: 'Ошибка регистрации',
       detail: 'Произошла ошибка Регистрации',
+      life: 5000
     }))
   }
 }

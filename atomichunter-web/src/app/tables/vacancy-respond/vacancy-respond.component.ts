@@ -197,14 +197,16 @@ export class VacancyRespondComponent {
           this.messageService.add({
             severity: "success",
             summary: "Успех!",
-            detail: "Позиция переведена в архив"
+            detail: "Позиция переведена в архив",
+            life: 5000
           });
           await this.getRespondByVacancyIdFromApi();
         } catch (e: any) {
           this.messageService.add({
             severity: "error",
             summary: "Ошибка...",
-            detail: e.error.message
+            detail: e.error.message,
+            life: 5000
           });
         }
       },
@@ -239,14 +241,16 @@ export class VacancyRespondComponent {
       this.messageService.add({
         severity: "success",
         summary: "Успех!",
-        detail: "Оффер отправлен!"
+        detail: "Оффер отправлен!",
+        life: 5000
       });
       await this.getRespondByVacancyIdFromApi();
     } catch (e: any) {
       this.messageService.add({
         severity: "error",
         summary: "Ошибка...",
-        detail: e.error.message
+        detail: e.error.message,
+        life: 5000
       });
     }
   }

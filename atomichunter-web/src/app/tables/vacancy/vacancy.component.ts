@@ -131,13 +131,15 @@ export class VacancyComponent {
                     severity: 'success',
                     summary: 'Успех!',
                     detail: 'Вакансия переведена в архив',
+                    life: 5000
                 });
                 await this.getAllVacanciesFromApi();
             } catch (e: any) {
                 this.messageService.add({
                     severity: 'error',
                     summary: 'Ошибка...',
-                    detail: e.error.message
+                    detail: e.error.message,
+                    life: 5000
                 });
             }
         },

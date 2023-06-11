@@ -56,12 +56,14 @@ export class RequestPositionDialogComponent {
             severity: "success",
             summary: "Успех!",
             detail: "Позиция заказа заведена",
+            life: 5000
         });
     } catch (e: any) {
         this.messageService.add({
             severity: "error",
             summary: "Ошибка...",
             detail: e.error.message,
+            life: 5000
         });
     }
   }
@@ -73,12 +75,14 @@ export class RequestPositionDialogComponent {
             severity: "success",
             summary: "Успех!",
             detail: "Позиция заказа обновлена",
+            life: 5000
         });
     } catch (e: any) {
         this.messageService.add({
             severity: "error",
             summary: "Ошибка...",
             detail: e.error.message,
+            life: 5000
         });
     }
   }

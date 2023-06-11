@@ -37,7 +37,8 @@ export class HttpHelperInterceptor implements HttpInterceptor {
                       this.messageService.add({
                         severity: 'error',
                         summary: `Ошибка код HTTP: ${error.status}`,
-                        detail:  `Произошла ошибка на сервере: ${error.message}`
+                        detail:  `Произошла ошибка на сервере: ${error.message}`,
+                        life: 5000
                       });
                       break;
                     }
@@ -45,7 +46,8 @@ export class HttpHelperInterceptor implements HttpInterceptor {
                       this.messageService.add({
                         severity: 'error',
                         summary: `Ошибка код HTTP: ${error.status}`,
-                        detail:  `Проверьте адрес обращения к серверу`
+                        detail:  `Проверьте адрес обращения к серверу`,
+                        life: 5000
                       });
                       break;
                     }
@@ -53,7 +55,8 @@ export class HttpHelperInterceptor implements HttpInterceptor {
                       this.messageService.add({
                         severity: 'error',
                         summary: `Ошибка обращения к серверу`,
-                        detail:  `Сервер не запущен или указан неправильный путь`
+                        detail:  `Сервер не запущен или указан неправильный путь`,
+                        life: 5000
                       });
                       break;
                     }

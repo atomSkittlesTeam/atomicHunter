@@ -1,5 +1,9 @@
-# Atomic Hunter Application
-Application for HR for all!
-Developed by VNIIA Skittles Team.
+![Atomic Hunter](./images/forReadme.svg)
 
-deploy.md - инструкция по развёртке системы
+# Atomic Hunter
+Приложение для оптимизации найма специалистов. Разработано командой разработчиков ФГУП ВНИИА.
+
+---
+
+[Инструкция по развёртке](DEPLOY.md)  
+[Техническое описание](TECHDESCRIPTION.md)
