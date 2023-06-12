@@ -102,44 +102,44 @@ Backend представлет собой сервис, разработанны
 ```mermaid
   graph TB
 
-    ng[[nginx proxy]]
-    id1[[Hibernate]]
-    id2[[Cache Manager]]
-    id3[[Hikari Pool]]
-    id4[[Hibernate]]
-    id5[[Cache Manager]]
-    id6[[Hikari Pool]]
-    pgb[[PgBouncer]]
-    c1[[Controller]]
-    c2[[Controller]]
-    db[(Database)]
+      ng[[nginx proxy]]
+      id1[[Hibernate]]
+      id2[[Cache Manager]]
+      id3[[Hikari Pool]]
+      id4[[Hibernate]]
+      id5[[Cache Manager]]
+      id6[[Hikari Pool]]
+      pgb[[PgBouncer]]
+      c1[[Controller]]
+      c2[[Controller]]
+      db[(Database)]
 
-  subgraph "Atomic Hunter Backend"
+    subgraph "Atomic Hunter Backend"
 
-  HTTP --> ng
-  ng --> c1
-  ng --> c2  
+    HTTP --> ng
+    ng --> c1
+    ng --> c2  
 
-  subgraph "Java Service 1"
-  c1 --> id1
-  id1 --> id2
-  id2 --> id3 
+    subgraph "Java Service 1"
+    c1 --> id1
+    id1 --> id2
+    id2 --> id3 
+    end
+
+    subgraph "Java Service 2"
+    c2 --> id4
+    id4 --> id5
+    id5 --> id6 
+    end
+
+    subgraph "Database"
+    pgb --> db  
+    end
+
+    id3 --> pgb
+    id6 --> pgb
+    
   end
-
-  subgraph "Java Service 2"
-  c2 --> id4
-  id4 --> id5
-  id5 --> id6 
-  end
-
-  subgraph "Database"
-  pgb --> db  
-  end
-
-  id6 --> pgb
-  id3 --> pgb
-
- end
  
 ```
 
