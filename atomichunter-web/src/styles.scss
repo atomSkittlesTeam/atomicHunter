@@ -121,6 +121,11 @@ input, textarea {
   background-color: var(--main1) !important;
 }
 
+.required-mark {
+  color: red;
+  font-weight: bold;
+}
+
 /* Указываем box sizing */
 *,
 *::before,

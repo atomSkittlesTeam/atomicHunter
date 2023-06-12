@@ -117,6 +117,9 @@
           width: 80px !important;
         }
       }
+      .personal-skills__toolbar {
+        flex-direction: column;
+      }
     }
   }
 }

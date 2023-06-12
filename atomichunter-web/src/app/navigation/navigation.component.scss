@@ -5,6 +5,7 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  position: relative;
   &__buttons {
     flex-direction: row;
     gap: 10px;
@@ -26,6 +27,13 @@
   button {
     padding: 30px;
   }
+}
+
+.hello-text {
+  font-size: 20px;
+  font-weight: lighter;
+  padding: 10px;
+
 }
 
 @media only screen and (max-width: 900px) {
