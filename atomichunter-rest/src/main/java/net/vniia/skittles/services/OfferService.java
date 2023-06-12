@@ -71,7 +71,7 @@ public class OfferService {
         document.add(new Paragraph("Дата: " + LocalDate.now()).setFont(font));
 
         document.add(new Paragraph(
-                "Компания «AtomicHunter» хотела бы предложить Вам занять должность " + vacancy.getPosition().getName()
+                "Компания «Атомпродукт» хотела бы предложить Вам занять должность " + vacancy.getPosition().getName()
                 + " на следующих условиях: ваш ежемесячный оклад будет составлять " + vacancy.getSalary() + " рублей. "
                 + "Дата начала действия трудового договора – открытая дата.").setFont(font)
                 .setTextAlignment(TextAlignment.JUSTIFIED));
@@ -82,6 +82,18 @@ public class OfferService {
         document.add(new Paragraph("Ваш вклад в развитие Компании будет оцениваться руководством по следующим критериям:").setFont(font));
         document.add(new Paragraph("1) Решение задач, входящих в непосредственную зону Вашей ответственности;").setFont(font));
         document.add(new Paragraph("2) Вклад в развитие Компании в целом.").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+
 
         Table twoColTable = new Table(twoColumnWidth);
         twoColTable.addCell(getBoldTitleCell("Директор").setFont(font));
@@ -109,12 +121,12 @@ public class OfferService {
                                         User currentUser, UserDto currentHR)
             throws IOException, MessagingException {
         String path = this.createPdf(vacancyWithVacancyRespondDto, currentUser, currentHR);
-        this.emailService.sendEmailWithAttachment(
-                        vacancyWithVacancyRespondDto.getVacancyRespond().getEmail(),
-                "Оффер",
-                "Здравствуйте! Компания Atomic Hunter высылает вам оффер",
-                path
-        );
+//        this.emailService.sendEmailWithAttachment(
+//                        vacancyWithVacancyRespondDto.getVacancyRespond().getEmail(),
+//                "Оффер",
+//                "Здравствуйте! Компания Atomic Hunter высылает вам оффер",
+//                path
+//        );
     }
 
     private void createFolder() {

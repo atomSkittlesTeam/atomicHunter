@@ -4,7 +4,7 @@
     <form #f="ngForm" name="vacancy" novalidate>
         <div class="flex" [class.formDisabled] = "loading">
             <div class="p-inputgroup">
-                <span class="p-inputgroup-addon" style="width: 120px">Должность</span>
+                <span class="p-inputgroup-addon" style="width: 120px">Должность <span class="required-mark">*</span> </span>
                 <p-dropdown [options]="positions"
                             appendTo="body"
                             [(ngModel)]="item.position"
@@ -16,7 +16,7 @@
 
             <div class="p-inputgroup">
 
-                <span class="p-inputgroup-addon" style="width: 120px">Зарплата</span>
+                <span class="p-inputgroup-addon" style="width: 120px">Зарплата <span class="required-mark">*</span></span>
                 <input [(ngModel)]="item.salary" required
                        name="salary"
                        type="number"
@@ -24,14 +24,14 @@
             </div>
 
             <div class="p-inputgroup">
-                <span class="p-inputgroup-addon" style="width: 120px">Опыт работы</span>
+                <span class="p-inputgroup-addon" style="width: 120px">Опыт работы </span>
                 <input [(ngModel)]="item.experience"
                        name="experience"
                        placeholder="Введите требуемый опыт работы" pInputText/>
             </div>
 
             <div class="p-inputgroup">
-                <span class="p-inputgroup-addon" style="width: 120px">Описание</span>
+                <span class="p-inputgroup-addon" style="width: 120px">Описание <span class="required-mark">*</span></span>
 
                 <textarea [(ngModel)]="item.additional" required
                           [autoResize]="true"
