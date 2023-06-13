@@ -121,12 +121,12 @@ public class OfferService {
                                         User currentUser, UserDto currentHR)
             throws IOException, MessagingException {
         String path = this.createPdf(vacancyWithVacancyRespondDto, currentUser, currentHR);
-//        this.emailService.sendEmailWithAttachment(
-//                        vacancyWithVacancyRespondDto.getVacancyRespond().getEmail(),
-//                "Оффер",
-//                "Здравствуйте! Компания Atomic Hunter высылает вам оффер",
-//                path
-//        );
+        this.emailService.sendEmailWithAttachment(
+                        vacancyWithVacancyRespondDto.getVacancyRespond().getEmail(),
+                "Оффер",
+                "Здравствуйте! Компания Atomic Hunter высылает вам оффер",
+                path
+        );
     }
 
     private void createFolder() {
