@@ -3,7 +3,9 @@ package net.vniia.skittles.controllers;
 
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.PasswordChangeRequestDto;
+import net.vniia.skittles.dto.StaffUnitDto;
 import net.vniia.skittles.dto.UserDto;
+import net.vniia.skittles.integration.OrgStructIntegrationService;
 import net.vniia.skittles.services.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -23,6 +25,8 @@ public class UserController {
 
     private final UserService userService;
     private final TelegramBotController telegramBotController;
+
+    private final OrgStructIntegrationService orgStructIntegrationService;
 
     @GetMapping("all")
     public List<UserDto> getAllUsers() {
@@ -95,4 +99,10 @@ public class UserController {
     public Boolean saveNewPassword(@RequestBody String newPassword) {
         return true;
     }
+
+    @GetMapping("staff")
+    public List<StaffUnitDto> getAllStaffUnits() {
+        return this.orgStructIntegrationService.getAllStaffUnits();
+    }
+
 }

@@ -89,7 +89,7 @@ public class VacancyGenerator {
                         String.valueOf(VacancyTemplate.allVacancyRespondPaths
                                 .get(random.nextInt(0, VacancyTemplate.allVacancyRespondPaths.size()))), //path to resume
                         false,
-                        "rogbond@mail.ru",
+                        "artemsrv@ya.ru",
                         String.valueOf(VacancyTemplate.allVacancyRespondFullNames
                                 .get(random.nextInt(0, VacancyTemplate.allVacancyRespondFullNames.size())))); //fullname
                 vacancyRespondList.add(vacancyRespond);
