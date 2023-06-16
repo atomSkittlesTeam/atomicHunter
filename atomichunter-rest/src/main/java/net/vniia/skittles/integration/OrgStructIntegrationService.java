@@ -1,6 +1,7 @@
 package net.vniia.skittles.integration;
 
 import lombok.extern.log4j.Log4j2;
+import net.vniia.skittles.configs.OrgStructIntegrationHelper;
 import net.vniia.skittles.dto.StaffUnitDto;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +23,8 @@ public class OrgStructIntegrationService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
+    private final OrgStructIntegrationHelper helper = new OrgStructIntegrationHelper();
+
     @Value("${remoteService.url}")
     private String remoteServiceUrl;
 
@@ -31,7 +34,7 @@ public class OrgStructIntegrationService {
                 .build(false)
                 .toUriString();
 
-        HttpHeaders headers = createHeaders();
+        HttpHeaders headers = helper.createHeaders();
 
         HttpEntity<StaffUnitDto[]> request = new HttpEntity<StaffUnitDto[]>(headers);
         ResponseEntity<StaffUnitDto[]> response = restTemplate.exchange(url, HttpMethod.GET, request, StaffUnitDto[].class);
