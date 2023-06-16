@@ -4,11 +4,11 @@
         <nav>
             <p-button icon="pi pi-sync"
                       styleClass="p-button-rounded p-button-warning p-button-outlined"
-                      (click)="getAllVacanciesFromApi()">
+                      (click)="getAllStaffUnitsFromApi()">
             </p-button>
 
 
-            
+
             <p-button
                     icon="pi pi-filter"
                     styleClass="p-button-outlined p-button-warning"
@@ -23,14 +23,8 @@
             <p-button
                     icon="pi pi-pencil"
                     styleClass="p-button-outlined p-button-help"
-                    [disabled]="!selectedVacancy"
+                    [disabled]="!selectedStaff"
                     (onClick)="updateVacancy()">
-            </p-button>
-            <p-button
-                    icon="pi pi-trash"
-                    styleClass="p-button-outlined p-button-danger"
-                    [disabled]="!selectedVacancy"
-                    (onClick)="archiveVacancy()">
             </p-button>
 
             <p-checkbox
@@ -60,15 +54,9 @@
             (cellClicked)="onCellClicked($event)">
     </ag-grid-angular>
 
-    <app-vacancy-respond [vacancy]="selectedVacancy" (pdfResume)="this.pdfResumeAssign($event)"
-                         class="vacancy-respond"></app-vacancy-respond>
-
-<!--    <app-vacancy-dialog [openDialog]="openDialog"-->
-<!--                        *ngIf="openDialog"-->
-<!--                        [item]="selectedVacancy"-->
-<!--                        [editMode]="dialogEditMode"-->
-<!--                        (submit)="onDialogSubmit($event)">-->
-<!--    </app-vacancy-dialog>-->
+<!--    <app-vacancy-respond [vacancy]="selectedStaff" (pdfResume)="this.pdfResumeAssign($event)"-->
+<!--                         class="vacancy-respond"></app-vacancy-respond>-->
+<!--    -->
 
 
     <p-confirmDialog #cd [style]="{width: '50vw'}" key="vacancy-archive">

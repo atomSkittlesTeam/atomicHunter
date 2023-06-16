@@ -2,11 +2,11 @@ import {Component, ViewChild} from '@angular/core';
 import {CellClickedEvent, ColDef} from "ag-grid-community";
 import {LoadingCellRendererComponent} from "../../platform/loading-cell-renderer/loading-cell-renderer.component";
 import {AgGridAngular} from "ag-grid-angular";
-import {VacancyService} from "../../services/vacancy.service";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {StaffUnitDto} from "../../dto/StaffUnitDto";
+import {StaffUnitService} from "../../services/staff-unit.service";
 
 @Component({
     selector: 'app-staff-unit',
@@ -57,7 +57,7 @@ export class StaffUnitComponent {
         '<span class="ag-overlay-loading-center">Скоро все появится, подождите еще немного...</span>';
 
 
-    constructor(public vacancyService: VacancyService,
+    constructor(public staffUnitService: StaffUnitService,
                 public router: Router,
                 public http: HttpClient,
                 private confirmationService: ConfirmationService,
@@ -86,6 +86,12 @@ export class StaffUnitComponent {
         }
     }
 
+    async getAllStaffUnitsFromApi() {
+        this.agGrid.api.showLoadingOverlay();
+        this.rowData = await this.staffUnitService.getStaffUnits();
+        this.loading = false;
+    }
+
     createVacancy() {
         this.openDialog = true;
         this.dialogEditMode = false
@@ -98,32 +104,6 @@ export class StaffUnitComponent {
         }
     }
 
-    archiveVacancy() {
-        this.confirmationService.confirm({
-            key: "vacancy-archive",
-            message: 'Отправить позицию в архив?',
-            accept: async () => {
-                try {
-                    await this.vacancyService.archiveVacancy(this.selectedStaff.id);
-                    this.messageService.add({
-                        severity: 'success',
-                        summary: 'Успех!',
-                        detail: 'Вакансия переведена в архив',
-                    });
-                    // await this.getAllVacanciesFromApi();
-                } catch (e: any) {
-                    this.messageService.add({
-                        severity: 'error',
-                        summary: 'Ошибка...',
-                        detail: e.error.message
-                    });
-                }
-            },
-            reject: () => {
-                // can implement on cancel
-            }
-        });
-    }
 
     async showArchivePressed() {
         if (this.agGrid) {
