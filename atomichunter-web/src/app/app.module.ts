@@ -63,6 +63,7 @@ import {SplitButtonModule} from "primeng/splitbutton";
 import { PasswordRecoverFormComponent } from './password-recover-form/password-recover-form.component';
 import { MenubarModule } from "primeng/menubar";
 import { MenuModule } from "primeng/menu";
+import { StaffUnitComponent } from './tables/staff-unit/staff-unit.component';
 
 @NgModule({
     declarations: [
@@ -87,7 +88,8 @@ import { MenuModule } from "primeng/menu";
         VacancyDialogComponent,
         VacancyRespondComponent,
         VacancyRequestComponent,
-        PasswordRecoverFormComponent
+        PasswordRecoverFormComponent,
+        StaffUnitComponent
     ],
   imports: [
     BrowserModule,
