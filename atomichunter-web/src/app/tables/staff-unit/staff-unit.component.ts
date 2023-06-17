@@ -4,7 +4,7 @@ import {LoadingCellRendererComponent} from "../../platform/loading-cell-renderer
 import {AgGridAngular} from "ag-grid-angular";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {ConfirmationService, MessageService} from "primeng/api";
+import {MessageService} from "primeng/api";
 import {StaffUnitDto} from "../../dto/StaffUnitDto";
 import {OrgStructService} from "../../services/org-struct.service";
 import {Vacancy} from "../../dto/Vacancy";
@@ -31,7 +31,7 @@ export class StaffUnitComponent {
 
     public columnDefs: ColDef[] = [
         // {field: 'id', headerName: 'Идентификатор', filter: 'agNumberColumnFilter'},
-        {field: 'status', headerName: 'Статус', filter: 'agNumberColumnFilter', cellRenderer: data => { return data.value ? }},
+        {field: 'status', headerName: 'Статус', filter: 'agNumberColumnFilter'},
         {field: 'closeTime', headerName: 'Дата закрытия', filter: 'agTextColumnFilter'},
         {field: 'employee.lastName', headerName: 'Фамилия', filter: 'agTextColumnFilter'},
         {field: 'employee.firstName', headerName: 'Имя', filter: 'agTextColumnFilter'},
@@ -75,7 +75,7 @@ export class StaffUnitComponent {
     // Example of consuming Grid Event
     onCellClicked(e: CellClickedEvent): void {
         this.selectedStaff = e.data;
-        if (this.selectedStaff?.status === 'Opened') {
+        if (this.selectedStaff?.status === StatusEnum.Opened) {
             this.selectedVacancy = new Vacancy();
             this.position = this.selectedStaff.position;
         }
