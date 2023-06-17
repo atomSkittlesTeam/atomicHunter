@@ -33,20 +33,20 @@ export class VacancyComponent {
     // {field: 'releaseDate', headerName: 'Дата поставки' , hide: this.showArchive, cellRenderer: (data: { value: string | number | Date; }) => {
     //         return data.value ? (new Date(data.value)).toLocaleDateString() : '';
     //     }},
-    {field: 'archive', headerName: 'Архив', hide: !this.showArchive, 
+    {field: 'archive', headerName: 'Архив', hide: !this.showArchive,
             cellRenderer: (params: { value: any; }) => {
             return `<input disabled="true" type='checkbox' ${params.value ? 'checked' : ''} />`;
         }},
     {field: 'createInstant', headerName: 'Дата создания', filter: 'agTextColumnFilter',
           cellRenderer: (data: {value: number}) => {
-          return data.value ? new Date(data.value * 1000).toLocaleDateString() 
+          return data.value ? new Date(data.value * 1000).toLocaleDateString()
             + ' ' + new Date(data.value * 1000).toLocaleTimeString() : '';
       }},
     {field: 'modifyInstant', headerName: 'Дата последнего редактирования', filter: 'agTextColumnFilter',
           cellRenderer: (data: {value: number}) => {
-          return data.value ? new Date(data.value * 1000).toLocaleDateString() 
+          return data.value ? new Date(data.value * 1000).toLocaleDateString()
             +  ' ' + new Date(data.value * 1000).toLocaleTimeString() : '';
-    }},        
+    }},
   ];
 
   public loadingCellRenderer: any = LoadingCellRendererComponent;
@@ -77,7 +77,7 @@ export class VacancyComponent {
     public router: Router,
     public http: HttpClient,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService) {}    
+    private messageService: MessageService) {}
 
   async getAllVacanciesFromApi() {
     this.agGrid.api.showLoadingOverlay();
@@ -166,6 +166,32 @@ export class VacancyComponent {
   pdfResumeAssign(event: string) {
     this.pdfResume = event;
     window.open(this.pdfResume, '_blank');
+  }
+
+  async createVacancyReport() {
+      if (!!this.selectedVacancy?.id) {
+          let pathToReport: string[] = [];
+          try {
+              pathToReport = await this.vacancyService.createVacancyReport(this.selectedVacancy.id);
+          } catch (e) {
+              this.messageService.add({
+                  severity: 'error',
+                  summary: 'Ошибка!',
+                  detail: 'Описание вакансии недоступно! Выберите вакансию, затем попробуйте ещё раз.',
+                  life: 5000
+              });
+          } finally {
+              console.log(pathToReport);
+              window.open("file:///" + pathToReport[0], '_blank');
+          }
+      } else {
+          this.messageService.add({
+              severity: 'error',
+              summary: 'Ошибка!',
+              detail: 'Описание вакансии недоступно! Выберите вакансию, затем попробуйте ещё раз.',
+              life: 5000
+          });
+      }
   }
 
     protected readonly Vacancy = Vacancy;

@@ -20,9 +20,16 @@
 <!--            </p-button>-->
             <p-button
                       icon="pi pi-pencil"
-                      styleClass="p-button-outlined p-button-help"
+                      styleClass="p-button-outlined"
                       [disabled]="!selectedVacancy"
                       (onClick)="updateVacancy()">
+            </p-button>
+            <p-button
+                    icon="pi pi-file-pdf"
+                    pTooltip="Скачать описание вакансии в pdf-формате"
+                    styleClass="p-button-outlined"
+                    [disabled]="!selectedVacancy"
+                    (onClick)="createVacancyReport()">
             </p-button>
             <p-button
                       icon="pi pi-trash"
