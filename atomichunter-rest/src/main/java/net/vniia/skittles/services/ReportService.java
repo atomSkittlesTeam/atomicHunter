@@ -29,11 +29,13 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.stream.Collectors;
 
 @Service
-public class OfferService {
+public class ReportService {
 
     public static final String OFFER_PATH = "offers/";
+    public static final String VACANCY_REPORT_PATH = "vacancyReports/";
 
     @Value("classpath:/logo2.png")
     private Resource photo;
@@ -43,9 +45,9 @@ public class OfferService {
     @Autowired
     private EmailService emailService;
 
-    public String createPdf(VacancyWithVacancyRespondDto vacancyWithRespondDto, User currentUser, UserDto currentHR)
+    public String createOfferReport(VacancyWithVacancyRespondDto vacancyWithRespondDto, User currentUser, UserDto currentHR)
             throws IOException {
-        this.createFolder();
+        this.createFolder(OFFER_PATH);
         String path = OFFER_PATH + "offer_to_" + vacancyWithRespondDto.getVacancyRespond().getId() + "_respond.pdf";
         VacancyDto vacancy = vacancyWithRespondDto.getVacancy();
 
@@ -108,6 +110,57 @@ public class OfferService {
         return path;
     }
 
+    public String createVacancyReport(VacancyDto vacancyDto, String additionalInformation)
+            throws IOException {
+        this.createFolder(VACANCY_REPORT_PATH);
+        String path = VACANCY_REPORT_PATH + "report_of_" + vacancyDto.getId() + "_vacancy.pdf";
+
+        FontProgram fontProgram = FontProgramFactory.createFont(font.getContentAsByteArray());
+        PdfFont font = PdfFontFactory.createFont(fontProgram);
+
+        PdfWriter pdfWriter = new PdfWriter(path);
+        PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+        pdfDocument.setDefaultPageSize(PageSize.A4);
+        Document document = new Document(pdfDocument);
+
+        ImageData data = ImageDataFactory.create(photo.getContentAsByteArray());
+        Image img = new Image(data);
+        img.scaleToFit(200f, 200f);
+        float twoCol = 360f;
+        float twoColumnWidth[] = {twoCol, twoCol};
+        img.setRelativePosition(170f, 0, 200f, 0);
+
+
+        document.add(img).setTextAlignment(TextAlignment.JUSTIFIED);
+        document.add(new Paragraph("Требуется " + vacancyDto.getName())
+                .setBold().setFont(font).setTextAlignment(TextAlignment.CENTER)
+                .setFontSize(22));
+
+        document.add(new Paragraph("Компания: ").setBold().setFont(font));
+        document.add(new Paragraph("Крупное производственное предприятие «Атомпродукт» - " +
+                "одна из лидирующих компаний в корпорации РосАтом.").setFont(font)
+                .setTextAlignment(TextAlignment.JUSTIFIED));
+        document.add(new Paragraph("Обязанности: ").setBold().setFont(font));
+        document.add(new Paragraph(vacancyDto.getResponsibilities()).setFont(font));
+        document.add(new Paragraph("Требования:").setBold().setFont(font));
+        document.add(new Paragraph(vacancyDto.getRequirements() +
+                " Оценка ваших навыков будет проводиться по следующему набору" +
+                " компетенций: " +
+                vacancyDto.getCompetenceWeight().stream().map(e ->
+                        e.getCompetence().getName()).collect(Collectors.joining(", ")))
+                .setFont(font));
+        document.add(new Paragraph("Условия:").setBold().setFont(font));
+        document.add(new Paragraph(vacancyDto.getConditions()).setFont(font));
+        if (additionalInformation != null && !additionalInformation.equals("")) {
+            document.add(new Paragraph("Дополнительная информация:").setBold().setFont(font));
+            document.add(new Paragraph(additionalInformation).setFont(font));
+        }
+
+        document.close();
+
+        return "report_of_" + vacancyDto.getId() + "_vacancy.pdf";
+    }
+
     static Cell getBoldTitleCell(String textValue) {
         return new Cell().add(new Paragraph(textValue)).setFontSize(12f).setBold().setBorder(Border.NO_BORDER)
                 .setTextAlignment(TextAlignment.LEFT);
@@ -121,7 +174,7 @@ public class OfferService {
     public void createPdfAndSendByEmail(VacancyWithVacancyRespondDto vacancyWithVacancyRespondDto,
                                         User currentUser, UserDto currentHR)
             throws IOException, MessagingException {
-        String path = this.createPdf(vacancyWithVacancyRespondDto, currentUser, currentHR);
+        String path = this.createOfferReport(vacancyWithVacancyRespondDto, currentUser, currentHR);
         this.emailService.sendEmailWithAttachment(
                         vacancyWithVacancyRespondDto.getVacancyRespond().getEmail(),
                 "Оффер",
@@ -130,8 +183,8 @@ public class OfferService {
         );
     }
 
-    private void createFolder() {
-        File directory = new File(OFFER_PATH);
+    private void createFolder(String path) {
+        File directory = new File(path);
         if (!directory.exists()) {
             directory.mkdir();
         }

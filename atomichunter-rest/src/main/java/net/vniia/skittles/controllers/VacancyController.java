@@ -2,13 +2,19 @@ package net.vniia.skittles.controllers;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import net.vniia.skittles.dto.VacancyCompetenceScoreDto;
 import net.vniia.skittles.dto.VacancyDto;
 import net.vniia.skittles.dto.VacancyRespondDto;
 import net.vniia.skittles.entities.VacancyRespond;
 import net.vniia.skittles.readers.VacancyReader;
 import net.vniia.skittles.services.VacancyService;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -78,4 +84,30 @@ public class VacancyController {
         this.vacancyService.archiveVacancyRespond(vacancyRespondId);
     }
 
+    @PostMapping("{vacancyId}/report")
+    @Transactional
+    public List<String> createVacancyReportAndReturnPath(@PathVariable Long vacancyId,
+                                                         @RequestBody(required = false) String additionalInformation)
+            throws IOException {
+        return this.vacancyService.createVacancyReportAndReturnPath(vacancyId, additionalInformation);
+    }
+
+    @RequestMapping("{vacancyId}/report/{path}/filePdf")
+    @ResponseBody
+    public HttpEntity<byte[]> getVacancyReportFileByPath(@PathVariable String path) throws IOException {
+        return this.vacancyService.getVacancyReportFileByPath(path);
+    }
+
+    @GetMapping("competence-score/{maintainerId}/validation")
+    @Transactional
+    public List<VacancyCompetenceScoreDto> validateVacancyCompetenceScore(@PathVariable Long maintainerId) {
+        return this.vacancyService.validateVacancyCompetenceScore(maintainerId);
+    }
+
+    @PostMapping("competence-score/add")
+    @Transactional
+    public void validateVacancyCompetenceScore(@RequestBody VacancyCompetenceScoreDto vacancyCompetenceScoreDto) {
+        this.vacancyService.createVacancyCompetenceScore(vacancyCompetenceScoreDto);
+//        this.vacancyService.vacancyRespond обновить поле средней оценки
+    }
 }
