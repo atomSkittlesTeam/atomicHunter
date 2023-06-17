@@ -2,17 +2,27 @@
           [style]="{maxHeight: '80vh',width: '50vw'}"
           (onHide)="closeDialog($event)">
     <form #f="ngForm" name="vacancy" novalidate>
-        <div class="flex" [class.formDisabled] = "loading">
-<!--            <div class="p-inputgroup">-->
-<!--                <span class="p-inputgroup-addon" style="width: 120px">Должность <span class="required-mark">*</span> </span>-->
-<!--                <p-dropdown [options]="positions"-->
-<!--                            appendTo="body"-->
-<!--                            [(ngModel)]="item.position"-->
-<!--                            (ngModelChange)="selectPosition()"-->
-<!--                            name="position"-->
-<!--                            [style]="{width: '100%'}"-->
-<!--                            [optionLabel]="'name'"></p-dropdown>-->
-<!--            </div>-->
+        <div class="flex" [class.formDisabled]="loading">
+            <!--            <div class="p-inputgroup">-->
+            <!--                <span class="p-inputgroup-addon" style="width: 120px">Должность <span class="required-mark">*</span> </span>-->
+            <!--                <p-dropdown [options]="positions"-->
+            <!--                            appendTo="body"-->
+            <!--                            [(ngModel)]="staffUnit.position"-->
+            <!--                            (ngModelChange)="selectPosition()"-->
+            <!--                            name="position"-->
+            <!--                            [style]="{width: '100%'}"-->
+            <!--                            [optionLabel]="'name'"></p-dropdown>-->
+            <!--            </div>-->
+
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon" style="width: 120px">HR</span>
+                <p-dropdown [options]="employees"
+                            appendTo="body"
+                            [(ngModel)]="staffUnit.employee"
+                            name="firstName"
+                            [style]="{width: '100%'}"
+                            [optionLabel]="'employeeFullName'"></p-dropdown>
+            </div>
 
             <div class="p-inputgroup">
 
@@ -23,7 +33,8 @@
             </div>
 
             <div class="p-inputgroup">
-                <span class="p-inputgroup-addon" style="width: 120px">Требования <span class="required-mark">*</span></span>
+                <span class="p-inputgroup-addon" style="width: 120px">Требования <span
+                        class="required-mark">*</span></span>
 
                 <textarea [(ngModel)]="item.requirements" required
                           [autoResize]="true"
@@ -32,7 +43,8 @@
             </div>
 
             <div class="p-inputgroup">
-                <span class="p-inputgroup-addon" style="width: 120px">Обязанности <span class="required-mark">*</span></span>
+                <span class="p-inputgroup-addon" style="width: 120px">Обязанности <span
+                        class="required-mark">*</span></span>
 
                 <textarea [(ngModel)]="item.responsibilities" required
                           [autoResize]="true"
@@ -41,7 +53,8 @@
             </div>
 
             <div class="p-inputgroup">
-                <span class="p-inputgroup-addon" style="width: 120px">Условия <span class="required-mark">*</span></span>
+                <span class="p-inputgroup-addon" style="width: 120px">Условия <span
+                        class="required-mark">*</span></span>
 
                 <textarea [(ngModel)]="item.conditions" required
                           [autoResize]="true"
@@ -49,16 +62,17 @@
                           placeholder="Укажите условия работы" pInputTextarea></textarea>
             </div>
 
-<!--            <div class="p-inputgroup">-->
-<!--                <span class="p-inputgroup-addon" style="width: 120px">Описание <span class="required-mark">*</span></span>-->
+            <!--            <div class="p-inputgroup">-->
+            <!--                <span class="p-inputgroup-addon" style="width: 120px">Описание <span class="required-mark">*</span></span>-->
 
-<!--                <textarea [(ngModel)]="item.additional" required-->
-<!--                          [autoResize]="true"-->
-<!--                          name="additional"-->
-<!--                          placeholder="Введите доп. информацию" pInputTextarea></textarea>-->
-<!--            </div>-->
+            <!--                <textarea [(ngModel)]="item.additional" required-->
+            <!--                          [autoResize]="true"-->
+            <!--                          name="additional"-->
+            <!--                          placeholder="Введите доп. информацию" pInputTextarea></textarea>-->
+            <!--            </div>-->
 
-            <span class="fail" *ngIf="isInvalidSumWeight()" style="color:red"> Общий вес должен быть равен {{this.competenceWeightMaxSum}}</span>
+            <span class="fail" *ngIf="isInvalidSumWeight()"
+                  style="color:red"> Общий вес должен быть равен {{this.competenceWeightMaxSum}}</span>
 
             <div class="personal-skills">
 
@@ -74,11 +88,11 @@
                     >
                     </p-button>
                     <p-button
-                      icon="pi pi-calculator"
-                      pTooltip="Довести общую сумму весов до 100"
-                      label="Нормировать веса"
-                      styleClass="tiffany-button"
-                      (click)="setCompetenceWeightSumToMax()"
+                            icon="pi pi-calculator"
+                            pTooltip="Довести общую сумму весов до 100"
+                            label="Нормировать веса"
+                            styleClass="tiffany-button"
+                            (click)="setCompetenceWeightSumToMax()"
                     >
                     </p-button>
                     <span class="personal-skills__text">Общий вес: {{sum}}</span>
@@ -120,13 +134,38 @@
     <div class="container">
         <h1>Список всех навыков</h1>
         <div class="main-block" *ngFor="let competence of competencesAll; let index = index">
-            <div class="main-block__title">{{competence.name}}</div>
-            <div class="main-block__add">
-                <p-button
-                        icon="pi pi-plus"
-                        styleClass="p-button-outlined p-button-help"
-                        (onClick)="pushNewSkill(index)">
-                </p-button>
+            <div class="main-block__first">
+                <div class="main-block__title">{{competence.name}}</div>
+<!--                <div class="main-block__add">-->
+<!--                    <p-button-->
+<!--                            icon="pi pi-plus"-->
+<!--                            styleClass="tiffany-button "-->
+<!--                            (onClick)="pushNewSkill(index)">-->
+<!--                    </p-button>-->
+<!--                </div>-->
+            </div>
+
+            <div class="dop-info">
+                <div class="dop-info__container">
+                    <div class="dop-info__title">
+                        fffff
+                    </div>
+                    <p-button
+                            icon="pi pi-plus"
+                            styleClass="tiffany-button "
+                            (onClick)="pushNewSkill(index)">
+                    </p-button>
+                </div>
+                <div class="dop-info__container">
+                    <div class="dop-info__title">
+                        fffff
+                    </div>
+                    <p-button
+                            icon="pi pi-plus"
+                            styleClass="tiffany-button "
+                            (onClick)="pushNewSkill(index)">
+                    </p-button>
+                </div>
             </div>
         </div>
     </div>

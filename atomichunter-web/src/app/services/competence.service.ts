@@ -7,6 +7,7 @@ import {BaseService} from "./base.service";
 import {Competence} from "../dto/Competence";
 import {Vacancy} from "../dto/Vacancy";
 import {CompetenceGroupDto} from "../dto/CompetenceGroupDto";
+import {CompetenceGroupsWithCompetencesDto} from "../dto/CompetenceGroupsWithCompetencesDto";
 
 @Injectable({
     providedIn: "root"
@@ -32,6 +33,11 @@ export class CompetenceService extends BaseService {
     async getAllCompetenceGroups() {
         const url = await this.getBackendUrl();
         return await firstValueFrom(this.http.get<Competence[]>(url + `/competence/group/all`));
+    }
+
+    async getAllCompetenceTree() {
+        const url = await this.getBackendUrl();
+        return await firstValueFrom(this.http.get<CompetenceGroupsWithCompetencesDto[]>(url + `/competence/allTree`));
     }
 
     async getCompetencesByCompetenceGroupId(competenceGroupId: number) {
