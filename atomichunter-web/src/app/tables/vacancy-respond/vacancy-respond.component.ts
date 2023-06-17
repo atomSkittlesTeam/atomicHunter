@@ -8,6 +8,7 @@ import { LoadingCellRendererComponent } from "../../platform/loading-cell-render
 import { VacancyService } from "../../services/vacancy.service";
 import { InviteService } from "src/app/services/invite.service";
 import { VacancyWithVacancyRespond } from "../../dto/VacancyWithVacancyRespond";
+import {StaffUnitDto} from "../../dto/StaffUnitDto";
 
 @Component({
   selector: "app-vacancy-respond",
@@ -17,11 +18,14 @@ import { VacancyWithVacancyRespond } from "../../dto/VacancyWithVacancyRespond";
 export class VacancyRespondComponent {
   meetingItems: any = [];
   offerItems: any = [];
+  staffUnit: StaffUnitDto = new StaffUnitDto();
   items: MenuItem[];
   openInterviewDialog: boolean = false;
   openVacancyRespondDialog: boolean = false;
   interviewDialogEditMode: boolean = false;
   vacancyRespondDialogEditMode: boolean = false;
+  openDialogVacancyComp: boolean = false;
+  dialogEditMode: boolean = false;
 
   constructor(private confirmationService: ConfirmationService,
               private messageService: MessageService,
@@ -85,6 +89,16 @@ export class VacancyRespondComponent {
             command: () => {
               if (this.selectedVacancyRespond.id) {
                 this.updateVacancyRespond();
+              }
+            }
+          },
+          {
+            label: "Оценить кандидата",
+            disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id,
+            icon: "pi pi-star",
+            command: () => {
+              if (this.selectedVacancyRespond.id) {
+                this.openDialogVacancyComp = true;
               }
             }
           },
@@ -287,6 +301,13 @@ export class VacancyRespondComponent {
         detail: e.error.message,
         life: 5000
       });
+    }
+  }
+
+  async onDialogSubmit($event: any) {
+    this.openDialogVacancyComp = false;
+    if ($event) {
+      await this.getRespondByVacancyIdFromApi();
     }
   }
 }
