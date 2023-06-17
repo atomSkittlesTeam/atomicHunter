@@ -29,7 +29,7 @@
                     pTooltip="Скачать описание вакансии в pdf-формате"
                     styleClass="p-button-outlined"
                     [disabled]="!selectedVacancy"
-                    (onClick)="createVacancyReport()">
+                    (onClick)="this.reportDialogVisible = true;">
             </p-button>
             <p-button
                       icon="pi pi-trash"
@@ -86,13 +86,22 @@
         </ng-template>
     </p-confirmDialog>
 
-    <p-dialog [visible]="reportDialogVisible">
+    <p-dialog [(visible)]="reportDialogVisible" (onHide)="this.reportDialogVisible=false">
         <div class="p-inputgroup">
-
-            <span class="p-inputgroup-addon" style="width: 120px">Наименование <span class="required-mark">*</span></span>
-            <input [(ngModel)]="item.name" required
+            <span class="p-inputgroup-addon" style="width: 160px">
+                Дополнительная информация для листа вакансии</span>
+            <input [(ngModel)]="additionalInformationForReport"
                    name="name"
                    placeholder="Укажите наименование вакансии" pInputText/>
         </div>
+        <p-footer>
+            <p-button
+                    icon="pi pi-file-pdf"
+                    pTooltip="Открыть описание вакансии в pdf-формате"
+                    label="Сохранить" styleClass="tiffany-button"
+                    [disabled]="!selectedVacancy"
+                    (onClick)="createVacancyReport()">
+            </p-button>
+        </p-footer>
     </p-dialog>
 </div>

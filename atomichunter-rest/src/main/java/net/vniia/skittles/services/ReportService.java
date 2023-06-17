@@ -110,7 +110,7 @@ public class ReportService {
         return path;
     }
 
-    public String createVacancyReport(VacancyDto vacancyDto)
+    public String createVacancyReport(VacancyDto vacancyDto, String additionalInformation)
             throws IOException {
         this.createFolder(VACANCY_REPORT_PATH);
         String path = VACANCY_REPORT_PATH + "report_of_" + vacancyDto.getId() + "_vacancy.pdf";
@@ -151,6 +151,10 @@ public class ReportService {
                 .setFont(font));
         document.add(new Paragraph("Условия:").setBold().setFont(font));
         document.add(new Paragraph(vacancyDto.getConditions()).setFont(font));
+        if (additionalInformation != null && !additionalInformation.equals("")) {
+            document.add(new Paragraph("Дополнительная информация:").setBold().setFont(font));
+            document.add(new Paragraph(additionalInformation).setFont(font));
+        }
 
         document.close();
 

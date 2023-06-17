@@ -153,9 +153,11 @@ public class VacancyService {
     }
 
     @Transactional
-    public List<String> createVacancyReportAndReturnPath(Long vacancyId) throws IOException {
+    public List<String> createVacancyReportAndReturnPath(
+            Long vacancyId,String additionalInformation) throws IOException {
         VacancyDto vacancyDto = vacancyReader.getVacancyById(vacancyId);
-        String pathToPdf = reportService.createVacancyReport(vacancyDto);
+        String pathToPdf = reportService.createVacancyReport(vacancyDto,
+                additionalInformation);
         return Collections.singletonList(pathToPdf);
     }
 

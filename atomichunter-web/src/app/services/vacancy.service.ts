@@ -80,9 +80,10 @@ export class VacancyService extends BaseService {
     await firstValueFrom(this.http.delete(url + `/vacancy/respond/${vacancyRespondId}/archive`));
   }
 
-  async createVacancyReport(vacancyId: number) {
+  async createVacancyReport(vacancyId: number, additionalInformationForReport: string) {
     const url = await this.getBackendUrl();
-    return await firstValueFrom(this.http.get<string[]>(url + `/vacancy/${vacancyId}/report`));
+    return await firstValueFrom(this.http.post<string[]>(
+        url + `/vacancy/${vacancyId}/report`, additionalInformationForReport));
   }
 
   async getVacancyFileReport(vacancyId: number, path: string) {

@@ -24,6 +24,7 @@ export class VacancyComponent {
   pdfResume: string = "";
   showPdfResume: boolean = false;
   reportDialogVisible: boolean = false;
+  additionalInformationForReport: string = "";
 
   public columnDefs: ColDef[] = [
     {field: 'id', headerName: 'Идентификатор', filter: 'agNumberColumnFilter'},
@@ -170,10 +171,12 @@ export class VacancyComponent {
   }
 
   async createVacancyReport() {
+      this.reportDialogVisible = false;
       if (!!this.selectedVacancy?.id) {
           let pathToReport: string[] = [];
           try {
-              pathToReport = await this.vacancyService.createVacancyReport(this.selectedVacancy.id);
+              pathToReport = await this.vacancyService.createVacancyReport(this.selectedVacancy.id,
+                  this.additionalInformationForReport);
               const report = await this.vacancyService.getVacancyFileReport(this.selectedVacancy.id, 
                 pathToReport[0]);
           } catch (e) {
