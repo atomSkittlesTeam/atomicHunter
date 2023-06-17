@@ -17,6 +17,7 @@ public class StaffUnitDto {
     private String positionId;
     private PositionDto position;
     private UUID employeeId;
+    private EmployeeDto employee;
     private StaffUnitStatus status;
     private Instant closeTime;
 

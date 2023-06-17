@@ -29,11 +29,12 @@ export class StaffUnitComponent {
 
 
     public columnDefs: ColDef[] = [
-        {field: 'id', headerName: 'Идентификатор', filter: 'agNumberColumnFilter'},
-        {field: 'positionId', headerName: 'Должность', filter: 'agTextColumnFilter'},
-        {field: 'employeeId', headerName: 'Номер сотрудника', filter: 'agTextColumnFilter'},
-        {field: 'status', headerName: 'Состояние', filter: 'agNumberColumnFilter'},
-        {field: 'closeTime', headerName: 'Дата увольнения', filter: 'agTextColumnFilter'}
+        // {field: 'id', headerName: 'Идентификатор', filter: 'agNumberColumnFilter'},
+        {field: 'status', headerName: 'Статус', filter: 'agNumberColumnFilter'},
+        {field: 'closeTime', headerName: 'Дата закрытия', filter: 'agTextColumnFilter'},
+        {field: 'employee.lastName', headerName: 'Фамилия', filter: 'agTextColumnFilter'},
+        {field: 'employee.firstName', headerName: 'Имя', filter: 'agTextColumnFilter'},
+        {field: 'position.name', headerName: 'Должность', filter: 'agTextColumnFilter'}
     ];
 
     public loadingCellRenderer: any = LoadingCellRendererComponent;

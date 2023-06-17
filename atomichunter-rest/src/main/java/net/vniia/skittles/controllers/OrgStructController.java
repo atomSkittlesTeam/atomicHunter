@@ -8,6 +8,7 @@ import net.vniia.skittles.entities.Employee;
 import net.vniia.skittles.entities.Position;
 import net.vniia.skittles.entities.StaffUnit;
 import net.vniia.skittles.readers.PositionReader;
+import net.vniia.skittles.readers.StaffUnitReader;
 import net.vniia.skittles.repositories.EmployeeRepository;
 import net.vniia.skittles.repositories.PositionRepository;
 import net.vniia.skittles.repositories.StaffUnitRepository;
@@ -26,9 +27,11 @@ public class OrgStructController {
 
     private final OrgStructService orgStructService;
 
+    private final StaffUnitReader staffUnitReader;
+
     @GetMapping("staff-units")
     public List<StaffUnitDto> getAllStaffUnits() {
-        return orgStructService.getAllStaffUnits();
+        return staffUnitReader.getAllStaffUnits();
     }
 
     @GetMapping("employees")
