@@ -3,6 +3,7 @@ package net.vniia.skittles.controllers;
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.CompetenceDto;
 import net.vniia.skittles.dto.CompetenceGroupDto;
+import net.vniia.skittles.dto.CompetenceGroupsWithCompetencesDto;
 import net.vniia.skittles.readers.CompetenceGroupReader;
 import net.vniia.skittles.readers.CompetenceReader;
 import net.vniia.skittles.services.CompetenceGroupService;
@@ -22,10 +23,10 @@ public class CompetenceController {
 
     private final CompetenceGroupService competenceGroupService;
 
-    @GetMapping("position/{positionId}")
-    public List<CompetenceDto> getCompetencesForPosition(@PathVariable Long positionId) {
-        return competenceReader.getCompetencesForPosition(positionId);
-    }
+//    @GetMapping("position/{positionId}")
+//    public List<CompetenceDto> getCompetencesForPosition(@PathVariable Long positionId) {
+//        return competenceReader.getCompetencesForPosition(positionId);
+//    }
 
     // competences
     @GetMapping("all")
@@ -66,5 +67,10 @@ public class CompetenceController {
     @GetMapping("group/{groupId}")
     public List<CompetenceDto> getAllCompetencesByGroupId(@PathVariable Long groupId) {
         return competenceReader.getAllCompetencesByGroupId(groupId);
+    }
+
+    @GetMapping("allTree")
+    public List<CompetenceGroupsWithCompetencesDto> getAllCompetencesTree() {
+        return competenceReader.getAllCompetenceTree();
     }
 }

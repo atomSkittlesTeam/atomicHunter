@@ -8,6 +8,7 @@ import net.vniia.skittles.dto.StaffUnitDto;
 import net.vniia.skittles.entities.QEmployee;
 import net.vniia.skittles.entities.QPosition;
 import net.vniia.skittles.entities.QStaffUnit;
+import net.vniia.skittles.entities.QVacancy;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,6 +23,8 @@ public class StaffUnitReader {
 
     private static final QPosition position = QPosition.position;
 
+    private static final QVacancy vacancy = QVacancy.vacancy;
+
     private final JPAQueryFactory queryFactory;
 
     public static QBean<StaffUnitDto> getMappedSelectForStaffUnitDto() {
@@ -32,13 +35,15 @@ public class StaffUnitReader {
                 staffUnit.positionId,
                 PositionReader.getMappedSelectForPositionDto().as("position"),
                 staffUnit.closeTime,
-                staffUnit.status);
+                staffUnit.status,
+                vacancy.id.as("vacancyId"));
     }
 
     public List<StaffUnitDto> getAllStaffUnits() {
         return queryFactory.from(staffUnit)
                 .leftJoin(employee).on(employee.id.eq(staffUnit.employeeId))
                 .leftJoin(position).on(position.id.eq(staffUnit.positionId))
+                .leftJoin(vacancy).on(vacancy.staffUnitId.eq(staffUnit.id))
                 .select(getMappedSelectForStaffUnitDto())
                 .fetch();
     }

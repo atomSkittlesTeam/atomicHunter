@@ -71,5 +71,4 @@ public class OrgStructService {
         positions.forEach(e -> positionDtos.add(new PositionDto(e)));
         return positionDtos;
     }
-
 }
