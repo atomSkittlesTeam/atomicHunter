@@ -3,6 +3,7 @@ package net.vniia.skittles.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.vniia.skittles.entities.StaffUnit;
 import net.vniia.skittles.enums.StaffUnitStatus;
 
 import java.time.Instant;
@@ -17,4 +18,12 @@ public class StaffUnitDto {
     private UUID employeeId;
     private StaffUnitStatus status;
     private Instant closeTime;
+
+    public StaffUnitDto(StaffUnit staffUnit) {
+        this.id = staffUnit.getId();
+        this.positionId = staffUnit.getPositionId();
+        this.employeeId = staffUnit.getEmployeeId();
+        this.status = staffUnit.getStatus();
+        this.closeTime = staffUnit.getCloseTime();
+    }
 }

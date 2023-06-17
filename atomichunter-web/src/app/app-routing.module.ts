@@ -14,6 +14,8 @@ import {Interview} from "./dto/Interview";
 import {VacancyRequestComponent} from "./dialogs/interview-dialog/interview-dialog.component";
 import {PasswordRecoverFormComponent} from "./password-recover-form/password-recover-form.component";
 import {StaffUnitComponent} from "./tables/staff-unit/staff-unit.component";
+import {EmployeesComponent} from "./tables/employees/employees.component";
+import {PositionsComponent} from "./tables/positions/positions.component";
 
 const routes: Routes = [
     {path: '', component: NavigationComponent, canActivate: [AuthGuard]},
@@ -22,12 +24,14 @@ const routes: Routes = [
     {path: 'password-recover', component: PasswordRecoverFormComponent},
     {path: 'admin', component: AdminComponent,canActivate: [AuthGuard]},
     {path: 'vacancy', component: VacancyComponent,canActivate: [AuthGuard]},
-    {path: 'staff', component: StaffUnitComponent,canActivate: [AuthGuard]},
+    {path: 'staff-unit', component: StaffUnitComponent,canActivate: [AuthGuard]},
+    {path: 'employees', component: EmployeesComponent,canActivate: [AuthGuard]},
+    {path: 'positions', component: PositionsComponent,canActivate: [AuthGuard]},
     {path: 'request', component: RequestComponent,canActivate: [AuthGuard]},
     {path: 'analytics', component: AnalyticsComponent},
     {path: '3ple', component: MasterDetailDetailComponent},
     {path: 'treeData', component: TreeDataComponent},
-    {path: 'vacancyRequest', component: VacancyRequestComponent}
+    {path: 'vacancyRequest', component: VacancyRequestComponent},
 ];
 
 @NgModule({

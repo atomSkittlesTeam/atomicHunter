@@ -64,6 +64,8 @@ import { PasswordRecoverFormComponent } from './password-recover-form/password-r
 import { MenubarModule } from "primeng/menubar";
 import { MenuModule } from "primeng/menu";
 import { StaffUnitComponent } from './tables/staff-unit/staff-unit.component';
+import { EmployeesComponent } from './tables/employees/employees.component';
+import { PositionsComponent } from './tables/positions/positions.component';
 
 @NgModule({
     declarations: [
@@ -89,7 +91,9 @@ import { StaffUnitComponent } from './tables/staff-unit/staff-unit.component';
         VacancyRespondComponent,
         VacancyRequestComponent,
         PasswordRecoverFormComponent,
-        StaffUnitComponent
+        StaffUnitComponent,
+        EmployeesComponent,
+        PositionsComponent
     ],
   imports: [
     BrowserModule,

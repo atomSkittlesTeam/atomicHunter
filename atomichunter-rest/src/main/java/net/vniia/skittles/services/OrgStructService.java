@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,7 +40,7 @@ public class OrgStructService {
 
 
     @Scheduled(fixedDelayString = "${scheduled.staff-units}")
-    public void getAllStaffUnitsAndSave() {
+    public void getAllStaffUnitsFromRestAndSave() {
         List<StaffUnitDto> allStaffUnits = orgStructIntegrationService.getAllStaffUnits();
         List<StaffUnit> allStaffUnitsEntities = new ArrayList<>();
         allStaffUnits.forEach(e -> allStaffUnitsEntities.add(new StaffUnit(e)));
@@ -48,7 +49,7 @@ public class OrgStructService {
     }
 
     @Scheduled(fixedDelayString = "${scheduled.employees}")
-    public void getAllEmployeesAndSave() {
+    public void getAllEmployeesFromRestAndSave() {
         List<EmployeeDto> allEmployees = orgStructIntegrationService.getAllEmployees();
         List<Employee> allEmployeesEntities = new ArrayList<>();
         allEmployees.forEach(e -> allEmployeesEntities.add(new Employee(e)));
@@ -57,12 +58,33 @@ public class OrgStructService {
     }
 
     @Scheduled(fixedDelayString = "${scheduled.positions}")
-    public void getAllPositionsAndSave() {
+    public void getAllPositionsFromRestAndSave() {
         List<PositionDto> allPositions = orgStructIntegrationService.getAllPositions();
         List<Position> allPositionsEntities = new ArrayList<>();
         allPositions.forEach(e -> allPositionsEntities.add(new Position(e)));
         positionRepository.saveAll(allPositionsEntities);
         log.info("positions saved");
+    }
+
+    public List<StaffUnitDto> getAllStaffUnits() {
+        List<StaffUnit> staffUnits = staffUnitRepository.findAll();
+        List<StaffUnitDto> staffUnitDtos = new ArrayList<>();
+        staffUnits.forEach(e -> staffUnitDtos.add(new StaffUnitDto(e)));
+        return staffUnitDtos;
+    }
+
+    public List<EmployeeDto> getAllEmployees() {
+        List<Employee> employees = employeeRepository.findAll();
+        List<EmployeeDto> employeeDtos = new ArrayList<>();
+        employees.forEach(e -> employeeDtos.add(new EmployeeDto(e)));
+        return employeeDtos;
+    }
+
+    public List<PositionDto> getAllPositions() {
+        List<Position> positions = positionRepository.findAll();
+        List<PositionDto> positionDtos = new ArrayList<>();
+        positions.forEach(e -> positionDtos.add(new PositionDto(e)));
+        return positionDtos;
     }
 
 }

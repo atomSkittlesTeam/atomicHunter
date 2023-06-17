@@ -74,7 +74,7 @@ export class VacancyDialogComponent {
     async selectPosition() {
         this.competences = [];
         this._item.competenceWeight = [];
-        this.competences = await this.competenceService.getCompetencesByPositionId(this._item?.position?.id);
+        this.competences = await this.competenceService.getCompetencesByPositionId(Number.parseInt(this._item?.position?.id));
         this.competences.map(comp => this._item.competenceWeight.push(new CompetenceWeight(comp, 10)));
     }
 
