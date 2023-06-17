@@ -5,17 +5,17 @@ import {NavigationComponent} from "./navigation/navigation.component";
 import {AdminComponent} from "./admin/admin.component";
 import {RequestComponent} from "./tables/request/request.component";
 import {AuthGuard} from "./config/auth.guard";
-import { AnalyticsComponent } from "./tables/analytics/analytics.component";
+import {AnalyticsComponent} from "./tables/analytics/analytics.component";
 import {MasterDetailDetailComponent} from "./tables/master-detail-detail/master-detail-detail.component";
 import {TreeDataComponent} from "./tables/tree-data/tree-data.component";
 import {RegistrationFormComponent} from "./registration-form/registration-form.component";
-import { VacancyComponent } from './tables/vacancy/vacancy.component';
-import {Interview} from "./dto/Interview";
+import {VacancyComponent} from './tables/vacancy/vacancy.component';
 import {VacancyRequestComponent} from "./dialogs/interview-dialog/interview-dialog.component";
 import {PasswordRecoverFormComponent} from "./password-recover-form/password-recover-form.component";
 import {StaffUnitComponent} from "./tables/staff-unit/staff-unit.component";
 import {EmployeesComponent} from "./tables/employees/employees.component";
 import {PositionsComponent} from "./tables/positions/positions.component";
+import {CompetenceGroupComponent} from "./tables/competence-group/competence-group.component";
 
 const routes: Routes = [
     {path: '', component: NavigationComponent, canActivate: [AuthGuard]},
@@ -28,10 +28,11 @@ const routes: Routes = [
     {path: 'employees', component: EmployeesComponent,canActivate: [AuthGuard]},
     {path: 'positions', component: PositionsComponent,canActivate: [AuthGuard]},
     {path: 'request', component: RequestComponent,canActivate: [AuthGuard]},
+    {path: 'competenceGroup', component: CompetenceGroupComponent, canActivate: [AuthGuard]},
     {path: 'analytics', component: AnalyticsComponent},
     {path: '3ple', component: MasterDetailDetailComponent},
     {path: 'treeData', component: TreeDataComponent},
-    {path: 'vacancyRequest', component: VacancyRequestComponent},
+    {path: 'vacancyRequest', component: VacancyRequestComponent}
 ];
 
 @NgModule({

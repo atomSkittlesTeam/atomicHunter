@@ -1,0 +1,20 @@
+:host {
+  ::ng-deep {
+    .p-splitbutton {
+      height: 33px;
+    }
+    .p-splitbutton-defaultbutton {
+      pointer-events: none;
+    }
+  }
+}
+
+nav {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  min-width: max-content;
+
+
+}
+
