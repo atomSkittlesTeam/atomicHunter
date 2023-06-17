@@ -45,7 +45,7 @@ public class Vacancy {
 
     public void update(VacancyDto vacancyDto) {
         this.positionId = Optional.ofNullable(vacancyDto.getPosition())
-                .map(PositionDto::getId)
+                .map(e -> Long.parseLong(e.getId()))
                 .orElse(null);
         this.salary = vacancyDto.getSalary();
         this.experience = vacancyDto.getExperience();

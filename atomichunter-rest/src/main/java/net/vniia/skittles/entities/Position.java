@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.vniia.skittles.dto.PositionDto;
 
 @Entity
 @Data
@@ -14,8 +15,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Position {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
     private String name;
-    private String description;
+
+    public Position(PositionDto positionDto) {
+        this.id = positionDto.getId();
+        this.name = positionDto.getName();
+    }
 }

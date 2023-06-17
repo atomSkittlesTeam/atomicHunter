@@ -34,7 +34,7 @@ public class PositionGenerator {
         ArrayList<Position> generatedList = new ArrayList<>(10);
         long id = 1L;
         for (String positionName : VacancyTemplate.allPositionNames) {
-            Position position = new Position(id++, positionName, positionName + " " + Math.random());
+            Position position = new Position(String.valueOf(id++), positionName);
             generatedList.add(position);
         }
         positionRepository.saveAllAndFlush(generatedList);
