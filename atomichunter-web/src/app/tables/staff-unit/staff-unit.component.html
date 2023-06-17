@@ -16,8 +16,8 @@
             <p-button
                     icon="pi pi-plus"
                     styleClass="p-button-outlined"
-                    [disabled]="selectedStaff?.status !== StatusEnum.Opened"
-                    (click)="createVacancy()">
+                    [disabled]="vacancyCreationDisabled()"
+                    (onClick)="createVacancy()">
             </p-button>
         </nav>
 

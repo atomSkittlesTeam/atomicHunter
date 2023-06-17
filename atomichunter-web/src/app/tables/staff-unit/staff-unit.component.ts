@@ -31,7 +31,9 @@ export class StaffUnitComponent {
 
     public columnDefs: ColDef[] = [
         // {field: 'id', headerName: 'Идентификатор', filter: 'agNumberColumnFilter'},
-        {field: 'status', headerName: 'Статус', filter: 'agNumberColumnFilter'},
+        {field: 'status', headerName: 'Статус', filter: 'agNumberColumnFilter', cellRenderer: (data: { value: any }) => {
+                return !data.value ? " " : this.getEnum(data.value);
+            }},
         {field: 'closeTime', headerName: 'Дата закрытия', filter: 'agTextColumnFilter'},
         {field: 'employee.lastName', headerName: 'Фамилия', filter: 'agTextColumnFilter'},
         {field: 'employee.firstName', headerName: 'Имя', filter: 'agTextColumnFilter'},
@@ -42,6 +44,27 @@ export class StaffUnitComponent {
     public loadingCellRendererParams: any = {
         loadingMessage: 'Подождите еще немного...',
     };
+
+    getEnum(type: string) {
+        console.log(typeof  type, type, 'fafwf')
+        switch (type) {
+            case 'Opened':
+                return 'Открыто'
+            case 'Closed':
+                return 'Закрыто'
+            case 'Pending':
+                return 'Ожидание'
+            default:
+                return '';
+        }
+    }
+
+    vacancyCreationDisabled() {
+        return this.selectedStaff === null
+            || this.selectedStaff === undefined
+            || this.selectedStaff.id === null
+            || this.selectedStaff.status !== StatusEnum.Opened;
+    }
 
     // DefaultColDef sets props common to all Columns
     public defaultColDef: ColDef = {
@@ -75,6 +98,7 @@ export class StaffUnitComponent {
     // Example of consuming Grid Event
     onCellClicked(e: CellClickedEvent): void {
         this.selectedStaff = e.data;
+        console.log(this.selectedStaff);
         if (this.selectedStaff?.status === StatusEnum.Opened) {
             this.selectedVacancy = new Vacancy();
             this.position = this.selectedStaff.position;
