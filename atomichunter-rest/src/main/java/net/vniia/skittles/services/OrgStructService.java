@@ -14,6 +14,7 @@ import net.vniia.skittles.integration.OrgStructIntegrationService;
 import net.vniia.skittles.readers.RequestReader;
 import net.vniia.skittles.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,7 @@ public class OrgStructService {
     private JPAQueryFactory queryFactory;
 
 
-    @Scheduled(fixedDelay = 30000)
+    @Scheduled(fixedDelayString = "${scheduled.staff-units}")
     public void getAllStaffUnitsAndSave() {
         List<StaffUnitDto> allStaffUnits = orgStructIntegrationService.getAllStaffUnits();
         List<StaffUnit> allStaffUnitsEntities = new ArrayList<>();
@@ -46,7 +47,7 @@ public class OrgStructService {
         log.info("staff units saved");
     }
 
-    @Scheduled(fixedDelay = 30000)
+    @Scheduled(fixedDelayString = "${scheduled.employees}")
     public void getAllEmployeesAndSave() {
         List<EmployeeDto> allEmployees = orgStructIntegrationService.getAllEmployees();
         List<Employee> allEmployeesEntities = new ArrayList<>();
@@ -55,7 +56,7 @@ public class OrgStructService {
         log.info("employees saved");
     }
 
-    @Scheduled(fixedDelay = 30000)
+    @Scheduled(fixedDelayString = "${scheduled.positions}")
     public void getAllPositionsAndSave() {
         List<PositionDto> allPositions = orgStructIntegrationService.getAllPositions();
         List<Position> allPositionsEntities = new ArrayList<>();
