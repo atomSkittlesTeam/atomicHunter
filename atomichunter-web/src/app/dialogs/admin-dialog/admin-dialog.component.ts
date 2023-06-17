@@ -1,6 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Request} from "../../dto/Request";
-import {RequestService} from "../../services/request.service";
 import {MessageService} from "primeng/api";
 import {User} from "../../dto/User";
 import {RolesService} from "../../services/roles.service";
@@ -20,8 +18,7 @@ export class AdminDialogComponent implements OnInit {
   dialogTitle = 'Регистрация заказа';
   roles: { name: string }[];
 
-  constructor(private requestService: RequestService,
-              private rolesService: RolesService,
+  constructor(private rolesService: RolesService,
               private userService: UserService,
               public messageService: MessageService) {
   }

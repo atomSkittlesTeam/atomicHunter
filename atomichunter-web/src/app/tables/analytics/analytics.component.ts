@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {RequestService} from "../../services/request.service";
 import {formatDate} from "@angular/common";
 import { AnalyticsService } from "../../services/analytics.service";
 

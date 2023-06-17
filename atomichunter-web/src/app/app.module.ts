@@ -19,7 +19,6 @@ import {ContextMenuModule} from "primeng/contextmenu";
 import {ConfigService} from "./config/config.service";
 import {MultiSelectModule} from "primeng/multiselect";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {RequestComponent} from './tables/request/request.component';
 import {SpeedDialModule} from "primeng/speeddial";
 import {SplitterModule} from "primeng/splitter";
 import {SidebarModule} from 'primeng/sidebar'
@@ -38,9 +37,6 @@ import {CalendarModule} from "primeng/calendar";
 import {ChipsModule} from "primeng/chips";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { RequestDialogComponent } from './dialogs/request-dialog/request-dialog.component';
-import { RequestPositionsComponent } from './tables/request-positions/request-positions.component';
-import { RequestPositionDialogComponent } from './dialogs/request-position-dialog/request-position-dialog.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { MasterDetailDetailComponent } from './tables/master-detail-detail/master-detail-detail.component';
 import { AdminDialogComponent } from './dialogs/admin-dialog/admin-dialog.component';
@@ -77,13 +73,9 @@ import { CompetenceDialogComponent } from './dialogs/competence-dialog/competenc
         LoginFormComponent,
         NavigationComponent,
         AdminComponent,
-        RequestComponent,
         AnalyticsComponent,
         DialogComponent,
         DialogRowComponent,
-        RequestDialogComponent,
-        RequestPositionsComponent,
-        RequestPositionDialogComponent,
         MasterDetailDetailComponent,
         AdminDialogComponent,
         LoadingCellRendererComponent,
