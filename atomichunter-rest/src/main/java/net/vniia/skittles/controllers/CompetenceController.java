@@ -44,6 +44,11 @@ public class CompetenceController {
     public void updateCompetenceById(@PathVariable Long competenceId, @RequestBody CompetenceDto competenceDto) {
         this.competenceGroupService.updateCompetence(competenceId, competenceDto);
     }
+    @PutMapping("group/{competenceGroupId}/update")
+    @Transactional
+    public void updateCompetenceById(@PathVariable Long competenceGroupId, @RequestBody CompetenceGroupDto competenceGroupDto) {
+        this.competenceGroupService.updateCompetenceGroup(competenceGroupId, competenceGroupDto);
+    }
 
     // groups
 
@@ -58,7 +63,7 @@ public class CompetenceController {
         return competenceGroupService.createCompetenceGroup(competenceGroupDto);
     }
 
-    @GetMapping("group/{id}")
+    @GetMapping("group/{groupId}")
     public List<CompetenceDto> getAllCompetencesByGroupId(@PathVariable Long groupId) {
         return competenceReader.getAllCompetencesByGroupId(groupId);
     }

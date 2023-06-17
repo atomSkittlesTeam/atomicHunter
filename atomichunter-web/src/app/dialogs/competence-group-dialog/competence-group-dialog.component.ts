@@ -17,6 +17,7 @@ export class CompetenceGroupDialogComponent {
   }
 
   set item(value: CompetenceGroupDto) {
+    console.log(value)
     if (value) {
       this._item = value;
     } else {

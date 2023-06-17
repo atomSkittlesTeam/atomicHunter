@@ -4,6 +4,7 @@ import {VacancyService} from "../../services/vacancy.service";
 import {CompetenceService} from "../../services/competence.service";
 import {PositionService} from "../../services/position.service";
 import {MessageService} from "primeng/api";
+import {CompetenceGroupDto} from "../../dto/CompetenceGroupDto";
 
 @Component({
     selector: 'app-competence-dialog',
@@ -23,8 +24,21 @@ export class CompetenceDialogComponent {
         }
     }
 
+    @Input("competenceGroup") get competenceGroup(): CompetenceGroupDto {
+        return this._competenceGroup;
+    }
+
+    set competenceGroup(value: CompetenceGroupDto) {
+        if (value) {
+            this._competenceGroup = value;
+        } else {
+            this._competenceGroup = new CompetenceGroupDto();
+        }
+    }
+
     @Input("openDialog") visible: boolean = false;
     private _item: Competence;
+    private _competenceGroup: CompetenceGroupDto;
     @Input("editMode") editMode: boolean;
     @Output() submit = new EventEmitter<any>();
     @Output() visibleChange = new EventEmitter<any>();
@@ -79,8 +93,9 @@ export class CompetenceDialogComponent {
 
     async createCompetence(competence: Competence) {
         try {
+            console.log(this.competenceGroup, "fafawfawf")
             this.loading = true;
-            const rq = await this.competenceService.createCompetenceGroup(competence);
+            const rq = await this.competenceService.createCompetence(this.competenceGroup.id, competence);
             this.messageService.add({
                 severity: "success",
                 summary: "Успех!",
@@ -102,7 +117,7 @@ export class CompetenceDialogComponent {
     async updateCompetence(competence: Competence) {
         try {
             this.loading = true;
-            const rq = await this.competenceService.updateCompetenceGroup(competence.id, competence);
+            const rq = await this.competenceService.updateCompetence(competence.id, competence);
             this.messageService.add({
                 severity: "success",
                 summary: "Успех!",

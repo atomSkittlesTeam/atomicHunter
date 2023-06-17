@@ -7,6 +7,7 @@ import {HttpClient} from "@angular/common/http";
 import {MessageService} from "primeng/api";
 import {CompetenceService} from "../../services/competence.service";
 import {CompetenceGroupDto} from "../../dto/CompetenceGroupDto";
+import {Competence} from "../../dto/Competence";
 
 @Component({
     selector: 'app-competence-group',
@@ -89,6 +90,8 @@ export class CompetenceGroupComponent {
     createCompetenceGroup() {
         this.openDialog = true;
         this.dialogEditMode = false
+        this.selectedCompetenceGroup = new CompetenceGroupDto();
+
     }
 
     updateCompetenceGroup() {

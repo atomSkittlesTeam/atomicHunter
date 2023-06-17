@@ -19,7 +19,6 @@ export class CompetenceComponent {
 
     constructor(public competenceService: CompetenceService,
                 private messageService: MessageService) {
-        // this.renderMenu();
     }
 
     private _competenceGroup: CompetenceGroupDto;
@@ -90,7 +89,7 @@ export class CompetenceComponent {
     }
 
     async getCompetenceByIdFromApi() {
-        if (!this.competenceGroup) {
+        if (!this.competenceGroup?.id) {
             return;
         }
         this.agGrid.api.showLoadingOverlay();
@@ -100,6 +99,14 @@ export class CompetenceComponent {
     createCompetence() {
         this.openDialog = true;
         this.dialogEditMode = false
+        this.selectedCompetence = new Competence();
+    }
+
+    updateCompetenceGroup() {
+        if (this.selectedCompetence) {
+            this.openDialog = true;
+            this.dialogEditMode = true;
+        }
     }
 
     async onDialogSubmit($event: any) {
