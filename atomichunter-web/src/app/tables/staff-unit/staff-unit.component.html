@@ -16,7 +16,7 @@
             <p-button
                     icon="pi pi-plus"
                     styleClass="p-button-outlined"
-                    [disabled]="selectedStaff?.status !== 'Opened'"
+                    [disabled]="selectedStaff?.status !== StatusEnum.Opened"
                     (click)="createVacancy()">
             </p-button>
         </nav>
@@ -44,6 +44,7 @@
                     *ngIf="openDialog"
                     [item]="selectedVacancy"
                     [staffUnit]="selectedStaff"
+                    [singlePosition]="position"
                     [editMode]="dialogEditMode"
                     (submit)="onDialogSubmit($event)">
 </app-vacancy-dialog>

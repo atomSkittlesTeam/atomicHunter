@@ -10,6 +10,7 @@ import {OrgStructService} from "../../services/org-struct.service";
 import {Vacancy} from "../../dto/Vacancy";
 import {VacancyService} from "../../services/vacancy.service";
 import {Position} from "../../dto/Position";
+import {StatusEnum} from "../../dto/status-enum";
 
 @Component({
     selector: 'app-staff-unit',
@@ -30,7 +31,7 @@ export class StaffUnitComponent {
 
     public columnDefs: ColDef[] = [
         // {field: 'id', headerName: 'Идентификатор', filter: 'agNumberColumnFilter'},
-        {field: 'status', headerName: 'Статус', filter: 'agNumberColumnFilter'},
+        {field: 'status', headerName: 'Статус', filter: 'agNumberColumnFilter', cellRenderer: data => { return data.value ? }},
         {field: 'closeTime', headerName: 'Дата закрытия', filter: 'agTextColumnFilter'},
         {field: 'employee.lastName', headerName: 'Фамилия', filter: 'agTextColumnFilter'},
         {field: 'employee.firstName', headerName: 'Имя', filter: 'agTextColumnFilter'},
@@ -76,7 +77,7 @@ export class StaffUnitComponent {
         this.selectedStaff = e.data;
         if (this.selectedStaff?.status === 'Opened') {
             this.selectedVacancy = new Vacancy();
-            // this.position = this.s
+            this.position = this.selectedStaff.position;
         }
     }
 
@@ -109,4 +110,6 @@ export class StaffUnitComponent {
             await this.getAllStaffUnitsFromApi();
         }
     }
+
+    protected readonly StatusEnum = StatusEnum;
 }
