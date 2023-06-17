@@ -170,7 +170,7 @@ public class ReportService {
 
         document.close();
 
-        return path;
+        return "report_of_" + vacancyDto.getId() + "_vacancy.pdf";
     }
 
     static Cell getBoldTitleCell(String textValue) {

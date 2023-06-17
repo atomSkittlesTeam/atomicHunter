@@ -1,22 +1,9 @@
 package net.vniia.skittles.services;
 
-import com.itextpdf.io.font.FontProgram;
-import com.itextpdf.io.font.FontProgramFactory;
-import com.itextpdf.io.image.ImageData;
-import com.itextpdf.io.image.ImageDataFactory;
-import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.font.PdfFontFactory;
-import com.itextpdf.kernel.geom.PageSize;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Image;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.properties.TextAlignment;
 import lombok.RequiredArgsConstructor;
-import net.vniia.skittles.dto.*;
-import net.vniia.skittles.entities.User;
+import net.vniia.skittles.dto.CompetenceWeightDto;
+import net.vniia.skittles.dto.VacancyDto;
+import net.vniia.skittles.dto.VacancyRespondDto;
 import net.vniia.skittles.entities.Vacancy;
 import net.vniia.skittles.entities.VacancyCompetence;
 import net.vniia.skittles.entities.VacancyRespond;
@@ -24,17 +11,23 @@ import net.vniia.skittles.readers.VacancyReader;
 import net.vniia.skittles.repositories.VacancyCompetenceRepository;
 import net.vniia.skittles.repositories.VacancyRepository;
 import net.vniia.skittles.repositories.VacancyRespondRepository;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.transaction.Transactional;
+import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static net.vniia.skittles.services.ReportService.VACANCY_REPORT_PATH;
 
 @Service
 @RequiredArgsConstructor
@@ -163,6 +156,15 @@ public class VacancyService {
     public List<String> createVacancyReportAndReturnPath(Long vacancyId) throws IOException {
         VacancyDto vacancyDto = vacancyReader.getVacancyById(vacancyId);
         String pathToPdf = reportService.createVacancyReport(vacancyDto);
-        return Collections.singletonList(System.getProperty("user.dir").replaceAll("\\\\", "/") + "/" + pathToPdf);
+        return Collections.singletonList(pathToPdf);
+    }
+
+    public HttpEntity<byte[]> getVacancyReportFileByPath(@RequestBody String path) throws IOException {
+        path = VACANCY_REPORT_PATH + path;
+        byte[] model = org.apache.commons.io.FileUtils.readFileToByteArray(new File(path));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentLength(model.length);
+        return new HttpEntity<byte[]>(model, headers);
     }
 }
