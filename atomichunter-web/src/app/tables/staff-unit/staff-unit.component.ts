@@ -37,7 +37,8 @@ export class StaffUnitComponent {
         {field: 'closeTime', headerName: 'Дата закрытия', filter: 'agTextColumnFilter'},
         {field: 'employee.lastName', headerName: 'Фамилия', filter: 'agTextColumnFilter'},
         {field: 'employee.firstName', headerName: 'Имя', filter: 'agTextColumnFilter'},
-        {field: 'position.name', headerName: 'Должность', filter: 'agTextColumnFilter'}
+        {field: 'position.name', headerName: 'Должность', filter: 'agTextColumnFilter'},
+        {field: 'vacancyId', headerName: 'id вакансии', filter: 'agTextColumnFilter'}
     ];
 
     public loadingCellRenderer: any = LoadingCellRendererComponent;

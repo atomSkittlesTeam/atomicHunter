@@ -10,4 +10,5 @@ export class StaffUnitDto {
     status: StatusEnum;
     position: Position;
     closeTime: Date;
+    vacancyId: number;
 }
