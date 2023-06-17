@@ -23,6 +23,7 @@ export class VacancyComponent {
   selectedVacancy: Vacancy;
   pdfResume: string = "";
   showPdfResume: boolean = false;
+  reportDialogVisible: boolean = false;
 
   public columnDefs: ColDef[] = [
     {field: 'id', headerName: 'Идентификатор', filter: 'agNumberColumnFilter'},

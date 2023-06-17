@@ -85,4 +85,14 @@
             <button type="button" pButton icon="pi pi-times" label="Нет" (click)="cd.reject()"></button>
         </ng-template>
     </p-confirmDialog>
+
+    <p-dialog [visible]="reportDialogVisible">
+        <div class="p-inputgroup">
+
+            <span class="p-inputgroup-addon" style="width: 120px">Наименование <span class="required-mark">*</span></span>
+            <input [(ngModel)]="item.name" required
+                   name="name"
+                   placeholder="Укажите наименование вакансии" pInputText/>
+        </div>
+    </p-dialog>
 </div>
