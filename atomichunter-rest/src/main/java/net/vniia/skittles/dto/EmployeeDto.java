@@ -17,7 +17,7 @@ public class EmployeeDto {
     private String firstName;
     private String lastName;
     private String email;
-    private String fullName;
+    private String employeeFullName;
 
     public EmployeeDto(Employee employee) {
         this.id = employee.getId();
