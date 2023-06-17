@@ -7,6 +7,9 @@ import {HttpClient} from "@angular/common/http";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {StaffUnitDto} from "../../dto/StaffUnitDto";
 import {OrgStructService} from "../../services/org-struct.service";
+import {Vacancy} from "../../dto/Vacancy";
+import {VacancyService} from "../../services/vacancy.service";
+import {Position} from "../../dto/Position";
 
 @Component({
     selector: 'app-staff-unit',
@@ -21,6 +24,9 @@ export class StaffUnitComponent {
     openDialog: boolean = false;
     dialogEditMode: boolean = false;
     selectedStaff: StaffUnitDto;
+    selectedVacancy: Vacancy;
+    position: Position;
+
 
     public columnDefs: ColDef[] = [
         // {field: 'id', headerName: 'Идентификатор', filter: 'agNumberColumnFilter'},
@@ -56,7 +62,7 @@ export class StaffUnitComponent {
     constructor(public orgStructService: OrgStructService,
                 public router: Router,
                 public http: HttpClient,
-                private confirmationService: ConfirmationService,
+                private vacancyService: VacancyService,
                 private messageService: MessageService) {
     }
 
@@ -68,6 +74,10 @@ export class StaffUnitComponent {
     // Example of consuming Grid Event
     onCellClicked(e: CellClickedEvent): void {
         this.selectedStaff = e.data;
+        if (this.selectedStaff?.status === 'Opened') {
+            this.selectedVacancy = new Vacancy();
+            // this.position = this.s
+        }
     }
 
     showFilter() {
@@ -86,5 +96,17 @@ export class StaffUnitComponent {
         this.agGrid.api.showLoadingOverlay();
         this.rowData = await this.orgStructService.getStaffUnits();
         this.loading = false;
+    }
+
+    createVacancy() {
+        this.openDialog = true;
+        this.dialogEditMode = false
+    }
+
+    async onDialogSubmit($event: any) {
+        this.openDialog = false;
+        if ($event) {
+            await this.getAllStaffUnitsFromApi();
+        }
     }
 }
