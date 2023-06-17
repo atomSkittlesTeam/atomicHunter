@@ -71,8 +71,9 @@ public class OfferService {
         document.add(new Paragraph("Дата: " + LocalDate.now()).setFont(font));
 
         document.add(new Paragraph(
-                "Компания «Атомпродукт» хотела бы предложить Вам занять должность " + vacancy.getPosition().getName()
-                + " на следующих условиях: ваш ежемесячный оклад будет составлять " + vacancy.getSalary() + " рублей. "
+                "Компания «Атомпродукт» хотела бы предложить Вам занять должность " + "ПОПРАВИТЬ"
+                + " на следующих условиях: " +
+                        "ВСТАВИТЬ УСЛОВИЯ"
                 + "Дата начала действия трудового договора – открытая дата.").setFont(font)
                 .setTextAlignment(TextAlignment.JUSTIFIED));
         document.add(new Paragraph("Вам будет установлен испытательный срок 3 (три) месяца, " +
