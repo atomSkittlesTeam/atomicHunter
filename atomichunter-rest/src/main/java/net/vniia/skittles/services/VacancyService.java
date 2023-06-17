@@ -3,6 +3,7 @@ package net.vniia.skittles.services;
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.CompetenceWeightDto;
 import net.vniia.skittles.dto.VacancyDto;
+import net.vniia.skittles.dto.VacancyRespondDto;
 import net.vniia.skittles.entities.Vacancy;
 import net.vniia.skittles.entities.VacancyCompetence;
 import net.vniia.skittles.entities.VacancyRespond;
@@ -110,6 +111,24 @@ public class VacancyService {
                 }
         );
         vacancy.archive();
+    }
+
+    @Transactional
+    public VacancyRespondDto createVacancyRespond(VacancyRespondDto vacancyRespondDto) {
+        VacancyRespond vacancyRespond = new VacancyRespond(vacancyRespondDto);
+        vacancyRespond = this.vacancyRespondRepository.save(vacancyRespond);
+        return vacancyReader.getVacancyRespondById(vacancyRespond.getId());
+    }
+
+    @Transactional
+    public VacancyRespondDto updateVacancyRespond(Long id, VacancyRespondDto vacancyRespondDto) {
+        VacancyRespond vacancyRespond = this.vacancyRespondRepository.findById(id).orElseThrow(
+                () -> {
+                    throw new RuntimeException("Отклик на вакансию не найден!");
+                }
+        );
+        vacancyRespond.update(vacancyRespondDto);
+        return vacancyReader.getVacancyRespondById(vacancyRespond.getId());
     }
 
     @Transactional

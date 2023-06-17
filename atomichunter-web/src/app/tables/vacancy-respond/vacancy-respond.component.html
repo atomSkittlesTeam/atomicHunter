@@ -15,6 +15,20 @@
     </p-button>
 
     <p-button
+            icon="pi pi-plus"
+            styleClass="p-button-outlined"
+            (click)="createVacancyRespond()"
+            [disabled]="!vacancy">
+    </p-button>
+
+    <p-button
+            icon="pi pi-pencil"
+            styleClass="p-button-outlined p-button-help"
+            (onClick)="updateVacancyRespond()"
+            [disabled]="!vacancy || !this.selectedVacancyRespond || !this.selectedVacancyRespond.vacancyId">
+    </p-button>
+
+    <p-button
       icon="pi pi-search"
       styleClass="p-button-outlined"
       [disabled]="!vacancy || !this.selectedVacancyRespond || !this.selectedVacancyRespond.vacancyId"
@@ -85,13 +99,21 @@
   (cellClicked)="onCellClicked($event)">
 </ag-grid-angular>
 
-<app-interview-dialog [openDialog]="openDialog"
-                     *ngIf="openDialog"
-                     [editMode]="dialogEditMode"
+<app-interview-dialog [openDialog]="openInterviewDialog"
+                     *ngIf="openInterviewDialog"
+                     [editMode]="interviewDialogEditMode"
                      [selectedVacancyRespond]="this.selectedVacancyRespond"
-                     (submit)="onDialogSubmit($event)">
+                     (submit)="onInterviewDialogSubmit($event)">
 </app-interview-dialog>
 
+
+<app-vacancy-respond-dialog [openDialog]="openVacancyRespondDialog"
+                            *ngIf="openVacancyRespondDialog"
+                            [item]="selectedVacancyRespond"
+                            [vacancy]="vacancy"
+                            [editMode]="vacancyRespondDialogEditMode"
+                            (submit)="onVacancyRespondDialogSubmit($event)">
+</app-vacancy-respond-dialog>
 <p-confirmDialog #cd [style]="{width: '50vw'}" key="vacancy-respond-archive">
   <ng-template pTemplate="header">
     <h3>Архивация</h3>

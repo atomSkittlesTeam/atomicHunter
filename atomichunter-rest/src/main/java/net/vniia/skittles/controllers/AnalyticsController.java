@@ -1,17 +1,12 @@
 package net.vniia.skittles.controllers;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import net.vniia.skittles.dto.RequestDto;
-import net.vniia.skittles.dto.RequestPositionDto;
-import net.vniia.skittles.entities.Request;
-import net.vniia.skittles.readers.RequestReader;
 import net.vniia.skittles.services.AnalyticsService;
-import net.vniia.skittles.services.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController

@@ -1,0 +1,45 @@
+<p-dialog class="dialog" [header]="dialogTitle" [(visible)]="visible" [modal]="true"
+          [style]="{maxHeight: '80vh',width: '70vw'}"
+          (onHide)="closeDialog($event)">
+    <form #f="ngForm" name="vacancyRespond" novalidate>
+        <div class="flex" [class.formDisabled] = "loading">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon" style="width: 230px">ФИО <span class="required-mark">*</span></span>
+                <input [(ngModel)]="item.fullName"
+                       name="fullName"
+                       placeholder="Введите ФИО кандидата" pInputText required/>
+            </div>
+
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon" style="width: 230px">Электронная почта <span class="required-mark">*</span></span>
+                <input [(ngModel)]="item.email"
+                       name="email"
+                       placeholder="Введите адрес электронной почты кандидата" pInputText required/>
+            </div>
+
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon" style="width: 230px">Сопроводительное письмо <span class="required-mark">*</span></span>
+                <input [(ngModel)]="item.coverLetter"
+                       name="coverLetter"
+                       placeholder="Введите сопроводительное письмо кандидата" pInputText required/>
+            </div>
+
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon" style="width: 230px">Путь к резюме <span class="required-mark">*</span></span>
+                <input [(ngModel)]="item.pathToResume"
+                       name="pathToResume"
+                       placeholder="Введите путь к резюме кандидата" pInputText required/>
+            </div>
+        </div>
+    </form>
+
+    <p-footer>
+
+        <p-button icon="pi pi-check"
+                  (onClick)="onSubmit($event)"
+                  [disabled]="!f.valid"
+                  [label]="getSaveLabel()"
+                  styleClass="tiffany-button">
+        </p-button>
+    </p-footer>
+</p-dialog>
