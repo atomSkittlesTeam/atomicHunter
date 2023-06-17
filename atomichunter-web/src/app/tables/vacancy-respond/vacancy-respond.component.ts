@@ -69,13 +69,22 @@ export class VacancyRespondComponent {
         label: "Отклики",
         items: [
           {
-            label: this.selectedVacancyRespond && this.selectedVacancyRespond.interviewId 
-            ? "Редактировать приглашение" : "Пригласить на собеседование",
+            label: "Добавить",
+            disabled: !this._vacancy,
+            icon: "pi pi-plus",
+            command: () => {
+              if (this._vacancy.id) {
+                this.createVacancyRespond();
+              }
+            }
+          },
+          {
+            label: "Редактировать",
             disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id,
-            icon: "pi pi-envelope",
+            icon: "pi pi-pencil",
             command: () => {
               if (this.selectedVacancyRespond.id) {
-                this.inviteToInterview();
+                this.updateVacancyRespond();
               }
             }
           },
@@ -86,6 +95,17 @@ export class VacancyRespondComponent {
             command: () => {
               if (this.selectedVacancyRespond.id) {
                 this.archiveRequestPosition();
+              }
+            }
+          },
+          {
+            label: this.selectedVacancyRespond && this.selectedVacancyRespond.interviewId
+                ? "Редактировать приглашение" : "Пригласить на собеседование",
+            disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id,
+            icon: "pi pi-envelope",
+            command: () => {
+              if (this.selectedVacancyRespond.id) {
+                this.inviteToInterview();
               }
             }
           }

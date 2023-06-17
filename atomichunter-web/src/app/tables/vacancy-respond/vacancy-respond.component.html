@@ -15,20 +15,6 @@
     </p-button>
 
     <p-button
-            icon="pi pi-plus"
-            styleClass="p-button-outlined"
-            (click)="createVacancyRespond()"
-            [disabled]="!vacancy">
-    </p-button>
-
-    <p-button
-            icon="pi pi-pencil"
-            styleClass="p-button-outlined p-button-help"
-            (onClick)="updateVacancyRespond()"
-            [disabled]="!vacancy || !this.selectedVacancyRespond || !this.selectedVacancyRespond.vacancyId">
-    </p-button>
-
-    <p-button
       icon="pi pi-search"
       styleClass="p-button-outlined"
       [disabled]="!vacancy || !this.selectedVacancyRespond || !this.selectedVacancyRespond.vacancyId"
@@ -39,6 +25,7 @@
       <p-button
         icon="pi pi-bars"
         styleClass="p-button-outlined"
+        [disabled]="!vacancy"
         #btn
         (onClick)="menu.toggle($event)">
       </p-button>
