@@ -64,6 +64,10 @@ import { PasswordRecoverFormComponent } from './password-recover-form/password-r
 import { MenubarModule } from "primeng/menubar";
 import { MenuModule } from "primeng/menu";
 import { StaffUnitComponent } from './tables/staff-unit/staff-unit.component';
+import { CompetenceGroupComponent } from './tables/competence-group/competence-group.component';
+import { CompetenceComponent } from './tables/competence/competence.component';
+import { CompetenceGroupDialogComponent } from './dialogs/competence-group-dialog/competence-group-dialog.component';
+import { CompetenceDialogComponent } from './dialogs/competence-dialog/competence-dialog.component';
 
 @NgModule({
     declarations: [
@@ -89,7 +93,11 @@ import { StaffUnitComponent } from './tables/staff-unit/staff-unit.component';
         VacancyRespondComponent,
         VacancyRequestComponent,
         PasswordRecoverFormComponent,
-        StaffUnitComponent
+        StaffUnitComponent,
+        CompetenceGroupComponent,
+        CompetenceComponent,
+        CompetenceGroupDialogComponent,
+        CompetenceDialogComponent
     ],
   imports: [
     BrowserModule,

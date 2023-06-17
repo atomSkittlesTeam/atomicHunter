@@ -23,17 +23,17 @@ default-user:
   email: "admin-user-42-user-admin@gmail.com"
   full-name: "Админ Админович Админов"
 telegram:
-  link: "http://t.me/AtomicHunterBot"
-  token: "5729000727:AAEk3vHl_00K0ARTesyNpkaFN2gNlxAN4Ds"
+  link: "null"
+  token: "null"
 generators:
   message: false
-  telegram: true
+  telegram: false
   product: false
   request: false
   request-positions: false
   vacancy: false
-  vacancy-respond: true
-  vacancy-respond-online: true
-  positions: true
-  competence: true
-  matrixCompetence: true
+  vacancy-respond: false
+  vacancy-respond-online: false
+  positions: false
+  competence: false
+  matrixCompetence: false

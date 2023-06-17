@@ -1,0 +1,46 @@
+<p-toolbar>
+    <div class="table-name">Компетенции</div>
+    <nav>
+        <p-button icon="pi pi-sync"
+                  styleClass="p-button-rounded p-button-warning p-button-outlined"
+                  (click)="getCompetenceByIdFromApi()"
+                  [disabled]="!competenceGroup">
+        </p-button>
+
+        <p-button
+                icon="pi pi-plus"
+                styleClass="p-button-outlined"
+                *ngIf="selectedCompetence"
+                (click)="createCompetence()">
+        </p-button>
+
+        <p-button
+                icon="pi pi-filter"
+                styleClass="p-button-outlined p-button-warning"
+                (onClick)="showFilter()"
+                [disabled]="!competenceGroup">
+        </p-button>
+    </nav>
+</p-toolbar>
+
+<ag-grid-angular
+        style="width: 100%; height: 100%"
+        class="ag-theme-alpine"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        [overlayLoadingTemplate]="overlayLoadingTemplate"
+        [loadingCellRenderer]="loadingCellRenderer"
+        [loadingCellRendererParams]="loadingCellRendererParams"
+        [overlayNoRowsTemplate]="'Данные отсутствуют'"
+        [rowData]="rowData"
+        [rowSelection]="'multiple'"
+        [animateRows]="true"
+        (gridReady)="onGridReady($event)"
+        (cellClicked)="onCellClicked($event)">
+</ag-grid-angular>
+<app-competence-dialog [openDialog]="openDialog"
+                       *ngIf="openDialog"
+                       [item]="selectedCompetence"
+                       [editMode]="dialogEditMode"
+                       (submit)="onDialogSubmit($event)">
+</app-competence-dialog>
