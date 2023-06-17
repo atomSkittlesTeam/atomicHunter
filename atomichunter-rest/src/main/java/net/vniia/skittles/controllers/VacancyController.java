@@ -83,10 +83,12 @@ public class VacancyController {
         this.vacancyService.archiveVacancyRespond(vacancyRespondId);
     }
 
-    @GetMapping("{vacancyId}/report")
+    @PostMapping("{vacancyId}/report")
     @Transactional
-    public List<String> createVacancyReportAndReturnPath(@PathVariable Long vacancyId) throws IOException {
-        return this.vacancyService.createVacancyReportAndReturnPath(vacancyId);
+    public List<String> createVacancyReportAndReturnPath(@PathVariable Long vacancyId,
+                                                         @RequestBody(required = false) String additionalInformation)
+            throws IOException {
+        return this.vacancyService.createVacancyReportAndReturnPath(vacancyId, additionalInformation);
     }
 
     @RequestMapping("{vacancyId}/report/{path}/filePdf")
