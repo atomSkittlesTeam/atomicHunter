@@ -136,13 +136,13 @@
         <div class="main-block" *ngFor="let competence of competencesAll; let index = index">
             <div class="main-block__first">
                 <div class="main-block__title">{{competence.name}}</div>
-                <div class="main-block__add">
-                    <p-button
-                            icon="pi pi-plus"
-                            styleClass="p-button-outlined p-button-help"
-                            (onClick)="pushNewSkill(index)">
-                    </p-button>
-                </div>
+<!--                <div class="main-block__add">-->
+<!--                    <p-button-->
+<!--                            icon="pi pi-plus"-->
+<!--                            styleClass="tiffany-button "-->
+<!--                            (onClick)="pushNewSkill(index)">-->
+<!--                    </p-button>-->
+<!--                </div>-->
             </div>
 
             <div class="dop-info">
@@ -152,8 +152,18 @@
                     </div>
                     <p-button
                             icon="pi pi-plus"
-                            styleClass="p-button-outlined p-button-help"
-                    >
+                            styleClass="tiffany-button "
+                            (onClick)="pushNewSkill(index)">
+                    </p-button>
+                </div>
+                <div class="dop-info__container">
+                    <div class="dop-info__title">
+                        fffff
+                    </div>
+                    <p-button
+                            icon="pi pi-plus"
+                            styleClass="tiffany-button "
+                            (onClick)="pushNewSkill(index)">
                     </p-button>
                 </div>
             </div>

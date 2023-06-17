@@ -10,6 +10,7 @@ import {CompetenceWeight} from "../../dto/CompetenceWeight";
 import {StaffUnitDto} from "../../dto/StaffUnitDto";
 import {Employee} from "../../dto/Employee";
 import {OrgStructService} from "../../services/org-struct.service";
+import {CompetenceGroupsWithCompetencesDto} from "../../dto/CompetenceGroupsWithCompetencesDto";
 
 @Component({
     selector: "app-vacancy-dialog",
@@ -51,6 +52,7 @@ export class VacancyDialogComponent {
 
     competences: Competence[] = [];
     competencesAll: Competence[] = [];
+    competenceGroupsWithCompetences: CompetenceGroupsWithCompetencesDto[] = [];
     loading: boolean = false;
     showSidebarWithAllSkills: boolean = false;
 
@@ -69,7 +71,8 @@ export class VacancyDialogComponent {
         this.loading = true;
         await this.getAllPositionsFromApi();
         this.employees = await this.orgStructService.getHrEmployees();
-        console.log(this.employees);
+        this.competenceGroupsWithCompetences = await this.competenceService.getAllCompetenceTree();
+        console.log(this.competenceGroupsWithCompetences);
         if (this.editMode) {
             this._item = await this.vacancyService.getVacancyById(this._item.id);
             this.dialogTitle = "Редактирование вакансии";
