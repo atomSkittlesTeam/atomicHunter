@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.vniia.skittles.dto.EmployeeDto;
 import net.vniia.skittles.dto.PositionDto;
+import net.vniia.skittles.dto.StaffUnitDto;
 import net.vniia.skittles.dto.VacancyDto;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -62,7 +63,7 @@ public class Vacancy {
     public void update(VacancyDto vacancyDto) {
         this.name = vacancyDto.getName();
         this.staffUnitId = Optional.ofNullable(vacancyDto.getStaffUnit())
-                .map(StaffUnit::getId)
+                .map(StaffUnitDto::getId)
                 .orElse(null);
         this.positionId = Optional.ofNullable(vacancyDto.getPosition())
                 .map(PositionDto::getId)

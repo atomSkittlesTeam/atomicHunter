@@ -19,6 +19,9 @@ public class VacancyReader {
     public static final QVacancyRespond vacancyRespond = QVacancyRespond.vacancyRespond;
     public static final QConfirmationToken confirmationToken = QConfirmationToken.confirmationToken1;
     public static final QInterview interview = QInterview.interview;
+    public static final QStaffUnit staffUnit = QStaffUnit.staffUnit;
+    public static final QEmployee employee = QEmployee.employee;
+
 
     public static QBean<VacancyDto> getMappedSelectForVacancyDto() {
         return Projections.bean(
@@ -30,7 +33,7 @@ public class VacancyReader {
                 vacancy.requirements,
                 vacancy.responsibilities,
                 vacancy.conditions,
-                vacancy.hrId,
+                EmployeeReader.getMappedSelectForEmployeeDto().as("hr"),
                 vacancy.archive,
                 vacancy.createInstant,
                 vacancy.modifyInstant
@@ -45,7 +48,9 @@ public class VacancyReader {
 
     private JPAQuery<VacancyDto> vacancyQuery() {
         return queryFactory.from(vacancy)
-//                .leftJoin(position).on(position.id.eq(vacancy.positionId))
+                .leftJoin(position).on(position.id.eq(vacancy.positionId))
+                .leftJoin(staffUnit).on(staffUnit.id.eq(vacancy.staffUnitId))
+                .leftJoin(employee).on(employee.id.eq(vacancy.hrId))
                 .select(getMappedSelectForVacancyDto());
     }
 

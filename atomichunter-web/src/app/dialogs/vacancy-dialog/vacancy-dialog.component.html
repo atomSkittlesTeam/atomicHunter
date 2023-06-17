@@ -3,41 +3,43 @@
           (onHide)="closeDialog($event)">
     <form #f="ngForm" name="vacancy" novalidate>
         <div class="flex" [class.formDisabled] = "loading">
-            <div class="p-inputgroup">
-                <span class="p-inputgroup-addon" style="width: 120px">Должность <span class="required-mark">*</span> </span>
-                <p-dropdown [options]="positions"
-                            appendTo="body"
-                            [(ngModel)]="item.position"
-                            (ngModelChange)="selectPosition()"
-                            name="position"
-                            [style]="{width: '100%'}"
-                            [optionLabel]="'name'"></p-dropdown>
-            </div>
+<!--            <div class="p-inputgroup">-->
+<!--                <span class="p-inputgroup-addon" style="width: 120px">Должность <span class="required-mark">*</span> </span>-->
+<!--                <p-dropdown [options]="positions"-->
+<!--                            appendTo="body"-->
+<!--                            [(ngModel)]="item.position"-->
+<!--                            (ngModelChange)="selectPosition()"-->
+<!--                            name="position"-->
+<!--                            [style]="{width: '100%'}"-->
+<!--                            [optionLabel]="'name'"></p-dropdown>-->
+<!--            </div>-->
 
-            <div class="p-inputgroup">
+<!--            <div class="p-inputgroup">-->
 
-                <span class="p-inputgroup-addon" style="width: 120px">Зарплата <span class="required-mark">*</span></span>
-                <input [(ngModel)]="item.salary" required
-                       name="salary"
-                       type="number"
-                       placeholder="Укажите з/п для должности" pInputText/>
-            </div>
+<!--                <span class="p-inputgroup-addon" style="width: 120px">Зарплата <span class="required-mark">*</span></span>-->
+<!--                <input [(ngModel)]="item.salary" required-->
+<!--                       name="salary"-->
+<!--                       type="number"-->
+<!--                       placeholder="Укажите з/п для должности" pInputText/>-->
+<!--            </div>-->
 
-            <div class="p-inputgroup">
-                <span class="p-inputgroup-addon" style="width: 120px">Опыт работы </span>
-                <input [(ngModel)]="item.experience"
-                       name="experience"
-                       placeholder="Введите требуемый опыт работы" pInputText/>
-            </div>
+<!--            <div class="p-inputgroup">-->
+<!--                <span class="p-inputgroup-addon" style="width: 120px">Описание <span class="required-mark">*</span></span>-->
 
-            <div class="p-inputgroup">
-                <span class="p-inputgroup-addon" style="width: 120px">Описание <span class="required-mark">*</span></span>
+<!--                <textarea [(ngModel)]="item.additional" required-->
+<!--                          [autoResize]="true"-->
+<!--                          name="additional"-->
+<!--                          placeholder="Введите доп. информацию" pInputTextarea></textarea>-->
+<!--            </div>-->
 
-                <textarea [(ngModel)]="item.additional" required
-                          [autoResize]="true"
-                          name="additional"
-                          placeholder="Введите доп. информацию" pInputTextarea></textarea>
-            </div>
+<!--            <div class="p-inputgroup">-->
+<!--                <span class="p-inputgroup-addon" style="width: 120px">Описание <span class="required-mark">*</span></span>-->
+
+<!--                <textarea [(ngModel)]="item.additional" required-->
+<!--                          [autoResize]="true"-->
+<!--                          name="additional"-->
+<!--                          placeholder="Введите доп. информацию" pInputTextarea></textarea>-->
+<!--            </div>-->
 
             <span class="fail" *ngIf="isInvalidSumWeight()" style="color:red"> Общий вес должен быть равен {{this.competenceWeightMaxSum}}</span>
 
