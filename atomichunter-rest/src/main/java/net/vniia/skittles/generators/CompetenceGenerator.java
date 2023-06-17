@@ -34,7 +34,7 @@ public class CompetenceGenerator {
         ArrayList<Competence> generatedCompetences = new ArrayList<>();
         long id = 1L;
         for (String  cmpName : VacancyTemplate.allCompetencesNames) {
-            Competence competence = new Competence(id++, cmpName);
+            Competence competence = new Competence(id++, cmpName, null);
             generatedCompetences.add(competence);
         }
         competenceRepository.saveAllAndFlush(generatedCompetences);

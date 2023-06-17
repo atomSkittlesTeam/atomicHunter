@@ -5,8 +5,10 @@ import com.querydsl.core.types.QBean;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.CompetenceDto;
+import net.vniia.skittles.entities.CompetenceGroup;
 import net.vniia.skittles.entities.QCompetence;
 import net.vniia.skittles.entities.QMatrixCompetence;
+import net.vniia.skittles.repositories.CompetenceGroupRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,6 +31,8 @@ public class CompetenceReader {
 
     private final JPAQueryFactory queryFactory;
 
+    private final CompetenceGroupRepository competenceGroupRepository;
+
     public List<CompetenceDto> getCompetencesForPosition(Long positionId) {
         return queryFactory.from(competence)
                 .innerJoin(matrixCompetence)
@@ -41,6 +45,15 @@ public class CompetenceReader {
     public List<CompetenceDto> getAllCompetences() {
         return queryFactory.from(competence)
                 .select(getMappedSelectForCompetenceDto())
+                .fetch();
+    }
+
+    public List<CompetenceDto> getAllCompetencesByGroupId(Long groupId) {
+        CompetenceGroup competenceGroup = this.competenceGroupRepository.findById(groupId).orElseThrow(
+                () -> new RuntimeException("Группа навыков не найдена!"));
+        return queryFactory.from(competence)
+                .select(getMappedSelectForCompetenceDto())
+                .where(competence.groupId.eq(groupId))
                 .fetch();
     }
 }
