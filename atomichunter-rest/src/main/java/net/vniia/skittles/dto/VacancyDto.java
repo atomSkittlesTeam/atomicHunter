@@ -3,6 +3,7 @@ package net.vniia.skittles.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.vniia.skittles.entities.StaffUnit;
 
 import java.time.Instant;
 import java.util.List;
@@ -11,14 +12,29 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VacancyDto {
+
     private Long id;
+
+    // наименование вакансии
+    private String name;
+
+    // штатка
+    private StaffUnitDto staffUnit;
+
+    // должность
     private PositionDto position;
 
-    private String salary;
+    // описание требований к кандидату
+    private String requirements;
 
-    private String experience;
+    // описание обязанностей
+    private String responsibilities;
 
-    private String additional;
+    // предлагаемые условия работы
+    private String conditions;
+
+    // сотрудник кадровой службы ответственный за вакансию (join с employId)
+    private EmployeeDto hr;
 
     private boolean archive;
 

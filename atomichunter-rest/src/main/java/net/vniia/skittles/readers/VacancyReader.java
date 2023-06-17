@@ -5,9 +5,7 @@ import com.querydsl.core.types.QBean;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import net.vniia.skittles.dto.CompetenceWeightDto;
-import net.vniia.skittles.dto.VacancyDto;
-import net.vniia.skittles.dto.VacancyRespondDto;
+import net.vniia.skittles.dto.*;
 import net.vniia.skittles.entities.*;
 import org.springframework.stereotype.Repository;
 
@@ -26,10 +24,13 @@ public class VacancyReader {
         return Projections.bean(
                 VacancyDto.class,
                 vacancy.id,
+                vacancy.name,
+                StaffUnitReader.getMappedSelectForStaffUnitDto().as("staffUnit"),
                 PositionReader.getMappedSelectForPositionDto().as("position"),
-                vacancy.salary,
-                vacancy.experience,
-                vacancy.additional,
+                vacancy.requirements,
+                vacancy.responsibilities,
+                vacancy.conditions,
+                vacancy.hrId,
                 vacancy.archive,
                 vacancy.createInstant,
                 vacancy.modifyInstant
@@ -39,6 +40,8 @@ public class VacancyReader {
     private final JPAQueryFactory queryFactory;
 
     private final VacancyCompetenceReader vacancyCompetenceReader;
+
+    private final StaffUnitReader staffUnitReader;
 
     private JPAQuery<VacancyDto> vacancyQuery() {
         return queryFactory.from(vacancy)

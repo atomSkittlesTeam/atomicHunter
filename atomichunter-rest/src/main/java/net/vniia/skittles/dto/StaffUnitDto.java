@@ -14,6 +14,7 @@ import java.util.UUID;
 public class StaffUnitDto {
     private UUID id;
     private String positionId;
+    private PositionDto position;
     private UUID employeeId;
     private StaffUnitStatus status;
     private Instant closeTime;
