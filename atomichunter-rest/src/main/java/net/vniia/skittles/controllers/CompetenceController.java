@@ -27,10 +27,19 @@ public class CompetenceController {
         return competenceReader.getCompetencesForPosition(positionId);
     }
 
+    // competences
     @GetMapping("all")
     public List<CompetenceDto> getAllCompetences() {
         return competenceReader.getAllCompetences();
     }
+
+    @PostMapping("group/{groupId}")
+    @Transactional
+    public void createCompetence(@RequestBody CompetenceDto competenceDto, @PathVariable Long groupId) {
+        this.competenceGroupService.createCompetence(groupId, competenceDto);
+    }
+
+    // groups
 
     @GetMapping("group/all")
     public List<CompetenceGroupDto> getAllGroupCompetences() {
