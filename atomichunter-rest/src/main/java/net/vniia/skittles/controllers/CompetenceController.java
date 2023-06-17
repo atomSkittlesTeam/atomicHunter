@@ -44,6 +44,11 @@ public class CompetenceController {
     public void updateCompetenceById(@PathVariable Long competenceId, @RequestBody CompetenceDto competenceDto) {
         this.competenceGroupService.updateCompetence(competenceId, competenceDto);
     }
+    @PutMapping("group/{competenceGroupId}/update")
+    @Transactional
+    public void updateCompetenceById(@PathVariable Long competenceGroupId, @RequestBody CompetenceGroupDto competenceGroupDto) {
+        this.competenceGroupService.updateCompetenceGroup(competenceGroupId, competenceGroupDto);
+    }
 
     // groups
 

@@ -89,7 +89,7 @@ export class CompetenceComponent {
     }
 
     async getCompetenceByIdFromApi() {
-        if (!this.competenceGroup) {
+        if (!this.competenceGroup?.id) {
             return;
         }
         this.agGrid.api.showLoadingOverlay();
@@ -99,6 +99,7 @@ export class CompetenceComponent {
     createCompetence() {
         this.openDialog = true;
         this.dialogEditMode = false
+        this.selectedCompetence = new Competence();
     }
 
     updateCompetenceGroup() {

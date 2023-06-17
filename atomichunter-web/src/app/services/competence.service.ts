@@ -46,7 +46,7 @@ export class CompetenceService extends BaseService {
 
     async updateCompetenceGroup(id: number, competenceGroup: CompetenceGroupDto) {
         const url = await this.getBackendUrl();
-        return await firstValueFrom(this.http.put(url + `/competence/${id}/update`, competenceGroup));
+        return await firstValueFrom(this.http.put(url + `/competence/group/${id}/update`, competenceGroup));
     }
 
     async createCompetence(groupId: number, competence: Competence) {
@@ -56,6 +56,6 @@ export class CompetenceService extends BaseService {
 
     async updateCompetence(id: number, competence: Competence) {
         const url = await this.getBackendUrl();
-        return await firstValueFrom(this.http.put(url + `/competence/${id}/update`, competence));
+        return await firstValueFrom(this.http.put(url + `/competence/${id}`, competence));
     }
 }
