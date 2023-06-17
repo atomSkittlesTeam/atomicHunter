@@ -1,9 +1,22 @@
 package net.vniia.skittles.services;
 
+import com.itextpdf.io.font.FontProgram;
+import com.itextpdf.io.font.FontProgramFactory;
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.properties.TextAlignment;
 import lombok.RequiredArgsConstructor;
-import net.vniia.skittles.dto.CompetenceWeightDto;
-import net.vniia.skittles.dto.VacancyDto;
-import net.vniia.skittles.dto.VacancyRespondDto;
+import net.vniia.skittles.dto.*;
+import net.vniia.skittles.entities.User;
 import net.vniia.skittles.entities.Vacancy;
 import net.vniia.skittles.entities.VacancyCompetence;
 import net.vniia.skittles.entities.VacancyRespond;
@@ -14,7 +27,10 @@ import net.vniia.skittles.repositories.VacancyRespondRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -30,6 +46,8 @@ public class VacancyService {
     private final VacancyRespondRepository vacancyRespondRepository;
 
     private final MessageService messageService;
+
+    private final ReportService reportService;
 
     private final VacancyCompetenceRepository vacancyCompetenceRepository;
 
@@ -139,5 +157,12 @@ public class VacancyService {
                 }
         );
         vacancyRespond.archive();
+    }
+
+    @Transactional
+    public List<String> createVacancyReportAndReturnPath(Long vacancyId) throws IOException {
+        VacancyDto vacancyDto = vacancyReader.getVacancyById(vacancyId);
+        String pathToPdf = reportService.createVacancyReport(vacancyDto);
+        return Collections.singletonList(System.getProperty("user.dir").replaceAll("\\\\", "/") + "/" + pathToPdf);
     }
 }

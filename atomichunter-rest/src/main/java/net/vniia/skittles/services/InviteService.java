@@ -4,7 +4,6 @@ import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.InterviewDto;
 import net.vniia.skittles.dto.UserDto;
-import net.vniia.skittles.dto.VacancyRespondDto;
 import net.vniia.skittles.dto.VacancyWithVacancyRespondDto;
 import net.vniia.skittles.entities.Interview;
 import net.vniia.skittles.entities.User;
@@ -23,7 +22,7 @@ public class InviteService {
 
     private final VacancyRespondRepository vacancyRespondRepository;
 
-    private final OfferService offerService;
+    private final ReportService reportService;
 
     private final UserService userService;
 
@@ -50,6 +49,6 @@ public class InviteService {
             throw new RuntimeException("Не найден текущий пользователь");
         }
 
-        this.offerService.createPdfAndSendByEmail(vacancyWithVacancyRespondDto, currentChief, currentHR);
+        this.reportService.createPdfAndSendByEmail(vacancyWithVacancyRespondDto, currentChief, currentHR);
     }
 }
