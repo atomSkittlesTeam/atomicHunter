@@ -5,7 +5,7 @@ server:
   port: 8081
 remoteService:
 #  url: "http://localhost:5002"
-  url: "http://192.168.97.66:5002"
+  url: "http://172.30.9.31:5000"
   user: "admin"
   password: "password"
 token:
