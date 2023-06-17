@@ -26,4 +26,8 @@ public class Competence {
         this.name = competenceDto.getName();
         this.groupId = groupId;
     }
+
+    public void update(CompetenceDto competenceDto) {
+        this.name = competenceDto.getName();
+    }
 }

@@ -9,6 +9,7 @@ import net.vniia.skittles.readers.CompetenceGroupReader;
 import net.vniia.skittles.repositories.CompetenceGroupRepository;
 import org.springframework.stereotype.Service;
 import net.vniia.skittles.repositories.CompetenceRepository;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
@@ -35,5 +36,12 @@ public class CompetenceGroupService {
                 .orElseThrow(() -> new RuntimeException("Группа навыков не найдена!"));
         Competence competence = new Competence(groupId, competenceDto);
         competence = competenceRepository.save(competence);
+    }
+
+    @Transactional
+    public void updateCompetence(Long competenceId, CompetenceDto competenceDto) {
+        Competence competence = competenceRepository.findById(competenceId)
+                .orElseThrow(() -> new RuntimeException("Навык не найден!"));
+        competence.update(competenceDto);
     }
 }

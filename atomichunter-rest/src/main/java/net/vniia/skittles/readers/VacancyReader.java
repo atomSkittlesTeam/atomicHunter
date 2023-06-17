@@ -42,7 +42,7 @@ public class VacancyReader {
 
     private JPAQuery<VacancyDto> vacancyQuery() {
         return queryFactory.from(vacancy)
-                .leftJoin(position).on(position.id.eq(vacancy.positionId))
+//                .leftJoin(position).on(position.id.eq(vacancy.positionId))
                 .select(getMappedSelectForVacancyDto());
     }
 

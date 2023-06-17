@@ -18,8 +18,7 @@ public class PositionReader {
     public static QBean<PositionDto> getMappedSelectForPositionDto() {
         return Projections.bean(PositionDto.class,
                 position.id,
-                position.name,
-                position.description);
+                position.name);
     }
 
     public static final QPosition position = QPosition.position;

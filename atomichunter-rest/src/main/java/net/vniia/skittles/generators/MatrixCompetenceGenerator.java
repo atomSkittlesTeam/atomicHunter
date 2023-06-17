@@ -49,58 +49,58 @@ public class MatrixCompetenceGenerator {
                 long id = 1L;
                 for (Position position : positions) {
                     if (position.getName().equals("Программист")) {
-                        matrix.add(new MatrixCompetence(id++, 1L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 3L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 4L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 5L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 7L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 8L, position.getId()));
+                        matrix.add(new MatrixCompetence(id++, 1L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 3L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 4L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 5L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 7L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 8L, Long.parseLong(position.getId())));
                     }
                     if (position.getName().equals("Уборщик")) {
-                        matrix.add(new MatrixCompetence(id++, 1L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 3L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 9L, position.getId()));
+                        matrix.add(new MatrixCompetence(id++, 1L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 3L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 9L, Long.parseLong(position.getId())));
                     }
                     if (position.getName().equals("Повар")) {
-                        matrix.add(new MatrixCompetence(id++, 1L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 3L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 9L, position.getId()));
+                        matrix.add(new MatrixCompetence(id++, 1L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 3L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 9L, Long.parseLong(position.getId())));
                     }
                     if (position.getName().equals("Охранник")) {
-                        matrix.add(new MatrixCompetence(id++, 6L, position.getId()));
+                        matrix.add(new MatrixCompetence(id++, 6L, Long.parseLong(position.getId())));
                     }
                     if (position.getName().equals("Водитель")) {
-                        matrix.add(new MatrixCompetence(id++, 1L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 6L, position.getId()));
+                        matrix.add(new MatrixCompetence(id++, 1L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 6L, Long.parseLong(position.getId())));
                     }
                     if (position.getName().equals("Бухгалтер")) {
-                        matrix.add(new MatrixCompetence(id++, 1L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 3L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 5L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 9L, position.getId()));
+                        matrix.add(new MatrixCompetence(id++, 1L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 3L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 5L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 9L, Long.parseLong(position.getId())));
                     }
                     if (position.getName().equals("Электрик")) {
-                        matrix.add(new MatrixCompetence(id++, 1L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 2L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 3L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 5L, position.getId()));
+                        matrix.add(new MatrixCompetence(id++, 1L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 2L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 3L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 5L, Long.parseLong(position.getId())));
                     }
                     if (position.getName().equals("Монтер")) {
-                        matrix.add(new MatrixCompetence(id++, 1L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 5L, position.getId()));
+                        matrix.add(new MatrixCompetence(id++, 1L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 5L, Long.parseLong(position.getId())));
                     }
                     if (position.getName().equals("Слесарь")) {
-                        matrix.add(new MatrixCompetence(id++, 3L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 5L, position.getId()));
+                        matrix.add(new MatrixCompetence(id++, 3L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 5L, Long.parseLong(position.getId())));
                     }
                     if (position.getName().equals("Токарь")) {
-                        matrix.add(new MatrixCompetence(id++, 1L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 2L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 3L, position.getId()));
-                        matrix.add(new MatrixCompetence(id++, 5L, position.getId()));
+                        matrix.add(new MatrixCompetence(id++, 1L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 2L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 3L, Long.parseLong(position.getId())));
+                        matrix.add(new MatrixCompetence(id++, 5L, Long.parseLong(position.getId())));
                     }
                     if (position.getName().equals("Курьер")) {
-                        matrix.add(new MatrixCompetence(id++, 1L, position.getId()));
+                        matrix.add(new MatrixCompetence(id++, 1L, Long.parseLong(position.getId())));
                     }
                 }
                 matrixCompetenceRepository.saveAll(matrix);
