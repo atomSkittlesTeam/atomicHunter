@@ -174,6 +174,8 @@ export class VacancyComponent {
           let pathToReport: string[] = [];
           try {
               pathToReport = await this.vacancyService.createVacancyReport(this.selectedVacancy.id);
+              const report = await this.vacancyService.getVacancyFileReport(this.selectedVacancy.id, 
+                pathToReport[0]);
           } catch (e) {
               this.messageService.add({
                   severity: 'error',
@@ -181,9 +183,6 @@ export class VacancyComponent {
                   detail: 'Описание вакансии недоступно! Выберите вакансию, затем попробуйте ещё раз.',
                   life: 5000
               });
-          } finally {
-              console.log(pathToReport);
-              window.open("file:///" + pathToReport[0], '_blank');
           }
       } else {
           this.messageService.add({
@@ -194,6 +193,4 @@ export class VacancyComponent {
           });
       }
   }
-
-    protected readonly Vacancy = Vacancy;
 }

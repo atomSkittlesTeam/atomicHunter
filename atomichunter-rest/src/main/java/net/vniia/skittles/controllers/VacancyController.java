@@ -7,8 +7,12 @@ import net.vniia.skittles.dto.VacancyRespondDto;
 import net.vniia.skittles.entities.VacancyRespond;
 import net.vniia.skittles.readers.VacancyReader;
 import net.vniia.skittles.services.VacancyService;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -83,5 +87,11 @@ public class VacancyController {
     @Transactional
     public List<String> createVacancyReportAndReturnPath(@PathVariable Long vacancyId) throws IOException {
         return this.vacancyService.createVacancyReportAndReturnPath(vacancyId);
+    }
+
+    @RequestMapping("{vacancyId}/report/{path}/filePdf")
+    @ResponseBody
+    public HttpEntity<byte[]> getVacancyReportFileByPath(@PathVariable String path) throws IOException {
+        return this.vacancyService.getVacancyReportFileByPath(path);
     }
 }
