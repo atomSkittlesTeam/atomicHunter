@@ -8,42 +8,35 @@
             </p-button>
 
             <p-button
-                icon="pi pi-filter"
-                styleClass="p-button-outlined p-button-warning"
-                (onClick)="showFilter()">
+                    icon="pi pi-filter"
+                    styleClass="p-button-outlined p-button-warning"
+                    (onClick)="showFilter()">
             </p-button>
 
+            <!--            <p-button-->
+            <!--                      icon="pi pi-plus"-->
+            <!--                      styleClass="p-button-outlined"-->
+            <!--                      (click)="createVacancy()">-->
+            <!--            </p-button>-->
             <p-button
-                      icon="pi pi-plus"
-                      styleClass="p-button-outlined"
-                      (click)="createVacancy()">
-            </p-button>
-            <p-button
-                      icon="pi pi-pencil"
-                      styleClass="p-button-outlined"
-                      [disabled]="!selectedVacancy"
-                      (onClick)="updateVacancy()">
-            </p-button>
-            <p-button
-                    icon="pi pi-file-pdf"
-                    pTooltip="Скачать описание вакансии в pdf-формате"
-                    styleClass="p-button-outlined"
+                    icon="pi pi-pencil"
+                    styleClass="p-button-outlined p-button-help"
                     [disabled]="!selectedVacancy"
-                    (onClick)="createVacancyReport()">
+                    (onClick)="updateVacancy()">
             </p-button>
             <p-button
-                      icon="pi pi-trash"
-                      styleClass="p-button-outlined p-button-danger"
-                      [disabled]="!selectedVacancy"
-                      (onClick)="archiveVacancy()">
+                    icon="pi pi-trash"
+                    styleClass="p-button-outlined p-button-danger"
+                    [disabled]="!selectedVacancy"
+                    (onClick)="archiveVacancy()">
             </p-button>
 
             <p-checkbox
-                [(ngModel)]="showArchive"
-                label="Архив"
-                [binary]="true" 
-                inputId="binary"
-                (ngModelChange)="showArchivePressed()">
+                    [(ngModel)]="showArchive"
+                    label="Архив"
+                    [binary]="true"
+                    inputId="binary"
+                    (ngModelChange)="showArchivePressed()">
             </p-checkbox>
         </nav>
 
@@ -69,10 +62,11 @@
                          class="vacancy-respond"></app-vacancy-respond>
 
     <app-vacancy-dialog [openDialog]="openDialog"
-                    *ngIf="openDialog"
-                    [item]="selectedVacancy"
-                    [editMode]="dialogEditMode"
-                    (submit)="onDialogSubmit($event)">
+                        *ngIf="openDialog"
+                        [item]="selectedVacancy"
+                        [staffUnit]="staffUnit"
+                        [editMode]="dialogEditMode"
+                        (submit)="onDialogSubmit($event)">
     </app-vacancy-dialog>
 
 

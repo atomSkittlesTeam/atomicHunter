@@ -133,9 +133,9 @@
 <p-sidebar [(visible)]="showSidebarWithAllSkills" *ngIf="showSidebarWithAllSkills" position="right">
     <div class="container">
         <h1>Список всех навыков</h1>
-        <div class="main-block" *ngFor="let competence of competencesAll; let index = index">
+        <div class="main-block" *ngFor="let competenceGroup of competenceGroupsWithCompetences; let indexGroup = index">
             <div class="main-block__first">
-                <div class="main-block__title">{{competence.name}}</div>
+                <div class="main-block__title">{{competenceGroup.competenceGroup.name}}</div>
 <!--                <div class="main-block__add">-->
 <!--                    <p-button-->
 <!--                            icon="pi pi-plus"-->
@@ -146,24 +146,14 @@
             </div>
 
             <div class="dop-info">
-                <div class="dop-info__container">
+                <div class="dop-info__container" *ngFor="let competence of competenceGroup.competences; let index = index">
                     <div class="dop-info__title">
-                        fffff
+                        {{competence.name}}
                     </div>
                     <p-button
                             icon="pi pi-plus"
                             styleClass="tiffany-button "
-                            (onClick)="pushNewSkill(index)">
-                    </p-button>
-                </div>
-                <div class="dop-info__container">
-                    <div class="dop-info__title">
-                        fffff
-                    </div>
-                    <p-button
-                            icon="pi pi-plus"
-                            styleClass="tiffany-button "
-                            (onClick)="pushNewSkill(index)">
+                            (onClick)="pushNewSkill(competence.id, indexGroup)">
                     </p-button>
                 </div>
             </div>

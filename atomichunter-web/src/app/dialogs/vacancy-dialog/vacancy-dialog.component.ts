@@ -31,10 +31,24 @@ export class VacancyDialogComponent {
         }
     }
 
+    @Input("staffUnit") get staffUnit(): StaffUnitDto {
+        return this._staffUnit;
+    }
+
+    set staffUnit(value: StaffUnitDto) {
+        console.log(value,'ssfafw')
+        if (value) {
+            this._staffUnit = value;
+        } else {
+            this._staffUnit = new StaffUnitDto();
+        }
+    }
+
     @Input("openDialog") visible: boolean = false;
     private _item: Vacancy;
+    private _staffUnit: StaffUnitDto;
     @Input("editMode") editMode: boolean;
-    @Input("staffUnit") staffUnit: StaffUnitDto;
+    // @Input("staffUnit") staffUnit: StaffUnitDto = new StaffUnitDto();
     @Input("singlePosition") singlePosition: Position;
     @Output() submit = new EventEmitter<any>();
     @Output() visibleChange = new EventEmitter<any>();
@@ -70,9 +84,8 @@ export class VacancyDialogComponent {
     async init() {
         this.loading = true;
         await this.getAllPositionsFromApi();
-        this.employees = await this.orgStructService.getHrEmployees();
+        await this.getEmployeeFromApi();
         this.competenceGroupsWithCompetences = await this.competenceService.getAllCompetenceTree();
-        console.log(this.competenceGroupsWithCompetences);
         if (this.editMode) {
             this._item = await this.vacancyService.getVacancyById(this._item.id);
             this.dialogTitle = "Редактирование вакансии";
@@ -88,6 +101,7 @@ export class VacancyDialogComponent {
         // this.competences = await this.competenceService.getCompetencesByPositionId(Number.parseInt(this._item?.position?.id));
         this.competences.map(comp => this._item.competenceWeight.push(new CompetenceWeight(comp, 10)));
     }
+
     async selectEmployee() {
 
     }
@@ -132,8 +146,8 @@ export class VacancyDialogComponent {
         // alreadyHas.forEach(index => this.competencesAll.splice(index, 1));
     }
 
-    pushNewSkill(idx: number) {
-        let pickedSkill: Competence = this.competencesAll[idx];
+    pushNewSkill(id: number, indexGroup?: number) {
+        let pickedSkill: any = this.competencesAll.find(com => com.id === id);
         if (this._item.competenceWeight == null) {
             this._item.competenceWeight = [];
         }
@@ -196,6 +210,10 @@ export class VacancyDialogComponent {
         this.positions = positions;
     }
 
+    async getEmployeeFromApi() {
+        this.employees = await this.orgStructService.getHrEmployees();
+    }
+
 
     weightSum() {
         let sum = 0;
@@ -230,7 +248,7 @@ export class VacancyDialogComponent {
     }
 
     roundingWeightsToMaxSum(differenceCurrentAndMax: number, isHigher: boolean) {
-        for(let i = 0; i < differenceCurrentAndMax; i++) {
+        for (let i = 0; i < differenceCurrentAndMax; i++) {
             this._item.competenceWeight[i].weight += isHigher ? -1 : 1;
         }
     }
