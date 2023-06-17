@@ -75,7 +75,7 @@ export class StaffUnitComponent {
         this.selectedStaff = e.data;
         if (this.selectedStaff?.status === 'Opened') {
             this.selectedVacancy = new Vacancy();
-            this.position = this.s
+            // this.position = this.s
         }
     }
 

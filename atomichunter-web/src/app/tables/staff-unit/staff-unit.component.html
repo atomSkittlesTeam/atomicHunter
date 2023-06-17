@@ -44,7 +44,6 @@
                     *ngIf="openDialog"
                     [item]="selectedVacancy"
                     [staffUnit]="selectedStaff"
-                    [positionId]="selectedStaff.positionId"
                     [editMode]="dialogEditMode"
                     (submit)="onDialogSubmit($event)">
 </app-vacancy-dialog>
