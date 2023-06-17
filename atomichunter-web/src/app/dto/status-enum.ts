@@ -1,5 +1,5 @@
 export enum StatusEnum {
-    Opened = 'Открыта',
-    Closed = 'Закрыта',
-    Pending = 'Ожидание'
+    Opened = 'Opened',
+    Closed = 'Closed',
+    Pending = 'Pending'
 }
