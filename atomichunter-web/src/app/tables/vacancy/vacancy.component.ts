@@ -7,6 +7,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { Vacancy } from 'src/app/dto/Vacancy';
 import { LoadingCellRendererComponent } from 'src/app/platform/loading-cell-renderer/loading-cell-renderer.component';
 import { VacancyService } from 'src/app/services/vacancy.service';
+import {StaffUnitDto} from "../../dto/StaffUnitDto";
 
 @Component({
   selector: 'app-vacancy',
@@ -22,6 +23,7 @@ export class VacancyComponent {
   dialogEditMode: boolean = false;
   selectedVacancy: Vacancy;
   pdfResume: string = "";
+  staffUnit: StaffUnitDto = new StaffUnitDto();
   showPdfResume: boolean = false;
 
   public columnDefs: ColDef[] = [
