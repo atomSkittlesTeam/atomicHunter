@@ -1,8 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Request} from "../../dto/Request";
 import {CellClickedEvent, ColDef, GridReadyEvent} from "ag-grid-community";
 import {AgGridAngular} from "ag-grid-angular";
-import {RequestService} from "../../services/request.service";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {ConfirmationService, MessageService} from "primeng/api";
@@ -56,8 +54,7 @@ export class MasterDetailDetailComponent implements OnInit{
   public loadingCellRendererParams: any = {
     loadingMessage: 'Подождите еще немного...',
   };
-  constructor(public requestService: RequestService,
-              public router: Router,
+  constructor(public router: Router,
               public http: HttpClient,
               private confirmationService: ConfirmationService,
               private messageService: MessageService) {
@@ -92,18 +89,14 @@ export class MasterDetailDetailComponent implements OnInit{
     // this.requestPositions = await this.requestService.getRequestPositionById(this.selectedRequests[0].id);
   }
 
-  async refreshMain() {
-    this.request = await this.requestService.getRequests(this.showArchive);
-  }
-
   async onGridReady(params: GridReadyEvent) {
     await this.getAllRequestsFromApi();
   }
 
   async getAllRequestsFromApi() {
     this.agGrid.api.showLoadingOverlay();
-    const requests = await this.requestService.getRequests(this.showArchive);
-    this.rowData = requests;
+    // const requests = await this.requestService.getRequests(this.showArchive);
+    // this.rowData = requests;
     this.loading = false;
   }
 
@@ -141,7 +134,7 @@ export class MasterDetailDetailComponent implements OnInit{
       message: 'Отправить позицию в архив?',
       accept: async () => {
         try {
-          await this.requestService.archiveRequest(this.selectedRequest.id);
+          // await this.requestService.archiveRequest(this.selectedRequest.id);
           this.messageService.add({
             severity: 'success',
             summary: 'Успех!',

@@ -5,6 +5,7 @@ export class  VacancyRespond {
     pathToResume: string;
     archive: boolean;
     email: string;
+    fullName: string;
     interviewInviteAccepted: boolean;
     interviewId: number;
 }

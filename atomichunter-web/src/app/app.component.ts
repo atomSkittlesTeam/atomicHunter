@@ -3,7 +3,6 @@ import { UserService } from "./services/user.service";
 import { Router } from "@angular/router";
 import { MenuItem, MessageService } from "primeng/api";
 import { Message } from "./dto/Message";
-import { RequestService } from "./services/request.service";
 import { interval } from "rxjs";
 import { User } from "./dto/User";
 import { NotificationService } from "./services/notification.service";
@@ -39,7 +38,6 @@ export class AppComponent implements OnInit {
   constructor(
     public router: Router,
     private userService: UserService,
-    public requestService: RequestService,
     public notificationService: NotificationService,
     public messageService: MessageService) {
     this.getMessagesByTime();

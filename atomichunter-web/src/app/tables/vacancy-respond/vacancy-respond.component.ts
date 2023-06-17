@@ -18,7 +18,8 @@ export class VacancyRespondComponent {
   meetingItems: any = [];
   offerItems: any = [];
   items: MenuItem[];
-  openDialog: boolean = false;
+  openInterviewDialog: boolean = false;
+  openVacancyRespondDialog: boolean = false;
   dialogEditMode: boolean = false;
 
   constructor(private confirmationService: ConfirmationService,
@@ -52,7 +53,12 @@ export class VacancyRespondComponent {
   public overlayLoadingTemplate = "<div class=\"loading-text\"> Загрузка...</div> ";
 
   createVacancy() {
-    this.openDialog = true;
+    this.openInterviewDialog = true;
+    this.dialogEditMode = false;
+  }
+
+  createVacancyRespond() {
+    this.openVacancyRespondDialog = true;
     this.dialogEditMode = false;
   }
 
@@ -103,7 +109,7 @@ export class VacancyRespondComponent {
   }
 
   async onDialogSubmit($event: any) {
-    this.openDialog = false;
+    this.openInterviewDialog = false;
     if ($event) {
       await this.getRespondByVacancyIdFromApi();
     }
@@ -224,7 +230,7 @@ export class VacancyRespondComponent {
   }
 
   async inviteToInterview() {
-    this.openDialog = true;
+    this.openInterviewDialog = true;
     if (this.selectedVacancyRespond.interviewId) {
       this.dialogEditMode = true;
     } else {

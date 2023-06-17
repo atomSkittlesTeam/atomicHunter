@@ -15,6 +15,12 @@
     </p-button>
 
     <p-button
+            icon="pi pi-plus"
+            styleClass="p-button-outlined"
+            (click)="createVacancyRespond()">
+    </p-button>
+
+    <p-button
       icon="pi pi-search"
       styleClass="p-button-outlined"
       [disabled]="!vacancy || !this.selectedVacancyRespond || !this.selectedVacancyRespond.vacancyId"
@@ -85,13 +91,20 @@
   (cellClicked)="onCellClicked($event)">
 </ag-grid-angular>
 
-<app-interview-dialog [openDialog]="openDialog"
-                     *ngIf="openDialog"
+<app-interview-dialog [openDialog]="openInterviewDialog"
+                     *ngIf="openInterviewDialog"
                      [editMode]="dialogEditMode"
                      [selectedVacancyRespond]="this.selectedVacancyRespond"
                      (submit)="onDialogSubmit($event)">
 </app-interview-dialog>
 
+
+<app-vacancy-respond-dialog [openDialog]="openVacancyRespondDialog"
+                            *ngIf="openVacancyRespondDialog"
+                            [item]="selectedVacancyRespond"
+                            [editMode]="dialogEditMode"
+                            (submit)="onDialogSubmit($event)">
+</app-vacancy-respond-dialog>
 <p-confirmDialog #cd [style]="{width: '50vw'}" key="vacancy-respond-archive">
   <ng-template pTemplate="header">
     <h3>Архивация</h3>

@@ -92,7 +92,13 @@ public class VacancyReader {
                 .select(getMappedSelectForVacancyRespondDto());
     }
 
-    public List<VacancyRespondDto> getVacancyRespondsByIds(List<Long> vacancyIds, boolean showArchive) {
+    public VacancyRespondDto getVacancyRespondById(Long vacancyRespondId) {
+        return vacancyRespondQuery()
+                .where(vacancyRespond.vacancyId.in(vacancyRespondId))
+                .fetchFirst();
+    }
+
+    public List<VacancyRespondDto> getVacancyRespondsByVacancyIds(List<Long> vacancyIds, boolean showArchive) {
         return vacancyRespondQuery()
                 .where(vacancyRespond.vacancyId.in(vacancyIds))
                 .where(showArchive ? null : vacancyRespond.archive.eq(false))

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { User } from "../../dto/User";
-import { RequestService } from "../../services/request.service";
 import { RolesService } from "../../services/roles.service";
 import { UserService } from "../../services/user.service";
 import { MessageService } from "primeng/api";
@@ -35,7 +34,6 @@ export class UserDialogComponent implements OnInit {
   login: string = "";
 
   constructor(public router: Router,
-              private requestService: RequestService,
               private rolesService: RolesService,
               private userService: UserService,
               public messageService: MessageService) {

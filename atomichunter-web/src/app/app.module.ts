@@ -19,7 +19,6 @@ import {ContextMenuModule} from "primeng/contextmenu";
 import {ConfigService} from "./config/config.service";
 import {MultiSelectModule} from "primeng/multiselect";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {RequestComponent} from './tables/request/request.component';
 import {SpeedDialModule} from "primeng/speeddial";
 import {SplitterModule} from "primeng/splitter";
 import {SidebarModule} from 'primeng/sidebar'
@@ -37,14 +36,11 @@ import {DialogRowComponent} from './platform/dialog-row/dialog-row.component';
 import {CalendarModule} from "primeng/calendar";
 import {ChipsModule} from "primeng/chips";
 import {InputTextareaModule} from "primeng/inputtextarea";
-import {ConfirmationService, MessageService} from 'primeng/api';
-import {RequestDialogComponent} from './dialogs/request-dialog/request-dialog.component';
-import {RequestPositionsComponent} from './tables/request-positions/request-positions.component';
-import {RequestPositionDialogComponent} from './dialogs/request-position-dialog/request-position-dialog.component';
-import {DropdownModule} from 'primeng/dropdown';
-import {MasterDetailDetailComponent} from './tables/master-detail-detail/master-detail-detail.component';
-import {AdminDialogComponent} from './dialogs/admin-dialog/admin-dialog.component';
-import {HttpHelperInterceptor} from './interceptors/http-helper.interceptor';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { DropdownModule } from 'primeng/dropdown';
+import { MasterDetailDetailComponent } from './tables/master-detail-detail/master-detail-detail.component';
+import { AdminDialogComponent } from './dialogs/admin-dialog/admin-dialog.component';
+import { HttpHelperInterceptor } from './interceptors/http-helper.interceptor';
 import {LoadingCellRendererComponent} from './platform/loading-cell-renderer/loading-cell-renderer.component';
 import {RegistrationFormComponent} from './registration-form/registration-form.component';
 import {UserDialogComponent} from './dialogs/user-dialog/user-dialog.component';
@@ -68,6 +64,17 @@ import {CompetenceGroupComponent} from './tables/competence-group/competence-gro
 import {CompetenceComponent} from './tables/competence/competence.component';
 import {CompetenceGroupDialogComponent} from './dialogs/competence-group-dialog/competence-group-dialog.component';
 import {CompetenceDialogComponent} from './dialogs/competence-dialog/competence-dialog.component';
+import { PasswordRecoverFormComponent } from './password-recover-form/password-recover-form.component';
+import { MenubarModule } from "primeng/menubar";
+import { MenuModule } from "primeng/menu";
+import { StaffUnitComponent } from './tables/staff-unit/staff-unit.component';
+import { EmployeesComponent } from './tables/employees/employees.component';
+import { PositionsComponent } from './tables/positions/positions.component';
+import { CompetenceGroupComponent } from './tables/competence-group/competence-group.component';
+import { CompetenceComponent } from './tables/competence/competence.component';
+import { CompetenceGroupDialogComponent } from './dialogs/competence-group-dialog/competence-group-dialog.component';
+import { CompetenceDialogComponent } from './dialogs/competence-dialog/competence-dialog.component';
+import { VacancyRespondDialogComponent } from './dialogs/vacancy-respond-dialog/vacancy-respond-dialog.component';
 
 @NgModule({
     declarations: [
@@ -75,13 +82,9 @@ import {CompetenceDialogComponent} from './dialogs/competence-dialog/competence-
         LoginFormComponent,
         NavigationComponent,
         AdminComponent,
-        RequestComponent,
         AnalyticsComponent,
         DialogComponent,
         DialogRowComponent,
-        RequestDialogComponent,
-        RequestPositionsComponent,
-        RequestPositionDialogComponent,
         MasterDetailDetailComponent,
         AdminDialogComponent,
         LoadingCellRendererComponent,
@@ -98,7 +101,8 @@ import {CompetenceDialogComponent} from './dialogs/competence-dialog/competence-
         CompetenceGroupComponent,
         CompetenceComponent,
         CompetenceGroupDialogComponent,
-        CompetenceDialogComponent
+        CompetenceDialogComponent,
+        VacancyRespondDialogComponent
     ],
   imports: [
     BrowserModule,
