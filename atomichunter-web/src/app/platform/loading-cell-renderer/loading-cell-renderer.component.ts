@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ILoadingCellRendererParams} from "ag-grid-enterprise";
+import {ILoadingCellRendererParams} from "ag-grid-community";
 import {ILoadingCellRendererAngularComp} from "ag-grid-angular";
 
 @Component({

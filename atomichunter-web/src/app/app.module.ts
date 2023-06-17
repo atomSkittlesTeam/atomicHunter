@@ -37,39 +37,37 @@ import {DialogRowComponent} from './platform/dialog-row/dialog-row.component';
 import {CalendarModule} from "primeng/calendar";
 import {ChipsModule} from "primeng/chips";
 import {InputTextareaModule} from "primeng/inputtextarea";
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { RequestDialogComponent } from './dialogs/request-dialog/request-dialog.component';
-import { RequestPositionsComponent } from './tables/request-positions/request-positions.component';
-import { RequestPositionDialogComponent } from './dialogs/request-position-dialog/request-position-dialog.component';
-import { DropdownModule } from 'primeng/dropdown';
-import { MasterDetailDetailComponent } from './tables/master-detail-detail/master-detail-detail.component';
-import { AdminDialogComponent } from './dialogs/admin-dialog/admin-dialog.component';
-import { HttpHelperInterceptor } from './interceptors/http-helper.interceptor';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {RequestDialogComponent} from './dialogs/request-dialog/request-dialog.component';
+import {RequestPositionsComponent} from './tables/request-positions/request-positions.component';
+import {RequestPositionDialogComponent} from './dialogs/request-position-dialog/request-position-dialog.component';
+import {DropdownModule} from 'primeng/dropdown';
+import {MasterDetailDetailComponent} from './tables/master-detail-detail/master-detail-detail.component';
+import {AdminDialogComponent} from './dialogs/admin-dialog/admin-dialog.component';
+import {HttpHelperInterceptor} from './interceptors/http-helper.interceptor';
 import {LoadingCellRendererComponent} from './platform/loading-cell-renderer/loading-cell-renderer.component';
-import { TreeDataComponent } from './tables/tree-data/tree-data.component';
-import {RowGroupingModule} from "@ag-grid-enterprise/row-grouping";
-import { RegistrationFormComponent } from './registration-form/registration-form.component';
-import { UserDialogComponent } from './dialogs/user-dialog/user-dialog.component';
-import { PasswordModule } from "primeng/password";
+import {RegistrationFormComponent} from './registration-form/registration-form.component';
+import {UserDialogComponent} from './dialogs/user-dialog/user-dialog.component';
+import {PasswordModule} from "primeng/password";
 import {NgOptimizedImage} from "@angular/common";
-import { VacancyComponent } from './tables/vacancy/vacancy.component';
-import { VacancyDialogComponent } from './dialogs/vacancy-dialog/vacancy-dialog.component';
-import { RadioButtonModule } from "primeng/radiobutton";
-import { KnobModule } from "primeng/knob";
-import { InputNumberModule } from "primeng/inputnumber";
-import { VacancyRespondComponent } from './tables/vacancy-respond/vacancy-respond.component';
-import { VacancyRequestComponent } from './dialogs/interview-dialog/interview-dialog.component';
+import {VacancyComponent} from './tables/vacancy/vacancy.component';
+import {VacancyDialogComponent} from './dialogs/vacancy-dialog/vacancy-dialog.component';
+import {RadioButtonModule} from "primeng/radiobutton";
+import {KnobModule} from "primeng/knob";
+import {InputNumberModule} from "primeng/inputnumber";
+import {VacancyRespondComponent} from './tables/vacancy-respond/vacancy-respond.component';
+import {VacancyRequestComponent} from './dialogs/interview-dialog/interview-dialog.component';
 import {SplitButtonModule} from "primeng/splitbutton";
-import { PasswordRecoverFormComponent } from './password-recover-form/password-recover-form.component';
-import { MenubarModule } from "primeng/menubar";
-import { MenuModule } from "primeng/menu";
-import { StaffUnitComponent } from './tables/staff-unit/staff-unit.component';
-import { EmployeesComponent } from './tables/employees/employees.component';
-import { PositionsComponent } from './tables/positions/positions.component';
-import { CompetenceGroupComponent } from './tables/competence-group/competence-group.component';
-import { CompetenceComponent } from './tables/competence/competence.component';
-import { CompetenceGroupDialogComponent } from './dialogs/competence-group-dialog/competence-group-dialog.component';
-import { CompetenceDialogComponent } from './dialogs/competence-dialog/competence-dialog.component';
+import {PasswordRecoverFormComponent} from './password-recover-form/password-recover-form.component';
+import {MenubarModule} from "primeng/menubar";
+import {MenuModule} from "primeng/menu";
+import {StaffUnitComponent} from './tables/staff-unit/staff-unit.component';
+import {EmployeesComponent} from './tables/employees/employees.component';
+import {PositionsComponent} from './tables/positions/positions.component';
+import {CompetenceGroupComponent} from './tables/competence-group/competence-group.component';
+import {CompetenceComponent} from './tables/competence/competence.component';
+import {CompetenceGroupDialogComponent} from './dialogs/competence-group-dialog/competence-group-dialog.component';
+import {CompetenceDialogComponent} from './dialogs/competence-dialog/competence-dialog.component';
 
 @NgModule({
     declarations: [
@@ -87,7 +85,6 @@ import { CompetenceDialogComponent } from './dialogs/competence-dialog/competenc
         MasterDetailDetailComponent,
         AdminDialogComponent,
         LoadingCellRendererComponent,
-        TreeDataComponent,
         RegistrationFormComponent,
         UserDialogComponent,
         VacancyComponent,
