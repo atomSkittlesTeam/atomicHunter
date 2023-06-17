@@ -10,8 +10,15 @@
         <p-button
                 icon="pi pi-plus"
                 styleClass="p-button-outlined"
-                *ngIf="selectedCompetence"
+                *ngIf="competenceGroup"
                 (click)="createCompetence()">
+        </p-button>
+
+        <p-button
+                icon="pi pi-pencil"
+                styleClass="p-button-outlined p-button-help"
+                *ngIf="competenceGroup"
+                (onClick)="updateCompetenceGroup()">
         </p-button>
 
         <p-button
@@ -41,6 +48,7 @@
 <app-competence-dialog [openDialog]="openDialog"
                        *ngIf="openDialog"
                        [item]="selectedCompetence"
+                       [competenceGroup] = "competenceGroup"
                        [editMode]="dialogEditMode"
                        (submit)="onDialogSubmit($event)">
 </app-competence-dialog>

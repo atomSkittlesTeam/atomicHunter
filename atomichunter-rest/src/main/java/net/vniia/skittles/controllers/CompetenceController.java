@@ -52,7 +52,7 @@ public class CompetenceController {
         return competenceGroupService.createCompetenceGroup(competenceGroupDto);
     }
 
-    @GetMapping("group/{id}")
+    @GetMapping("group/{groupId}")
     public List<CompetenceDto> getAllCompetencesByGroupId(@PathVariable Long groupId) {
         return competenceReader.getAllCompetencesByGroupId(groupId);
     }

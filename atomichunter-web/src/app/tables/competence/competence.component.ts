@@ -19,7 +19,6 @@ export class CompetenceComponent {
 
     constructor(public competenceService: CompetenceService,
                 private messageService: MessageService) {
-        // this.renderMenu();
     }
 
     private _competenceGroup: CompetenceGroupDto;
@@ -100,6 +99,13 @@ export class CompetenceComponent {
     createCompetence() {
         this.openDialog = true;
         this.dialogEditMode = false
+    }
+
+    updateCompetenceGroup() {
+        if (this.selectedCompetence) {
+            this.openDialog = true;
+            this.dialogEditMode = true;
+        }
     }
 
     async onDialogSubmit($event: any) {
