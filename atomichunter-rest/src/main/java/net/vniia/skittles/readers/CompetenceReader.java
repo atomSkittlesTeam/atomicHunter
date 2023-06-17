@@ -32,7 +32,8 @@ public class CompetenceReader {
         return Projections.bean(
                 CompetenceDto.class,
                 competence.id,
-                competence.name
+                competence.name,
+                competence.groupId
         );
     }
 
