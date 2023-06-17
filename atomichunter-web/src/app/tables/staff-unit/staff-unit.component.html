@@ -12,6 +12,13 @@
                     styleClass="p-button-outlined p-button-warning"
                     (onClick)="showFilter()">
             </p-button>
+
+            <p-button
+                    icon="pi pi-plus"
+                    styleClass="p-button-outlined"
+                    [disabled]="selectedStaff?.status !== 'Opened'"
+                    (click)="createVacancy()">
+            </p-button>
         </nav>
 
     </p-toolbar>
@@ -32,3 +39,10 @@
             (cellClicked)="onCellClicked($event)">
     </ag-grid-angular>
 </div>
+
+<app-vacancy-dialog [openDialog]="openDialog"
+                    *ngIf="openDialog"
+                    [item]="selectedVacancy"
+                    [editMode]="dialogEditMode"
+                    (submit)="onDialogSubmit($event)">
+</app-vacancy-dialog>
