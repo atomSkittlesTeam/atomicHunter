@@ -148,6 +148,18 @@ public class VacancyService {
     }
 
     @Transactional
+    public void updateVacancyRespondAverageScore(List<VacancyCompetenceScoreDto> vacancyCompetenceScoreDtos) {
+        List<VacancyCompetenceScoreDto> scores = vacancyReader.getVacancyCompetenceScoreWithWeight(vacancyCompetenceScoreDtos);
+        VacancyRespond vacancyRespond = this.vacancyRespondRepository.findById(id).orElseThrow(
+                () -> {
+                    throw new RuntimeException("Отклик на вакансию не найден!");
+                }
+        );
+        vacancyRespond.update(vacancyRespondDto);
+        return vacancyReader.getVacancyRespondById(vacancyRespond.getId());
+    }
+
+    @Transactional
     public void archiveVacancyRespond(Long vacancyRespondId) {
         VacancyRespond vacancyRespond = this.vacancyRespondRepository.findById(vacancyRespondId).orElseThrow(
                 () -> {
@@ -183,8 +195,12 @@ public class VacancyService {
         return dtos;
     }
 
-    public void createVacancyCompetenceScore(VacancyCompetenceScoreDto vacancyCompetenceScoreDto) {
-        VacancyCompetenceScore vacancyCompetenceScore = new VacancyCompetenceScore(vacancyCompetenceScoreDto);
-        vacancyCompetenceScoreRepository.saveAndFlush(vacancyCompetenceScore);
+    public List<VacancyCompetenceScoreDto> createVacancyCompetenceScore(List<VacancyCompetenceScoreDto> vacancyCompetenceScoreDtos) {
+        List<VacancyCompetenceScore> vacancyCompetenceScores = new ArrayList<>();
+        vacancyCompetenceScoreDtos.forEach(e -> vacancyCompetenceScores.add(new VacancyCompetenceScore(e)));
+        List<VacancyCompetenceScore> savedScores = vacancyCompetenceScoreRepository.saveAllAndFlush(vacancyCompetenceScores);
+        List<VacancyCompetenceScoreDto> result = new ArrayList<>();
+        savedScores.forEach(e -> result.add(new VacancyCompetenceScoreDto(e)));
+        return result;
     }
 }

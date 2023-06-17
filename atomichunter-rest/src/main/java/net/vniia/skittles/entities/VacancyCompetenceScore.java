@@ -20,6 +20,10 @@ public class VacancyCompetenceScore {
 
     private Long vacancyCompetenceId;
 
+    private Long vacancyRespondId;
+
+    private Long interviewId;
+
     private Long maintainerId;
 
     private Integer score;
@@ -27,6 +31,8 @@ public class VacancyCompetenceScore {
     public VacancyCompetenceScore(VacancyCompetenceScoreDto vacancyCompetenceScoreDto) {
         this.vacancyCompetenceId = vacancyCompetenceScoreDto.getVacancyCompetenceId();
         this.maintainerId = vacancyCompetenceScoreDto.getMaintainerId();
+        this.vacancyRespondId = vacancyCompetenceScoreDto.getVacancyRespondId();
+        this.interviewId = vacancyCompetenceScoreDto.getInterviewId();
         this.score = vacancyCompetenceScoreDto.getScore();
     }
 }

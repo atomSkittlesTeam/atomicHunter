@@ -106,8 +106,8 @@ public class VacancyController {
 
     @PostMapping("competence-score/add")
     @Transactional
-    public void validateVacancyCompetenceScore(@RequestBody VacancyCompetenceScoreDto vacancyCompetenceScoreDto) {
-        this.vacancyService.createVacancyCompetenceScore(vacancyCompetenceScoreDto);
-//        this.vacancyService.vacancyRespond обновить поле средней оценки
+    public void validateVacancyCompetenceScore(@RequestBody List<VacancyCompetenceScoreDto> vacancyCompetenceScoreDtos) {
+        List<VacancyCompetenceScoreDto> scoreDtosWithIds = this.vacancyService.createVacancyCompetenceScore(vacancyCompetenceScoreDtos);
+        this.vacancyService.updateVacancyRespondAverageScore(scoreDtosWithIds);
     }
 }
