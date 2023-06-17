@@ -14,23 +14,41 @@
 <!--                            [optionLabel]="'name'"></p-dropdown>-->
 <!--            </div>-->
 
-<!--            <div class="p-inputgroup">-->
+            <div class="p-inputgroup">
 
-<!--                <span class="p-inputgroup-addon" style="width: 120px">Зарплата <span class="required-mark">*</span></span>-->
-<!--                <input [(ngModel)]="item.salary" required-->
-<!--                       name="salary"-->
-<!--                       type="number"-->
-<!--                       placeholder="Укажите з/п для должности" pInputText/>-->
-<!--            </div>-->
+                <span class="p-inputgroup-addon" style="width: 120px">Наименование <span class="required-mark">*</span></span>
+                <input [(ngModel)]="item.name" required
+                       name="name"
+                       type="number"
+                       placeholder="Укажите наименование вакансии" pInputText/>
+            </div>
 
-<!--            <div class="p-inputgroup">-->
-<!--                <span class="p-inputgroup-addon" style="width: 120px">Описание <span class="required-mark">*</span></span>-->
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon" style="width: 120px">Требования <span class="required-mark">*</span></span>
 
-<!--                <textarea [(ngModel)]="item.additional" required-->
-<!--                          [autoResize]="true"-->
-<!--                          name="additional"-->
-<!--                          placeholder="Введите доп. информацию" pInputTextarea></textarea>-->
-<!--            </div>-->
+                <textarea [(ngModel)]="item.requirements" required
+                          [autoResize]="true"
+                          name="requirements"
+                          placeholder="Укажите требования к кандидату" pInputTextarea></textarea>
+            </div>
+
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon" style="width: 120px">Обязанности <span class="required-mark">*</span></span>
+
+                <textarea [(ngModel)]="item.responsibilities" required
+                          [autoResize]="true"
+                          name="responsibilities"
+                          placeholder="Укажите обязанности" pInputTextarea></textarea>
+            </div>
+
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon" style="width: 120px">Условия <span class="required-mark">*</span></span>
+
+                <textarea [(ngModel)]="item.conditions" required
+                          [autoResize]="true"
+                          name="conditions"
+                          placeholder="Укажите условия работы" pInputTextarea></textarea>
+            </div>
 
 <!--            <div class="p-inputgroup">-->
 <!--                <span class="p-inputgroup-addon" style="width: 120px">Описание <span class="required-mark">*</span></span>-->
