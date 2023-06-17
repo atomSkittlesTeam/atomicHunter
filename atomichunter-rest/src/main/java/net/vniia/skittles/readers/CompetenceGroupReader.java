@@ -4,7 +4,6 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.QBean;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import net.vniia.skittles.dto.CompetenceDto;
 import net.vniia.skittles.dto.CompetenceGroupDto;
 import net.vniia.skittles.entities.QCompetenceGroup;
 import org.springframework.stereotype.Repository;
@@ -33,5 +32,10 @@ public class CompetenceGroupReader {
                 .fetch();
     }
 
-
+    public CompetenceGroupDto getCompetenceGroupById(Long groupId) {
+        return queryFactory.from(competenceGroup)
+                .select(getMappedSelectForCompetenceGroupDto())
+                .where(competenceGroup.id.eq(groupId))
+                .fetchFirst();
+    }
 }

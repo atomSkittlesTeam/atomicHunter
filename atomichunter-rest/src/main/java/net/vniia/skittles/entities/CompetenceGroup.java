@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.vniia.skittles.dto.CompetenceGroupDto;
 
 @Entity
 @Data
@@ -18,4 +19,12 @@ public class CompetenceGroup {
     private Long id;
 
     private String name;
+
+    public CompetenceGroup(CompetenceGroupDto competenceGroupDto) {
+        this.update(competenceGroupDto);
+    }
+
+    public void update(CompetenceGroupDto competenceGroupDto) {
+        this.name = competenceGroupDto.getName();
+    }
 }
