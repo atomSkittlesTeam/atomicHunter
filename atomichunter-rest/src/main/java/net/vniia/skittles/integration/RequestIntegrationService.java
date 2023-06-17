@@ -1,6 +1,5 @@
 package net.vniia.skittles.integration;
 
-import net.vniia.skittles.dto.RequestDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;

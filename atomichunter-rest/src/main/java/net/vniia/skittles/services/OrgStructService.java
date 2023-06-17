@@ -8,22 +8,17 @@ import net.vniia.skittles.dto.PositionDto;
 import net.vniia.skittles.dto.StaffUnitDto;
 import net.vniia.skittles.entities.Employee;
 import net.vniia.skittles.entities.Position;
-import net.vniia.skittles.entities.RequestPosition;
 import net.vniia.skittles.entities.StaffUnit;
 import net.vniia.skittles.integration.OrgStructIntegrationService;
-import net.vniia.skittles.readers.RequestReader;
-import net.vniia.skittles.repositories.*;
+import net.vniia.skittles.repositories.EmployeeRepository;
+import net.vniia.skittles.repositories.PositionRepository;
+import net.vniia.skittles.repositories.StaffUnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
