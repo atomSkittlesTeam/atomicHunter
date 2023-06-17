@@ -36,4 +36,11 @@ public class CompetenceGroupService {
         Competence competence = new Competence(groupId, competenceDto);
         competence = competenceRepository.save(competence);
     }
+
+    @Transactional
+    public void updateCompetence(Long competenceId, CompetenceDto competenceDto) {
+        Competence competence = competenceRepository.findById(competenceId)
+                .orElseThrow(() -> new RuntimeException("Навык не найден!"));
+        competence.update(competenceDto);
+    }
 }
