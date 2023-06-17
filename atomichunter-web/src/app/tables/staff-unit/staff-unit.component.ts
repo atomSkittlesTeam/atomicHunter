@@ -4,12 +4,13 @@ import {LoadingCellRendererComponent} from "../../platform/loading-cell-renderer
 import {AgGridAngular} from "ag-grid-angular";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {ConfirmationService, MessageService} from "primeng/api";
+import {MessageService} from "primeng/api";
 import {StaffUnitDto} from "../../dto/StaffUnitDto";
 import {OrgStructService} from "../../services/org-struct.service";
 import {Vacancy} from "../../dto/Vacancy";
 import {VacancyService} from "../../services/vacancy.service";
 import {Position} from "../../dto/Position";
+import {StatusEnum} from "../../dto/status-enum";
 
 @Component({
     selector: 'app-staff-unit',
@@ -74,9 +75,9 @@ export class StaffUnitComponent {
     // Example of consuming Grid Event
     onCellClicked(e: CellClickedEvent): void {
         this.selectedStaff = e.data;
-        if (this.selectedStaff?.status === 'Opened') {
+        if (this.selectedStaff?.status === StatusEnum.Opened) {
             this.selectedVacancy = new Vacancy();
-            // this.position = this.s
+            this.position = this.selectedStaff.position;
         }
     }
 
@@ -109,4 +110,6 @@ export class StaffUnitComponent {
             await this.getAllStaffUnitsFromApi();
         }
     }
+
+    protected readonly StatusEnum = StatusEnum;
 }

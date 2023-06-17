@@ -6,7 +6,6 @@ import {AdminComponent} from "./admin/admin.component";
 import {AuthGuard} from "./config/auth.guard";
 import {AnalyticsComponent} from "./tables/analytics/analytics.component";
 import {MasterDetailDetailComponent} from "./tables/master-detail-detail/master-detail-detail.component";
-import {TreeDataComponent} from "./tables/tree-data/tree-data.component";
 import {RegistrationFormComponent} from "./registration-form/registration-form.component";
 import {VacancyComponent} from './tables/vacancy/vacancy.component';
 import {VacancyRequestComponent} from "./dialogs/interview-dialog/interview-dialog.component";
@@ -29,7 +28,6 @@ const routes: Routes = [
     {path: 'competenceGroup', component: CompetenceGroupComponent, canActivate: [AuthGuard]},
     {path: 'analytics', component: AnalyticsComponent},
     {path: '3ple', component: MasterDetailDetailComponent},
-    {path: 'treeData', component: TreeDataComponent},
     {path: 'vacancyRequest', component: VacancyRequestComponent}
 ];
 
