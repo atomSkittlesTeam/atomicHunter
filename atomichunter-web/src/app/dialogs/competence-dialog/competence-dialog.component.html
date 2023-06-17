@@ -1,0 +1,28 @@
+<p-dialog class="dialog" [header]="dialogTitle" [(visible)]="visible" [modal]="true"
+          [style]="{maxHeight: '80vh',width: '50vw'}"
+          (onHide)="closeDialog($event)">
+    <form #f="ngForm" name="competenceGroup" novalidate>
+        <div class="flex" [class.formDisabled] = "loading">
+
+            <div class="p-inputgroup">
+
+                <span class="p-inputgroup-addon" style="width: 120px">Наименование <span class="required-mark">*</span></span>
+                <input [(ngModel)]="item.name" required
+                       name="salary"
+                       placeholder="Укажите наименование для группы" pInputText/>
+            </div>
+
+
+        </div>
+    </form>
+
+    <p-footer>
+
+        <p-button icon="pi pi-check"
+                  (onClick)="onSubmit($event)"
+                  [disabled]="!f.valid"
+                  [label]="getSaveLabel()"
+                  styleClass="tiffany-button">
+        </p-button>
+    </p-footer>
+</p-dialog>

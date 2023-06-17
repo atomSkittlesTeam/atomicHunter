@@ -7,6 +7,7 @@ import net.vniia.skittles.entities.Competence;
 import net.vniia.skittles.entities.CompetenceGroup;
 import net.vniia.skittles.readers.CompetenceGroupReader;
 import net.vniia.skittles.repositories.CompetenceGroupRepository;
+import org.springframework.stereotype.Service;
 import net.vniia.skittles.repositories.CompetenceRepository;
 import org.springframework.stereotype.Service;
 
