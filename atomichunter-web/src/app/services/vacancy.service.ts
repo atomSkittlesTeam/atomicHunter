@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ConfigService } from '../config/config.service';
 import { firstValueFrom } from 'rxjs';
 import { Vacancy } from '../dto/Vacancy';
+import {VacancyRespond} from "../dto/VacancyRespond";
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +58,16 @@ export class VacancyService extends BaseService {
         }
       }
     ));
+  }
+
+  async createVacancyRespond(vacancyRespond: VacancyRespond) {
+    const url = await this.getBackendUrl();
+    return await firstValueFrom(this.http.post(url + '/vacancy/respond/create', vacancyRespond));
+  }
+
+  async updateVacancyRespond(vacancyRespondId: number, vacancyRespond: VacancyRespond) {
+    const url = await this.getBackendUrl();
+    return await firstValueFrom(this.http.put(url + `/vacancy/respond/${vacancyRespondId}/update`, vacancyRespond));
   }
 
   async archiveVacancyRespond(vacancyRespondId: number) {
