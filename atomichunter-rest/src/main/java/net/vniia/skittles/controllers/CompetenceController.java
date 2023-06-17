@@ -22,10 +22,10 @@ public class CompetenceController {
 
     private final CompetenceGroupService competenceGroupService;
 
-    @GetMapping("position/{positionId}")
-    public List<CompetenceDto> getCompetencesForPosition(@PathVariable Long positionId) {
-        return competenceReader.getCompetencesForPosition(positionId);
-    }
+//    @GetMapping("position/{positionId}")
+//    public List<CompetenceDto> getCompetencesForPosition(@PathVariable Long positionId) {
+//        return competenceReader.getCompetencesForPosition(positionId);
+//    }
 
     // competences
     @GetMapping("all")

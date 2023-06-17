@@ -8,6 +8,8 @@ import {Competence} from "../../dto/Competence";
 import {CompetenceService} from "../../services/competence.service";
 import {CompetenceWeight} from "../../dto/CompetenceWeight";
 import {StaffUnitDto} from "../../dto/StaffUnitDto";
+import {Employee} from "../../dto/Employee";
+import {OrgStructService} from "../../services/org-struct.service";
 
 @Component({
     selector: "app-vacancy-dialog",
@@ -37,10 +39,10 @@ export class VacancyDialogComponent {
     @Output() visibleChange = new EventEmitter<any>();
     dialogTitle = "Заведение вакансии";
     positions: Position[] = [];
+    employees: Employee[] = [];
     value: any;
 
     competenceWeightMaxSum = 100; //todo МБ статиком куда-нибудь вынести?
-
 
     get sum(): number {
         return this.weightSum();
@@ -54,6 +56,7 @@ export class VacancyDialogComponent {
 
     constructor(private vacancyService: VacancyService,
                 private competenceService: CompetenceService,
+                private orgStructService: OrgStructService,
                 private positionService: PositionService,
                 public messageService: MessageService) {
     }
@@ -65,6 +68,8 @@ export class VacancyDialogComponent {
     async init() {
         this.loading = true;
         await this.getAllPositionsFromApi();
+        this.employees = await this.orgStructService.getHrEmployees();
+        console.log(this.employees);
         if (this.editMode) {
             this._item = await this.vacancyService.getVacancyById(this._item.id);
             this.dialogTitle = "Редактирование вакансии";
@@ -77,8 +82,11 @@ export class VacancyDialogComponent {
     async selectPosition() {
         this.competences = [];
         this._item.competenceWeight = [];
-        this.competences = await this.competenceService.getCompetencesByPositionId(Number.parseInt(this._item?.position?.id));
+        // this.competences = await this.competenceService.getCompetencesByPositionId(Number.parseInt(this._item?.position?.id));
         this.competences.map(comp => this._item.competenceWeight.push(new CompetenceWeight(comp, 10)));
+    }
+    async selectEmployee() {
+
     }
 
     async onSubmit($event?: any) {

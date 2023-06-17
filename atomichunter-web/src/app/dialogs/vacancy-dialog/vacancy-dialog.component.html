@@ -7,12 +7,22 @@
 <!--                <span class="p-inputgroup-addon" style="width: 120px">Должность <span class="required-mark">*</span> </span>-->
 <!--                <p-dropdown [options]="positions"-->
 <!--                            appendTo="body"-->
-<!--                            [(ngModel)]="item.position"-->
+<!--                            [(ngModel)]="staffUnit.position"-->
 <!--                            (ngModelChange)="selectPosition()"-->
 <!--                            name="position"-->
 <!--                            [style]="{width: '100%'}"-->
 <!--                            [optionLabel]="'name'"></p-dropdown>-->
 <!--            </div>-->
+
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon" style="width: 120px">Должность <span class="required-mark">*</span> </span>
+                <p-dropdown [options]="employees"
+                            appendTo="body"
+                            [(ngModel)]="staffUnit.employee"
+                            name="firstName"
+                            [style]="{width: '100%'}"
+                            [optionLabel]="'fullName'"></p-dropdown>
+            </div>
 
             <div class="p-inputgroup">
 
