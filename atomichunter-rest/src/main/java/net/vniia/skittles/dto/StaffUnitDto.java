@@ -20,6 +20,7 @@ public class StaffUnitDto {
     private EmployeeDto employee;
     private StaffUnitStatus status;
     private Instant closeTime;
+    private Long vacancyId;
 
     public StaffUnitDto(StaffUnit staffUnit) {
         this.id = staffUnit.getId();
