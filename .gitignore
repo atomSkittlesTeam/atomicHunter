@@ -26,6 +26,7 @@ hs_err_pid*
 /atomichunter-rest/target/
 /atomichunter-rest/offers/
 /atomichunter-rest/resumes/
+/atomichunter-rest/vacancyReports/
 
 
 # See http://help.github.com/ignore-files/ for more about ignoring files.
