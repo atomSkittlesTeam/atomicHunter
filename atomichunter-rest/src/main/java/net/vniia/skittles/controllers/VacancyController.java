@@ -2,6 +2,7 @@ package net.vniia.skittles.controllers;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import net.vniia.skittles.dto.VacancyCompetenceScoreDto;
 import net.vniia.skittles.dto.VacancyDto;
 import net.vniia.skittles.dto.VacancyRespondDto;
 import net.vniia.skittles.entities.VacancyRespond;
@@ -95,5 +96,18 @@ public class VacancyController {
     @ResponseBody
     public HttpEntity<byte[]> getVacancyReportFileByPath(@PathVariable String path) throws IOException {
         return this.vacancyService.getVacancyReportFileByPath(path);
+    }
+
+    @GetMapping("competence-score/{maintainerId}/validation")
+    @Transactional
+    public List<VacancyCompetenceScoreDto> validateVacancyCompetenceScore(@PathVariable Long maintainerId) {
+        return this.vacancyService.validateVacancyCompetenceScore(maintainerId);
+    }
+
+    @PostMapping("competence-score/add")
+    @Transactional
+    public void validateVacancyCompetenceScore(@RequestBody VacancyCompetenceScoreDto vacancyCompetenceScoreDto) {
+        this.vacancyService.createVacancyCompetenceScore(vacancyCompetenceScoreDto);
+//        this.vacancyService.vacancyRespond обновить поле средней оценки
     }
 }
