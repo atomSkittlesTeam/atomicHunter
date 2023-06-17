@@ -8,6 +8,13 @@
         </p-button>
 
         <p-button
+                icon="pi pi-filter"
+                styleClass="p-button-outlined p-button-warning"
+                (onClick)="showFilter()"
+                [disabled]="!competenceGroup">
+        </p-button>
+
+        <p-button
                 icon="pi pi-plus"
                 styleClass="p-button-outlined"
                 *ngIf="competenceGroup"
@@ -19,13 +26,6 @@
                 styleClass="p-button-outlined p-button-help"
                 *ngIf="competenceGroup"
                 (onClick)="updateCompetenceGroup()">
-        </p-button>
-
-        <p-button
-                icon="pi pi-filter"
-                styleClass="p-button-outlined p-button-warning"
-                (onClick)="showFilter()"
-                [disabled]="!competenceGroup">
         </p-button>
     </nav>
 </p-toolbar>
@@ -48,7 +48,7 @@
 <app-competence-dialog [openDialog]="openDialog"
                        *ngIf="openDialog"
                        [item]="selectedCompetence"
-                       [competenceGroup] = "competenceGroup"
+                       [competenceGroup]="competenceGroup"
                        [editMode]="dialogEditMode"
                        (submit)="onDialogSubmit($event)">
 </app-competence-dialog>

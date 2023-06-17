@@ -7,6 +7,7 @@ import {VacancyService} from "../../services/vacancy.service";
 import {Competence} from "../../dto/Competence";
 import {CompetenceService} from "../../services/competence.service";
 import {CompetenceWeight} from "../../dto/CompetenceWeight";
+import {StaffUnitDto} from "../../dto/StaffUnitDto";
 
 @Component({
     selector: "app-vacancy-dialog",
@@ -30,6 +31,8 @@ export class VacancyDialogComponent {
     @Input("openDialog") visible: boolean = false;
     private _item: Vacancy;
     @Input("editMode") editMode: boolean;
+    @Input("staffUnit") staffUnit: StaffUnitDto;
+    @Input("singlePosition") singlePosition: Position;
     @Output() submit = new EventEmitter<any>();
     @Output() visibleChange = new EventEmitter<any>();
     dialogTitle = "Заведение вакансии";

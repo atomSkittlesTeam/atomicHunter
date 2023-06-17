@@ -5,9 +5,7 @@ import com.querydsl.core.types.QBean;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import net.vniia.skittles.dto.CompetenceWeightDto;
-import net.vniia.skittles.dto.VacancyDto;
-import net.vniia.skittles.dto.VacancyRespondDto;
+import net.vniia.skittles.dto.*;
 import net.vniia.skittles.entities.*;
 import org.springframework.stereotype.Repository;
 
@@ -21,15 +19,21 @@ public class VacancyReader {
     public static final QVacancyRespond vacancyRespond = QVacancyRespond.vacancyRespond;
     public static final QConfirmationToken confirmationToken = QConfirmationToken.confirmationToken1;
     public static final QInterview interview = QInterview.interview;
+    public static final QStaffUnit staffUnit = QStaffUnit.staffUnit;
+    public static final QEmployee employee = QEmployee.employee;
+
 
     public static QBean<VacancyDto> getMappedSelectForVacancyDto() {
         return Projections.bean(
                 VacancyDto.class,
                 vacancy.id,
+                vacancy.name,
+                StaffUnitReader.getMappedSelectForStaffUnitDto().as("staffUnit"),
                 PositionReader.getMappedSelectForPositionDto().as("position"),
-                vacancy.salary,
-                vacancy.experience,
-                vacancy.additional,
+                vacancy.requirements,
+                vacancy.responsibilities,
+                vacancy.conditions,
+                EmployeeReader.getMappedSelectForEmployeeDto().as("hr"),
                 vacancy.archive,
                 vacancy.createInstant,
                 vacancy.modifyInstant
@@ -40,9 +44,13 @@ public class VacancyReader {
 
     private final VacancyCompetenceReader vacancyCompetenceReader;
 
+    private final StaffUnitReader staffUnitReader;
+
     private JPAQuery<VacancyDto> vacancyQuery() {
         return queryFactory.from(vacancy)
-//                .leftJoin(position).on(position.id.eq(vacancy.positionId))
+                .leftJoin(position).on(position.id.eq(vacancy.positionId))
+                .leftJoin(staffUnit).on(staffUnit.id.eq(vacancy.staffUnitId))
+                .leftJoin(employee).on(employee.id.eq(vacancy.hrId))
                 .select(getMappedSelectForVacancyDto());
     }
 

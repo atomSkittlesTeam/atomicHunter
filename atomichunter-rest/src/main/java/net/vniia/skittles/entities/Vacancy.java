@@ -4,13 +4,16 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.vniia.skittles.dto.EmployeeDto;
 import net.vniia.skittles.dto.PositionDto;
+import net.vniia.skittles.dto.StaffUnitDto;
 import net.vniia.skittles.dto.VacancyDto;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 import java.util.Optional;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -21,15 +24,29 @@ public class Vacancy {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long positionId;
+    // наименование вакансии
+    private String name;
 
-    private String salary;
+    // id штатки, доставать должность через неё
+    private UUID staffUnitId;
 
-    private String experience;
+    // id должности
+    private String positionId;
 
-    private String additional;
+    // описание требований к кандидату
+    private String requirements;
+
+    // описание обязанностей
+    private String responsibilities;
+
+    // предлагаемые условия работы
+    private String conditions;
+
+    // сотрудник кадровой службы ответственный за вакансию (join с employId)
+    private UUID hrId;
 
     private boolean archive;
+
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -44,12 +61,19 @@ public class Vacancy {
     }
 
     public void update(VacancyDto vacancyDto) {
-        this.positionId = Optional.ofNullable(vacancyDto.getPosition())
-                .map(e -> Long.parseLong(e.getId()))
+        this.name = vacancyDto.getName();
+        this.staffUnitId = Optional.ofNullable(vacancyDto.getStaffUnit())
+                .map(StaffUnitDto::getId)
                 .orElse(null);
-        this.salary = vacancyDto.getSalary();
-        this.experience = vacancyDto.getExperience();
-        this.additional = vacancyDto.getAdditional();
+        this.positionId = Optional.ofNullable(vacancyDto.getPosition())
+                .map(PositionDto::getId)
+                .orElse(null);
+        this.requirements = vacancyDto.getRequirements();
+        this.responsibilities = vacancyDto.getResponsibilities();
+        this.conditions = vacancyDto.getConditions();
+        this.hrId = Optional.ofNullable(vacancyDto.getHr())
+                .map(EmployeeDto::getId)
+                .orElse(null);;
     }
 
     public void archive() {

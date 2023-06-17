@@ -27,9 +27,9 @@ export class VacancyComponent {
   public columnDefs: ColDef[] = [
     {field: 'id', headerName: 'Идентификатор', filter: 'agNumberColumnFilter'},
     {field: 'position.name', headerName: 'Должность', filter: 'agTextColumnFilter'},
-    {field: 'salary', headerName: 'Зарплата', filter: 'agTextColumnFilter'},
-    {field: 'experience', headerName: 'Опыт работы', filter: 'agTextColumnFilter'},
-    {field: 'additional', headerName: 'Дополнительно', filter: 'agTextColumnFilter'},
+    {field: 'conditions', headerName: 'Условия', filter: 'agTextColumnFilter'},
+    {field: 'responsibilities', headerName: 'Обязаности', filter: 'agTextColumnFilter'},
+    {field: 'requirements', headerName: 'Условия', filter: 'agTextColumnFilter'},
     // {field: 'releaseDate', headerName: 'Дата поставки' , hide: this.showArchive, cellRenderer: (data: { value: string | number | Date; }) => {
     //         return data.value ? (new Date(data.value)).toLocaleDateString() : '';
     //     }},
