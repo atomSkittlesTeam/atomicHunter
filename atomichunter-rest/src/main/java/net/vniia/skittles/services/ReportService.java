@@ -29,6 +29,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.stream.Collectors;
 
 @Service
 public class ReportService {
@@ -131,42 +132,25 @@ public class ReportService {
 
 
         document.add(img).setTextAlignment(TextAlignment.JUSTIFIED);
-        document.add(new Paragraph("Вакансия").setBold().setFont(font));
-//        document.add(new Paragraph(vacancyWithRespondDto.getVacancyRespond().getFullName()).setFont(font));
-//        document.add(new Paragraph("Дата: " + LocalDate.now()).setFont(font));
-//
-//        document.add(new Paragraph(
-//                "Компания «Атомпродукт» хотела бы предложить Вам занять должность " + "ПОПРАВИТЬ"
-//                        + " на следующих условиях: " +
-//                        "ВСТАВИТЬ УСЛОВИЯ"
-//                        + "Дата начала действия трудового договора – открытая дата.").setFont(font)
-//                .setTextAlignment(TextAlignment.JUSTIFIED));
-//        document.add(new Paragraph("Вам будет установлен испытательный срок 3 (три) месяца, " +
-//                "по истечении которого компания проведет Вашу аттестацию. " +
-//                "В дальнейшем аттестация будет проводиться регулярно, и по ее результатам " +
-//                "может изменяться уровень компенсации и занимаемая Вами в компании должность.").setFont(font));
-//        document.add(new Paragraph("Ваш вклад в развитие Компании будет оцениваться руководством по следующим критериям:").setFont(font));
-//        document.add(new Paragraph("1) Решение задач, входящих в непосредственную зону Вашей ответственности;").setFont(font));
-//        document.add(new Paragraph("2) Вклад в развитие Компании в целом.").setFont(font));
-//        document.add(new Paragraph("").setFont(font));
-//        document.add(new Paragraph("").setFont(font));
-//        document.add(new Paragraph("").setFont(font));
-//        document.add(new Paragraph("").setFont(font));
-//        document.add(new Paragraph("").setFont(font));
-//        document.add(new Paragraph("").setFont(font));
-//        document.add(new Paragraph("").setFont(font));
-//        document.add(new Paragraph("").setFont(font));
-//        document.add(new Paragraph("").setFont(font));
-//        document.add(new Paragraph("").setFont(font));
-//        document.add(new Paragraph("").setFont(font));
-//
-//
-//        Table twoColTable = new Table(twoColumnWidth);
-//        twoColTable.addCell(getBoldTitleCell("Директор").setFont(font));
-//        twoColTable.addCell(getBoldTitleCell("Отдел кадров").setFont(font));
-//        twoColTable.addCell(getNotBoldTitleCell(currentUser.getFullName()).setFont(font));
-//        twoColTable.addCell(getNotBoldTitleCell(currentHR.getFullName()).setFont(font));
-//        document.add(twoColTable.setMarginBottom(12f));
+        document.add(new Paragraph("Требуется " + vacancyDto.getName())
+                .setBold().setFont(font).setTextAlignment(TextAlignment.CENTER)
+                .setFontSize(22));
+
+        document.add(new Paragraph("Компания: ").setBold().setFont(font));
+        document.add(new Paragraph("Крупное производственное предприятие «Атомпродукт» - " +
+                "одна из лидирующих компаний в корпорации РосАтом.").setFont(font)
+                .setTextAlignment(TextAlignment.JUSTIFIED));
+        document.add(new Paragraph("Обязанности: ").setBold().setFont(font));
+        document.add(new Paragraph(vacancyDto.getResponsibilities()).setFont(font));
+        document.add(new Paragraph("Требования:").setBold().setFont(font));
+        document.add(new Paragraph(vacancyDto.getRequirements() +
+                " Оценка ваших навыков будет проводиться по следующему набору" +
+                " компетенций: " +
+                vacancyDto.getCompetenceWeight().stream().map(e ->
+                        e.getCompetence().getName()).collect(Collectors.joining(", ")))
+                .setFont(font));
+        document.add(new Paragraph("Условия:").setBold().setFont(font));
+        document.add(new Paragraph(vacancyDto.getConditions()).setFont(font));
 
         document.close();
 
