@@ -35,9 +35,6 @@ public class OrgStructService {
     private final EmployeeRepository employeeRepository;
     private final StaffUnitRepository staffUnitRepository;
 
-    @Autowired
-    private JPAQueryFactory queryFactory;
-
 
     @Scheduled(fixedDelayString = "${scheduled.staff-units}")
     public void getAllStaffUnitsFromRestAndSave() {
@@ -64,13 +61,6 @@ public class OrgStructService {
         allPositions.forEach(e -> allPositionsEntities.add(new Position(e)));
         positionRepository.saveAll(allPositionsEntities);
         log.info("positions saved");
-    }
-
-    public List<StaffUnitDto> getAllStaffUnits() {
-        List<StaffUnit> staffUnits = staffUnitRepository.findAll();
-        List<StaffUnitDto> staffUnitDtos = new ArrayList<>();
-        staffUnits.forEach(e -> staffUnitDtos.add(new StaffUnitDto(e)));
-        return staffUnitDtos;
     }
 
     public List<EmployeeDto> getAllEmployees() {
