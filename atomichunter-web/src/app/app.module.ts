@@ -64,6 +64,8 @@ import { PasswordRecoverFormComponent } from './password-recover-form/password-r
 import { MenubarModule } from "primeng/menubar";
 import { MenuModule } from "primeng/menu";
 import { StaffUnitComponent } from './tables/staff-unit/staff-unit.component';
+import { EmployeesComponent } from './tables/employees/employees.component';
+import { PositionsComponent } from './tables/positions/positions.component';
 import { CompetenceGroupComponent } from './tables/competence-group/competence-group.component';
 import { CompetenceComponent } from './tables/competence/competence.component';
 import { CompetenceGroupDialogComponent } from './dialogs/competence-group-dialog/competence-group-dialog.component';
@@ -94,6 +96,8 @@ import { CompetenceDialogComponent } from './dialogs/competence-dialog/competenc
         VacancyRequestComponent,
         PasswordRecoverFormComponent,
         StaffUnitComponent,
+        EmployeesComponent,
+        PositionsComponent,
         CompetenceGroupComponent,
         CompetenceComponent,
         CompetenceGroupDialogComponent,

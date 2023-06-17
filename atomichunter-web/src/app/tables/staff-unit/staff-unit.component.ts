@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {StaffUnitDto} from "../../dto/StaffUnitDto";
-import {StaffUnitService} from "../../services/staff-unit.service";
+import {OrgStructService} from "../../services/org-struct.service";
 
 @Component({
     selector: 'app-staff-unit',
@@ -21,18 +21,13 @@ export class StaffUnitComponent {
     openDialog: boolean = false;
     dialogEditMode: boolean = false;
     selectedStaff: StaffUnitDto;
-    pdfResume: string = "";
-    showPdfResume: boolean = false;
 
     public columnDefs: ColDef[] = [
         {field: 'id', headerName: 'Идентификатор', filter: 'agNumberColumnFilter'},
         {field: 'positionId', headerName: 'Должность', filter: 'agTextColumnFilter'},
         {field: 'employeeId', headerName: 'Номер сотрудника', filter: 'agTextColumnFilter'},
         {field: 'status', headerName: 'Состояние', filter: 'agNumberColumnFilter'},
-        {field: 'closeTime', headerName: 'Дата увольнения', filter: 'agTextColumnFilter'},
-        // {field: 'releaseDate', headerName: 'Дата поставки' , hide: this.showArchive, cellRenderer: (data: { value: string | number | Date; }) => {
-        //         return data.value ? (new Date(data.value)).toLocaleDateString() : '';
-        //     }},
+        {field: 'closeTime', headerName: 'Дата увольнения', filter: 'agTextColumnFilter'}
     ];
 
     public loadingCellRenderer: any = LoadingCellRendererComponent;
@@ -57,7 +52,7 @@ export class StaffUnitComponent {
         '<span class="ag-overlay-loading-center">Скоро все появится, подождите еще немного...</span>';
 
 
-    constructor(public staffUnitService: StaffUnitService,
+    constructor(public orgStructService: OrgStructService,
                 public router: Router,
                 public http: HttpClient,
                 private confirmationService: ConfirmationService,
@@ -66,7 +61,7 @@ export class StaffUnitComponent {
 
     async onGridReady(grid: any) {
         this.agGrid = grid;
-        // await this.getAllVacanciesFromApi();
+        await this.getAllStaffUnitsFromApi();
     }
 
     // Example of consuming Grid Event
@@ -88,26 +83,7 @@ export class StaffUnitComponent {
 
     async getAllStaffUnitsFromApi() {
         this.agGrid.api.showLoadingOverlay();
-        this.rowData = await this.staffUnitService.getStaffUnits();
+        this.rowData = await this.orgStructService.getStaffUnits();
         this.loading = false;
-    }
-
-    createVacancy() {
-        this.openDialog = true;
-        this.dialogEditMode = false
-    }
-
-    updateVacancy() {
-        if (this.selectedStaff) {
-            this.openDialog = true;
-            this.dialogEditMode = true;
-        }
-    }
-
-
-    async showArchivePressed() {
-        if (this.agGrid) {
-            this.agGrid.columnApi.setColumnVisible('archive', this.showArchive);
-        }
     }
 }
