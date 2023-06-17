@@ -94,7 +94,7 @@ public class VacancyReader {
 
     public VacancyRespondDto getVacancyRespondById(Long vacancyRespondId) {
         return vacancyRespondQuery()
-                .where(vacancyRespond.vacancyId.in(vacancyRespondId))
+                .where(vacancyRespond.id.eq(vacancyRespondId))
                 .fetchFirst();
     }
 

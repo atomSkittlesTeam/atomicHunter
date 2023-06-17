@@ -27,8 +27,21 @@ export class VacancyRespondDialogComponent {
     }
   }
 
+  @Input("vacancy") get vacancy(): Vacancy {
+    return this._vacancy;
+  }
+
+  set vacancy(value: Vacancy) {
+    if (value) {
+      this._vacancy = value;
+    } else {
+      this._vacancy = new Vacancy();
+    }
+  }
+
   @Input("openDialog") visible: boolean = false;
   private _item: VacancyRespond;
+  private _vacancy: Vacancy;
   @Input("editMode") editMode: boolean;
   @Output() submit = new EventEmitter<any>();
   @Output() visibleChange = new EventEmitter<any>();
@@ -50,13 +63,14 @@ export class VacancyRespondDialogComponent {
 
   async init() {
     this.loading = true;
-    await this.getAllPositionsFromApi();
-    // if (this.editMode) {
-    //   this._item = await this.vacancyService.getVacancyById(this._item.id);
-    //   this.dialogTitle = "Редактирование вакансии";
-    // } else {
-    //   this.dialogTitle = "Регистрация вакансии";
-    // }
+    if (this.editMode) {
+      this._item = await this.vacancyService.getVacancyRespondById(this._item.id);
+      this.dialogTitle = "Редактирование вакансии";
+    } else {
+      this._item = new VacancyRespond();
+      this._item.vacancyId = this._vacancy.id;
+      this.dialogTitle = "Регистрация вакансии";
+    }
     this.loading = false;
   }
 

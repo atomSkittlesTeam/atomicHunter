@@ -60,6 +60,11 @@ export class VacancyService extends BaseService {
     ));
   }
 
+  async getVacancyRespondById(id: number) {
+    const url = await this.getBackendUrl();
+    return await firstValueFrom(this.http.get<VacancyRespond>(url + `/vacancy/respond/${id}`));
+  }
+
   async createVacancyRespond(vacancyRespond: VacancyRespond) {
     const url = await this.getBackendUrl();
     return await firstValueFrom(this.http.post(url + '/vacancy/respond/create', vacancyRespond));

@@ -20,7 +20,8 @@ export class VacancyRespondComponent {
   items: MenuItem[];
   openInterviewDialog: boolean = false;
   openVacancyRespondDialog: boolean = false;
-  dialogEditMode: boolean = false;
+  interviewDialogEditMode: boolean = false;
+  vacancyRespondDialogEditMode: boolean = false;
 
   constructor(private confirmationService: ConfirmationService,
               private messageService: MessageService,
@@ -52,14 +53,14 @@ export class VacancyRespondComponent {
 
   public overlayLoadingTemplate = "<div class=\"loading-text\"> Загрузка...</div> ";
 
-  createVacancy() {
-    this.openInterviewDialog = true;
-    this.dialogEditMode = false;
-  }
-
   createVacancyRespond() {
     this.openVacancyRespondDialog = true;
-    this.dialogEditMode = false;
+    this.vacancyRespondDialogEditMode = false;
+  }
+
+  updateVacancyRespond() {
+    this.openVacancyRespondDialog = true;
+    this.vacancyRespondDialogEditMode = true;
   }
 
   renderMenu() {
@@ -108,8 +109,15 @@ export class VacancyRespondComponent {
     ];
   }
 
-  async onDialogSubmit($event: any) {
+  async onInterviewDialogSubmit($event: any) {
     this.openInterviewDialog = false;
+    if ($event) {
+      await this.getRespondByVacancyIdFromApi();
+    }
+  }
+
+  async onVacancyRespondDialogSubmit($event: any) {
+    this.openVacancyRespondDialog = false;
     if ($event) {
       await this.getRespondByVacancyIdFromApi();
     }
@@ -119,6 +127,7 @@ export class VacancyRespondComponent {
     { field: "id", headerName: "Идентификатор", filter: "agTextColumnFilter" },
     { field: "vacancyId", headerName: "Номер вакансии", filter: "agTextColumnFilter" },
     { field: "coverLetter", headerName: "Сопроводительное письмо", filter: "agTextColumnFilter" },
+    { field: "fullName", headerName: "ФИО", filter: "agTextColumnFilter" },
     { field: "email", headerName: "Email", filter: "agTextColumnFilter" },
     {
       field: "interviewId",
@@ -232,9 +241,9 @@ export class VacancyRespondComponent {
   async inviteToInterview() {
     this.openInterviewDialog = true;
     if (this.selectedVacancyRespond.interviewId) {
-      this.dialogEditMode = true;
+      this.interviewDialogEditMode = true;
     } else {
-      this.dialogEditMode = false;
+      this.interviewDialogEditMode = false;
     }
   }
 
