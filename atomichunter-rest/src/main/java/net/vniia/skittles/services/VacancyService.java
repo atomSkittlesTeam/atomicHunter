@@ -2,13 +2,16 @@ package net.vniia.skittles.services;
 
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.CompetenceWeightDto;
+import net.vniia.skittles.dto.VacancyCompetenceScoreDto;
 import net.vniia.skittles.dto.VacancyDto;
 import net.vniia.skittles.dto.VacancyRespondDto;
 import net.vniia.skittles.entities.Vacancy;
 import net.vniia.skittles.entities.VacancyCompetence;
+import net.vniia.skittles.entities.VacancyCompetenceScore;
 import net.vniia.skittles.entities.VacancyRespond;
 import net.vniia.skittles.readers.VacancyReader;
 import net.vniia.skittles.repositories.VacancyCompetenceRepository;
+import net.vniia.skittles.repositories.VacancyCompetenceScoreRepository;
 import net.vniia.skittles.repositories.VacancyRepository;
 import net.vniia.skittles.repositories.VacancyRespondRepository;
 import org.springframework.http.HttpEntity;
@@ -43,6 +46,8 @@ public class VacancyService {
     private final ReportService reportService;
 
     private final VacancyCompetenceRepository vacancyCompetenceRepository;
+
+    private final VacancyCompetenceScoreRepository vacancyCompetenceScoreRepository;
 
     private void sortList(List<Vacancy> list) {
         // just a sort algo
@@ -168,5 +173,18 @@ public class VacancyService {
         headers.setContentType(MediaType.APPLICATION_PDF);
         headers.setContentLength(model.length);
         return new HttpEntity<byte[]>(model, headers);
+    }
+
+    public List<VacancyCompetenceScoreDto> validateVacancyCompetenceScore(Long maintainerId) {
+        List<VacancyCompetenceScore> vacancyCompetenceScores = vacancyCompetenceScoreRepository
+                .findAllByMaintainerId(maintainerId);
+        List<VacancyCompetenceScoreDto> dtos = new ArrayList<>();
+        vacancyCompetenceScores.forEach(e -> dtos.add(new VacancyCompetenceScoreDto(e)));
+        return dtos;
+    }
+
+    public void createVacancyCompetenceScore(VacancyCompetenceScoreDto vacancyCompetenceScoreDto) {
+        VacancyCompetenceScore vacancyCompetenceScore = new VacancyCompetenceScore(vacancyCompetenceScoreDto);
+        vacancyCompetenceScoreRepository.saveAndFlush(vacancyCompetenceScore);
     }
 }
