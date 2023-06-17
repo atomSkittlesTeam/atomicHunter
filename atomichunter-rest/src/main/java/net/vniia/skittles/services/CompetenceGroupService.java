@@ -8,7 +8,7 @@ import net.vniia.skittles.entities.CompetenceGroup;
 import net.vniia.skittles.readers.CompetenceGroupReader;
 import net.vniia.skittles.repositories.CompetenceGroupRepository;
 import net.vniia.skittles.repositories.CompetenceRepository;
-import org.jvnet.hk2.annotations.Service;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
