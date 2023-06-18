@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("vacancy")
@@ -90,10 +91,10 @@ public class VacancyController {
         return this.vacancyService.createVacancyReportAndReturnPath(vacancyId, additionalInformation);
     }
 
-    @GetMapping("competence-score/{employeeId}/validation")
+    @GetMapping("competence-score/{employeeId}/{vacancyRespondId}/validation")
     @Transactional
-    public List<VacancyCompetenceScoreDto> validateVacancyCompetenceScore(@PathVariable Long employeeId) {
-        return this.vacancyService.validateVacancyCompetenceScore(employeeId);
+    public Boolean validateVacancyCompetenceScore(@PathVariable UUID employeeId, @PathVariable Long vacancyRespondId) {
+        return this.vacancyService.validateVacancyCompetenceScore(employeeId, vacancyRespondId);
     }
 
     @PostMapping("competence-score/add")

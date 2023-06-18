@@ -4,15 +4,10 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.EmployeeDto;
 import net.vniia.skittles.dto.InterviewDto;
-import net.vniia.skittles.entities.Interview;
-import net.vniia.skittles.entities.InterviewEmployee;
-import net.vniia.skittles.entities.VacancyCompetence;
-import net.vniia.skittles.entities.VacancyRespond;
+import net.vniia.skittles.entities.*;
 import net.vniia.skittles.readers.EmployeeReader;
 import net.vniia.skittles.readers.InterviewReader;
-import net.vniia.skittles.repositories.InterviewEmployeeRepository;
-import net.vniia.skittles.repositories.InterviewRepository;
-import net.vniia.skittles.repositories.VacancyRespondRepository;
+import net.vniia.skittles.repositories.*;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -28,6 +23,8 @@ public class InterviewService {
     private final VacancyRespondRepository vacancyRespondRepository;
 
     private final InterviewRepository interviewRepository;
+    private final EmployeeTimeMapRepository employeeTimeMapRepository;
+    private final PlaceTimeMapRepository placeTimeMapRepository;
 
     private final InterviewEmployeeRepository interviewEmployeeRepository;
 
@@ -44,11 +41,15 @@ public class InterviewService {
         interview = interviewRepository.save(interview);
 
         if (interviewDto.getEmployees() != null && !interviewDto.getEmployees().isEmpty()) {
+            List<EmployeeTimeMap> employeeTimes = new ArrayList<>();
             for (EmployeeDto employee : interviewDto.getEmployees()) {
                 InterviewEmployee interviewEmployee = new InterviewEmployee(interview.getId(), employee.getId());
                 interviewEmployeeRepository.save(interviewEmployee);
+                employeeTimeMapRepository.save(new EmployeeTimeMap(employee, interviewDto));
             }
         }
+
+        placeTimeMapRepository.save(new PlaceTimeMap(interviewDto));
 
         List<EmployeeDto> employeeDtoList = employeeReader
                 .getInterviewEmployees(interview.getId());

@@ -6,12 +6,14 @@
         <div class="flex">
             <div class="p-inputgroup">
                 <span class="p-inputgroup-addon" style="min-width: 170px">Место собеседования</span>
-                <input pInputText
-                       [(ngModel)]="interview.meeting"
-                       name="meetingUrl"
-                       required
-                       placeholder="Укажите место собеседования"
-                       [style]="{width: '100%'}"/>
+
+                <p-dropdown [options]="allPlaces"
+                            [optionLabel]="'name'"
+                            appendTo="body"
+                            [(ngModel)]="interview.place"
+                            name="placeDrop"
+                            required
+                            [style]="{width: '100%'}"></p-dropdown>
             </div>
 
             <div class="p-inputgroup">
@@ -20,6 +22,7 @@
                             [(ngModel)]="interview.dateStart"
                             [showTime]="true"
                             appendTo="body"
+                            (ngModelChange)="validateCheaker()"
                             [required]="true"
                             placeholder="Введите дату и время"
                 ></p-calendar>
@@ -32,10 +35,37 @@
                             [(ngModel)]="interview.dateEnd"
                             [showTime]="true"
                             [required]="true"
+                            (ngModelChange)="validateCheaker()"
                             appendTo="body"
                             placeholder="Введите дату и время"
                 ></p-calendar>
             </div>
+
+
+            <p-button
+                    icon="pi pi-plus"
+                    pTooltip="Добавить участника"
+                    label="Новый участник"
+                    styleClass="tiffany-button"
+                    [style]="{width: '150px'}"
+                    (click)="openSidebarWithAllSkills()"
+            >
+            </p-button>
+            <div class="flex flex-wrap gap-3 info-block">
+                <div class="skills" *ngFor="let employee of selectedEmployees">
+
+                    <div class="skills__title">
+                        <button pButton
+                                icon="pi pi-times"
+                                class="tiffany-button-secondary"
+                                [style]="{border: 'none !important' }"
+                                (click)="deleteSkill(employee.id)">
+                        </button>
+                        {{employee.employeeFullName}}
+                    </div>
+                </div>
+            </div>
+
 
         </div>
     </form>
@@ -51,3 +81,21 @@
         </div>
     </p-footer>
 </p-dialog>
+
+<p-sidebar [(visible)]="showSidebarWithAllSkills" *ngIf="showSidebarWithAllSkills" position="right">
+    <div class="container">
+        <h1>Список всех Экспертов</h1>
+        <div class="main-block" *ngFor="let employee of employees; let indexGroup = index">
+            <div class="main-block__first">
+                <div class="main-block__title">{{employee.employeeFullName}}</div>
+                <div class="main-block__add">
+                    <p-button
+                            icon="pi pi-plus"
+                            styleClass="tiffany-button "
+                            (onClick)="addEmployeeToList(employee)">
+                    </p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-sidebar>

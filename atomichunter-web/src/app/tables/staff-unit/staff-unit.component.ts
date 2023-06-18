@@ -137,12 +137,18 @@ export class StaffUnitComponent {
 
     async onDialogSubmit($event: any) {
         this.openDialog = false;
+        this.selectedStaff = new StaffUnitDto();
         if ($event) {
             await this.getAllStaffUnitsFromApi();
         }
     }
 
-    protected readonly StatusEnum = StatusEnum;
+    vacancyCreationDisabled() {
+        return this.selectedStaff === null
+            || this.selectedStaff === undefined
+            || this.selectedStaff.id === null
+            || this.selectedStaff.status !== StatusEnum.Opened;
+    }
 
     async showArchivePressed() {
         if (this.agGrid) {

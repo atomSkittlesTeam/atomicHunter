@@ -11,6 +11,8 @@ import { VacancyWithVacancyRespond } from "../../dto/VacancyWithVacancyRespond";
 import {StaffUnitDto} from "../../dto/StaffUnitDto";
 import {Employee} from "../../dto/Employee";
 import {OrgStructService} from "../../services/org-struct.service";
+import {CompetenceService} from "../../services/competence.service";
+import {CompetenceWeightScore} from "../../dto/CompetenceWeightScore";
 
 @Component({
   selector: "app-vacancy-respond",
@@ -31,6 +33,7 @@ export class VacancyRespondComponent {
 
   constructor(private confirmationService: ConfirmationService,
               private messageService: MessageService,
+              private competenceService: CompetenceService,
               private orgStructService: OrgStructService,
               private vacancyService: VacancyService,
               private inviteService: InterviewService) {
@@ -59,6 +62,7 @@ export class VacancyRespondComponent {
   public rowData: any[] = [];
   employees: Employee[] = [];
   selectedEmployee: Employee;
+  competenceWeightScoreForExpert: CompetenceWeightScore[] = [];
 
 
   public overlayLoadingTemplate = "<div class=\"loading-text\"> Загрузка...</div> ";
@@ -69,7 +73,8 @@ export class VacancyRespondComponent {
   }
 
   async getEmployeeFromApi() {
-    this.employees = await this.orgStructService.getHrEmployees();
+    this.employees = await this.competenceService.getEmployeesWithScoreForRespond(this.selectedVacancyRespond.id);
+    console.log(this.employees)
   }
 
   updateVacancyRespond() {
@@ -124,10 +129,13 @@ export class VacancyRespondComponent {
           },
           {
             label: "Просмотреть эксперта",
-            icon: "pi pi-trash",
+            icon: "pi pi-check",
+            disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id,
             command: () => {
+              if (this.selectedVacancyRespond.id) {
                 this.visible = true;
                 this.getEmployeeFromApi();
+                }
             }
           },
           {
@@ -327,6 +335,8 @@ export class VacancyRespondComponent {
 
   async onDialogSubmit($event: any) {
     this.openDialogVacancyComp = false;
+    this.competenceWeightScoreForExpert = [];
+    this.selectedEmployee = new Employee();
     if ($event) {
       await this.getRespondByVacancyIdFromApi();
     }
@@ -336,7 +346,8 @@ export class VacancyRespondComponent {
     this.visible = false;
   }
 
-  showExpertCart() {
-    console.log('sss')
+  async showExpertCart() {
+    this.competenceWeightScoreForExpert = await this.competenceService.getVacancyCompetenceScoreForEmployee(this.selectedVacancyRespond.id, this.selectedEmployee.id);
+    this.openDialogVacancyComp = true;
   }
 }

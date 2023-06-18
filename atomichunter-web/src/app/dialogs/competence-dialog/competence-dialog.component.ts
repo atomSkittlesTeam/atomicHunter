@@ -48,6 +48,7 @@ export class CompetenceDialogComponent {
 
     competences: Competence[] = [];
     loading: boolean = false;
+    // binaryLogic: boolean = false;
 
     constructor(private vacancyService: VacancyService,
                 private competenceService: CompetenceService,
@@ -73,9 +74,9 @@ export class CompetenceDialogComponent {
     async onSubmit($event?: any) {
         if ($event !== null) { // null передается, если закрыть форму без сохранения на крестик
             if (this.editMode) {
-                await this.updateCompetence(this._item);
+                await this.updateCompetence(this.item);
             } else {
-                await this.createCompetence(this._item);
+                await this.createCompetence(this.item);
             }
         }
         this.submit.emit($event);

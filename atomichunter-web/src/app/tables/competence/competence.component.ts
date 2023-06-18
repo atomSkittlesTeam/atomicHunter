@@ -42,7 +42,11 @@ export class CompetenceComponent {
 
     public columnDefs: ColDef[] = [
         {field: "id", headerName: "Идентификатор", filter: "agNumberColumnFilter"},
-        {field: "name", headerName: "Наименование", filter: "agTextColumnFilter"}
+        {field: "name", headerName: "Наименование", filter: "agTextColumnFilter"},
+        {field: "binaryLogic", headerName: "Невозможно оценить по шкале", cellRenderer: (params: { value: any; }) => {
+                return `<input disabled="true" type="checkbox" ${params.value ? "checked" : ""} />`;
+            }
+        }
     ];
 
     public loadingCellRenderer: any = LoadingCellRendererComponent;

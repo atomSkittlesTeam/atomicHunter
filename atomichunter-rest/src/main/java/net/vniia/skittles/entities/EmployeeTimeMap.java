@@ -7,30 +7,28 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.vniia.skittles.dto.EmployeeDto;
 import net.vniia.skittles.dto.InterviewDto;
+import net.vniia.skittles.dto.PositionDto;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Interview {
+public class EmployeeTimeMap {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long vacancyRespondId;
-    private Long placeId;
+    private UUID employeeId;
     private Instant dateStart;
     private Instant dateEnd;
-    public Interview(Long vacancyRespondId, InterviewDto interview) {
-        this.vacancyRespondId = vacancyRespondId;
-        this.update(interview);
-    }
 
-    public void update(InterviewDto interview) {
-        this.placeId = interview.getPlace().getId();
-        this.dateStart = interview.getDateStart();
-        this.dateEnd = interview.getDateEnd();
+    public EmployeeTimeMap (EmployeeDto employeeDto, InterviewDto interviewDto) {
+        this.employeeId = employeeDto.getId();
+        this.dateStart = interviewDto.getDateStart();
+        this.dateEnd = interviewDto.getDateEnd();
     }
 }

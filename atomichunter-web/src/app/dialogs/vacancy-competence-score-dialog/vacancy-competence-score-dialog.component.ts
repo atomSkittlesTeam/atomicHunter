@@ -21,6 +21,7 @@ import {VacancyRespond} from "../../dto/VacancyRespond";
     styleUrls: ['./vacancy-competence-score-dialog.component.scss']
 })
 export class VacancyCompetenceScoreDialogComponent {
+    blockCreate: boolean = true;
 
     @Input("itemRespond") get itemRespond(): VacancyRespond {
         return this._itemRespond;
@@ -33,6 +34,7 @@ export class VacancyCompetenceScoreDialogComponent {
             this._itemRespond = new VacancyRespond();
         }
     }
+
     @Input("item") get item(): Vacancy {
         return this._item;
     }
@@ -64,6 +66,8 @@ export class VacancyCompetenceScoreDialogComponent {
     private _staffUnit: StaffUnitDto;
     @Input("editMode") editMode: boolean;
     @Input("singlePosition") singlePosition: Position;
+    @Input("employeeExpert") employeeExpert: Employee;
+    @Input("competenceWeightScoreForExpert") competenceWeightScoreForExpert: CompetenceWeightScore[] = [];
     @Output() submit = new EventEmitter<any>();
     @Output() visibleChange = new EventEmitter<any>();
     dialogTitle = "Заведение вакансии";
@@ -85,6 +89,7 @@ export class VacancyCompetenceScoreDialogComponent {
     competenceGroupsWithCompetences: CompetenceGroupsWithCompetencesDto[] = [];
     loading: boolean = false;
     showSidebarWithAllSkills: boolean = false;
+    binaryLogicCheckbox: boolean = false;
 
     constructor(private vacancyService: VacancyService,
                 private competenceService: CompetenceService,
@@ -101,18 +106,30 @@ export class VacancyCompetenceScoreDialogComponent {
         this.loading = true;
         await this.getAllPositionsFromApi();
         await this.getEmployeeFromApi();
-        this.competenceWeightScores = await this.competenceService.getCompetencesWeightScoreById(this.itemRespond.id);
+        let competenceWeightScoreForExpert: CompetenceWeightScore[] = this.competenceWeightScoreForExpert;
+        if (competenceWeightScoreForExpert.length === 0) {
+            this.competenceWeightScores = await this.competenceService.getCompetencesWeightScoreById(this.itemRespond.id);
+        } else {
+            this.competenceWeightScores = this.competenceWeightScoreForExpert;
+            this.staffUnit.employee = this.employeeExpert;
+        }
+        this.competenceWeightScores.forEach(e => e.score = 1);
         this.competenceGroupsWithCompetences = await this.competenceService.getAllCompetenceTree();
         if (this.editMode) {
             this._item = await this.vacancyService.getVacancyById(this._item.id);
-            this.dialogTitle = "Редактирование вакансии";
+            this.dialogTitle = "Оценка экспертом";
         } else {
-            this.dialogTitle = "Регистрация вакансии";
+            this.dialogTitle = "Просмотр Эксперта";
         }
         this.loading = false;
     }
 
     async onSubmit($event?: any) {
+        this.competenceWeightScores.forEach(dto => {
+            if (dto.competence.binaryLogic) {
+                dto.score = dto.binaryIsChecked ? 10 : 0;
+            }
+        });
 
         if (this.staffUnit) {
             this.item.staffUnit = this.staffUnit;
@@ -123,11 +140,7 @@ export class VacancyCompetenceScoreDialogComponent {
             this.vacancyCompetenceScoreRequest.employee = this.staffUnit.employee;
             this.vacancyCompetenceScoreRequest.competenceWeightScoreList = this.competenceWeightScores;
             this.vacancyCompetenceScoreRequest.interviewId = 1;
-            if (this.editMode) {
-                await this.updateVacancy(this._item);
-            } else {
-                await this.createVacancy(this._item);
-            }
+            await this.createVacancyCompetenceScore(this._item);
         }
         this.submit.emit($event);
         this.visible = false;
@@ -152,7 +165,7 @@ export class VacancyCompetenceScoreDialogComponent {
         }
         this.competences.map(comp => {
             if (!this._item.competenceWeight.map(e => e.competence.id).includes(comp.id)) {
-                this._item.competenceWeight.push(new CompetenceWeight(comp, 10));
+                this._item.competenceWeight.push(new CompetenceWeight(comp, 10, false));
             }
         });
     }
@@ -163,14 +176,14 @@ export class VacancyCompetenceScoreDialogComponent {
         });
     }
 
-    async createVacancy(vacancy: Vacancy) {
+    async createVacancyCompetenceScore(vacancy: Vacancy) {
         try {
             this.loading = true;
             const rq = await this.vacancyService.validateVacancyCompetenceScore(this.vacancyCompetenceScoreRequest);
             this.messageService.add({
                 severity: "success",
                 summary: "Успех!",
-                detail: "Вакания создана",
+                detail: "Оценка сохранена",
                 life: 5000
             });
         } catch (e: any) {
@@ -185,14 +198,14 @@ export class VacancyCompetenceScoreDialogComponent {
         }
     }
 
-    async updateVacancy(vacancy: Vacancy) {
+    async updateVacancyCompetenceScore(vacancy: Vacancy) {
         try {
             this.loading = true;
             const rq = await this.vacancyService.updateVacancy(vacancy.id, vacancy);
             this.messageService.add({
                 severity: "success",
                 summary: "Успех!",
-                detail: "Вакансия обновлена",
+                detail: "Оценка обновлена",
                 life: 5000
             });
         } catch (e: any) {
@@ -224,5 +237,20 @@ export class VacancyCompetenceScoreDialogComponent {
         }
         this._item.competenceWeight.forEach(competence => sum += competence.weight);
         return sum;
+    }
+
+    calculateBinary(score: number) {
+        console.log()
+        this.binaryLogicCheckbox ? score = 10 : score = 0;
+    }
+
+    async validateExpertScore() {
+        if (this.competenceWeightScoreForExpert.length > 0) {
+            this.blockCreate = true;
+        } else if (this.competenceWeightScoreForExpert.length === 0 && this.editMode == true) {
+            this.blockCreate = true;
+        } else {
+            this.blockCreate = await this.vacancyService.validateVacancyCompetenceScoreByEmployeeId(this.staffUnit.employee?.id, this.itemRespond.id);
+        }
     }
 }

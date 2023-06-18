@@ -25,6 +25,7 @@
                 icon="pi pi-pencil"
                 styleClass="p-button-outlined p-button-help"
                 *ngIf="competenceGroup"
+                [disabled]="!selectedCompetence.id"
                 (onClick)="updateCompetenceGroup()">
         </p-button>
     </nav>

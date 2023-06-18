@@ -20,10 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -189,12 +186,11 @@ public class VacancyService {
         return new HttpEntity<byte[]>(model, headers);
     }
 
-    public List<VacancyCompetenceScoreDto> validateVacancyCompetenceScore(Long employeeId) {
+    public Boolean validateVacancyCompetenceScore(UUID employeeId, Long vacancyRespondId) {
         List<VacancyCompetenceScore> vacancyCompetenceScores = vacancyCompetenceScoreRepository
-                .findAllByEmployeeId(employeeId);
-        List<VacancyCompetenceScoreDto> dtos = new ArrayList<>();
-        vacancyCompetenceScores.forEach(e -> dtos.add(new VacancyCompetenceScoreDto(e)));
-        return dtos;
+                .findAllByEmployeeIdAndVacancyRespondId(employeeId, vacancyRespondId);
+        return (vacancyCompetenceScores.size() == 0);
+
     }
 
     public List<VacancyCompetenceScoreDto> createVacancyCompetenceScore(VacancyCompetenceScoreRequestDto requestDto) {

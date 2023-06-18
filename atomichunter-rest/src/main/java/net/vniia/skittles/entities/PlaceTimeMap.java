@@ -15,22 +15,17 @@ import java.time.Instant;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Interview {
+public class PlaceTimeMap {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long vacancyRespondId;
     private Long placeId;
     private Instant dateStart;
     private Instant dateEnd;
-    public Interview(Long vacancyRespondId, InterviewDto interview) {
-        this.vacancyRespondId = vacancyRespondId;
-        this.update(interview);
-    }
 
-    public void update(InterviewDto interview) {
-        this.placeId = interview.getPlace().getId();
-        this.dateStart = interview.getDateStart();
-        this.dateEnd = interview.getDateEnd();
+    public PlaceTimeMap(InterviewDto interviewDto) {
+        this.placeId = interviewDto.getPlace().getId();
+        this.dateStart = interviewDto.getDateStart();
+        this.dateEnd = interviewDto.getDateEnd();
     }
 }
