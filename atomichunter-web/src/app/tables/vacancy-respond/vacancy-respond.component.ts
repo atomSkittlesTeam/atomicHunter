@@ -113,6 +113,11 @@ export class VacancyRespondComponent {
             icon: "pi pi-star",
             command: () => {
               if (this.selectedVacancyRespond.id) {
+                console.log(this.selectedEmployee)
+                console.log(this.selectedVacancyRespond)
+                console.log(this.competenceWeightScoreForExpert)
+                this.selectedEmployee = new Employee();
+                this.competenceWeightScoreForExpert = [];
                 this.openDialogVacancyComp = true;
               }
             }
@@ -340,7 +345,10 @@ export class VacancyRespondComponent {
   }
 
   async showExpertCart() {
+    console.log(this.selectedVacancyRespond.id, this.selectedEmployee.id,'this.selectedVacancyRespond.id, this.selectedEmployee.id')
     this.competenceWeightScoreForExpert = await this.competenceService.getVacancyCompetenceScoreForEmployee(this.selectedVacancyRespond.id, this.selectedEmployee.id);
+    console.log(this.competenceWeightScoreForExpert ,'this.competenceWeightScoreForExpert ')
     this.openDialogVacancyComp = true;
+    this.staffUnit.employee = this.selectedEmployee;
   }
 }

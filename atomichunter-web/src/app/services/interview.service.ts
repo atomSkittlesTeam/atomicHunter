@@ -37,4 +37,9 @@ export class InterviewService extends BaseService {
     const url = await this.getBackendUrl();
     return await firstValueFrom(this.http.put<Interview>(url + `/interview/${interviewId}`, interview));
   }
+
+  async validateInterview(interview: Interview) {
+    const url = await this.getBackendUrl();
+    return await firstValueFrom(this.http.post<Interview>(url + `/interview/validate`, interview));
+  }
 }

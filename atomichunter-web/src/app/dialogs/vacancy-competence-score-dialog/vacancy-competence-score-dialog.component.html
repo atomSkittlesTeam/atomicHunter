@@ -14,7 +14,7 @@
             <!--                            [optionLabel]="'name'"></p-dropdown>-->
             <!--            </div>-->
 
-            <div class="p-inputgroup">
+            <div class="p-inputgroup" *ngIf="competenceWeightScoreForExpert">
                 <span class="p-inputgroup-addon" style="width: 120px">Эксперт</span>
                 <p-dropdown [options]="employees"
                             appendTo="body"
