@@ -7,8 +7,8 @@ import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.*;
 import net.vniia.skittles.entities.CompetenceGroup;
 import net.vniia.skittles.entities.QCompetence;
+import net.vniia.skittles.entities.QEmployee;
 import net.vniia.skittles.entities.QVacancyCompetence;
-import net.vniia.skittles.entities.VacancyRespond;
 import net.vniia.skittles.repositories.CompetenceGroupRepository;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +24,8 @@ public class CompetenceReader {
     private static final QCompetence competence = QCompetence.competence;
 
     private static final QVacancyCompetence vacancyCompetence = QVacancyCompetence.vacancyCompetence;
+
+    private static final QEmployee employee = QEmployee.employee;
 
     public static QBean<CompetenceDto> getMappedSelectForCompetenceDto() {
         return Projections.bean(
@@ -93,5 +95,15 @@ public class CompetenceReader {
             .fetch();
 
         return weightScoreDtos;
+    }
+
+    public List<EmployeeDto> getEmployeesWithScoreForRespond(Long vacancyRespondId) {
+        VacancyRespondDto vacancyRespondDto = vacancyReader.getVacancyRespondById(vacancyRespondId);
+
+
+
+        return queryFactory.from(employee)
+                .select(EmployeeReader.getMappedSelectForEmployeeDto())
+                .fetch();
     }
 }
