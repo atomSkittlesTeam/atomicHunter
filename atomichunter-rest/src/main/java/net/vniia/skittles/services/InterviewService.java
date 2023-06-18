@@ -55,7 +55,7 @@ public class InterviewService {
                 .getInterviewEmployees(interview.getId());
 
         // сотрудникам
-        List<String> emails = employeeDtoList.stream().map(EmployeeDto::getEmail).toList();
+        List<String> emails = new ArrayList<>(employeeDtoList.stream().map(EmployeeDto::getEmail).toList());
         // кандидату
         emails.add(vacancyRespond.getEmail());
 
