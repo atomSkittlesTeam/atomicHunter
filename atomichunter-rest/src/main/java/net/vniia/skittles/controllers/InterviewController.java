@@ -39,6 +39,12 @@ public class InterviewController {
         return this.interviewService.updateInterviewById(interviewId, interviewDto);
     }
 
+    @PutMapping("validate")
+    @Transactional
+    public String validateInterview(@RequestBody InterviewDto interviewDto) {
+        return this.interviewService.validateInterview(interviewDto);
+    }
+
     @PostMapping("offer")
     @Transactional
     public void sendOffer(@RequestBody VacancyWithVacancyRespondDto vacancyWithVacancyRespondDto) throws Exception {

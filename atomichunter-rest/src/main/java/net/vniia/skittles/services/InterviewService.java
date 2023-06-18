@@ -76,6 +76,13 @@ public class InterviewService {
         return interviewReader.getInterviewById(interviewId);
     }
 
+    @Transactional
+    public String validateInterview(InterviewDto interviewDto) {
+        String message = "";
+//        interviewDto.getPlace().getId();
+        return "";
+    }
+
     public void mergeEmployees(Long interviewId, List<EmployeeDto> employees) {
         List<InterviewEmployee> interviewEmployeeList = interviewEmployeeRepository
                 .findAllByInterviewId(interviewId);
