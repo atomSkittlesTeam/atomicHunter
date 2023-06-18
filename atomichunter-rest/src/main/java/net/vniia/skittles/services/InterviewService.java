@@ -62,6 +62,7 @@ public class InterviewService {
             () -> new RuntimeException("Собеседование не найдено!")
         );
         interview.update(interviewDto);
+        interviewRepository.saveAndFlush(interview);
         if (interviewDto.getEmployees() != null) {
             if (!interviewDto.getEmployees().isEmpty()) {
                 this.mergeEmployees(interviewId, interviewDto.getEmployees());
