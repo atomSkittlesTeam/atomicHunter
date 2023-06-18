@@ -10,7 +10,7 @@ import { Interview } from '../dto/Interview';
 @Injectable({
   providedIn: 'root'
 })
-export class InviteService extends BaseService {
+export class InterviewService extends BaseService {
 
   constructor(private http: HttpClient,
     public router: Router,
@@ -18,18 +18,23 @@ export class InviteService extends BaseService {
     super(configService);
   }
 
-  async inviteToInterview(vacancyRespondId: number, interview: Interview) {   
+  async createInterview(vacancyRespondId: number, interview: Interview) {
     const url = await this.getBackendUrl();
-    return await firstValueFrom(this.http.post(url + `/invite/interview/vacancy-respond/${vacancyRespondId}`, interview));
+    return await firstValueFrom(this.http.post(url + `/interview/vacancy-respond/${vacancyRespondId}`, interview));
   }
 
   async getInterviewById(interviewId: number) {
     const url = await this.getBackendUrl();
-    return await firstValueFrom(this.http.get<Interview>(url + `/invite/interview/${interviewId}`));
+    return await firstValueFrom(this.http.get<Interview>(url + `/interview/${interviewId}`));
   }
 
   async sendOffer(vacancyWithVacancyRespond: VacancyWithVacancyRespond) {
     const url = await this.getBackendUrl();
     return await firstValueFrom(this.http.post(url + '/invite/offer', vacancyWithVacancyRespond));
+  }
+
+  async updateInterview(interviewId: number, interview: Interview) {
+    const url = await this.getBackendUrl();
+    return await firstValueFrom(this.http.put<Interview>(url + `/interview/${interviewId}`, interview));
   }
 }
