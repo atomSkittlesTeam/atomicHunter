@@ -6,7 +6,7 @@ import { AgGridAngular } from "ag-grid-angular";
 import { ConfirmationService, MenuItem, MessageService } from "primeng/api";
 import { LoadingCellRendererComponent } from "../../platform/loading-cell-renderer/loading-cell-renderer.component";
 import { VacancyService } from "../../services/vacancy.service";
-import { InviteService } from "src/app/services/invite.service";
+import { InterviewService } from "src/app/services/interview.service";
 import { VacancyWithVacancyRespond } from "../../dto/VacancyWithVacancyRespond";
 import {StaffUnitDto} from "../../dto/StaffUnitDto";
 import {Employee} from "../../dto/Employee";
@@ -33,7 +33,7 @@ export class VacancyRespondComponent {
               private messageService: MessageService,
               private orgStructService: OrgStructService,
               private vacancyService: VacancyService,
-              private inviteService: InviteService) {
+              private inviteService: InterviewService) {
     this.renderMenu();
   }
 
