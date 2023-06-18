@@ -6,7 +6,6 @@ export class  VacancyRespond {
     archive: boolean;
     email: string;
     fullName: string;
-    interviewInviteAccepted: boolean;
     interviewId: number;
     averageScore: number;
     competenceScoreCount: number;

@@ -2,16 +2,14 @@ package net.vniia.skittles.controllers;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import net.vniia.skittles.dto.*;
-import net.vniia.skittles.entities.VacancyRespond;
+import net.vniia.skittles.dto.VacancyCompetenceScoreDto;
+import net.vniia.skittles.dto.VacancyCompetenceScoreRequestDto;
+import net.vniia.skittles.dto.VacancyDto;
+import net.vniia.skittles.dto.VacancyRespondDto;
 import net.vniia.skittles.readers.VacancyReader;
 import net.vniia.skittles.services.VacancyService;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
