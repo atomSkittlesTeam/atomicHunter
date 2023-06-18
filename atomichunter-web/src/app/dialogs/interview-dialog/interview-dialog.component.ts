@@ -23,8 +23,8 @@ export class VacancyRequestComponent {
   dialogTitle = "Организация собеседования";
   showSidebarWithAllSkills: boolean = false;
   employees: Employee[] = [];
+  selectedEmployees: Employee[] = [];
 
-  values: string[] | undefined;
 
   constructor(private inviteService: InterviewService,
               private orgStructService: OrgStructService,
@@ -94,6 +94,12 @@ export class VacancyRequestComponent {
   }
 
   addEmployeeToList(employee: Employee) {
-    this.values?.push(employee.employeeFullName);
+    if (!(this.selectedEmployees.find(emp => emp.id === employee.id))) {
+      this.selectedEmployees.push(employee);
+    }
+  }
+
+  deleteSkill(id: string) {
+    this.selectedEmployees = this.selectedEmployees.filter(e => e.id !== id);
   }
 }

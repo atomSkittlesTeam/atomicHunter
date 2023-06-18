@@ -37,9 +37,7 @@
                 ></p-calendar>
             </div>
 
-            <div class="card p-fluid">
-                <p-chips [(ngModel)]="values"></p-chips>
-            </div>
+
             <p-button
                     icon="pi pi-plus"
                     pTooltip="Добавить компетенцию"
@@ -48,7 +46,20 @@
                     (click)="openSidebarWithAllSkills()"
             >
             </p-button>
+            <div class="flex flex-wrap gap-3 info-block">
+                <div class="skills" *ngFor="let employee of selectedEmployees">
 
+                    <div class="skills__title">
+                        <button pButton
+                                icon="pi pi-times"
+                                class="tiffany-button-secondary"
+                                [style]="{border: 'none !important'  }"
+                                (click)="deleteSkill(employee.id)">
+                        </button>
+                        {{employee.employeeFullName}}
+                    </div>
+                </div>
+            </div>
 
 
         </div>

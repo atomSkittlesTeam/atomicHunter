@@ -74,3 +74,17 @@
   }
 }
 
+
+.info-block {
+  overflow: auto;
+  max-height: 200px;
+  display: block;
+}
+
+.skills {
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+}
