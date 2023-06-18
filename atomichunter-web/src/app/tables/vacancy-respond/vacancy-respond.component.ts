@@ -216,6 +216,7 @@ export class VacancyRespondComponent {
   }
 
   onCellClicked(e: CellClickedEvent): void {
+    console.log(e);
     this.selectedVacancyRespond = e.data;
     this.renderMenu();
   }
