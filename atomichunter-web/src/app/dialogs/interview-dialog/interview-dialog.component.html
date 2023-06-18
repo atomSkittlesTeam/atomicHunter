@@ -3,7 +3,7 @@
           [style]="{maxHeight: '80vh',width: '50vw'}"
           (onHide)="closeDialog($event)">
     <form #f="ngForm" name="interview" novalidate>
-        <div class="flex">
+        <div class="flex" [class.formDisabled]="loading">
             <div class="p-inputgroup">
                 <span class="p-inputgroup-addon" style="min-width: 170px">Место собеседования</span>
 
@@ -48,7 +48,6 @@
                     pTooltip="Добавить участника"
                     label="Новый участник"
                     styleClass="tiffany-button"
-                    [style]="{width: '150px'}"
                     (click)="openSidebarWithAllSkills()"
             >
             </p-button>

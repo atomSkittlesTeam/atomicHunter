@@ -34,7 +34,7 @@ export class StaffUnitComponent {
         {
             field: 'status',
             headerName: 'Статус',
-            filter: 'agTextColumnFilter',
+            filter: false,
             cellRenderer: (data: { value: any }) => {
                 return !data.value ? " " : this.getEnum(data.value);
             }

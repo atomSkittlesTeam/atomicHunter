@@ -28,6 +28,7 @@ export class VacancyRequestComponent {
     selectedEmployees: Employee[] = [];
     allPlaces: Place[] = [];
     saveButtonIsNotValidated: boolean = false;
+    loading: boolean = false;
 
 
     constructor(private inviteService: InterviewService,
@@ -37,6 +38,7 @@ export class VacancyRequestComponent {
     }
 
     async ngOnInit() {
+        this.loading = true;
         if (this.selectedVacancyRespond.interviewId) {
             this.interview = await this.inviteService.getInterviewById(this.selectedVacancyRespond.interviewId);
             if (typeof this.interview.dateEnd === "number") {
@@ -73,6 +75,7 @@ export class VacancyRequestComponent {
                 life: 5000
             });
         }
+        this.loading = false;
     }
 
     placeSaveToObject() {
@@ -93,6 +96,7 @@ export class VacancyRequestComponent {
     }
 
     async onSubmit($event?: any) {
+        this.loading = true;
         this.interview.employees = this.selectedEmployees;
         try {
             if (this.selectedEmployees) {
@@ -128,6 +132,7 @@ export class VacancyRequestComponent {
         }
         this.submit.emit($event);
         this.visible = false;
+        this.loading = false;
     }
 
     getSaveLabel() {

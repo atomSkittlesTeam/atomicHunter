@@ -1,0 +1,33 @@
+<div class="container ">
+    <p-toolbar>
+        <div class="table-name">Графики</div>
+        <nav>
+            <p-button icon="pi pi-sync"
+                      styleClass="p-button-rounded p-button-warning p-button-outlined"
+                      (click)="getCalendarFromApi()">
+            </p-button>
+
+            <p-button
+                    icon="pi pi-filter"
+                    styleClass="p-button-outlined p-button-warning"
+                    (onClick)="showFilter()">
+            </p-button>
+        </nav>
+    </p-toolbar>
+
+    <ag-grid-angular
+            style="width: 100%; height: 100%"
+            class="ag-theme-alpine"
+            [columnDefs]="columnDefs"
+            [defaultColDef]="defaultColDef"
+            [rowData]="rowData"
+            [overlayLoadingTemplate]="overlayLoadingTemplate"
+            [loadingCellRenderer]="loadingCellRenderer"
+            [overlayNoRowsTemplate]="'Данные отсутствуют'"
+            [loadingCellRendererParams]="loadingCellRendererParams"
+            [rowSelection]="'multiple'"
+            [animateRows]="true"
+            (gridReady)="onGridReady($event)"
+            (cellClicked)="onCellClicked($event)">
+    </ag-grid-angular>
+</div>
