@@ -3,6 +3,8 @@ import {Interview} from "../../dto/Interview";
 import {InterviewService} from "../../services/interview.service";
 import {MessageService} from "primeng/api";
 import {VacancyRespond} from "../../dto/VacancyRespond";
+import {Employee} from "../../dto/Employee";
+import {OrgStructService} from "../../services/org-struct.service";
 
 @Component({
   selector: "app-interview-dialog",
@@ -19,13 +21,18 @@ export class VacancyRequestComponent {
   @Output() submit = new EventEmitter<any>();
   @Output() visibleChange = new EventEmitter<any>();
   dialogTitle = "Организация собеседования";
+  showSidebarWithAllSkills: boolean = false;
+  employees: Employee[] = [];
+
+  values: string[] | undefined;
 
   constructor(private inviteService: InterviewService,
+              private orgStructService: OrgStructService,
               private messageService: MessageService) {
   }
 
   async ngOnInit() {
-    if (this.selectedVacancyRespond.interviewId) {  
+    if (this.selectedVacancyRespond.interviewId) {
       this.interview = await this.inviteService.getInterviewById(this.selectedVacancyRespond.interviewId);
       if (typeof this.interview.dateEnd === "number") {
         this.interview.dateEnd = new Date(this.interview.dateEnd * 1000);
@@ -36,6 +43,13 @@ export class VacancyRequestComponent {
       this.dialogTitle = "Редактирование собеседования";
     }
 }
+
+  async openSidebarWithAllSkills() {
+    this.showSidebarWithAllSkills = true;
+    this.employees = await this.orgStructService.getEmployees();
+    // this.competencesAll = await this.competenceService.getAllCompetences();
+
+  }
 
   closeDialog($event?: any) {
     this.submit.emit($event);
@@ -77,5 +91,9 @@ export class VacancyRequestComponent {
 
   getSaveLabel() {
     return this.editMode ? "Обновить" : "Создать";
+  }
+
+  addEmployeeToList(employee: Employee) {
+    this.values?.push(employee.employeeFullName);
   }
 }

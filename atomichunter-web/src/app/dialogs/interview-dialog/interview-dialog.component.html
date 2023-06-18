@@ -37,6 +37,20 @@
                 ></p-calendar>
             </div>
 
+            <div class="card p-fluid">
+                <p-chips [(ngModel)]="values"></p-chips>
+            </div>
+            <p-button
+                    icon="pi pi-plus"
+                    pTooltip="Добавить компетенцию"
+                    label="Компетенция"
+                    styleClass="tiffany-button"
+                    (click)="openSidebarWithAllSkills()"
+            >
+            </p-button>
+
+
+
         </div>
     </form>
 
@@ -51,3 +65,21 @@
         </div>
     </p-footer>
 </p-dialog>
+
+<p-sidebar [(visible)]="showSidebarWithAllSkills" *ngIf="showSidebarWithAllSkills" position="right">
+    <div class="container">
+        <h1>Список всех Експертов</h1>
+        <div class="main-block" *ngFor="let employee of employees; let indexGroup = index">
+            <div class="main-block__first">
+                <div class="main-block__title">{{employee.employeeFullName}}</div>
+                <div class="main-block__add">
+                    <p-button
+                            icon="pi pi-plus"
+                            styleClass="tiffany-button "
+                            (onClick)="addEmployeeToList(employee)">
+                    </p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-sidebar>
