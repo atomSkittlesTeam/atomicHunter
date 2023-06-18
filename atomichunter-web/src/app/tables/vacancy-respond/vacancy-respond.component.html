@@ -115,8 +115,10 @@
                     *ngIf="openDialogVacancyComp"
                     [item]="vacancy"
                     [itemRespond]="selectedVacancyRespond"
+                    [competenceWeightScoreForExpert]="competenceWeightScoreForExpert"
                     [staffUnit]="staffUnit"
                     [editMode]="dialogEditMode"
+                    [employeeExpert]="selectedEmployee"
                     (submit)="onDialogSubmit($event)">
 </app-vacancy-competence-score-dialog>
 

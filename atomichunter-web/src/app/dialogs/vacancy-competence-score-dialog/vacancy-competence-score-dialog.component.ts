@@ -21,6 +21,7 @@ import {VacancyRespond} from "../../dto/VacancyRespond";
     styleUrls: ['./vacancy-competence-score-dialog.component.scss']
 })
 export class VacancyCompetenceScoreDialogComponent {
+    blockCreate: boolean = true;
 
     @Input("itemRespond") get itemRespond(): VacancyRespond {
         return this._itemRespond;
@@ -33,6 +34,7 @@ export class VacancyCompetenceScoreDialogComponent {
             this._itemRespond = new VacancyRespond();
         }
     }
+
     @Input("item") get item(): Vacancy {
         return this._item;
     }
@@ -64,6 +66,8 @@ export class VacancyCompetenceScoreDialogComponent {
     private _staffUnit: StaffUnitDto;
     @Input("editMode") editMode: boolean;
     @Input("singlePosition") singlePosition: Position;
+    @Input("employeeExpert") employeeExpert: Employee;
+    @Input("competenceWeightScoreForExpert") competenceWeightScoreForExpert: CompetenceWeightScore[] = [];
     @Output() submit = new EventEmitter<any>();
     @Output() visibleChange = new EventEmitter<any>();
     dialogTitle = "Заведение вакансии";
@@ -102,7 +106,13 @@ export class VacancyCompetenceScoreDialogComponent {
         this.loading = true;
         await this.getAllPositionsFromApi();
         await this.getEmployeeFromApi();
-        this.competenceWeightScores = await this.competenceService.getCompetencesWeightScoreById(this.itemRespond.id);
+        let competenceWeightScoreForExpert: CompetenceWeightScore[] = this.competenceWeightScoreForExpert;
+        if (competenceWeightScoreForExpert.length === 0) {
+            this.competenceWeightScores = await this.competenceService.getCompetencesWeightScoreById(this.itemRespond.id);
+        } else {
+            this.competenceWeightScores = this.competenceWeightScoreForExpert;
+            this.staffUnit.employee = this.employeeExpert;
+        }
         this.competenceWeightScores.forEach(e => e.score = 1);
         this.competenceGroupsWithCompetences = await this.competenceService.getAllCompetenceTree();
         if (this.editMode) {
@@ -232,5 +242,15 @@ export class VacancyCompetenceScoreDialogComponent {
     calculateBinary(score: number) {
         console.log()
         this.binaryLogicCheckbox ? score = 10 : score = 0;
+    }
+
+    async validateExpertScore() {
+        if (this.competenceWeightScoreForExpert.length > 0) {
+            this.blockCreate = true;
+        } else if (this.competenceWeightScoreForExpert.length === 0 && this.editMode == true) {
+            this.blockCreate = true;
+        } else {
+            this.blockCreate = await this.vacancyService.validateVacancyCompetenceScoreByEmployeeId(this.staffUnit.employee?.id, this.itemRespond.id);
+        }
     }
 }

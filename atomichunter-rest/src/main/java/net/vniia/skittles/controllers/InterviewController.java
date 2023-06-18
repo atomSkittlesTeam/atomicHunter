@@ -33,6 +33,12 @@ public class InterviewController {
         return interviewReader.getInterviewById(interviewId);
     }
 
+    @PutMapping("{interviewId}")
+    @Transactional
+    public InterviewDto updateInterviewById(@PathVariable Long interviewId, @RequestBody InterviewDto interviewDto) {
+        return this.interviewService.updateInterviewById(interviewId, interviewDto);
+    }
+
     @PostMapping("offer")
     @Transactional
     public void sendOffer(@RequestBody VacancyWithVacancyRespondDto vacancyWithVacancyRespondDto) throws Exception {

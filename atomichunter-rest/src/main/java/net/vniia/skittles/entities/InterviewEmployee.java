@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -18,5 +20,10 @@ public class InterviewEmployee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long interviewId;
-    private Long employeeId;
+    private UUID employeeId;
+
+    public InterviewEmployee(Long interviewId, UUID employeeId) {
+        this.interviewId = interviewId;
+        this.employeeId = employeeId;
+    }
 }

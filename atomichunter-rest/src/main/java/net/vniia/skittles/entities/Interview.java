@@ -25,6 +25,10 @@ public class Interview {
     private Instant dateEnd;
     public Interview(Long vacancyRespondId, InterviewDto interview) {
         this.vacancyRespondId = vacancyRespondId;
+        this.update(interview);
+    }
+
+    public void update(InterviewDto interview) {
         this.meeting = interview.getMeeting();
         this.dateStart = interview.getDateStart();
         this.dateEnd = interview.getDateEnd();

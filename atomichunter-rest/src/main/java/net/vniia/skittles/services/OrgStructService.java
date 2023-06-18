@@ -61,7 +61,13 @@ public class OrgStructService {
     public List<EmployeeDto> getAllEmployees() {
         List<Employee> employees = employeeRepository.findAll();
         List<EmployeeDto> employeeDtos = new ArrayList<>();
-        employees.forEach(e -> employeeDtos.add(new EmployeeDto(e)));
+        employees.forEach(e -> {
+            EmployeeDto employeeDto = new EmployeeDto(e);
+            employeeDto.setEmployeeFullName(employeeDto.getLastName()
+                    + " "
+                    + employeeDto.getFirstName());
+            employeeDtos.add(employeeDto);
+        });
         return employeeDtos;
     }
 
