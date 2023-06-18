@@ -107,13 +107,14 @@ public class VacancyReader {
                 .fetch();
     }
 
-    public List<VacancyCompetenceScoreDto> getVacancyCompetenceScoreWithWeight(
-            List<VacancyCompetenceScoreDto> list) {
-        return queryFactory.from(vacancyCompetenceScore)
-                .leftJoin(vacancyCompetence).on(vacancyCompetence.id.eq(vacancyCompetenceScore.vacancyCompetenceId))
-                .where(vacancyCompetenceScore.id.in(list.stream().map(VacancyCompetenceScoreDto::getId).toList()))
-                .select(getMappedSelectForCompetenceScoreDto()).fetch();
-    }
+    // поиск по vacancyCompetenceScoreId веса
+//    public List<VacancyCompetenceScoreDto> getVacancyCompetenceScoreWithWeight(
+//            List<VacancyCompetenceScoreDto> list) {
+//        return queryFactory.from(vacancyCompetenceScore)
+//                .leftJoin(vacancyCompetence).on(vacancyCompetence.id.eq(vacancyCompetenceScore.vacancyCompetenceId))
+//                .where(vacancyCompetenceScore.id.in(list.stream().map(VacancyCompetenceScoreDto::getId).toList()))
+//                .select(getMappedSelectForCompetenceScoreDto()).fetch();
+//    }
 
     public static QBean<VacancyCompetenceScoreDto> getMappedSelectForCompetenceScoreDto() {
         return Projections.bean(

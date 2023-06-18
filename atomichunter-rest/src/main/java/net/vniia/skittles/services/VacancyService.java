@@ -150,20 +150,18 @@ public class VacancyService {
     @Transactional
     public void updateVacancyRespondAverageScore(Long vacancyRespondId,
                                                  List<VacancyCompetenceScoreDto> vacancyCompetenceScoreDtos) {
-        List<VacancyCompetenceScoreDto> scores = vacancyReader.getVacancyCompetenceScoreWithWeight(vacancyCompetenceScoreDtos);
         VacancyRespond vacancyRespond = this.vacancyRespondRepository.findById(vacancyRespondId).orElseThrow(
                 () -> {
                     throw new RuntimeException("Отклик на вакансию не найден!");
                 }
         );
         Integer scoresSum = 0;
-        for (VacancyCompetenceScoreDto score : scores) {
+        for (VacancyCompetenceScoreDto score : vacancyCompetenceScoreDtos) {
             scoresSum += score.getScore() * score.getVacancyCompetenceWeight();
         }
         vacancyRespond.setAverageScore((scoresSum + vacancyRespond.getAverageScore()) / (vacancyRespond.getCompetenceScoreCount() + 1));
         vacancyRespond.setCompetenceScoreCount(vacancyRespond.getCompetenceScoreCount() + 1);
-        vacancyRespond.update(vacancyRespondDto);
-        return vacancyReader.getVacancyRespondById(vacancyRespond.getId());
+        vacancyRespondRepository.saveAndFlush(vacancyRespond);
     }
 
     @Transactional

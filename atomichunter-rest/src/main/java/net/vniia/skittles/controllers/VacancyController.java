@@ -109,6 +109,6 @@ public class VacancyController {
     public void validateVacancyCompetenceScore(@PathVariable Long vacancyRespondId,
                                                @RequestBody List<VacancyCompetenceScoreDto> vacancyCompetenceScoreDtos) {
         List<VacancyCompetenceScoreDto> scoreDtosWithIds = this.vacancyService.createVacancyCompetenceScore(vacancyCompetenceScoreDtos);
-        this.vacancyService.updateVacancyRespondAverageScore(scoreDtosWithIds);
+        this.vacancyService.updateVacancyRespondAverageScore(vacancyRespondId, scoreDtosWithIds);
     }
 }
