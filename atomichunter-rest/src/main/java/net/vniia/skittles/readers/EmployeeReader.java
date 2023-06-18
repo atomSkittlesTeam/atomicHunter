@@ -2,11 +2,11 @@ package net.vniia.skittles.readers;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.QBean;
-import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.EmployeeDto;
 import net.vniia.skittles.entities.QEmployee;
+import net.vniia.skittles.entities.QInterviewEmployee;
 import net.vniia.skittles.entities.QStaffUnit;
 import net.vniia.skittles.enums.StaffUnitStatus;
 import org.springframework.stereotype.Repository;
@@ -19,6 +19,8 @@ public class EmployeeReader {
     private static final QEmployee employee = QEmployee.employee;
 
     private static final QStaffUnit staffUnit = QStaffUnit.staffUnit;
+
+    private static final QInterviewEmployee interviewEmployee = QInterviewEmployee.interviewEmployee;
 
     private final JPAQueryFactory queryFactory;
 
@@ -44,6 +46,19 @@ public class EmployeeReader {
             hr.setEmployeeFullName(hr.getLastName() + " " + hr.getFirstName());
         }
 
+        return hrs;
+    }
+
+    public List<EmployeeDto> getInterviewEmployees(Long interviewId) {
+        List<EmployeeDto> hrs = queryFactory.from(employee)
+                .innerJoin(interviewEmployee).on(interviewEmployee.employeeId.eq(employee.id)
+                        .and(interviewEmployee.interviewId.eq(interviewId)))
+                .select(getMappedSelectForEmployeeDto())
+                .fetch();
+
+        for (EmployeeDto hr : hrs) {
+            hr.setEmployeeFullName(hr.getLastName() + " " + hr.getFirstName());
+        }
         return hrs;
     }
 }
