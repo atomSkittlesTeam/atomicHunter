@@ -52,9 +52,18 @@
                                            [name]="'weight' + competenceWeightScore.competence.id"
                                            [showButtons]="false" [disabled]="true"></p-inputNumber>
 
-                            <p-inputNumber [(ngModel)]="competenceWeightScore.score" [min]=0
+                            <p-inputNumber *ngIf="!competenceWeightScore.competence.binaryLogic"
+                                           [(ngModel)]="competenceWeightScore.score" [min]=1
                                            [name]="'score' + competenceWeightScore.competence.id"
                                            [showButtons]="true"></p-inputNumber>
+
+                            <p-checkbox *ngIf="competenceWeightScore.competence.binaryLogic"
+                                        [(ngModel)]="competenceWeightScore.binaryIsChecked"
+                                        [name]="'checkbox' + competenceWeightScore.competence.id"
+                                        [binary]="true"
+                                        [inputId]="'checkbox' + competenceWeightScore.competence.id">
+
+                            </p-checkbox>
                         </div>
                     </div>
                 </div>

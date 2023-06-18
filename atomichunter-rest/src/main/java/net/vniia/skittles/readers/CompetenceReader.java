@@ -31,7 +31,8 @@ public class CompetenceReader {
                 CompetenceDto.class,
                 competence.id,
                 competence.name,
-                competence.groupId
+                competence.groupId,
+                competence.binaryLogic
         );
     }
 

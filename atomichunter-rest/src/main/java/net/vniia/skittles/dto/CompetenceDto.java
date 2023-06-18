@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 public class CompetenceDto {
     private Long id;
     private String name;
+    private boolean binaryLogic;
     private Long groupId;
 }

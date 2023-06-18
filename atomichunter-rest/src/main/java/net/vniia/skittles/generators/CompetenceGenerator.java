@@ -39,7 +39,7 @@ public class CompetenceGenerator {
             CompetenceGroup competenceGroup = new CompetenceGroup(step, cmpName);
             competenceGroup = competenceGroupRepository.save(competenceGroup);
             for (String c : getCompetencesForGroupNumber(step)) {
-                Competence cmp = new Competence(step, c, competenceGroup.getId());
+                Competence cmp = new Competence(step, c, false, competenceGroup.getId());
                 competenceRepository.save(cmp);
             }
             step++;
