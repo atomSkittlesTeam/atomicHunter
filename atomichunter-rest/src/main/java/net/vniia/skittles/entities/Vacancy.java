@@ -57,17 +57,19 @@ public class Vacancy {
     private Instant modifyInstant;
 
     public Vacancy(VacancyDto vacancyDto) {
-        this.update(vacancyDto);
+        this.update(vacancyDto, true);
     }
 
-    public void update(VacancyDto vacancyDto) {
+    public void update(VacancyDto vacancyDto, Boolean updatePositionAndStaffUnit) {
         this.name = vacancyDto.getName();
-        this.staffUnitId = Optional.ofNullable(vacancyDto.getStaffUnit())
-                .map(StaffUnitDto::getId)
-                .orElse(null);
-        this.positionId = Optional.ofNullable(vacancyDto.getPosition())
-                .map(PositionDto::getId)
-                .orElse(null);
+        if (updatePositionAndStaffUnit) {
+            this.staffUnitId = Optional.ofNullable(vacancyDto.getStaffUnit())
+                    .map(StaffUnitDto::getId)
+                    .orElse(null);
+            this.positionId = Optional.ofNullable(vacancyDto.getPosition())
+                    .map(PositionDto::getId)
+                    .orElse(null);
+        }
         this.requirements = vacancyDto.getRequirements();
         this.responsibilities = vacancyDto.getResponsibilities();
         this.conditions = vacancyDto.getConditions();
