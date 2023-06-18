@@ -208,4 +208,8 @@ public class VacancyService {
         savedScores.forEach(e -> result.add(new VacancyCompetenceScoreDto(e)));
         return result;
     }
+
+    public List<VacancyAnalysisDto> getVacancyRespondAnalysis(Long vacancyId) {
+        return null;
+    }
 }

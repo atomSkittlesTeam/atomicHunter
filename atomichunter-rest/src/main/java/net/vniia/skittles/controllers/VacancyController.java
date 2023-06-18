@@ -2,10 +2,7 @@ package net.vniia.skittles.controllers;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import net.vniia.skittles.dto.VacancyCompetenceScoreDto;
-import net.vniia.skittles.dto.VacancyCompetenceScoreRequestDto;
-import net.vniia.skittles.dto.VacancyDto;
-import net.vniia.skittles.dto.VacancyRespondDto;
+import net.vniia.skittles.dto.*;
 import net.vniia.skittles.readers.VacancyReader;
 import net.vniia.skittles.services.VacancyService;
 import org.springframework.web.bind.annotation.*;
@@ -100,5 +97,10 @@ public class VacancyController {
     public void validateVacancyCompetenceScore(@RequestBody VacancyCompetenceScoreRequestDto requestDto) {
         List<VacancyCompetenceScoreDto> scoreDtosWithIds = this.vacancyService.createVacancyCompetenceScore(requestDto);
         this.vacancyService.updateVacancyRespondAverageScore(requestDto.getVacancyRespondId(), scoreDtosWithIds);
+    }
+
+    @GetMapping("vacancy/{vacancyId}/analysis")
+    public List<VacancyAnalysisDto> getVacancyRespondAnalysis(@PathVariable Long vacancyId) {
+        return vacancyService.getVacancyRespondAnalysis(vacancyId);
     }
 }
