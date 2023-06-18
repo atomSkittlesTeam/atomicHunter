@@ -40,6 +40,7 @@ public class EmployeeReader {
                         .ne(StaffUnitStatus.Opened).or(staffUnit.closeTime.isNotNull())))
                 .where(employee.positionId.eq("hr"))
                 .select(getMappedSelectForEmployeeDto())
+                .orderBy(employee.lastName.asc())
                 .fetch();
 
         for (EmployeeDto hr : hrs) {
@@ -54,6 +55,7 @@ public class EmployeeReader {
                 .innerJoin(interviewEmployee).on(interviewEmployee.employeeId.eq(employee.id)
                         .and(interviewEmployee.interviewId.eq(interviewId)))
                 .select(getMappedSelectForEmployeeDto())
+                .orderBy(employee.lastName.asc())
                 .fetch();
 
         for (EmployeeDto hr : hrs) {

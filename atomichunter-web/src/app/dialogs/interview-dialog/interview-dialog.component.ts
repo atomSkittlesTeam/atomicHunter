@@ -145,6 +145,7 @@ export class VacancyRequestComponent {
     }
 
     validateChecker() {
+        this.interview.employees = this.selectedEmployees;
         this.inviteService.validateInterview(this.interview);
     }
 }
