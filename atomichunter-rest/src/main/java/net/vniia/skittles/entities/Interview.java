@@ -20,7 +20,7 @@ public class Interview {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long vacancyRespondId;
-    private String meeting;
+    private Long placeId;
     private Instant dateStart;
     private Instant dateEnd;
     public Interview(Long vacancyRespondId, InterviewDto interview) {
@@ -29,7 +29,7 @@ public class Interview {
     }
 
     public void update(InterviewDto interview) {
-        this.meeting = interview.getMeeting();
+        this.placeId = interview.getPlace().getId();
         this.dateStart = interview.getDateStart();
         this.dateEnd = interview.getDateEnd();
     }
