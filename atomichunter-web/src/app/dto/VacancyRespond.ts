@@ -8,4 +8,6 @@ export class  VacancyRespond {
     fullName: string;
     interviewInviteAccepted: boolean;
     interviewId: number;
+    averageScore: number;
+    competenceScoreCount: number;
 }
