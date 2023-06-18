@@ -31,9 +31,14 @@ export class StaffUnitComponent {
 
     public columnDefs: ColDef[] = [
         // {field: 'id', headerName: 'Идентификатор', filter: 'agNumberColumnFilter'},
-        {field: 'status', headerName: 'Статус', filter: 'agNumberColumnFilter', cellRenderer: (data: { value: any }) => {
+        {
+            field: 'status',
+            headerName: 'Статус',
+            filter: 'agTextColumnFilter',
+            cellRenderer: (data: { value: any }) => {
                 return !data.value ? " " : this.getEnum(data.value);
-            }},
+            }
+        },
         {field: 'closeTime', headerName: 'Дата закрытия', filter: 'agTextColumnFilter'},
         {field: 'employee.lastName', headerName: 'Фамилия', filter: 'agTextColumnFilter'},
         {field: 'employee.firstName', headerName: 'Имя', filter: 'agTextColumnFilter'},
@@ -47,7 +52,7 @@ export class StaffUnitComponent {
     };
 
     getEnum(type: string) {
-        console.log(typeof  type, type, 'fafwf')
+        console.log(typeof type, type, 'fafwf')
         switch (type) {
             case 'Opened':
                 return 'Открыто'
@@ -58,13 +63,6 @@ export class StaffUnitComponent {
             default:
                 return '';
         }
-    }
-
-    vacancyCreationDisabled() {
-        return this.selectedStaff === null
-            || this.selectedStaff === undefined
-            || this.selectedStaff.id === null
-            || this.selectedStaff.status !== StatusEnum.Opened;
     }
 
     // DefaultColDef sets props common to all Columns
@@ -93,7 +91,11 @@ export class StaffUnitComponent {
 
     async onGridReady(grid: any) {
         this.agGrid = grid;
-        await this.getAllStaffUnitsFromApi();
+        if (!this.showArchive) {
+            await this.getAllStaffUnitsFromApi();
+        } else {
+            await this.showArchivePressed();
+        }
     }
 
     // Example of consuming Grid Event
@@ -120,7 +122,11 @@ export class StaffUnitComponent {
 
     async getAllStaffUnitsFromApi() {
         this.agGrid.api.showLoadingOverlay();
-        this.rowData = await this.orgStructService.getStaffUnits();
+        if (!this.showArchive) {
+            this.rowData = await this.orgStructService.getStaffUnits();
+        } else {
+            this.rowData = await this.orgStructService.getOpenStaffUnits();
+        }
         this.loading = false;
     }
 
@@ -137,4 +143,14 @@ export class StaffUnitComponent {
     }
 
     protected readonly StatusEnum = StatusEnum;
+
+    async showArchivePressed() {
+        if (this.agGrid) {
+            if (!this.showArchive) {
+                this.rowData = await this.orgStructService.getStaffUnits();
+            } else {
+                this.rowData = await this.orgStructService.getOpenStaffUnits();
+            }
+        }
+    }
 }
