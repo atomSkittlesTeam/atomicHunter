@@ -336,6 +336,7 @@ export class VacancyRespondComponent {
   async onDialogSubmit($event: any) {
     this.openDialogVacancyComp = false;
     this.competenceWeightScoreForExpert = [];
+    this.selectedEmployee = new Employee();
     if ($event) {
       await this.getRespondByVacancyIdFromApi();
     }

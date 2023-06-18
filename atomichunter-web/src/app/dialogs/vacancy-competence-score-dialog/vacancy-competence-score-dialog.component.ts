@@ -117,9 +117,9 @@ export class VacancyCompetenceScoreDialogComponent {
         this.competenceGroupsWithCompetences = await this.competenceService.getAllCompetenceTree();
         if (this.editMode) {
             this._item = await this.vacancyService.getVacancyById(this._item.id);
-            this.dialogTitle = "Редактирование вакансии";
+            this.dialogTitle = "Оценка экспертом";
         } else {
-            this.dialogTitle = "Регистрация вакансии";
+            this.dialogTitle = "Просмотр Эксперта";
         }
         this.loading = false;
     }

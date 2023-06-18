@@ -13,6 +13,7 @@
                             [(ngModel)]="interview.place"
                             (ngModelChange)="placeSaveToObject()"
                             name="placeDrop"
+                            required
                             [style]="{width: '100%'}"></p-dropdown>
             </div>
 
@@ -22,6 +23,7 @@
                             [(ngModel)]="interview.dateStart"
                             [showTime]="true"
                             appendTo="body"
+                            (ngModelChange)="validateCheaker()"
                             [required]="true"
                             placeholder="Введите дату и время"
                 ></p-calendar>
@@ -34,6 +36,7 @@
                             [(ngModel)]="interview.dateEnd"
                             [showTime]="true"
                             [required]="true"
+                            (ngModelChange)="validateCheaker()"
                             appendTo="body"
                             placeholder="Введите дату и время"
                 ></p-calendar>
@@ -45,7 +48,7 @@
                     pTooltip="Добавить участника"
                     label="Новый участник"
                     styleClass="tiffany-button"
-                    style="width: 125px"
+                    [style]="{width: '150px'}"
                     (click)="openSidebarWithAllSkills()"
             >
             </p-button>
@@ -82,7 +85,7 @@
 
 <p-sidebar [(visible)]="showSidebarWithAllSkills" *ngIf="showSidebarWithAllSkills" position="right">
     <div class="container">
-        <h1>Список всех Експертов</h1>
+        <h1>Список всех Экспертов</h1>
         <div class="main-block" *ngFor="let employee of employees; let indexGroup = index">
             <div class="main-block__first">
                 <div class="main-block__title">{{employee.employeeFullName}}</div>

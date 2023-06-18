@@ -68,7 +68,7 @@ export class VacancyRequestComponent {
 
     placeSaveToObject() {
         console.log(this.interview);
-        console.log(this.interview.place);
+        // console.log(this.interview.place);
     }
 
     async openSidebarWithAllSkills() {
@@ -86,6 +86,7 @@ export class VacancyRequestComponent {
     async onSubmit($event?: any) {
         try {
             if (this.selectedEmployees) {
+                console.log('1');
                 this.interview.employees = this.selectedEmployees;
             }
 
@@ -132,5 +133,9 @@ export class VacancyRequestComponent {
 
     deleteSkill(id: string) {
         this.selectedEmployees = this.selectedEmployees.filter(e => e.id !== id);
+    }
+
+    validateCheaker() {
+
     }
 }
