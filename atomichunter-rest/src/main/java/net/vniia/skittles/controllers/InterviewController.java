@@ -2,12 +2,15 @@ package net.vniia.skittles.controllers;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import net.vniia.skittles.dto.InterviewCalendarDto;
 import net.vniia.skittles.dto.InterviewDto;
 import net.vniia.skittles.dto.VacancyWithVacancyRespondDto;
 import net.vniia.skittles.readers.InterviewReader;
 import net.vniia.skittles.services.InterviewService;
 import net.vniia.skittles.services.OfferService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("interview")
@@ -28,7 +31,6 @@ public class InterviewController {
     }
 
     @GetMapping("{interviewId}")
-    @Transactional
     public InterviewDto getInterviewById(@PathVariable Long interviewId) {
         return interviewReader.getInterviewById(interviewId);
     }
@@ -53,5 +55,10 @@ public class InterviewController {
     @Transactional
     public void sendOffer(@RequestBody VacancyWithVacancyRespondDto vacancyWithVacancyRespondDto) throws Exception {
         this.offerService.sendOffer(vacancyWithVacancyRespondDto);
+    }
+
+    @GetMapping("calendar")
+    public List<InterviewCalendarDto> getCalendar() {
+        return interviewReader.getAllInterviewCalendar();
     }
 }
