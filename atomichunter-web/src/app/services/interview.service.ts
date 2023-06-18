@@ -6,6 +6,8 @@ import { BaseService } from './base.service';
 import { firstValueFrom } from 'rxjs';
 import { VacancyWithVacancyRespond } from "../dto/VacancyWithVacancyRespond";
 import { Interview } from '../dto/Interview';
+import {Calendar} from "primeng/calendar";
+import {InterviewCalendarDto} from "../dto/InterviewCalendarDto";
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +43,9 @@ export class InterviewService extends BaseService {
   async validateInterview(interview: Interview) {
     const url = await this.getBackendUrl();
     return await firstValueFrom(this.http.post<Interview>(url + `/interview/validate`, interview));
+  }
+  async getCalendar() {
+    const url = await this.getBackendUrl();
+    return await firstValueFrom(this.http.get<InterviewCalendarDto>(url + `/interview/calendar`));
   }
 }

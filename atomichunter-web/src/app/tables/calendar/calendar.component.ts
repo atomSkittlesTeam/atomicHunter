@@ -7,6 +7,8 @@ import {PlaceService} from "../../services/place.service";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {ConfirmationService, MessageService} from "primeng/api";
+import {InterviewService} from "../../services/interview.service";
+import {InterviewCalendarDto} from "../../dto/InterviewCalendarDto";
 
 @Component({
   selector: 'app-calendar',
@@ -45,21 +47,21 @@ export class CalendarComponent {
     resizable: true,
     floatingFilter: this.filter,
   };
-  public rowData!: any[];
+  public rowData!: any;
 
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
   public overlayLoadingTemplate =
       '<span class="ag-overlay-loading-center">Скоро все появится, подождите еще немного...</span>';
 
 
-  constructor(public placeService: PlaceService,
+  constructor(public interviewService: InterviewService,
               public router: Router,
               public http: HttpClient) {
   }
 
   async onGridReady(grid: any) {
     this.agGrid = grid;
-    await this.getAllPlasesFromApi();
+    await this.getCalendarFromApi();
   }
 
   // Example of consuming Grid Event
@@ -79,9 +81,10 @@ export class CalendarComponent {
     }
   }
 
-  async getAllPlasesFromApi() {
+  async getCalendarFromApi() {
     this.agGrid.api.showLoadingOverlay();
-    this.rowData = await this.placeService.getPlaces(this.showArchive);
+    this.rowData = await this.interviewService.getCalendar();
+    console.log(await this.interviewService.getCalendar())
     this.loading = false;
   }
 
