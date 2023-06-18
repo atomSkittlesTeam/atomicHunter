@@ -68,7 +68,7 @@ public class CompetenceReader {
         List<CompetenceGroupsWithCompetencesDto> competenceGroupsWithCompetencesDtos = new ArrayList<>();
         for (CompetenceGroupDto competenceGroupDto : allCompetenceGroup) {
             List<CompetenceDto> competenceDtos = competencesMap.get(competenceGroupDto.getId());
-            if (!competenceDtos.isEmpty()) {
+            if (competenceDtos != null && !competenceDtos.isEmpty()) {
                 CompetenceGroupsWithCompetencesDto competenceGroupsWithCompetencesDto =
                         new CompetenceGroupsWithCompetencesDto();
                 competenceGroupsWithCompetencesDto.setCompetenceGroup(competenceGroupDto);
