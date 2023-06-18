@@ -15,6 +15,7 @@ import {EmployeesComponent} from "./tables/employees/employees.component";
 import {PositionsComponent} from "./tables/positions/positions.component";
 import {CompetenceGroupComponent} from "./tables/competence-group/competence-group.component";
 import {PlaceComponent} from "./tables/place/place.component";
+import {CalendarComponent} from "./tables/calendar/calendar.component";
 
 const routes: Routes = [
     {path: '', component: NavigationComponent, canActivate: [AuthGuard]},
@@ -23,6 +24,7 @@ const routes: Routes = [
     {path: 'password-recover', component: PasswordRecoverFormComponent},
     {path: 'admin', component: AdminComponent,canActivate: [AuthGuard]},
     {path: 'vacancy', component: VacancyComponent,canActivate: [AuthGuard]},
+    {path: 'calendar', component: CalendarComponent,canActivate: [AuthGuard]},
     {path: 'staff-unit', component: StaffUnitComponent,canActivate: [AuthGuard]},
     {path: 'employees', component: EmployeesComponent,canActivate: [AuthGuard]},
     {path: 'positions', component: PositionsComponent,canActivate: [AuthGuard]},
