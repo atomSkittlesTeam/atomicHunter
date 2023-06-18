@@ -5,10 +5,7 @@ import com.querydsl.core.types.QBean;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.*;
-import net.vniia.skittles.entities.CompetenceGroup;
-import net.vniia.skittles.entities.QCompetence;
-import net.vniia.skittles.entities.QEmployee;
-import net.vniia.skittles.entities.QVacancyCompetence;
+import net.vniia.skittles.entities.*;
 import net.vniia.skittles.repositories.CompetenceGroupRepository;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +23,8 @@ public class CompetenceReader {
     private static final QVacancyCompetence vacancyCompetence = QVacancyCompetence.vacancyCompetence;
 
     private static final QEmployee employee = QEmployee.employee;
+
+    private static final QVacancyCompetenceScore vacancyCompetenceScore = QVacancyCompetenceScore.vacancyCompetenceScore;
 
     public static QBean<CompetenceDto> getMappedSelectForCompetenceDto() {
         return Projections.bean(
@@ -98,11 +97,9 @@ public class CompetenceReader {
     }
 
     public List<EmployeeDto> getEmployeesWithScoreForRespond(Long vacancyRespondId) {
-        VacancyRespondDto vacancyRespondDto = vacancyReader.getVacancyRespondById(vacancyRespondId);
-
-
-
         return queryFactory.from(employee)
+                .innerJoin(vacancyCompetenceScore).on(vacancyCompetenceScore.employeeId.eq(employee.id)
+                        .and(vacancyCompetenceScore.vacancyRespondId.eq(vacancyRespondId)))
                 .select(EmployeeReader.getMappedSelectForEmployeeDto())
                 .fetch();
     }
