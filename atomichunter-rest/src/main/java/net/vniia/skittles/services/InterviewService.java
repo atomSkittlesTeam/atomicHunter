@@ -137,7 +137,7 @@ public class InterviewService {
     }
 
     @Transactional
-    public String validateInterview(InterviewDto interviewDto) {
+    public List<String> validateInterview(InterviewDto interviewDto) {
         String message = "";
         interviewDto.getPlace().getId();
         if (interviewDto.getPlace() != null && interviewDto.getDateStart() != null
@@ -148,7 +148,7 @@ public class InterviewService {
                 && interviewDto.getDateStart() != null && interviewDto.getDateEnd() != null) {
             message += validateEveryEmployees(interviewDto);
         }
-        return message;
+        return Collections.singletonList(message);
     }
 
     @Transactional

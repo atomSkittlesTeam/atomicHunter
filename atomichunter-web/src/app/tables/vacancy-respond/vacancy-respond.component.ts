@@ -134,7 +134,7 @@ export class VacancyRespondComponent {
             }
           },
           {
-            label: "Просмотреть эксперта",
+            label: "Открыть оценки кандидата",
             icon: "pi pi-check",
             disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id,
             command: () => {

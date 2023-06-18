@@ -114,6 +114,7 @@ export class VacancyCompetenceScoreDialogComponent {
         } else {
             this.competenceWeightScoreForExpert.forEach(e => e.binaryIsChecked = e.score === 10)
             this.competenceWeightScores = this.competenceWeightScoreForExpert;
+            this.vacancyCompetenceScoreRequest.comment = this.competenceWeightScoreForExpert[0].comment;
             this.staffUnit.employee = this.employeeExpert;
         }
         this.competenceGroupsWithCompetences = await this.competenceService.getAllCompetenceTree();
@@ -121,7 +122,7 @@ export class VacancyCompetenceScoreDialogComponent {
             this._item = await this.vacancyService.getVacancyById(this._item.id);
             this.dialogTitle = "Оценка экспертом";
         } else {
-            this.dialogTitle = "Просмотр Эксперта";
+            this.dialogTitle = "Просмотр оценки кандидата";
         }
         this.loading = false;
     }
