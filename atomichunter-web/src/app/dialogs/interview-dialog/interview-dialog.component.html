@@ -43,6 +43,7 @@
                     pTooltip="Добавить компетенцию"
                     label="Компетенция"
                     styleClass="tiffany-button"
+                    style="width: 125px"
                     (click)="openSidebarWithAllSkills()"
             >
             </p-button>
@@ -53,7 +54,7 @@
                         <button pButton
                                 icon="pi pi-times"
                                 class="tiffany-button-secondary"
-                                [style]="{border: 'none !important'  }"
+                                [style]="{border: 'none !important' }"
                                 (click)="deleteSkill(employee.id)">
                         </button>
                         {{employee.employeeFullName}}
