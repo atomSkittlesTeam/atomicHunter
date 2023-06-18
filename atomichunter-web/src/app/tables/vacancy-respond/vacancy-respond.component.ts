@@ -63,6 +63,7 @@ export class VacancyRespondComponent {
   employees: Employee[] = [];
   selectedEmployee: Employee;
   competenceWeightScoreForExpert: CompetenceWeightScore[] = [];
+  competenceWeightScoreForExpert2: CompetenceWeightScore[] = [];
 
 
   public overlayLoadingTemplate = "<div class=\"loading-text\"> Загрузка...</div> ";
@@ -346,9 +347,8 @@ export class VacancyRespondComponent {
   }
 
   async showExpertCart() {
-    console.log(this.selectedVacancyRespond.id, this.selectedEmployee.id,'this.selectedVacancyRespond.id, this.selectedEmployee.id')
-    this.competenceWeightScoreForExpert = await this.competenceService.getVacancyCompetenceScoreForEmployee(this.selectedVacancyRespond.id, this.selectedEmployee.id);
-    console.log(this.competenceWeightScoreForExpert ,'this.competenceWeightScoreForExpert ')
+    this.competenceWeightScoreForExpert = await this.competenceService
+        .getVacancyCompetenceScoreForEmployee(this.selectedVacancyRespond.id, this.selectedEmployee.id);
     this.openDialogVacancyComp = true;
     this.staffUnit.employee = this.selectedEmployee;
   }

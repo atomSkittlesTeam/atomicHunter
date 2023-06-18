@@ -2,9 +2,7 @@ package net.vniia.skittles.services;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import net.vniia.skittles.dto.EmployeeDto;
-import net.vniia.skittles.dto.InterviewDto;
-import net.vniia.skittles.dto.PositionDto;
+import net.vniia.skittles.dto.*;
 import net.vniia.skittles.entities.*;
 import net.vniia.skittles.readers.EmployeeReader;
 import net.vniia.skittles.readers.InterviewReader;
@@ -49,11 +47,12 @@ public class InterviewService {
             for (EmployeeDto employee : interviewDto.getEmployees()) {
                 InterviewEmployee interviewEmployee = new InterviewEmployee(interview.getId(), employee.getId());
                 interviewEmployeeRepository.save(interviewEmployee);
-                employeeTimeMapRepository.save(new EmployeeTimeMap(employee, interviewDto));
+                employeeTimeMapRepository.save(
+                        new EmployeeTimeMap(employee, interviewDto, interview.getId()));
             }
         }
 
-        placeTimeMapRepository.save(new PlaceTimeMap(interviewDto));
+        placeTimeMapRepository.save(new PlaceTimeMap(interviewDto, interview.getId()));
 
 
         // notifications
@@ -123,6 +122,62 @@ public class InterviewService {
             }
         }
         return interviewReader.getInterviewById(interviewId);
+    }
+
+    @Transactional
+    public String validateInterview(InterviewDto interviewDto) {
+        String message = "";
+        interviewDto.getPlace().getId();
+        if (interviewDto.getPlace() != null && interviewDto.getDateStart() != null
+                && interviewDto.getDateEnd() != null) {
+            message += validatePlace(interviewDto);
+        }
+        if (interviewDto.getEmployees() != null && !interviewDto.getEmployees().isEmpty()
+                && interviewDto.getDateStart() != null && interviewDto.getDateEnd() != null) {
+            message += validateEveryEmployees(interviewDto);
+        }
+        return message;
+    }
+
+    @Transactional
+    public String validatePlace(InterviewDto interviewDto) {
+        String result = "";
+        List<PlaceTimeMapDto> placeTimeMapDtos = interviewReader
+                .getAllPlaceTimeMapById(interviewDto.getPlace().getId(), interviewDto.getId());
+        for (PlaceTimeMapDto placeTimeMapDto : placeTimeMapDtos) {
+            if (!((placeTimeMapDto.getDateStart().isAfter(interviewDto.getDateEnd()) &&
+            placeTimeMapDto.getDateEnd().isAfter(interviewDto.getDateEnd()))
+            ||
+            (placeTimeMapDto.getDateStart().isBefore(interviewDto.getDateStart()) &&
+            placeTimeMapDto.getDateEnd().isBefore(interviewDto.getDateStart()))
+            )) {
+                result = "Площадка " + interviewDto.getPlace().getName() + " занята на указанное время \n";
+                break;
+            }
+        }
+        return result;
+    }
+
+    @Transactional
+    public String validateEveryEmployees(InterviewDto interviewDto) {
+        String result = "";
+        for (EmployeeDto employee : interviewDto.getEmployees()) {
+            List<EmployeeTimeMapDto> employeeTimeMapDtos = interviewReader
+                    .getAllEmployeeTimeMapById(employee.getId(), interviewDto.getId());
+            for (EmployeeTimeMapDto employeeTimeMapDto : employeeTimeMapDtos) {
+                if (!((employeeTimeMapDto.getDateStart().isAfter(interviewDto.getDateEnd()) &&
+                        employeeTimeMapDto.getDateEnd().isAfter(interviewDto.getDateEnd()))
+                        ||
+                        (employeeTimeMapDto.getDateStart().isBefore(interviewDto.getDateStart()) &&
+                                employeeTimeMapDto.getDateEnd().isBefore(interviewDto.getDateStart()))
+                )) {
+                    result += "Эксперт " + employee.getLastName() + " " + employee.getFirstName()
+                            + " занят(а) на указанное время \n";
+                    break;
+                }
+            }
+        }
+        return result;
     }
 
     public void mergeEmployees(Long interviewId, List<EmployeeDto> employees) {

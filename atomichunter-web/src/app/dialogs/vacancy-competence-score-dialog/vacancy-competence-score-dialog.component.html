@@ -32,8 +32,10 @@
 
                 <textarea [(ngModel)]="vacancyCompetenceScoreRequest.comment"
                           [autoResize]="true"
+                          [disabled]="competenceWeightScoreForExpert.length > 0"
                           name="comment"
-                          placeholder="Введите комментарий к собеседованию" pInputTextarea></textarea>
+                          [placeholder]="competenceWeightScoreForExpert.length > 0 ?
+                          '' : 'Введите комментарий к собеседованию'" pInputTextarea></textarea>
             </div>
             <span class="fail" *ngIf="!blockCreate"
                   style="color:red"> Этот эксперт уже оценивал</span>
@@ -61,14 +63,16 @@
                             <p-inputNumber *ngIf="!competenceWeightScore.competence.binaryLogic"
                                            [(ngModel)]="competenceWeightScore.score" [min]=1 [max]=10
                                            [name]="'score' + competenceWeightScore.competence.id"
-                                           [showButtons]="true"></p-inputNumber>
+                                           [showButtons]="!(competenceWeightScoreForExpert.length > 0)"
+                                           [disabled]="competenceWeightScoreForExpert.length > 0"></p-inputNumber>
 
                             <p-checkbox *ngIf="competenceWeightScore.competence.binaryLogic"
                                         [(ngModel)]="competenceWeightScore.binaryIsChecked"
                                         [name]="'checkbox' + competenceWeightScore.competence.id"
                                         [binary]="true"
-                                        [inputId]="'checkbox' + competenceWeightScore.competence.id">
-
+                                        [inputId]="'checkbox' + competenceWeightScore.competence.id"
+                                        [disabled]="competenceWeightScoreForExpert.length > 0"
+                            >
                             </p-checkbox>
                         </div>
                     </div>
@@ -79,7 +83,8 @@
 
     <p-footer>
 
-        <p-button icon="pi pi-check"
+        <p-button *ngIf="!(competenceWeightScoreForExpert.length > 0)"
+                  icon="pi pi-check"
                   (onClick)="onSubmit($event)"
                   [disabled]="!f.valid || !blockCreate"
                   [label]="getSaveLabel()"

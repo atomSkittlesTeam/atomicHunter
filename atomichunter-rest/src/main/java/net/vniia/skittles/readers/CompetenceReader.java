@@ -91,7 +91,8 @@ public class CompetenceReader {
             .select(Projections.bean(
                     CompetenceWeightScoreDto.class,
                     CompetenceReader.getMappedSelectForCompetenceDto().as("competence"),
-                    vacancyCompetence.weight.as("weight")
+                    vacancyCompetence.weight.as("weight"),
+                    vacancyCompetence.id.as("vacancyCompetenceId")
             ))
             .fetch();
 
@@ -122,7 +123,8 @@ public class CompetenceReader {
                                 CompetenceWeightScoreDto.class,
                                 CompetenceReader.getMappedSelectForCompetenceDto().as("competence"),
                                 vacancyCompetenceScore.weight.as("weight"),
-                                vacancyCompetenceScore.score.as("score")
+                                vacancyCompetenceScore.score.as("score"),
+                                vacancyCompetenceScore.vacancyCompetenceId
                         ))
                         .fetch();
 

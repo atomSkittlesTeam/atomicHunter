@@ -22,10 +22,12 @@ public class PlaceTimeMap {
     private Long placeId;
     private Instant dateStart;
     private Instant dateEnd;
+    private Long interviewId;
 
-    public PlaceTimeMap(InterviewDto interviewDto) {
+    public PlaceTimeMap(InterviewDto interviewDto, Long interviewId) {
         this.placeId = interviewDto.getPlace().getId();
         this.dateStart = interviewDto.getDateStart();
         this.dateEnd = interviewDto.getDateEnd();
+        this.interviewId = interviewId;
     }
 }

@@ -59,7 +59,7 @@ public class OrgStructService {
     }
 
     public List<EmployeeDto> getAllEmployees() {
-        List<Employee> employees = employeeRepository.findAll();
+        List<Employee> employees = employeeRepository.findAllByOrderByLastNameAsc();
         List<EmployeeDto> employeeDtos = new ArrayList<>();
         employees.forEach(e -> {
             EmployeeDto employeeDto = new EmployeeDto(e);
