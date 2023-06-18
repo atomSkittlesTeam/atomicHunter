@@ -153,8 +153,7 @@ export class VacancyCompetenceScoreDialogComponent {
     async createVacancy(vacancy: Vacancy) {
         try {
             this.loading = true;
-            console.log(this.vacancyCompetenceScoreRequest);
-            // const rq = await this.vacancyService.createVacancy(vacancy);
+            const rq = await this.vacancyService.validateVacancyCompetenceScore(this.vacancyCompetenceScoreRequest);
             this.messageService.add({
                 severity: "success",
                 summary: "Успех!",
