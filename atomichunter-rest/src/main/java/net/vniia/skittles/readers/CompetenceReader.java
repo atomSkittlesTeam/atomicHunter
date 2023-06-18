@@ -124,7 +124,8 @@ public class CompetenceReader {
                                 CompetenceReader.getMappedSelectForCompetenceDto().as("competence"),
                                 vacancyCompetenceScore.weight.as("weight"),
                                 vacancyCompetenceScore.score.as("score"),
-                                vacancyCompetenceScore.vacancyCompetenceId
+                                vacancyCompetenceScore.vacancyCompetenceId,
+                                vacancyCompetenceScore.comment
                         ))
                         .fetch();
 

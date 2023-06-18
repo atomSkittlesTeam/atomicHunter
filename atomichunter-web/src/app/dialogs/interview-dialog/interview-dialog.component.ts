@@ -27,6 +27,7 @@ export class VacancyRequestComponent {
     employees: Employee[] = [];
     selectedEmployees: Employee[] = [];
     allPlaces: Place[] = [];
+    saveButtonIsNotValidated: boolean = false;
 
 
     constructor(private inviteService: InterviewService,
@@ -144,8 +145,19 @@ export class VacancyRequestComponent {
         this.selectedEmployees = this.selectedEmployees.filter(e => e.id !== id);
     }
 
-    validateChecker() {
+    async validateChecker() {
         this.interview.employees = this.selectedEmployees;
-        this.inviteService.validateInterview(this.interview);
+        let validateString = await this.inviteService.validateInterview(this.interview);
+        if (!!validateString && !!validateString[0] && validateString[0] != "") {
+            this.saveButtonIsNotValidated = true;
+            this.messageService.add({
+                severity: "error",
+                summary: "Несовпадение графиков!",
+                detail: validateString[0],
+                life: 5000
+            });
+        } else {
+            this.saveButtonIsNotValidated = false;
+        }
     }
 }

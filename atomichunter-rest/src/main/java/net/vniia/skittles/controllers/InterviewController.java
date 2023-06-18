@@ -9,6 +9,9 @@ import net.vniia.skittles.services.InterviewService;
 import net.vniia.skittles.services.OfferService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.List;
+
 @RestController
 @RequestMapping("interview")
 @RequiredArgsConstructor
@@ -41,10 +44,10 @@ public class InterviewController {
 
     @PostMapping("validate")
     @Transactional
-    public String validateInterview(@RequestBody InterviewDto interviewDto) {
+    public List<String> validateInterview(@RequestBody InterviewDto interviewDto) {
         if (interviewDto.getDateStart() != null && interviewDto.getDateEnd() != null
                 && interviewDto.getDateStart().isAfter(interviewDto.getDateEnd())) {
-            return "Даты указаны неверно: дата начала собеседования позже, чем дата конца";
+            return Collections.singletonList("Даты указаны неверно: дата начала собеседования позже, чем дата конца");
         }
         return this.interviewService.validateInterview(interviewDto);
     }

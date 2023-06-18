@@ -12,4 +12,5 @@ public class CompetenceWeightScoreDto {
     private Long vacancyCompetenceId;
     private long weight;
     private long score;
+    private String comment;
 }
