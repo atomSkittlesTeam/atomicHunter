@@ -64,6 +64,14 @@ export class VacancyRequestComponent {
                 life: 5000
             });
         }
+        if (this.allPlaces.length === 0) {
+            this.messageService.add({
+                severity: 'info',
+                summary: 'Пустой справочник',
+                detail: 'Справочник мест собеседований не заполнен',
+                life: 5000
+            });
+        }
     }
 
     placeSaveToObject() {
