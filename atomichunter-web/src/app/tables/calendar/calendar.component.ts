@@ -3,12 +3,9 @@ import {Place} from "../../dto/Place";
 import {CellClickedEvent, ColDef} from "ag-grid-community";
 import {LoadingCellRendererComponent} from "../../platform/loading-cell-renderer/loading-cell-renderer.component";
 import {AgGridAngular} from "ag-grid-angular";
-import {PlaceService} from "../../services/place.service";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {ConfirmationService, MessageService} from "primeng/api";
 import {InterviewService} from "../../services/interview.service";
-import {InterviewCalendarDto} from "../../dto/InterviewCalendarDto";
 
 @Component({
   selector: 'app-calendar',
@@ -24,12 +21,22 @@ export class CalendarComponent {
   selectedPlace: Place = new Place();
 
   public columnDefs: ColDef[] = [
-    {field: 'id', headerName: 'Идентификатор', filter: 'agNumberColumnFilter'},
-    {field: 'name', headerName: 'Название площадки', filter: 'agTextColumnFilter'},
-    {field: 'archive', headerName: 'Архив', hide: !this.showArchive,
-      cellRenderer: (params: { value: any; }) => {
-        return `<input disabled="true" type='checkbox' ${params.value ? 'checked' : ''} />`;
-      }}
+    {field: 'interview.vacancyRespond.fullName', headerName: 'Кандидат', filter: 'agNumberColumnFilter'},
+    {field: 'interview.place.name', headerName: 'Место', filter: 'agTextColumnFilter'},
+    {
+      field: 'interview.dateStart', headerName: 'Дата начала собеседования', filter: 'agDateColumnFilter',
+      cellRenderer: (data: { value: number }) => {
+          return data.value ? new Date(data.value * 1000).toLocaleDateString()
+              + ' ' + new Date(data.value * 1000).toLocaleTimeString() : '';
+      }
+    },
+    {
+      field: 'interview.dateEnd', headerName: 'Дата окончания собеседования', filter: 'agDateColumnFilter',
+      cellRenderer: (data: { value: number }) => {
+          return data.value ? new Date(data.value * 1000).toLocaleDateString()
+              + ' ' + new Date(data.value * 1000).toLocaleTimeString() : '';
+      }
+    }
   ];
 
   public loadingCellRenderer: any = LoadingCellRendererComponent;
@@ -84,7 +91,6 @@ export class CalendarComponent {
   async getCalendarFromApi() {
     this.agGrid.api.showLoadingOverlay();
     this.rowData = await this.interviewService.getCalendar();
-    console.log(await this.interviewService.getCalendar())
     this.loading = false;
   }
 

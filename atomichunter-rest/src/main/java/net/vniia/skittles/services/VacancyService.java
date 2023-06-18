@@ -6,6 +6,7 @@ import net.vniia.skittles.entities.Vacancy;
 import net.vniia.skittles.entities.VacancyCompetence;
 import net.vniia.skittles.entities.VacancyCompetenceScore;
 import net.vniia.skittles.entities.VacancyRespond;
+import net.vniia.skittles.readers.CompetenceReader;
 import net.vniia.skittles.readers.VacancyReader;
 import net.vniia.skittles.repositories.VacancyCompetenceRepository;
 import net.vniia.skittles.repositories.VacancyCompetenceScoreRepository;
@@ -42,6 +43,8 @@ public class VacancyService {
     private final VacancyCompetenceRepository vacancyCompetenceRepository;
 
     private final VacancyCompetenceScoreRepository vacancyCompetenceScoreRepository;
+
+    private final CompetenceReader competenceReader;
 
     @Transactional
     public VacancyDto createVacancy(VacancyDto vacancyDto) {
@@ -207,5 +210,9 @@ public class VacancyService {
         List<VacancyCompetenceScoreDto> result = new ArrayList<>();
         savedScores.forEach(e -> result.add(new VacancyCompetenceScoreDto(e)));
         return result;
+    }
+
+    public List<CompetenceWeightScoreFullDto> getVacancyRespondAnalysis(Long vacancyId) {
+        return competenceReader.getVacancyCompetenceScoreForVacancy(vacancyId);
     }
 }

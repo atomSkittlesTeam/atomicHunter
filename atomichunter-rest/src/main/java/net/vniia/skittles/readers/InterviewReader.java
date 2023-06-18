@@ -52,7 +52,8 @@ public class InterviewReader {
                 interview.placeId,
                 interview.dateEnd,
                 interview.dateStart,
-                VacancyReader.getMappedSelectForVacancyRespondDto().as("vacancyRespond")
+                VacancyReader.getMappedSelectForVacancyRespondDto().as("vacancyRespond"),
+                PlaceReader.getMappedSelectForPlaceDto().as("place")
         );
     }
 
@@ -122,6 +123,7 @@ public class InterviewReader {
     public List<InterviewCalendarDto> getAllInterviewCalendar() {
         return queryFactory.from(interview)
                 .innerJoin(vacancyRespond).on(interview.vacancyRespondId.eq(vacancyRespond.id))
+                .innerJoin(place).on(place.id.eq(interview.placeId))
                 .select(InterviewReader.getMappedSelectForInterviewCalendarDto())
                 .fetch();
     }

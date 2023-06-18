@@ -27,6 +27,8 @@ public class CompetenceReader {
 
     private static final QVacancyCompetenceScore vacancyCompetenceScore = QVacancyCompetenceScore.vacancyCompetenceScore;
 
+    private static final QVacancyRespond vacancyRespond = QVacancyRespond.vacancyRespond;
+
     public static QBean<CompetenceDto> getMappedSelectForCompetenceDto() {
         return Projections.bean(
                 CompetenceDto.class,
@@ -129,6 +131,25 @@ public class CompetenceReader {
                         ))
                         .fetch();
 
+        return weightScoreDtos;
+    }
+
+    public List<CompetenceWeightScoreFullDto> getVacancyCompetenceScoreForVacancy(Long vacancyId) {
+        List<CompetenceWeightScoreFullDto> weightScoreDtos =
+            queryFactory.from(vacancyCompetenceScore)
+                    .innerJoin(vacancyCompetence).on(vacancyCompetence.id.eq(vacancyCompetenceScore.vacancyCompetenceId))
+                    .innerJoin(competence).on(competence.id.eq(vacancyCompetence.competenceId))
+                    .innerJoin(vacancyRespond).on(vacancyRespond.id.eq(vacancyCompetenceScore.vacancyRespondId))
+                    .where(vacancyCompetence.vacancyId.eq(vacancyId))
+                    .select(Projections.bean(
+                            CompetenceWeightScoreFullDto.class,
+                            CompetenceReader.getMappedSelectForCompetenceDto().as("competence"),
+                            VacancyReader.getMappedSelectForVacancyRespondDto().as("vacancyRespond"),
+                            vacancyCompetenceScore.weight.as("weight"),
+                            vacancyCompetenceScore.score.as("score"),
+                            vacancyCompetenceScore.employeeId.as("employeeId")
+                    ))
+                    .fetch();
         return weightScoreDtos;
     }
 }
