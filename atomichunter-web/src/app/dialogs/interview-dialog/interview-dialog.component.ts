@@ -37,6 +37,10 @@ export class VacancyRequestComponent {
       if (typeof this.interview.dateEnd === "number") {
         this.interview.dateEnd = new Date(this.interview.dateEnd * 1000);
       }
+
+      if (typeof this.interview.dateStart === "number") {
+        this.interview.dateStart = new Date(this.interview.dateStart * 1000);
+      }
       // new Date(data.value * 1000).toLocaleDateString()
       // + ' ' + new Date(data.value * 1000).toLocaleTimeString() : '';
 
@@ -59,7 +63,7 @@ export class VacancyRequestComponent {
   async onSubmit($event?: any) {
     try {
       if (this.editMode) {
-        await this.inviteService.updateInterview(this.selectedVacancyRespond.id, this.interview);
+        await this.inviteService.updateInterview(this.selectedVacancyRespond.interviewId, this.interview);
         this.messageService.add({
           severity: "success",
           summary: "Успех!",

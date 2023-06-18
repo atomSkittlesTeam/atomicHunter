@@ -22,6 +22,7 @@ public class VacancyReader {
     public static final QConfirmationToken confirmationToken = QConfirmationToken.confirmationToken1;
     public static final QInterview interview = QInterview.interview;
     public static final QStaffUnit staffUnit = QStaffUnit.staffUnit;
+
     public static final QEmployee employee = QEmployee.employee;
 
 
