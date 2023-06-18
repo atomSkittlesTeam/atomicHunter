@@ -65,6 +65,7 @@ import {CompetenceGroupDialogComponent} from './dialogs/competence-group-dialog/
 import {CompetenceDialogComponent} from './dialogs/competence-dialog/competence-dialog.component';
 import { VacancyRespondDialogComponent } from './dialogs/vacancy-respond-dialog/vacancy-respond-dialog.component';
 import { VacancyCompetenceScoreDialogComponent } from './dialogs/vacancy-competence-score-dialog/vacancy-competence-score-dialog.component';
+import { PlaceComponent } from './tables/place/place.component';
 
 @NgModule({
     declarations: [
@@ -93,7 +94,8 @@ import { VacancyCompetenceScoreDialogComponent } from './dialogs/vacancy-compete
         CompetenceGroupDialogComponent,
         CompetenceDialogComponent,
         VacancyRespondDialogComponent,
-        VacancyCompetenceScoreDialogComponent
+        VacancyCompetenceScoreDialogComponent,
+        PlaceComponent
     ],
   imports: [
     BrowserModule,

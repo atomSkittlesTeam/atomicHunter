@@ -6,12 +6,14 @@
         <div class="flex">
             <div class="p-inputgroup">
                 <span class="p-inputgroup-addon" style="min-width: 170px">Место собеседования</span>
-                <input pInputText
-                       [(ngModel)]="interview.meeting"
-                       name="meetingUrl"
-                       required
-                       placeholder="Укажите место собеседования"
-                       [style]="{width: '100%'}"/>
+
+                <p-dropdown [options]="allPlaces"
+                            [optionLabel]="'name'"
+                            appendTo="body"
+                            [(ngModel)]="interview.place"
+                            (ngModelChange)="placeSaveToObject()"
+                            name="placeDrop"
+                            [style]="{width: '100%'}"></p-dropdown>
             </div>
 
             <div class="p-inputgroup">
@@ -41,7 +43,7 @@
             <p-button
                     icon="pi pi-plus"
                     pTooltip="Добавить участника"
-                    label="Компетенция"
+                    label="Новый участник"
                     styleClass="tiffany-button"
                     style="width: 125px"
                     (click)="openSidebarWithAllSkills()"

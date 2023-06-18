@@ -20,14 +20,18 @@ public class Competence {
 
     private String name;
 
+    private boolean binaryLogic;
+
     private Long groupId;
 
     public Competence(Long groupId, CompetenceDto competenceDto) {
         this.name = competenceDto.getName();
         this.groupId = groupId;
+        this.binaryLogic = competenceDto.isBinaryLogic();
     }
 
     public void update(CompetenceDto competenceDto) {
         this.name = competenceDto.getName();
+        this.binaryLogic = competenceDto.isBinaryLogic();
     }
 }

@@ -14,6 +14,7 @@ import {StaffUnitComponent} from "./tables/staff-unit/staff-unit.component";
 import {EmployeesComponent} from "./tables/employees/employees.component";
 import {PositionsComponent} from "./tables/positions/positions.component";
 import {CompetenceGroupComponent} from "./tables/competence-group/competence-group.component";
+import {PlaceComponent} from "./tables/place/place.component";
 
 const routes: Routes = [
     {path: '', component: NavigationComponent, canActivate: [AuthGuard]},
@@ -25,6 +26,7 @@ const routes: Routes = [
     {path: 'staff-unit', component: StaffUnitComponent,canActivate: [AuthGuard]},
     {path: 'employees', component: EmployeesComponent,canActivate: [AuthGuard]},
     {path: 'positions', component: PositionsComponent,canActivate: [AuthGuard]},
+    {path: 'places', component: PlaceComponent,canActivate: [AuthGuard]},
     {path: 'competenceGroup', component: CompetenceGroupComponent, canActivate: [AuthGuard]},
     {path: 'analytics', component: AnalyticsComponent},
     {path: '3ple', component: MasterDetailDetailComponent},

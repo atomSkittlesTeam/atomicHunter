@@ -11,7 +11,7 @@ import java.util.List;
 public class InterviewDto {
     private Long id;
     private VacancyRespondDto vacancyRespond;
-    private String meeting;
+    private PlaceDto place;
     private Instant dateStart;
     private Instant dateEnd;
     private List<EmployeeDto> employees;

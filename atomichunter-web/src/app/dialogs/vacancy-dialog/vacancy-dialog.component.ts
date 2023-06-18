@@ -100,7 +100,7 @@ export class VacancyDialogComponent {
         this.competences = [];
         this._item.competenceWeight = [];
         // this.competences = await this.competenceService.getCompetencesByPositionId(Number.parseInt(this._item?.position?.id));
-        this.competences.map(comp => this._item.competenceWeight.push(new CompetenceWeight(comp, 10)));
+        this.competences.map(comp => this._item.competenceWeight.push(new CompetenceWeight(comp, 10, false)));
     }
 
     async selectEmployee() {
@@ -157,7 +157,7 @@ export class VacancyDialogComponent {
         }
         this.competences.map(comp => {
             if (!this._item.competenceWeight.map(e => e.competence.id).includes(comp.id)) {
-                this._item.competenceWeight.push(new CompetenceWeight(comp, 10));
+                this._item.competenceWeight.push(new CompetenceWeight(comp, 10, false));
             }
         });
     }

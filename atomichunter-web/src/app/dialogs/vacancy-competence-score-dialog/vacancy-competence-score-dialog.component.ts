@@ -89,6 +89,7 @@ export class VacancyCompetenceScoreDialogComponent {
     competenceGroupsWithCompetences: CompetenceGroupsWithCompetencesDto[] = [];
     loading: boolean = false;
     showSidebarWithAllSkills: boolean = false;
+    binaryLogicCheckbox: boolean = false;
 
     constructor(private vacancyService: VacancyService,
                 private competenceService: CompetenceService,
@@ -112,6 +113,7 @@ export class VacancyCompetenceScoreDialogComponent {
             this.competenceWeightScores = this.competenceWeightScoreForExpert;
             this.staffUnit.employee = this.employeeExpert;
         }
+        this.competenceWeightScores.forEach(e => e.score = 1);
         this.competenceGroupsWithCompetences = await this.competenceService.getAllCompetenceTree();
         if (this.editMode) {
             this._item = await this.vacancyService.getVacancyById(this._item.id);
@@ -123,6 +125,11 @@ export class VacancyCompetenceScoreDialogComponent {
     }
 
     async onSubmit($event?: any) {
+        this.competenceWeightScores.forEach(dto => {
+            if (dto.competence.binaryLogic) {
+                dto.score = dto.binaryIsChecked ? 10 : 0;
+            }
+        });
 
         if (this.staffUnit) {
             this.item.staffUnit = this.staffUnit;
@@ -133,11 +140,7 @@ export class VacancyCompetenceScoreDialogComponent {
             this.vacancyCompetenceScoreRequest.employee = this.staffUnit.employee;
             this.vacancyCompetenceScoreRequest.competenceWeightScoreList = this.competenceWeightScores;
             this.vacancyCompetenceScoreRequest.interviewId = 1;
-            if (this.editMode) {
-                await this.updateVacancy(this._item);
-            } else {
-                await this.createVacancy(this._item);
-            }
+            await this.createVacancyCompetenceScore(this._item);
         }
         this.submit.emit($event);
         this.visible = false;
@@ -162,7 +165,7 @@ export class VacancyCompetenceScoreDialogComponent {
         }
         this.competences.map(comp => {
             if (!this._item.competenceWeight.map(e => e.competence.id).includes(comp.id)) {
-                this._item.competenceWeight.push(new CompetenceWeight(comp, 10));
+                this._item.competenceWeight.push(new CompetenceWeight(comp, 10, false));
             }
         });
     }
@@ -173,14 +176,14 @@ export class VacancyCompetenceScoreDialogComponent {
         });
     }
 
-    async createVacancy(vacancy: Vacancy) {
+    async createVacancyCompetenceScore(vacancy: Vacancy) {
         try {
             this.loading = true;
             const rq = await this.vacancyService.validateVacancyCompetenceScore(this.vacancyCompetenceScoreRequest);
             this.messageService.add({
                 severity: "success",
                 summary: "Успех!",
-                detail: "Вакания создана",
+                detail: "Оценка сохранена",
                 life: 5000
             });
         } catch (e: any) {
@@ -195,14 +198,14 @@ export class VacancyCompetenceScoreDialogComponent {
         }
     }
 
-    async updateVacancy(vacancy: Vacancy) {
+    async updateVacancyCompetenceScore(vacancy: Vacancy) {
         try {
             this.loading = true;
             const rq = await this.vacancyService.updateVacancy(vacancy.id, vacancy);
             this.messageService.add({
                 severity: "success",
                 summary: "Успех!",
-                detail: "Вакансия обновлена",
+                detail: "Оценка обновлена",
                 life: 5000
             });
         } catch (e: any) {
@@ -234,6 +237,11 @@ export class VacancyCompetenceScoreDialogComponent {
         }
         this._item.competenceWeight.forEach(competence => sum += competence.weight);
         return sum;
+    }
+
+    calculateBinary(score: number) {
+        console.log()
+        this.binaryLogicCheckbox ? score = 10 : score = 0;
     }
 
     async validateExpertScore() {

@@ -8,9 +8,17 @@
 
                 <span class="p-inputgroup-addon" style="width: 120px">Наименование <span class="required-mark">*</span></span>
                 <input [(ngModel)]="item.name" required
-                       name="salary"
+                       name="name"
                        placeholder="Укажите наименование для группы" pInputText/>
             </div>
+
+            <p-checkbox
+                    [(ngModel)]="item.binaryLogic"
+                    name="binaryLogic"
+                    label="Навык невозможно оценить по шкале"
+                    [binary]="true"
+                    inputId="binaryLogic">
+            </p-checkbox>
 
 
         </div>

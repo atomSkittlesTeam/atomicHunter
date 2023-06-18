@@ -43,7 +43,7 @@ public class InterviewReader {
         return Projections.bean(
                 InterviewDto.class,
                 interview.id,
-                interview.meeting,
+                interview.placeId,
                 interview.dateEnd,
                 interview.dateStart
         );
