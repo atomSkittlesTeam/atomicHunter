@@ -38,7 +38,7 @@ public class InterviewController {
 
     @PutMapping("{interviewId}")
     @Transactional
-    public InterviewDto updateInterviewById(@PathVariable Long interviewId, @RequestBody InterviewDto interviewDto) {
+    public InterviewDto updateInterviewById(@PathVariable Long interviewId, @RequestBody InterviewDto interviewDto) throws Exception {
         return this.interviewService.updateInterviewById(interviewId, interviewDto);
     }
 
