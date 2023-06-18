@@ -14,6 +14,7 @@ import {CompetenceWeight} from "../../dto/CompetenceWeight";
 import {CompetenceWeightScore} from "../../dto/CompetenceWeightScore";
 import {VacancyCompetenceScoreRequestDto} from "../../dto/VacancyCompetenceScoreRequestDto";
 import {VacancyRespond} from "../../dto/VacancyRespond";
+import {log10} from "chart.js/helpers";
 
 @Component({
     selector: 'app-vacancy-competence-score-dialog',
@@ -140,7 +141,6 @@ export class VacancyCompetenceScoreDialogComponent {
             this.vacancyCompetenceScoreRequest.vacancyRespondId = this.itemRespond.id;
             this.vacancyCompetenceScoreRequest.employee = this.staffUnit.employee;
             this.vacancyCompetenceScoreRequest.competenceWeightScoreList = this.competenceWeightScores;
-            // this.vacancyCompetenceScoreRequest.vacancyCompetenceId = this.competenceWeightScores
             this.vacancyCompetenceScoreRequest.interviewId = 1;
 
             await this.createVacancyCompetenceScore(this._item);

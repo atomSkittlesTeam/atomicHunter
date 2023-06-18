@@ -343,6 +343,7 @@ export class VacancyRespondComponent {
     this.openDialogVacancyComp = false;
     this.competenceWeightScoreForExpert = [];
     this.selectedEmployee = new Employee();
+    this.staffUnit = new StaffUnitDto();
     if ($event) {
       await this.getRespondByVacancyIdFromApi();
     }
@@ -355,12 +356,6 @@ export class VacancyRespondComponent {
   async showExpertCart() {
     this.competenceWeightScoreForExpert = await this.competenceService
         .getVacancyCompetenceScoreForEmployee(this.selectedVacancyRespond.id, this.selectedEmployee.id);
-    this.competenceWeightScoreForExpert2 = await this.competenceService
-        .getVacancyCompetenceScoreForEmployee(this.selectedVacancyRespond.id, this.selectedEmployee.id);
-    console.log("this.competenceWeightScoreForExpert");
-    console.log(this.competenceWeightScoreForExpert);
-    console.log("this.competenceWeightScoreForExpert2");
-    console.log(this.competenceWeightScoreForExpert);
     this.openDialogVacancyComp = true;
     this.staffUnit.employee = this.selectedEmployee;
   }

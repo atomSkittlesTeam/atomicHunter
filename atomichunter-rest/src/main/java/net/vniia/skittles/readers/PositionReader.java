@@ -7,6 +7,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.PositionDto;
 import net.vniia.skittles.entities.QPosition;
+import net.vniia.skittles.entities.QVacancy;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,6 +24,8 @@ public class PositionReader {
 
     public static final QPosition position = QPosition.position;
 
+    public static final QVacancy vacancy = QVacancy.vacancy;
+
     private final JPAQueryFactory queryFactory;
 
     private JPAQuery<PositionDto> getPositionQuery() {
@@ -33,5 +36,12 @@ public class PositionReader {
     public List<PositionDto> getAllPositions() {
         return getPositionQuery()
                 .fetch();
+    }
+
+    public PositionDto getPositionDtoByRespondId(Long vacancyId) {
+        return queryFactory.from(position)
+                .innerJoin(vacancy).on(vacancy.positionId.eq(position.id).and(vacancy.id.eq(vacancyId)))
+                .select(getMappedSelectForPositionDto())
+                .fetchFirst();
     }
 }
