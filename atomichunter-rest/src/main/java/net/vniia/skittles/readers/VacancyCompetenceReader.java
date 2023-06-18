@@ -22,7 +22,6 @@ public class VacancyCompetenceReader {
 
     private final JPAQueryFactory queryFactory;
 
-    private final CompetenceReader competenceReader;
 
     public static QBean<CompetenceWeightDto> getMappedSelectForCompetenceWeightDto() {
         return Projections.bean(

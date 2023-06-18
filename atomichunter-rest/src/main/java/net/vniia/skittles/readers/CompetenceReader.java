@@ -81,13 +81,14 @@ public class CompetenceReader {
         VacancyRespondDto vacancyRespondDto = vacancyReader.getVacancyRespondById(vacancyRespondId);
         Long vacancyId = vacancyRespondDto.getVacancyId();
 
-        List<CompetenceWeightScoreDto> weightScoreDtos = queryFactory.from(vacancyCompetence)
-            .innerJoin(competence).on(vacancyCompetence.competenceId.eq(competence.id))
+        List<CompetenceWeightScoreDto> weightScoreDtos =
+                queryFactory.from(vacancyCompetence)
+                .innerJoin(competence).on(vacancyCompetence.competenceId.eq(competence.id))
                 .where(vacancyCompetence.vacancyId.eq(vacancyId))
             .select(Projections.bean(
                     CompetenceWeightScoreDto.class,
                     CompetenceReader.getMappedSelectForCompetenceDto().as("competence"),
-                    vacancyCompetence.as("weight")
+                    vacancyCompetence.weight.as("weight")
             ))
             .fetch();
 
