@@ -17,6 +17,8 @@ public class VacancyReader {
     private static final QVacancy vacancy = QVacancy.vacancy;
     private static final QPosition position = QPosition.position;
     public static final QVacancyRespond vacancyRespond = QVacancyRespond.vacancyRespond;
+    public static final QVacancyCompetenceScore vacancyCompetenceScore = QVacancyCompetenceScore.vacancyCompetenceScore;
+    public static final QVacancyCompetence vacancyCompetence = QVacancyCompetence.vacancyCompetence;
     public static final QConfirmationToken confirmationToken = QConfirmationToken.confirmationToken1;
     public static final QInterview interview = QInterview.interview;
     public static final QStaffUnit staffUnit = QStaffUnit.staffUnit;
@@ -103,5 +105,27 @@ public class VacancyReader {
                 .where(vacancyRespond.vacancyId.in(vacancyIds))
                 .where(showArchive ? null : vacancyRespond.archive.eq(false))
                 .fetch();
+    }
+
+    // поиск по vacancyCompetenceScoreId веса
+//    public List<VacancyCompetenceScoreDto> getVacancyCompetenceScoreWithWeight(
+//            List<VacancyCompetenceScoreDto> list) {
+//        return queryFactory.from(vacancyCompetenceScore)
+//                .leftJoin(vacancyCompetence).on(vacancyCompetence.id.eq(vacancyCompetenceScore.vacancyCompetenceId))
+//                .where(vacancyCompetenceScore.id.in(list.stream().map(VacancyCompetenceScoreDto::getId).toList()))
+//                .select(getMappedSelectForCompetenceScoreDto()).fetch();
+//    }
+
+    public static QBean<VacancyCompetenceScoreDto> getMappedSelectForCompetenceScoreDto() {
+        return Projections.bean(
+                VacancyCompetenceScoreDto.class,
+                vacancyCompetenceScore.id,
+                vacancyCompetenceScore.vacancyCompetenceId,
+                vacancyCompetenceScore.employeeId,
+                vacancyCompetenceScore.score,
+                vacancyCompetenceScore.vacancyRespondId,
+                vacancyCompetenceScore.interviewId,
+                vacancyCompetence.weight.as("vacancyCompetenceWeight")
+        );
     }
 }

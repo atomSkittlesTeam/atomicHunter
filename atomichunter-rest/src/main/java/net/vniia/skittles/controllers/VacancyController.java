@@ -2,9 +2,7 @@ package net.vniia.skittles.controllers;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import net.vniia.skittles.dto.VacancyCompetenceScoreDto;
-import net.vniia.skittles.dto.VacancyDto;
-import net.vniia.skittles.dto.VacancyRespondDto;
+import net.vniia.skittles.dto.*;
 import net.vniia.skittles.entities.VacancyRespond;
 import net.vniia.skittles.readers.VacancyReader;
 import net.vniia.skittles.services.VacancyService;
@@ -98,16 +96,16 @@ public class VacancyController {
         return this.vacancyService.getVacancyReportFileByPath(path);
     }
 
-    @GetMapping("competence-score/{maintainerId}/validation")
+    @GetMapping("competence-score/{employeeId}/validation")
     @Transactional
-    public List<VacancyCompetenceScoreDto> validateVacancyCompetenceScore(@PathVariable Long maintainerId) {
-        return this.vacancyService.validateVacancyCompetenceScore(maintainerId);
+    public List<VacancyCompetenceScoreDto> validateVacancyCompetenceScore(@PathVariable Long employeeId) {
+        return this.vacancyService.validateVacancyCompetenceScore(employeeId);
     }
 
     @PostMapping("competence-score/add")
     @Transactional
-    public void validateVacancyCompetenceScore(@RequestBody VacancyCompetenceScoreDto vacancyCompetenceScoreDto) {
-        this.vacancyService.createVacancyCompetenceScore(vacancyCompetenceScoreDto);
-//        this.vacancyService.vacancyRespond обновить поле средней оценки
+    public void validateVacancyCompetenceScore(@RequestBody VacancyCompetenceScoreRequestDto requestDto) {
+        List<VacancyCompetenceScoreDto> scoreDtosWithIds = this.vacancyService.createVacancyCompetenceScore(requestDto);
+        this.vacancyService.updateVacancyRespondAverageScore(requestDto.getVacancyRespondId(), scoreDtosWithIds);
     }
 }
