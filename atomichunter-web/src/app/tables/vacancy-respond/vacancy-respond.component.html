@@ -113,7 +113,8 @@
 
 <app-vacancy-competence-score-dialog [openDialog]="openDialogVacancyComp"
                     *ngIf="openDialogVacancyComp"
-                    [item]="selectedVacancyRespond"
+                    [item]="vacancy"
+                    [itemRespond]="selectedVacancyRespond"
                     [staffUnit]="staffUnit"
                     [editMode]="dialogEditMode"
                     (submit)="onDialogSubmit($event)">

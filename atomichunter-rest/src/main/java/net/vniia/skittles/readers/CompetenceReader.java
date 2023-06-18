@@ -79,9 +79,6 @@ public class CompetenceReader {
 
     public List<CompetenceWeightScoreDto> getVacancyCompetenceScoreCard(Long vacancyRespondId) {
         VacancyRespondDto vacancyRespondDto = vacancyReader.getVacancyRespondById(vacancyRespondId);
-        if (vacancyRespondDto == null) {
-            throw new RuntimeException("Не найден кандидат");
-        }
         Long vacancyId = vacancyRespondDto.getVacancyId();
 
         List<CompetenceWeightScoreDto> weightScoreDtos =
