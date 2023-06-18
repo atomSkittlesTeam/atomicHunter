@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Repository
@@ -97,11 +98,33 @@ public class CompetenceReader {
     }
 
     public List<EmployeeDto> getEmployeesWithScoreForRespond(Long vacancyRespondId) {
-        return queryFactory.from(employee)
+        List<EmployeeDto> employeeDtos = queryFactory.from(employee)
                 .innerJoin(vacancyCompetenceScore).on(vacancyCompetenceScore.employeeId.eq(employee.id)
                         .and(vacancyCompetenceScore.vacancyRespondId.eq(vacancyRespondId)))
                 .select(EmployeeReader.getMappedSelectForEmployeeDto())
                 .distinct()
                 .fetch();
+        employeeDtos.forEach(e -> {
+            e.setEmployeeFullName(e.getLastName() + " " + e.getFirstName());
+        });
+        return employeeDtos;
+    }
+
+    public List<CompetenceWeightScoreDto> getVacancyCompetenceScoreForEmployee(Long vacancyRespondId, UUID employeeId) {
+        List<CompetenceWeightScoreDto> weightScoreDtos =
+                queryFactory.from(vacancyCompetenceScore)
+                        .innerJoin(vacancyCompetence).on(vacancyCompetence.id.eq(vacancyCompetenceScore.vacancyCompetenceId))
+                        .innerJoin(competence).on(competence.id.eq(vacancyCompetence.competenceId))
+                        .where(vacancyCompetenceScore.vacancyRespondId.eq(vacancyRespondId)
+                                .and(vacancyCompetenceScore.employeeId.eq(employeeId)))
+                        .select(Projections.bean(
+                                CompetenceWeightScoreDto.class,
+                                CompetenceReader.getMappedSelectForCompetenceDto().as("competence"),
+                                vacancyCompetenceScore.weight.as("weight"),
+                                vacancyCompetenceScore.score.as("score")
+                        ))
+                        .fetch();
+
+        return weightScoreDtos;
     }
 }
