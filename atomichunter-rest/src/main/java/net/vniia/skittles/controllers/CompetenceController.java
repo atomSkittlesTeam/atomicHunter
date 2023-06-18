@@ -1,5 +1,6 @@
 package net.vniia.skittles.controllers;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.*;
 import net.vniia.skittles.readers.CompetenceGroupReader;
@@ -7,7 +8,6 @@ import net.vniia.skittles.readers.CompetenceReader;
 import net.vniia.skittles.services.CompetenceGroupService;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -75,5 +75,12 @@ public class CompetenceController {
     @GetMapping("{vacancyRespondId}")
     public List<CompetenceWeightScoreDto> getCompetenceWeight(@PathVariable Long vacancyRespondId) {
         return competenceReader.getVacancyCompetenceScoreCard(vacancyRespondId);
+    }
+
+    // люди, заполнившие свои карточки
+    @GetMapping("{vacancyRespondId}/employees")
+    @Transactional
+    public List<EmployeeDto> getEmployeesWithScoreForRespond(@PathVariable Long vacancyRespondId) {
+        return this.competenceReader.getEmployeesWithScoreForRespond(vacancyRespondId);
     }
 }

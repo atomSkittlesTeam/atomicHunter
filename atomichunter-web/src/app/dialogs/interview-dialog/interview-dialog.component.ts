@@ -1,9 +1,8 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { Vacancy } from "../../dto/Vacancy";
-import { Interview } from "../../dto/Interview";
-import { InviteService } from "../../services/invite.service";
-import { MessageService } from "primeng/api";
-import { VacancyRespond } from "../../dto/VacancyRespond";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Interview} from "../../dto/Interview";
+import {InviteService} from "../../services/invite.service";
+import {MessageService} from "primeng/api";
+import {VacancyRespond} from "../../dto/VacancyRespond";
 
 @Component({
   selector: "app-interview-dialog",
@@ -19,7 +18,7 @@ export class VacancyRequestComponent {
   @Input("editMode") editMode: boolean;
   @Output() submit = new EventEmitter<any>();
   @Output() visibleChange = new EventEmitter<any>();
-  dialogTitle = "Приглашение на собеседование";
+  dialogTitle = "Организация собеседования";
   interview: Interview = new Interview();
 
   constructor(private inviteService: InviteService,
@@ -29,7 +28,7 @@ export class VacancyRequestComponent {
   async ngOnInit() {
     if (this.selectedVacancyRespond.interviewId) {  
       this.interview = await this.inviteService.getInterviewById(this.selectedVacancyRespond.interviewId);
-      this.dialogTitle = "Редактирование приглашения";
+      this.dialogTitle = "Редактирование собеседования";
     }
 }
 
@@ -44,7 +43,7 @@ export class VacancyRequestComponent {
       this.messageService.add({
         severity: "success",
         summary: "Успех!",
-        detail: "Приглашение на собеседование отправлено!",
+        detail: "Собеседование создано!",
         life: 5000
       });
     } catch (e: any) {

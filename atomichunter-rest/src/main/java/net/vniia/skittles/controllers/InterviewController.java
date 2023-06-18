@@ -5,26 +5,29 @@ import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.InterviewDto;
 import net.vniia.skittles.dto.VacancyWithVacancyRespondDto;
 import net.vniia.skittles.readers.InterviewReader;
-import net.vniia.skittles.services.InviteService;
+import net.vniia.skittles.services.InterviewService;
+import net.vniia.skittles.services.OfferService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("invite")
+@RequestMapping("interview")
 @RequiredArgsConstructor
-public class InviteController {
+public class InterviewController {
 
-    private final InviteService inviteService;
+    private final InterviewService interviewService;
 
     private final InterviewReader interviewReader;
 
-    @PostMapping("interview/vacancy-respond/{vacancyRespondId}")
+    private final OfferService offerService;
+
+    @PostMapping("vacancy-respond/{vacancyRespondId}")
     @Transactional
-    public void inviteToInterview(@PathVariable Long vacancyRespondId,
-                                  @RequestBody InterviewDto interviewDto) throws Exception {
-        this.inviteService.inviteToInterview(vacancyRespondId, interviewDto);
+    public void createInterview(@PathVariable Long vacancyRespondId,
+                                @RequestBody InterviewDto interviewDto) throws Exception {
+        this.interviewService.createInterview(vacancyRespondId, interviewDto);
     }
 
-    @GetMapping("interview/{interviewId}")
+    @GetMapping("{interviewId}")
     @Transactional
     public InterviewDto getInterviewById(@PathVariable Long interviewId) {
         return interviewReader.getInterviewById(interviewId);
@@ -33,6 +36,6 @@ public class InviteController {
     @PostMapping("offer")
     @Transactional
     public void sendOffer(@RequestBody VacancyWithVacancyRespondDto vacancyWithVacancyRespondDto) throws Exception {
-        this.inviteService.sendOffer(vacancyWithVacancyRespondDto);
+        this.offerService.sendOffer(vacancyWithVacancyRespondDto);
     }
 }

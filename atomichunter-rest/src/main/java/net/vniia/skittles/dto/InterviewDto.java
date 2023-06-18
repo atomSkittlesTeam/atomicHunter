@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -13,4 +14,5 @@ public class InterviewDto {
     private String meeting;
     private Instant dateStart;
     private Instant dateEnd;
+    private List<EmployeeDto> employees;
 }

@@ -188,6 +188,8 @@ export class VacancyComponent {
                   detail: 'Описание вакансии недоступно! Выберите вакансию, затем попробуйте ещё раз.',
                   life: 5000
               });
+          } finally {
+              this.additionalInformationForReport = "";
           }
       } else {
           this.messageService.add({

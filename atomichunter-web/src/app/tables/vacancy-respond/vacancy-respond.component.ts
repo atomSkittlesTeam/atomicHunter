@@ -132,12 +132,12 @@ export class VacancyRespondComponent {
           },
           {
             label: this.selectedVacancyRespond && this.selectedVacancyRespond.interviewId
-                ? "Редактировать приглашение" : "Пригласить на собеседование",
+                ? "Редактировать собеседование" : "Организовать собеседование",
             disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id,
             icon: "pi pi-envelope",
             command: () => {
               if (this.selectedVacancyRespond.id) {
-                this.inviteToInterview();
+                this.createInterview();
               }
             }
           }
@@ -292,7 +292,7 @@ export class VacancyRespondComponent {
     await this.getRespondByVacancyIdFromApi();
   }
 
-  async inviteToInterview() {
+  async createInterview() {
     this.openInterviewDialog = true;
     if (this.selectedVacancyRespond.interviewId) {
       this.interviewDialogEditMode = true;
