@@ -90,5 +90,4 @@ export class VacancyService extends BaseService {
     const url = await this.getBackendUrl();
     window.open(url + `/vacancy/${vacancyId}/report/${path}/filePdf`, '_blank');
   }
-
 }

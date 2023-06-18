@@ -110,3 +110,11 @@
     <button type="button" pButton icon="pi pi-times" label="Нет" (click)="cd.reject()"></button>
   </ng-template>
 </p-confirmDialog>
+
+<app-vacancy-competence-score-dialog [openDialog]="openDialogVacancyComp"
+                    *ngIf="openDialogVacancyComp"
+                    [item]="vacancy"
+                    [staffUnit]="staffUnit"
+                    [editMode]="dialogEditMode"
+                    (submit)="onDialogSubmit($event)">
+</app-vacancy-competence-score-dialog>

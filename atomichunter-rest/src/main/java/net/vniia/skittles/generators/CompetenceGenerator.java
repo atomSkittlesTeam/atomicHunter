@@ -3,12 +3,13 @@ package net.vniia.skittles.generators;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.entities.Competence;
+import net.vniia.skittles.entities.CompetenceGroup;
+import net.vniia.skittles.repositories.CompetenceGroupRepository;
 import net.vniia.skittles.repositories.CompetenceRepository;
 import net.vniia.skittles.templates.VacancyTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -16,6 +17,7 @@ import java.util.List;
 public class CompetenceGenerator {
 
     private final CompetenceRepository competenceRepository;
+    private final CompetenceGroupRepository competenceGroupRepository;
 
     @Value("${generators.competence}")
     private Boolean generatorCompetenceEnable;
@@ -25,19 +27,35 @@ public class CompetenceGenerator {
         if (this.generatorCompetenceEnable) {
             List<Competence> competences = competenceRepository.findAll();
             if (competences.isEmpty()) {
-                List<Competence> generatedCompetences = this.generateCompetences();
+                this.generateCompetencesTree();
             }
         }
     }
 
-    private List<Competence> generateCompetences() {
-        ArrayList<Competence> generatedCompetences = new ArrayList<>();
-        long id = 1L;
-        for (String  cmpName : VacancyTemplate.allCompetencesNames) {
-            Competence competence = new Competence(id++, cmpName, null);
-            generatedCompetences.add(competence);
+    private void generateCompetencesTree() {
+        long step = 1;
+        for (String cmpName : VacancyTemplate.allCompetencesGroupNames) {
+            // step does not saved as id!!!
+            CompetenceGroup competenceGroup = new CompetenceGroup(step, cmpName);
+            competenceGroup = competenceGroupRepository.save(competenceGroup);
+            for (String c : getCompetencesForGroupNumber(step)) {
+                Competence cmp = new Competence(step, c, competenceGroup.getId());
+                competenceRepository.save(cmp);
+            }
+            step++;
         }
-        competenceRepository.saveAllAndFlush(generatedCompetences);
-        return generatedCompetences;
+    }
+
+    private List<String> getCompetencesForGroupNumber(long stepNumber) {
+        if (stepNumber == 1) {
+            return VacancyTemplate.first;
+        } else if (stepNumber == 2) {
+            return VacancyTemplate.second;
+        } else if (stepNumber == 3) {
+            return VacancyTemplate.third;
+        } else if (stepNumber == 4) {
+            return VacancyTemplate.fourth;
+        }
+        return null;
     }
 }

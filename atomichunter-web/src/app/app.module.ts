@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {LoginFormComponent} from './login-form/login-form.component';
@@ -65,6 +64,7 @@ import {CompetenceComponent} from './tables/competence/competence.component';
 import {CompetenceGroupDialogComponent} from './dialogs/competence-group-dialog/competence-group-dialog.component';
 import {CompetenceDialogComponent} from './dialogs/competence-dialog/competence-dialog.component';
 import { VacancyRespondDialogComponent } from './dialogs/vacancy-respond-dialog/vacancy-respond-dialog.component';
+import { VacancyCompetenceScoreDialogComponent } from './dialogs/vacancy-competence-score-dialog/vacancy-competence-score-dialog.component';
 
 @NgModule({
     declarations: [
@@ -92,7 +92,8 @@ import { VacancyRespondDialogComponent } from './dialogs/vacancy-respond-dialog/
         CompetenceComponent,
         CompetenceGroupDialogComponent,
         CompetenceDialogComponent,
-        VacancyRespondDialogComponent
+        VacancyRespondDialogComponent,
+        VacancyCompetenceScoreDialogComponent
     ],
   imports: [
     BrowserModule,

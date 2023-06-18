@@ -1,9 +1,7 @@
 package net.vniia.skittles.controllers;
 
 import lombok.RequiredArgsConstructor;
-import net.vniia.skittles.dto.CompetenceDto;
-import net.vniia.skittles.dto.CompetenceGroupDto;
-import net.vniia.skittles.dto.CompetenceGroupsWithCompetencesDto;
+import net.vniia.skittles.dto.*;
 import net.vniia.skittles.readers.CompetenceGroupReader;
 import net.vniia.skittles.readers.CompetenceReader;
 import net.vniia.skittles.services.CompetenceGroupService;
@@ -72,5 +70,10 @@ public class CompetenceController {
     @GetMapping("allTree")
     public List<CompetenceGroupsWithCompetencesDto> getAllCompetencesTree() {
         return competenceReader.getAllCompetenceTree();
+    }
+
+    @GetMapping("{vacancyRespondId}")
+    public List<CompetenceWeightScoreDto> getCompetenceWeight(@PathVariable Long vacancyRespondId) {
+        return competenceReader.getVacancyCompetenceScoreCard(vacancyRespondId);
     }
 }

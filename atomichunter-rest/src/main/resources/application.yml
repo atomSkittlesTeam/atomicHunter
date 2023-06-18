@@ -38,4 +38,3 @@ generators:
   request-positions: false
   vacancy: false
   competence: true
-  matrixCompetence: true
