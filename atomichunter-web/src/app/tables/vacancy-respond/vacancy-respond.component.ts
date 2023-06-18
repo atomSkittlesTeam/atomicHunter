@@ -11,6 +11,7 @@ import { VacancyWithVacancyRespond } from "../../dto/VacancyWithVacancyRespond";
 import {StaffUnitDto} from "../../dto/StaffUnitDto";
 import {Employee} from "../../dto/Employee";
 import {OrgStructService} from "../../services/org-struct.service";
+import {CompetenceService} from "../../services/competence.service";
 
 @Component({
   selector: "app-vacancy-respond",
@@ -31,6 +32,7 @@ export class VacancyRespondComponent {
 
   constructor(private confirmationService: ConfirmationService,
               private messageService: MessageService,
+              private competenceService: CompetenceService,
               private orgStructService: OrgStructService,
               private vacancyService: VacancyService,
               private inviteService: InviteService) {
@@ -69,7 +71,8 @@ export class VacancyRespondComponent {
   }
 
   async getEmployeeFromApi() {
-    this.employees = await this.orgStructService.getHrEmployees();
+    this.employees = await this.competenceService.getEmployeesWithScoreForRespond(this.selectedVacancyRespond.id);
+    console.log(this.employees)
   }
 
   updateVacancyRespond() {
@@ -124,10 +127,13 @@ export class VacancyRespondComponent {
           },
           {
             label: "Просмотреть эксперта",
-            icon: "pi pi-trash",
+            icon: "pi pi-check",
+            disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id,
             command: () => {
+              if (this.selectedVacancyRespond.id) {
                 this.visible = true;
                 this.getEmployeeFromApi();
+                }
             }
           },
           {
@@ -337,6 +343,7 @@ export class VacancyRespondComponent {
   }
 
   showExpertCart() {
-    console.log('sss')
+    let test =  this.competenceService.getEmployeesWithScoreForRespond(this.selectedVacancyRespond.id);
+    // this.employees = this.competenceService.getEmployeesWithScoreForRespond(this.selectedVacancyRespond.id)
   }
 }

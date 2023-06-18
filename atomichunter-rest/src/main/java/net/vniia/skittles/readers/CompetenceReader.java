@@ -101,6 +101,7 @@ public class CompetenceReader {
                 .innerJoin(vacancyCompetenceScore).on(vacancyCompetenceScore.employeeId.eq(employee.id)
                         .and(vacancyCompetenceScore.vacancyRespondId.eq(vacancyRespondId)))
                 .select(EmployeeReader.getMappedSelectForEmployeeDto())
+                .distinct()
                 .fetch();
     }
 }
