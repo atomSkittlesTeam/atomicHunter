@@ -26,7 +26,9 @@ public class VacancyRespond {
 
     private String email;
     private String fullName;
-    private Integer averageScore;
+    private int averageScore;
+
+    private int competenceScoreCount;
 
     public VacancyRespond(VacancyRespondDto vacancyRespondDto) {
         this.update(vacancyRespondDto);
@@ -39,6 +41,7 @@ public class VacancyRespond {
         this.email = vacancyRespondDto.getEmail();
         this.fullName = vacancyRespondDto.getFullName();
         this.averageScore = vacancyRespondDto.getAverageScore();
+        this.competenceScoreCount = vacancyRespondDto.getCompetenceScoreCount();
     }
 
     public void archive() {

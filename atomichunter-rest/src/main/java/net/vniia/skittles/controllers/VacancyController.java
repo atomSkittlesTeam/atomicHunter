@@ -104,9 +104,10 @@ public class VacancyController {
         return this.vacancyService.validateVacancyCompetenceScore(maintainerId);
     }
 
-    @PostMapping("competence-score/add")
+    @PostMapping("competence-score/add/{vacancyRespondId}")
     @Transactional
-    public void validateVacancyCompetenceScore(@RequestBody List<VacancyCompetenceScoreDto> vacancyCompetenceScoreDtos) {
+    public void validateVacancyCompetenceScore(@PathVariable Long vacancyRespondId,
+                                               @RequestBody List<VacancyCompetenceScoreDto> vacancyCompetenceScoreDtos) {
         List<VacancyCompetenceScoreDto> scoreDtosWithIds = this.vacancyService.createVacancyCompetenceScore(vacancyCompetenceScoreDtos);
         this.vacancyService.updateVacancyRespondAverageScore(scoreDtosWithIds);
     }

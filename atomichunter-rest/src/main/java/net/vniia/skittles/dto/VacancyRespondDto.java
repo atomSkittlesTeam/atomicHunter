@@ -16,6 +16,7 @@ public class VacancyRespondDto {
     private String email;
     private String fullName;
     private Integer averageScore;
+    private Integer competenceScoreCount;
     private boolean interviewInviteAccepted;
     private Long interviewId;
 }
