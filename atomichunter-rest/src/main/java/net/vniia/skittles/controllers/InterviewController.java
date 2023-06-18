@@ -42,6 +42,12 @@ public class InterviewController {
         return this.interviewService.updateInterviewById(interviewId, interviewDto);
     }
 
+    @DeleteMapping("delete/{interviewId}")
+    @Transactional
+    public void deleteInterviewById(@PathVariable Long interviewId) {
+        this.interviewService.deleteInterviewById(interviewId);
+    }
+
     @PostMapping("validate")
     @Transactional
     public List<String> validateInterview(@RequestBody InterviewDto interviewDto) {

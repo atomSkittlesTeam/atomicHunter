@@ -48,4 +48,8 @@ export class InterviewService extends BaseService {
     const url = await this.getBackendUrl();
     return await firstValueFrom(this.http.get<InterviewCalendarDto>(url + `/interview/calendar`));
   }
+  async deleteInterview(interviewId: number) {
+    const url = await this.getBackendUrl();
+    await firstValueFrom(this.http.delete(url + `/interview/delete/${interviewId}`));
+  }
 }

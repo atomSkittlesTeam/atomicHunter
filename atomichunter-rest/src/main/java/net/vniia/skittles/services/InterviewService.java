@@ -127,6 +127,17 @@ public class InterviewService {
     }
 
     @Transactional
+    public void deleteInterviewById(Long interviewId) {
+        Interview interview = interviewRepository.findById(interviewId).orElseThrow(
+                () -> new RuntimeException("Собеседование не найдено!")
+        );
+        interviewRepository.delete(interview);
+        interviewEmployeeRepository.deleteAllByInterviewId(interviewId);
+        employeeTimeMapRepository.deleteAllByInterviewId(interviewId);
+        placeTimeMapRepository.deleteAllByInterviewId(interviewId);
+    }
+
+    @Transactional
     public List<String> validateInterview(InterviewDto interviewDto) {
         String message = "";
         interviewDto.getPlace().getId();
