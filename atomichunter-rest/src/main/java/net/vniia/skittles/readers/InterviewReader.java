@@ -5,10 +5,7 @@ import com.querydsl.core.types.QBean;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import net.vniia.skittles.dto.EmployeeDto;
-import net.vniia.skittles.dto.EmployeeTimeMapDto;
-import net.vniia.skittles.dto.InterviewDto;
-import net.vniia.skittles.dto.PlaceTimeMapDto;
+import net.vniia.skittles.dto.*;
 import net.vniia.skittles.entities.*;
 import org.springframework.stereotype.Repository;
 
@@ -25,6 +22,8 @@ public class InterviewReader {
     private static final QPlace place = QPlace.place;
     private static final QEmployee employee = QEmployee.employee;
 
+    private static final QVacancyRespond vacancyRespond = QVacancyRespond.vacancyRespond;
+
     private final JPAQueryFactory queryFactory;
 
     private final EmployeeReader employeeReader;
@@ -36,6 +35,24 @@ public class InterviewReader {
                 interview.placeId,
                 interview.dateEnd,
                 interview.dateStart
+        );
+    }
+
+    public static QBean<InterviewCalendarDto> getMappedSelectForInterviewCalendarDto() {
+        return Projections.bean(
+                InterviewCalendarDto.class,
+                InterviewReader.getMappedSelectForInterviewDtoFull().as("interview")
+        );
+    }
+
+    public static QBean<InterviewDto> getMappedSelectForInterviewDtoFull() {
+        return Projections.bean(
+                InterviewDto.class,
+                interview.id,
+                interview.placeId,
+                interview.dateEnd,
+                interview.dateStart,
+                VacancyReader.getMappedSelectForVacancyRespondDto().as("vacancyRespond")
         );
     }
 
@@ -100,5 +117,12 @@ public class InterviewReader {
                     .where(employeeTimeMap.employeeId.in(employeeId))
                     .select(getMappedSelectForEmployeeTimeMapDto()).fetch();
         }
+    }
+
+    public List<InterviewCalendarDto> getAllInterviewCalendar() {
+        return queryFactory.from(interview)
+                .innerJoin(vacancyRespond).on(interview.vacancyRespondId.eq(vacancyRespond.id))
+                .select(InterviewReader.getMappedSelectForInterviewCalendarDto())
+                .fetch();
     }
 }

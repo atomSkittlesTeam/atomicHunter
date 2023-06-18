@@ -92,17 +92,19 @@ public class InterviewService {
     public void sendInviteForInterviewForEmployees(VacancyRespond vacancyRespond,
                                                    List<String> emails,
                                                    Date interviewStartDate,
-                                                   Date interviewEndDate)
+                                                   Date interviewEndDate,
+                                                   String vacancyPosition)
             throws Exception {
-//        this.emailService.sendInterviewInviteForEmployee("Участие в собеседовании!",
-//                emails,
-//                "Собеседование",
-//                "Собеседование кандидата " +
-//                        vacancyRespond.getFullName() +
-//                        " в компанию Атомпродукт",
-//                interviewStartDate,
-//                interviewEndDate
-//        );
+        this.emailService.sendInterviewInviteForEmployee("Участие в собеседовании!",
+                emails,
+                "Собеседование",
+                "Собеседование кандидата " +
+                        vacancyRespond.getFullName() +
+                        " в компанию Атомпродукт",
+                interviewStartDate,
+                interviewEndDate,
+                vacancyPosition
+        );
     }
 
     @Transactional

@@ -181,4 +181,53 @@ public class EmailService {
         confirmationToken = confirmationTokenRepository.save(confirmationToken);
         return confirmationToken;
     }
+
+    public void sendInterviewInviteForEmployee(String subject,
+                                               List<String> consumerEmail,
+                                               String summary,
+                                               String description,
+                                               Date interviewStartDate,
+                                               Date interviewEndDate,
+                                               String vacancyPosition) throws Exception {
+        MimeMessage mimeMessage = emailSender.createMimeMessage();
+        InternetAddress sender = new InternetAddress(serviceMail, "Atomic Hunter");
+
+        mimeMessage.setFrom(sender);
+
+        for (String s : consumerEmail) {
+            InternetAddress consumer = new InternetAddress(s);
+            mimeMessage.addRecipient(Message.RecipientType.TO, consumer);
+        }
+
+        mimeMessage.setSubject(subject);
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(generateICalDataForInterviewInvite(summary, description, interviewStartDate, interviewEndDate));
+
+        MimeBodyPart messageBodyPart = new MimeBodyPart();
+
+        messageBodyPart.setHeader("Content-Class", "urn:content-classes:calendarmessage");
+        messageBodyPart.setHeader("Content-ID", "calendar_message");
+        messageBodyPart.setDataHandler(new DataHandler(
+                new ByteArrayDataSource(builder.toString(), "text/calendar;method=PUBLISH;name=\"invite.ics\"")));
+
+        MimeBodyPart textPart = new MimeBodyPart();
+
+        String html = resourceHelper.getResourceAsString(this.inviteMailHtml);
+
+        html = html.replaceAll("на позицию (........).", String.format("на позицию \"%s\"", vacancyPosition));
+        textPart.setContent(html, "text/html; charset=utf-8");
+
+        MimeMultipart multipart = new MimeMultipart();
+
+        multipart.addBodyPart(textPart);
+        multipart.addBodyPart(messageBodyPart);
+
+        mimeMessage.setContent(multipart);
+
+        emailSender.send(mimeMessage);
+
+        log.info("Invite for interview sent");
+    }
 }
