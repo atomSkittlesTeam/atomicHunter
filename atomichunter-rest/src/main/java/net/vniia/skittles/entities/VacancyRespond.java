@@ -26,9 +26,9 @@ public class VacancyRespond {
 
     private String email;
     private String fullName;
-    private int averageScore;
+    private long averageScore;
 
-    private int competenceScoreCount;
+    private long competenceScoreCount;
 
     public VacancyRespond(VacancyRespondDto vacancyRespondDto) {
         this.update(vacancyRespondDto);

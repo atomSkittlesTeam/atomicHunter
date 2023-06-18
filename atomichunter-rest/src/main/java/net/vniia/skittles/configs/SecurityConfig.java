@@ -51,7 +51,7 @@ public class SecurityConfig {
                         "/registration",
                         "/login",
                         "/confirmation",
-                        "/filePdf",
+                        "report/**",
                         "recover/send-recover-letter",
                         "recover/verify-recover-code",
                         "recover/save-new-password").permitAll()

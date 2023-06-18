@@ -9,22 +9,22 @@ import net.vniia.skittles.services.InviteService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("invite")
+@RequestMapping("interview")
 @RequiredArgsConstructor
-public class InviteController {
+public class InterviewController {
 
     private final InviteService inviteService;
 
     private final InterviewReader interviewReader;
 
-    @PostMapping("interview/vacancy-respond/{vacancyRespondId}")
+    @PostMapping("vacancy-respond/{vacancyRespondId}")
     @Transactional
     public void inviteToInterview(@PathVariable Long vacancyRespondId,
                                   @RequestBody InterviewDto interviewDto) throws Exception {
         this.inviteService.inviteToInterview(vacancyRespondId, interviewDto);
     }
 
-    @GetMapping("interview/{interviewId}")
+    @GetMapping("{interviewId}")
     @Transactional
     public InterviewDto getInterviewById(@PathVariable Long interviewId) {
         return interviewReader.getInterviewById(interviewId);

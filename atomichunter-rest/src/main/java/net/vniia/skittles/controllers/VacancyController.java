@@ -92,12 +92,6 @@ public class VacancyController {
         return this.vacancyService.createVacancyReportAndReturnPath(vacancyId, additionalInformation);
     }
 
-    @RequestMapping("{vacancyId}/report/{path}/filePdf")
-    @ResponseBody
-    public HttpEntity<byte[]> getVacancyReportFileByPath(@PathVariable String path) throws IOException {
-        return this.vacancyService.getVacancyReportFileByPath(path);
-    }
-
     @GetMapping("competence-score/{maintainerId}/validation")
     @Transactional
     public List<VacancyCompetenceScoreDto> validateVacancyCompetenceScore(@PathVariable Long maintainerId) {

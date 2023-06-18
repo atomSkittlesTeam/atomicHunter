@@ -88,6 +88,6 @@ export class VacancyService extends BaseService {
 
   async getVacancyFileReport(vacancyId: number, path: string) {
     const url = await this.getBackendUrl();
-    window.open(url + `/vacancy/${vacancyId}/report/${path}/filePdf`, '_blank');
+    window.open(url + `/report/vacancy/${path}`, '_blank');
   }
 }
