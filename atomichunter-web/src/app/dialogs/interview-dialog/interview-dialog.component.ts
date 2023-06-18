@@ -34,6 +34,9 @@ export class VacancyRequestComponent {
   async ngOnInit() {
     if (this.selectedVacancyRespond.interviewId) {
       this.interview = await this.inviteService.getInterviewById(this.selectedVacancyRespond.interviewId);
+      if (this.interview?.employees) {
+        this.selectedEmployees = this.interview.employees;
+      }
       if (typeof this.interview.dateEnd === "number") {
         this.interview.dateEnd = new Date(this.interview.dateEnd * 1000);
       }
@@ -62,6 +65,10 @@ export class VacancyRequestComponent {
 
   async onSubmit($event?: any) {
     try {
+      if (this.selectedEmployees) {
+        this.interview.employees = this.selectedEmployees;
+      }
+
       if (this.editMode) {
         await this.inviteService.updateInterview(this.selectedVacancyRespond.interviewId, this.interview);
         this.messageService.add({
@@ -89,6 +96,7 @@ export class VacancyRequestComponent {
         life: 5000
       });
     }
+    console.log(this.interview,'sfafw')
     this.submit.emit($event);
     this.visible = false;
   }
