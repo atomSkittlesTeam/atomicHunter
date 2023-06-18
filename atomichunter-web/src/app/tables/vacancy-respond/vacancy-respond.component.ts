@@ -198,13 +198,6 @@ export class VacancyRespondComponent {
       }
     },
     {
-      field: "interviewInviteAccepted",
-      headerName: "Согласен на собеседование",
-      cellRenderer: (params: { value: any; }) => {
-        return `<input disabled="true" type="checkbox" ${params.value ? "checked" : ""} />`;
-      }
-    },
-    {
       field: "archive", headerName: "Архив", hide: !this.showArchive, cellRenderer: (params: { value: any; }) => {
         return `<input disabled="true" type="checkbox" ${params.value ? "checked" : ""} />`;
       }

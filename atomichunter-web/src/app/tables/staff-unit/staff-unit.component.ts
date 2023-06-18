@@ -52,7 +52,6 @@ export class StaffUnitComponent {
     };
 
     getEnum(type: string) {
-        console.log(typeof type, type, 'fafwf')
         switch (type) {
             case 'Opened':
                 return 'Открыто'
@@ -147,7 +146,8 @@ export class StaffUnitComponent {
         return this.selectedStaff === null
             || this.selectedStaff === undefined
             || this.selectedStaff.id === null
-            || this.selectedStaff.status !== StatusEnum.Opened;
+            || this.selectedStaff.status !== StatusEnum.Opened
+            || this.selectedStaff.vacancyId !== null;
     }
 
     async showArchivePressed() {

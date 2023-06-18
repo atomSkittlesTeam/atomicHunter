@@ -84,15 +84,14 @@ public class VacancyReader {
                 vacancyRespond.archive,
                 vacancyRespond.averageScore,
                 vacancyRespond.competenceScoreCount,
-                interview.id.as("interviewId"),
-                confirmationToken.accepted.as("interviewInviteAccepted")
+                interview.id.as("interviewId")
         );
     }
 
     private JPAQuery<VacancyRespondDto> vacancyRespondQuery() {
         return queryFactory.from(vacancyRespond)
                 .leftJoin(vacancy).on(vacancy.id.eq(vacancyRespond.vacancyId))
-                .leftJoin(confirmationToken).on(confirmationToken.vacancyRespondId.eq(vacancyRespond.id))
+//                .leftJoin(confirmationToken).on(confirmationToken.vacancyRespondId.eq(vacancyRespond.id))
                 .leftJoin(interview).on(interview.vacancyRespondId.eq(vacancyRespond.id))
                 .select(getMappedSelectForVacancyRespondDto());
     }

@@ -43,15 +43,9 @@ public class VacancyService {
 
     private final VacancyCompetenceScoreRepository vacancyCompetenceScoreRepository;
 
-    private void sortList(List<Vacancy> list) {
-        // just a sort algo
-//        Comparator<Vacancy> c = Comparator.comparing(Request::getRequestDate)
-//                .thenComparing(Request::getReleaseDate);
-//        list.sort(c);
-    }
-
     @Transactional
     public VacancyDto createVacancy(VacancyDto vacancyDto) {
+        this.validateStaffUnit(vacancyDto);
         Vacancy vacancy = new Vacancy(vacancyDto);
         vacancy = this.vacancyRepository.save(vacancy);
         this.messageService.createMessagesForAllUsers(vacancy.getId(),
@@ -66,6 +60,18 @@ public class VacancyService {
         vacancyCompetenceRepository.saveAll(vacancyCompetences);
 
         return vacancyReader.getVacancyById(vacancy.getId());
+    }
+
+    private void validateStaffUnit(VacancyDto vacancyDto) {
+        List<Vacancy> vacancies = vacancyRepository.findAllByStaffUnitId(
+                vacancyDto.getStaffUnit().getId()
+        );
+        if (!vacancies.isEmpty()) {
+            if (vacancies.stream().anyMatch(e -> !e.isArchive())) {
+                throw new RuntimeException("На данную штатную единицу уже есть открытая вакансия! " +
+                        "Обработайте или удалите существующую вакансию!");
+            }
+        }
     }
 
     @Transactional
