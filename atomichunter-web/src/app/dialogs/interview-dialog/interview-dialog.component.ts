@@ -63,11 +63,6 @@ export class VacancyRequestComponent {
         }
     }
 
-    placeSaveToObject() {
-        console.log(this.interview);
-        console.log(this.interview.place);
-    }
-
     async openSidebarWithAllSkills() {
         this.showSidebarWithAllSkills = true;
         this.employees = await this.orgStructService.getEmployees();
@@ -81,6 +76,7 @@ export class VacancyRequestComponent {
     }
 
     async onSubmit($event?: any) {
+        this.interview.employees = this.selectedEmployees;
         try {
             if (this.editMode) {
                 await this.inviteService.updateInterview(this.selectedVacancyRespond.interviewId, this.interview);

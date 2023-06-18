@@ -11,7 +11,6 @@
                             [optionLabel]="'name'"
                             appendTo="body"
                             [(ngModel)]="interview.place"
-                            (ngModelChange)="placeSaveToObject()"
                             name="placeDrop"
                             [style]="{width: '100%'}"></p-dropdown>
             </div>
@@ -82,7 +81,7 @@
 
 <p-sidebar [(visible)]="showSidebarWithAllSkills" *ngIf="showSidebarWithAllSkills" position="right">
     <div class="container">
-        <h1>Список всех Експертов</h1>
+        <h1>Список всех Экспертов</h1>
         <div class="main-block" *ngFor="let employee of employees; let indexGroup = index">
             <div class="main-block__first">
                 <div class="main-block__title">{{employee.employeeFullName}}</div>
