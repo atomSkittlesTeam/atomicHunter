@@ -5,9 +5,12 @@ import com.querydsl.core.types.QBean;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import net.vniia.skittles.dto.EmployeeDto;
 import net.vniia.skittles.dto.InterviewDto;
 import net.vniia.skittles.entities.QInterview;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -17,10 +20,18 @@ public class InterviewReader {
 
     private final JPAQueryFactory queryFactory;
 
+    private final EmployeeReader employeeReader;
+
     public InterviewDto getInterviewById(Long interviewId) {
-        return interViewQuery()
+        InterviewDto interviewDto = interViewQuery()
                 .where(interview.id.eq(interviewId))
                 .fetchFirst();
+
+        List<EmployeeDto> interviewEmployees =
+                this.employeeReader.getInterviewEmployees(interviewDto.getId());
+        interviewDto.setEmployees(interviewEmployees);
+
+        return interviewDto;
     }
 
     private JPAQuery<InterviewDto> interViewQuery() {
