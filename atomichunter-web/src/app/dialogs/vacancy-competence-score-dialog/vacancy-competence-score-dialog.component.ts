@@ -106,6 +106,8 @@ export class VacancyCompetenceScoreDialogComponent {
         this.loading = true;
         await this.getAllPositionsFromApi();
         await this.getEmployeeFromApi();
+        console.log(this.employeeExpert)
+        console.log(this.staffUnit)
         let competenceWeightScoreForExpert: CompetenceWeightScore[] = this.competenceWeightScoreForExpert;
         if (competenceWeightScoreForExpert.length === 0) {
             this.competenceWeightScores = await this.competenceService.getCompetencesWeightScoreById(this.itemRespond.id);

@@ -113,6 +113,11 @@ export class VacancyRespondComponent {
             icon: "pi pi-star",
             command: () => {
               if (this.selectedVacancyRespond.id) {
+                console.log(this.selectedEmployee)
+                console.log(this.selectedVacancyRespond)
+                console.log(this.competenceWeightScoreForExpert)
+                this.selectedEmployee = new Employee();
+                this.competenceWeightScoreForExpert = [];
                 this.openDialogVacancyComp = true;
               }
             }

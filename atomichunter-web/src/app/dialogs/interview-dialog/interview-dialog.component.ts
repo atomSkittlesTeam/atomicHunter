@@ -128,6 +128,7 @@ export class VacancyRequestComponent {
     addEmployeeToList(employee: Employee) {
         if (!(this.selectedEmployees.find(emp => emp.id === employee.id))) {
             this.selectedEmployees.push(employee);
+            this.validateChecker();
         }
     }
 
@@ -135,7 +136,7 @@ export class VacancyRequestComponent {
         this.selectedEmployees = this.selectedEmployees.filter(e => e.id !== id);
     }
 
-    validateCheaker() {
-
+    validateChecker() {
+        this.inviteService.validateInterview(this.interview);
     }
 }
