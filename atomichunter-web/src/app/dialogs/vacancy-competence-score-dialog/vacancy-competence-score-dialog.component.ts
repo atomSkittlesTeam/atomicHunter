@@ -14,6 +14,7 @@ import {CompetenceWeight} from "../../dto/CompetenceWeight";
 import {CompetenceWeightScore} from "../../dto/CompetenceWeightScore";
 import {VacancyCompetenceScoreRequestDto} from "../../dto/VacancyCompetenceScoreRequestDto";
 import {VacancyRespond} from "../../dto/VacancyRespond";
+import {log10} from "chart.js/helpers";
 
 @Component({
     selector: 'app-vacancy-competence-score-dialog',
