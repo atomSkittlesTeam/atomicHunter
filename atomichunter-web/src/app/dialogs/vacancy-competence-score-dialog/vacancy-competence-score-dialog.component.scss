@@ -1,3 +1,13 @@
+:host {
+  ::ng-deep {
+    .skills {
+      .p-inputtext {
+        width: 50px !important;
+      }
+    }
+  }
+}
+
 .personal-skills {
   width: 100%;
   min-width: 275px;
@@ -152,12 +162,6 @@
 @media only screen and (max-width: 520px) {
   :host {
     ::ng-deep {
-      .skills {
-        .p-inputtext {
-          width: 80px !important;
-        }
-      }
-
       .personal-skills__toolbar {
         flex-direction: column;
       }
@@ -169,12 +173,6 @@
   :host {
 
     ::ng-deep {
-      .skills {
-        .p-inputtext {
-          width: 50px !important;
-        }
-      }
-
       .p-dialog-content {
         overflow-y: auto;
       }

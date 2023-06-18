@@ -23,32 +23,28 @@
                             [style]="{width: '100%'}"
                             [optionLabel]="'employeeFullName'"></p-dropdown>
             </div>
-
-            <span class="fail" *ngIf="isInvalidSumWeight()"
-                  style="color:red"> Общий вес должен быть равен {{this.competenceWeightMaxSum}}</span>
-
             <div class="personal-skills">
-
-                <div class="personal-skills__toolbar">
-                    <!--          <button pButton type="button" class="p-button-success" label="Добавить новый навык"-->
-                    <!--                  icon="pi pi-cog"></button>-->
-                    <span class="personal-skills__text">Общий вес: {{sum}}</span>
-                </div>
                 <div class="flex flex-wrap gap-3 info-block">
-                    <div class="skills" *ngFor="let skill of item.competenceWeight">
+                    <div class="personal-skills__header">
+                        <div class="col1">Наименование</div>
+                        <div class="personal-skills__multi">
+                            <div class="col2">Вес</div>
+                            <div class="col3">Оценка</div>
+                        </div>
+
+                    </div>
+                    <div class="skills" *ngFor="let competenceWeightScore of competenceWeightScores">
 
                         <div class="skills__title">
-                            <button pButton
-                                    icon="pi pi-times"
-                                    class="tiffany-button-secondary"
-                                    [style]="{border: 'none !important'  }"
-                                    (click)="deleteSkill(skill.competence.id)">
-                            </button>
-                            {{skill?.competence?.name}}
+                            {{competenceWeightScore.competence.name}}
                         </div>
                         <div class="skills__weight">
-                            <p-inputNumber [(ngModel)]="skill.weight" [min]=0
-                                           [name]="'weight' + skill?.competence?.id" [required]=true
+                            <p-inputNumber [(ngModel)]="competenceWeightScore.weight" [min]=0
+                                           [name]="'weight' + competenceWeightScore.competence.id"
+                                           [showButtons]="false" [disabled]="true"></p-inputNumber>
+
+                            <p-inputNumber [(ngModel)]="competenceWeightScore.score" [min]=0
+                                           [name]="'score' + competenceWeightScore.competence.id"
                                            [showButtons]="true"></p-inputNumber>
                         </div>
                     </div>
@@ -83,7 +79,8 @@
             </div>
 
             <div class="dop-info">
-                <div class="dop-info__container" *ngFor="let competence of competenceGroup.competences; let index = index">
+                <div class="dop-info__container"
+                     *ngFor="let competence of competenceGroup.competences; let index = index">
                     <div class="dop-info__title">
                         {{competence.name}}
                     </div>

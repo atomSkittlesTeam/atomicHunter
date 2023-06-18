@@ -11,6 +11,7 @@ import {StaffUnitDto} from "../../dto/StaffUnitDto";
 import {Employee} from "../../dto/Employee";
 import {OrgStructService} from "../../services/org-struct.service";
 import {CompetenceGroupsWithCompetencesDto} from "../../dto/CompetenceGroupsWithCompetencesDto";
+import {CompetenceWeightScore} from "../../dto/CompetenceWeightScore";
 
 @Component({
     selector: "app-vacancy-dialog",
