@@ -38,7 +38,7 @@ public class PositionReader {
                 .fetch();
     }
 
-    public PositionDto getPositionDtoByRespondId(Long vacancyId) {
+    public PositionDto getPositionDtoByVacancyId(Long vacancyId) {
         return queryFactory.from(position)
                 .innerJoin(vacancy).on(vacancy.positionId.eq(position.id).and(vacancy.id.eq(vacancyId)))
                 .select(getMappedSelectForPositionDto())

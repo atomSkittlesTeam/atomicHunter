@@ -4,6 +4,7 @@ export class CompetenceWeightScore {
     competence: Competence;
     weight: number;
     score: number;
+    comment: string;
     binaryIsChecked: boolean;
 
     constructor(competence: Competence, weight: number, score: number, binaryIsCheched: boolean) {

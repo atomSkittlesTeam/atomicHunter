@@ -36,7 +36,8 @@ export class VacancyRespondComponent {
               private competenceService: CompetenceService,
               private orgStructService: OrgStructService,
               private vacancyService: VacancyService,
-              private inviteService: InterviewService) {
+              private inviteService: InterviewService,
+              private interviewService: InterviewService) {
     this.renderMenu();
   }
 
@@ -114,9 +115,6 @@ export class VacancyRespondComponent {
             icon: "pi pi-star",
             command: () => {
               if (this.selectedVacancyRespond.id) {
-                console.log(this.selectedEmployee)
-                console.log(this.selectedVacancyRespond)
-                console.log(this.competenceWeightScoreForExpert)
                 this.selectedEmployee = new Employee();
                 this.competenceWeightScoreForExpert = [];
                 this.openDialogVacancyComp = true;
@@ -134,7 +132,7 @@ export class VacancyRespondComponent {
             }
           },
           {
-            label: "Просмотреть эксперта",
+            label: "Открыть оценки кандидата",
             icon: "pi pi-check",
             disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id,
             command: () => {
@@ -152,6 +150,17 @@ export class VacancyRespondComponent {
             command: () => {
               if (this.selectedVacancyRespond.id) {
                 this.createInterview();
+              }
+            }
+          },
+          {
+            visible: (this.selectedVacancyRespond && !!this.selectedVacancyRespond.interviewId),
+            label: "Удалить собеседование",
+            disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id,
+            icon: "pi pi-trash",
+            command: () => {
+              if (this.selectedVacancyRespond.id) {
+                this.deleteInterview();
               }
             }
           }
@@ -173,6 +182,21 @@ export class VacancyRespondComponent {
         ]
       }
     ];
+  }
+
+  async deleteInterview() {
+    try {
+      await this.interviewService.deleteInterview(this.selectedVacancyRespond.interviewId);
+    } catch (e) {
+      this.messageService.add({
+        severity: "error",
+        summary: "Ошибка!",
+        detail: "Ошибка удаления интервью",
+        life: 5000
+      });
+    } finally {
+      await this.getRespondByVacancyIdFromApi();
+    }
   }
 
   async onInterviewDialogSubmit($event: any) {

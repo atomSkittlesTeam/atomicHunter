@@ -74,7 +74,8 @@
         <div class="flex justify-content-center">
             <p-button icon="pi pi-check"
                       (onClick)="onSubmit($event)"
-                      [disabled]="!f.valid || selectedEmployees.length === 0"
+                      [disabled]="!f.valid || selectedEmployees.length === 0
+                      || this.saveButtonIsNotValidated"
                       [label]="getSaveLabel()"
                       styleClass="tiffany-button">
             </p-button>

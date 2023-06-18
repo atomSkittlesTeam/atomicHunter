@@ -7,10 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CompetenceWeightScoreDto {
+public class VacancyAnalysisDto {
+    private VacancyRespondDto vacancyRespond;
     private CompetenceDto competence;
-    private Long vacancyCompetenceId;
-    private long weight;
-    private long score;
-    private String comment;
 }

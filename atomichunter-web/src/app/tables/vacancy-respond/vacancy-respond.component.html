@@ -17,7 +17,8 @@
     <p-button
       icon="pi pi-search"
       styleClass="p-button-outlined"
-      [disabled]="!vacancy || !this.selectedVacancyRespond || !this.selectedVacancyRespond.vacancyId"
+      [disabled]="!vacancy || !this.selectedVacancyRespond || !this.selectedVacancyRespond.vacancyId
+      || !this.selectedVacancyRespond.pathToResume"
       (onClick)="openRespondPdfResumeDialog()">
     </p-button>
     <!--    <p-menubar [model]="items" appendTo="body"></p-menubar>-->
