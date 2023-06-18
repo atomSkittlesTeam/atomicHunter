@@ -78,7 +78,7 @@ public class VacancyService {
                     throw new RuntimeException("Вакансия не найдена!");
                 }
         );
-        vacancy.update(vacancyDto);
+        vacancy.update(vacancyDto, false);
 
 //        List<VacancyCompetence> vacancyCompetences = vacancyCompetenceRepository.findAllByVacancyId(vacancy.getId());
 //        vacancyCompetenceRepository.deleteAll(vacancyCompetences);
