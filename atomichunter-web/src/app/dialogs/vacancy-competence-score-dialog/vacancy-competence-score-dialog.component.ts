@@ -144,6 +144,12 @@ export class VacancyCompetenceScoreDialogComponent {
         });
     }
 
+    pushGroupSkills(competences: any[]) {
+        competences.forEach(ps => {
+            this.pushNewSkill(ps.id)
+        });
+    }
+
     async createVacancy(vacancy: Vacancy) {
         try {
             this.loading = true;

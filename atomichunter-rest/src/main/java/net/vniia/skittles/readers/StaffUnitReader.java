@@ -44,6 +44,7 @@ public class StaffUnitReader {
                 .leftJoin(employee).on(employee.id.eq(staffUnit.employeeId))
                 .leftJoin(position).on(position.id.eq(staffUnit.positionId))
                 .leftJoin(vacancy).on(vacancy.staffUnitId.eq(staffUnit.id))
+                .orderBy(staffUnit.status.desc())
                 .select(getMappedSelectForStaffUnitDto())
                 .fetch();
     }
