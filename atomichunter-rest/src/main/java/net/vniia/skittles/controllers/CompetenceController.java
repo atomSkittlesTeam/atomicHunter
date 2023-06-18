@@ -9,6 +9,7 @@ import net.vniia.skittles.services.CompetenceGroupService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("competence")
@@ -82,5 +83,13 @@ public class CompetenceController {
     @Transactional
     public List<EmployeeDto> getEmployeesWithScoreForRespond(@PathVariable Long vacancyRespondId) {
         return this.competenceReader.getEmployeesWithScoreForRespond(vacancyRespondId);
+    }
+
+    // люди, заполнившие свои карточки
+    @GetMapping("{vacancyRespondId}/employees/{employeeId}")
+    @Transactional
+    public List<CompetenceWeightScoreDto> getVacancyCompetenceScoreForEmployee(@PathVariable Long vacancyRespondId,
+                                                             @PathVariable UUID employeeId) {
+        return this.competenceReader.getVacancyCompetenceScoreForEmployee(vacancyRespondId, employeeId);
     }
 }
