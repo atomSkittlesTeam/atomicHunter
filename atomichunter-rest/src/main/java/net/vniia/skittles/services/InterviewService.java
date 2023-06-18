@@ -62,58 +62,40 @@ public class InterviewService {
             () -> new RuntimeException("Собеседование не найдено!")
         );
         interview.update(interviewDto);
-        if (!interviewDto.getEmployees().isEmpty()) {
-
-            List<InterviewEmployee> interviewEmployeeList = interviewEmployeeRepository
-                    .findAllByInterviewId(interviewId);
-
-            Map<UUID, EmployeeDto> newMap = interviewDto.getEmployees().stream()
-                    .collect(Collectors.toMap(EmployeeDto::getId,
-                    Function.identity()));
-
-            List<InterviewEmployee> deletedInterviewEmployees = new ArrayList<>();
-            for (InterviewEmployee interviewEmployee : interviewEmployeeList) {
-                if (newMap.containsKey(interviewEmployee.getEmployeeId())) {
-                    // ok, it's still here
-                } else {
-                    deletedInterviewEmployees.add(interviewEmployee);
-                }
+        if (interviewDto.getEmployees() != null) {
+            if (!interviewDto.getEmployees().isEmpty()) {
+                this.mergeEmployees(interviewId, interviewDto.getEmployees());
+            } else {
+                List<InterviewEmployee> interviewEmployeeList = interviewEmployeeRepository
+                        .findAllByInterviewId(interviewId);
+                this.interviewEmployeeRepository.deleteAll(interviewEmployeeList);
             }
-
-            interviewEmployeeRepository.deleteAll(deletedInterviewEmployees);
-
-//            vacancyCompetenceRepository.deleteAll(deletedCompetence);
-//            vacancyCompetences.removeAll(deletedCompetence);
-//            vacancyCompetences.addAll(newMap.values());
-//            vacancyCompetenceRepository.saveAll(vacancyCompetences);
-
-
-//            Map<Long, VacancyCompetence> newMap = vacancyDto.getCompetenceWeight()
-//                    .stream()
-//                    .map(c -> new VacancyCompetence(vacancy.getId(), c))
-//                    .collect(Collectors.toMap(VacancyCompetence::getCompetenceId, Function.identity()));
-//
-//            List<VacancyCompetence> deletedCompetence = new ArrayList<>();
-//            for (VacancyCompetence existingVacancyCompetence : vacancyCompetences) {
-//                if (newMap.containsKey(existingVacancyCompetence.getCompetenceId())) {
-//                    VacancyCompetence competence = newMap.get(existingVacancyCompetence.getCompetenceId());
-//                    existingVacancyCompetence.setWeight(competence.getWeight());
-//                    newMap.remove(existingVacancyCompetence.getCompetenceId());
-//                } else {
-//                    deletedCompetence.add(existingVacancyCompetence);
-//                }
-//            }
-
-
-        } else {
-            List<InterviewEmployee> interviewEmployeeList = interviewEmployeeRepository
-                    .findAllByInterviewId(interviewId);
-            this.interviewEmployeeRepository.deleteAll(interviewEmployeeList);
         }
         return interviewReader.getInterviewById(interviewId);
     }
 
-    public void mergeEmployees() {
+    public void mergeEmployees(Long interviewId, List<EmployeeDto> employees) {
+        List<InterviewEmployee> interviewEmployeeList = interviewEmployeeRepository
+                .findAllByInterviewId(interviewId);
 
+        Map<UUID, EmployeeDto> newMap = employees.stream()
+                .collect(Collectors.toMap(EmployeeDto::getId,
+                        Function.identity()));
+
+        List<InterviewEmployee> deletedInterviewEmployees = new ArrayList<>();
+        for (InterviewEmployee interviewEmployee : interviewEmployeeList) {
+            if (newMap.containsKey(interviewEmployee.getEmployeeId())) {
+                // ok, it's still here
+                newMap.remove(interviewEmployee.getEmployeeId());
+            } else {
+                deletedInterviewEmployees.add(interviewEmployee);
+            }
+        }
+
+        interviewEmployeeRepository.deleteAll(deletedInterviewEmployees);
+        List<InterviewEmployee> list = newMap.values().stream()
+                .map(e -> new InterviewEmployee(interviewId, e.getId()))
+                .toList();
+        interviewEmployeeRepository.saveAll(list);
     }
 }
