@@ -126,12 +126,13 @@ public class EmailService {
         return Biweekly.write(ical).go();
     }
 
-    public void sendInterviewInvite(String subject,
-                                     List<String> consumerEmail,
-                                     String summary,
-                                     String description,
-                                     Date interviewStartDate,
-                                     Date interviewEndDate) throws Exception {
+    public void sendInterviewInviteForRespond(String subject,
+                                              List<String> consumerEmail,
+                                              String summary,
+                                              String description,
+                                              Date interviewStartDate,
+                                              Date interviewEndDate,
+                                              String vacancyPosition) throws Exception {
 
         MimeMessage mimeMessage = emailSender.createMimeMessage();
         InternetAddress sender = new InternetAddress(serviceMail, "Atomic Hunter");
@@ -158,17 +159,9 @@ public class EmailService {
 
         MimeBodyPart textPart = new MimeBodyPart();
 
-//        ConfirmationToken confirmationToken = this.createConfirmationTokenInterviewInvite(consumerEmail, vacancyRespondId);
         String html = resourceHelper.getResourceAsString(this.inviteMailHtml);
 
-//        if (this.serviceAddress == null) {
-//            this.serviceAddress = InetAddress.getLoopbackAddress().getHostAddress();
-//        }
-
-//        String address = "http://" + this.serviceAddress + ":" + runningPort +
-//                "/confirmation?token="
-//                + confirmationToken.getConfirmationToken();
-//        html = html.replaceAll("a href=\"#\"", String.format("a href=\"%s\"", serviceAddress));
+        html = html.replaceAll("на позицию (........).", String.format("на позицию \"%s\"", vacancyPosition));
         textPart.setContent(html, "text/html; charset=utf-8");
 
         MimeMultipart multipart = new MimeMultipart();
@@ -178,8 +171,8 @@ public class EmailService {
 
         mimeMessage.setContent(multipart);
 
-
         emailSender.send(mimeMessage);
+
         log.info("Invite for interview sent");
     }
 
