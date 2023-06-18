@@ -4,11 +4,11 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.QBean;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import net.vniia.skittles.dto.CompetenceDto;
-import net.vniia.skittles.dto.CompetenceGroupDto;
-import net.vniia.skittles.dto.CompetenceGroupsWithCompetencesDto;
+import net.vniia.skittles.dto.*;
 import net.vniia.skittles.entities.CompetenceGroup;
 import net.vniia.skittles.entities.QCompetence;
+import net.vniia.skittles.entities.QVacancyCompetence;
+import net.vniia.skittles.entities.VacancyRespond;
 import net.vniia.skittles.repositories.CompetenceGroupRepository;
 import org.springframework.stereotype.Repository;
 
@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
 public class CompetenceReader {
 
     private static final QCompetence competence = QCompetence.competence;
+
+    private static final QVacancyCompetence vacancyCompetence = QVacancyCompetence.vacancyCompetence;
 
     public static QBean<CompetenceDto> getMappedSelectForCompetenceDto() {
         return Projections.bean(
@@ -37,6 +39,9 @@ public class CompetenceReader {
     private final CompetenceGroupRepository competenceGroupRepository;
 
     private final CompetenceGroupReader competenceGroupReader;
+
+    private final VacancyReader vacancyReader;
+
 
     public List<CompetenceDto> getAllCompetences() {
         return queryFactory.from(competence)
@@ -70,5 +75,22 @@ public class CompetenceReader {
             }
         }
         return competenceGroupsWithCompetencesDtos;
+    }
+
+    public List<CompetenceWeightScoreDto> getVacancyCompetenceScoreCard(Long vacancyRespondId) {
+        VacancyRespondDto vacancyRespondDto = vacancyReader.getVacancyRespondById(vacancyRespondId);
+        Long vacancyId = vacancyRespondDto.getVacancyId();
+
+        List<CompetenceWeightScoreDto> weightScoreDtos = queryFactory.from(vacancyCompetence)
+            .innerJoin(competence).on(vacancyCompetence.competenceId.eq(competence.id))
+                .where(vacancyCompetence.vacancyId.eq(vacancyId))
+            .select(Projections.bean(
+                    CompetenceWeightScoreDto.class,
+                    CompetenceReader.getMappedSelectForCompetenceDto().as("competence"),
+                    vacancyCompetence.as("weight")
+            ))
+            .fetch();
+
+        return weightScoreDtos;
     }
 }
