@@ -8,6 +8,7 @@ import {Competence} from "../dto/Competence";
 import {Vacancy} from "../dto/Vacancy";
 import {CompetenceGroupDto} from "../dto/CompetenceGroupDto";
 import {CompetenceGroupsWithCompetencesDto} from "../dto/CompetenceGroupsWithCompetencesDto";
+import {CompetenceWeightScore} from "../dto/CompetenceWeightScore";
 
 @Injectable({
     providedIn: "root"
@@ -43,6 +44,11 @@ export class CompetenceService extends BaseService {
     async getCompetencesByCompetenceGroupId(competenceGroupId: number) {
         const url = await this.getBackendUrl();
         return await firstValueFrom(this.http.get<Competence[]>(url + `/competence/group/${competenceGroupId}`));
+    }
+
+    async getCompetencesWeightScoreById(vacancyRespondId: number) {
+        const url = await this.getBackendUrl();
+        return await firstValueFrom(this.http.get<CompetenceWeightScore[]>(url + `/competence/${vacancyRespondId}`));
     }
 
     async createCompetenceGroup(competenceGroup: CompetenceGroupDto) {

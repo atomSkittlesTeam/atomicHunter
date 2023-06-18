@@ -11,6 +11,7 @@ import {OrgStructService} from "../../services/org-struct.service";
 import {PositionService} from "../../services/position.service";
 import {MessageService} from "primeng/api";
 import {CompetenceWeight} from "../../dto/CompetenceWeight";
+import {CompetenceWeightScore} from "../../dto/CompetenceWeightScore";
 
 @Component({
   selector: 'app-vacancy-competence-score-dialog',
@@ -65,6 +66,7 @@ export class VacancyCompetenceScoreDialogComponent {
 
   competences: Competence[] = [];
   competencesAll: Competence[] = [];
+  competenceWeightScores: CompetenceWeightScore[] = [];
   competenceGroupsWithCompetences: CompetenceGroupsWithCompetencesDto[] = [];
   loading: boolean = false;
   showSidebarWithAllSkills: boolean = false;
@@ -84,6 +86,8 @@ export class VacancyCompetenceScoreDialogComponent {
     this.loading = true;
     await this.getAllPositionsFromApi();
     await this.getEmployeeFromApi();
+    this.competenceWeightScores = await this.competenceService.getCompetencesWeightScoreById(this.item.id);
+    console.log(this.competenceWeightScores);
     this.competenceGroupsWithCompetences = await this.competenceService.getAllCompetenceTree();
     if (this.editMode) {
       this._item = await this.vacancyService.getVacancyById(this._item.id);
@@ -92,17 +96,6 @@ export class VacancyCompetenceScoreDialogComponent {
       this.dialogTitle = "Регистрация вакансии";
     }
     this.loading = false;
-  }
-
-  async selectPosition() {
-    this.competences = [];
-    this._item.competenceWeight = [];
-    // this.competences = await this.competenceService.getCompetencesByPositionId(Number.parseInt(this._item?.position?.id));
-    this.competences.map(comp => this._item.competenceWeight.push(new CompetenceWeight(comp, 10)));
-  }
-
-  async selectEmployee() {
-
   }
 
   async onSubmit($event?: any) {
@@ -129,22 +122,6 @@ export class VacancyCompetenceScoreDialogComponent {
   getSaveLabel() {
     return this.editMode ? "Обновить" : "Создать";
   }
-
-  async openSidebarWithAllSkills() {
-    this.showSidebarWithAllSkills = true;
-    this.competencesAll = await this.competenceService.getAllCompetences();
-    // let alreadyHas: number[] = [];
-    // console.log(this.competencesAll, "fwafawf");
-    //
-    // this.competencesAll = this.competencesAll.map((e, idx) => {
-    //   if (this.competences.find(com => com.name = e.name)) {
-    //     alreadyHas.push(idx);
-    //   }
-    //   return e;
-    // });
-    // alreadyHas.forEach(index => this.competencesAll.splice(index, 1));
-  }
-
   pushNewSkill(id: number, indexGroup?: number) {
     let pickedSkill: any = this.competencesAll.find(com => com.id === id);
     if (this._item.competenceWeight == null) {
@@ -232,23 +209,5 @@ export class VacancyCompetenceScoreDialogComponent {
         .filter(e => e.competence.id !== id);
 
     this.competences = this.competences.filter(e => e.id !== id);
-  }
-
-  setCompetenceWeightSumToMax() {
-    let normalizationCoefficient = (this.competenceWeightMaxSum / this.sum); //на него умножаем каждый вес
-    this._item.competenceWeight.map(e => {
-      e.weight = Math.round(e.weight * normalizationCoefficient);
-    });
-    if (this.sum > this.competenceWeightMaxSum) {
-      this.roundingWeightsToMaxSum(this.sum - this.competenceWeightMaxSum, true);
-    } else if (this.sum < this.competenceWeightMaxSum) {
-      this.roundingWeightsToMaxSum(this.competenceWeightMaxSum - this.sum, false);
-    }
-  }
-
-  roundingWeightsToMaxSum(differenceCurrentAndMax: number, isHigher: boolean) {
-    for (let i = 0; i < differenceCurrentAndMax; i++) {
-      this._item.competenceWeight[i].weight += isHigher ? -1 : 1;
-    }
   }
 }
