@@ -4,15 +4,15 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.EmployeeDto;
 import net.vniia.skittles.dto.InterviewDto;
+import net.vniia.skittles.dto.PositionDto;
 import net.vniia.skittles.entities.*;
+import net.vniia.skittles.readers.EmployeeReader;
 import net.vniia.skittles.readers.InterviewReader;
+import net.vniia.skittles.readers.PositionReader;
 import net.vniia.skittles.repositories.*;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -31,6 +31,10 @@ public class InterviewService {
     private final InterviewEmployeeRepository interviewEmployeeRepository;
 
     private final InterviewReader interviewReader;
+
+    private final EmployeeReader employeeReader;
+
+    private final PositionReader positionReader;
 
     @Transactional
     public void createInterview(Long vacancyRespondId, InterviewDto interviewDto) throws Exception {
@@ -51,12 +55,57 @@ public class InterviewService {
 
         placeTimeMapRepository.save(new PlaceTimeMap(interviewDto));
 
-        // @TODO send to candidate
-//        this.emailService.sendInterviewInvite("Приглашение на собеседование!",
-//                vacancyRespond.getEmail(), vacancyRespond.getId());
 
-        // send to employees
+        // notifications
+        List<EmployeeDto> employeeDtoList = employeeReader
+                .getInterviewEmployees(interview.getId());
+
+        List<String> emails = new ArrayList<>(employeeDtoList.stream().map(EmployeeDto::getEmail).toList());
+
+        // кандидату
+        this.sendInviteForInterviewForRespond(vacancyRespond, vacancyRespond.getEmail(),
+                Date.from(interview.getDateStart()), Date.from(interview.getDateEnd()));
+
+        // сотрудникам
+//        this.sendInviteForInterviewForEmployees(vacancyRespond,
+//                emails,
+//                Date.from(interview.getDateStart()), Date.from(interview.getDateEnd()));
     }
+
+    public void sendInviteForInterviewForRespond(VacancyRespond vacancyRespond,
+                                                 String email,
+                                                 Date interviewStartDate,
+                                                 Date interviewEndDate)
+            throws Exception {
+
+        PositionDto position = positionReader.getPositionDtoByRespondId(vacancyRespond.getVacancyId());
+
+        this.emailService.sendInterviewInviteForRespond("Приглашение на собеседование!",
+                Collections.singletonList(email),
+                "Собеседование",
+                "Собеседование в компании Атомпродукт",
+                interviewStartDate,
+                interviewEndDate,
+                position.getName()
+        );
+    }
+
+    public void sendInviteForInterviewForEmployees(VacancyRespond vacancyRespond,
+                                                   List<String> emails,
+                                                   Date interviewStartDate,
+                                                   Date interviewEndDate)
+            throws Exception {
+//        this.emailService.sendInterviewInviteForEmployee("Участие в собеседовании!",
+//                emails,
+//                "Собеседование",
+//                "Собеседование кандидата " +
+//                        vacancyRespond.getFullName() +
+//                        " в компанию Атомпродукт",
+//                interviewStartDate,
+//                interviewEndDate
+//        );
+    }
+
     @Transactional
     public InterviewDto updateInterviewById(Long interviewId, InterviewDto interviewDto) {
         Interview interview = interviewRepository.findById(interviewId).orElseThrow(
