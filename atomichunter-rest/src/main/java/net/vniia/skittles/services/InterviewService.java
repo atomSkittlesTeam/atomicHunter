@@ -62,12 +62,14 @@ public class InterviewService {
             () -> new RuntimeException("Собеседование не найдено!")
         );
         interview.update(interviewDto);
-        if (!interviewDto.getEmployees().isEmpty()) {
-            this.mergeEmployees(interviewId, interviewDto.getEmployees());
-        } else {
-            List<InterviewEmployee> interviewEmployeeList = interviewEmployeeRepository
-                    .findAllByInterviewId(interviewId);
-            this.interviewEmployeeRepository.deleteAll(interviewEmployeeList);
+        if (interviewDto.getEmployees() != null) {
+            if (!interviewDto.getEmployees().isEmpty()) {
+                this.mergeEmployees(interviewId, interviewDto.getEmployees());
+            } else {
+                List<InterviewEmployee> interviewEmployeeList = interviewEmployeeRepository
+                        .findAllByInterviewId(interviewId);
+                this.interviewEmployeeRepository.deleteAll(interviewEmployeeList);
+            }
         }
         return interviewReader.getInterviewById(interviewId);
     }
