@@ -106,17 +106,22 @@ export class VacancyCompetenceScoreDialogComponent {
         this.loading = true;
         await this.getAllPositionsFromApi();
         await this.getEmployeeFromApi();
-        console.log(this.employeeExpert)
-        console.log(this.staffUnit)
+        console.log(this.employeeExpert,'employeeExpert')
+        console.log(this.staffUnit,'staffUnit')
         let competenceWeightScoreForExpert: CompetenceWeightScore[] = this.competenceWeightScoreForExpert;
         if (competenceWeightScoreForExpert.length === 0) {
+            console.log(this.competenceWeightScores,'11111111')
+
             this.competenceWeightScores = await this.competenceService.getCompetencesWeightScoreById(this.itemRespond.id);
         } else {
+            console.log(this.competenceWeightScores,'22222222')
             this.competenceWeightScores = this.competenceWeightScoreForExpert;
             this.staffUnit.employee = this.employeeExpert;
+            console.log(this.competenceWeightScoreForExpert);
         }
         this.competenceWeightScores.forEach(e => e.score = 1);
         this.competenceGroupsWithCompetences = await this.competenceService.getAllCompetenceTree();
+        console.log(this.competenceWeightScores,'this.competenceWeightScores.')
         if (this.editMode) {
             this._item = await this.vacancyService.getVacancyById(this._item.id);
             this.dialogTitle = "Оценка экспертом";
@@ -141,7 +146,9 @@ export class VacancyCompetenceScoreDialogComponent {
             this.vacancyCompetenceScoreRequest.vacancyRespondId = this.itemRespond.id;
             this.vacancyCompetenceScoreRequest.employee = this.staffUnit.employee;
             this.vacancyCompetenceScoreRequest.competenceWeightScoreList = this.competenceWeightScores;
+            // this.vacancyCompetenceScoreRequest.vacancyCompetenceId = this.competenceWeightScores
             this.vacancyCompetenceScoreRequest.interviewId = 1;
+
             await this.createVacancyCompetenceScore(this._item);
         }
         this.submit.emit($event);
@@ -228,7 +235,7 @@ export class VacancyCompetenceScoreDialogComponent {
     }
 
     async getEmployeeFromApi() {
-        this.employees = await this.orgStructService.getHrEmployees();
+        this.employees = await this.orgStructService.getEmployees();
     }
 
 

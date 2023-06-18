@@ -16,4 +16,5 @@ public class VacancyCompetenceScoreRequestDto {
     private EmployeeDto employee;
     private List<CompetenceWeightScoreDto> competenceWeightScoreList;
     private String comment;
+    private Long vacancyCompetenceId;
 }

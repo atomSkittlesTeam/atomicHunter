@@ -352,7 +352,10 @@ export class VacancyRespondComponent {
   }
 
   async showExpertCart() {
+    console.log(this.selectedVacancyRespond.id, this.selectedEmployee.id,'this.selectedVacancyRespond.id, this.selectedEmployee.id')
     this.competenceWeightScoreForExpert = await this.competenceService.getVacancyCompetenceScoreForEmployee(this.selectedVacancyRespond.id, this.selectedEmployee.id);
+    console.log(this.competenceWeightScoreForExpert ,'this.competenceWeightScoreForExpert ')
     this.openDialogVacancyComp = true;
+    this.staffUnit.employee = this.selectedEmployee;
   }
 }
