@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface VacancyCompetenceScoreRepository extends JpaRepository<VacancyCompetenceScore, Long> {
     List<VacancyCompetenceScore> findAllByVacancyCompetenceId(Long vacancyCompetenceId);
-    List<VacancyCompetenceScore> findAllByMaintainerId(Long maintainerId);
+    List<VacancyCompetenceScore> findAllByEmployeeId(Long employeeId);
 }
