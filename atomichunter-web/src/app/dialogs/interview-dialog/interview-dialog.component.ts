@@ -84,9 +84,9 @@ export class VacancyRequestComponent {
     }
 
     async onSubmit($event?: any) {
+        this.interview.employees = this.selectedEmployees;
         try {
             if (this.selectedEmployees) {
-                console.log('1');
                 this.interview.employees = this.selectedEmployees;
             }
 
