@@ -156,7 +156,7 @@ public class VacancyService {
         for (VacancyCompetenceScoreDto score : vacancyCompetenceScoreDtos) {
             scoresSum += score.getScore() * score.getWeight();
         }
-        vacancyRespond.setAverageScore((scoresSum + vacancyRespond.getAverageScore()) / (vacancyRespond.getCompetenceScoreCount() + 1));
+        vacancyRespond.setAverageScore((scoresSum + vacancyRespond.getAverageScore() * vacancyRespond.getCompetenceScoreCount()) / (vacancyRespond.getCompetenceScoreCount() + 1));
         vacancyRespond.setCompetenceScoreCount(vacancyRespond.getCompetenceScoreCount() + 1);
         vacancyRespondRepository.saveAndFlush(vacancyRespond);
     }
