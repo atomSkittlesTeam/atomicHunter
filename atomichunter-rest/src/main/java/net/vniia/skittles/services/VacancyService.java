@@ -213,6 +213,32 @@ public class VacancyService {
     }
 
     public List<CompetenceWeightScoreFullDto> getVacancyRespondAnalysis(Long vacancyId) {
-        return competenceReader.getVacancyCompetenceScoreForVacancy(vacancyId);
+        List<CompetenceWeightScoreFullDto> listWithEmployees =
+                competenceReader.getVacancyCompetenceScoreForVacancy(vacancyId);
+
+        Function<CompetenceWeightScoreFullDto, String> key = e ->
+                e.getVacancyRespond().getId() + "r"
+                + e.getCompetence().getId() + "c"
+                + e.getWeight() + "w";
+
+        Map<String, List<CompetenceWeightScoreFullDto>> map =
+                listWithEmployees.stream().collect(Collectors.groupingBy(key));
+
+        List<CompetenceWeightScoreFullDto> finalArray = new ArrayList<>();
+        for (Map.Entry<String, List<CompetenceWeightScoreFullDto>> stringListEntry : map.entrySet()) {
+            List<Long> scores = stringListEntry
+                    .getValue()
+                    .stream()
+                    .map(CompetenceWeightScoreFullDto::getScore)
+                    .toList();
+            Long averageSum = scores.stream()
+                    .reduce(0L, Long::sum) / scores.size();
+
+            CompetenceWeightScoreFullDto comp = stringListEntry.getValue().get(0);
+            comp.getVacancyRespond().setAverageScore(averageSum*comp.getWeight());
+            finalArray.add(comp);
+        }
+
+        return finalArray;
     }
 }
