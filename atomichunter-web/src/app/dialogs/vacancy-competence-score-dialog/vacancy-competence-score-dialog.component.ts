@@ -13,6 +13,7 @@ import {MessageService} from "primeng/api";
 import {CompetenceWeight} from "../../dto/CompetenceWeight";
 import {CompetenceWeightScore} from "../../dto/CompetenceWeightScore";
 import {VacancyCompetenceScoreRequestDto} from "../../dto/VacancyCompetenceScoreRequestDto";
+import {VacancyRespond} from "../../dto/VacancyRespond";
 
 @Component({
     selector: 'app-vacancy-competence-score-dialog',
@@ -20,6 +21,18 @@ import {VacancyCompetenceScoreRequestDto} from "../../dto/VacancyCompetenceScore
     styleUrls: ['./vacancy-competence-score-dialog.component.scss']
 })
 export class VacancyCompetenceScoreDialogComponent {
+
+    @Input("itemRespond") get itemRespond(): VacancyRespond {
+        return this._itemRespond;
+    }
+
+    set itemRespond(value: VacancyRespond) {
+        if (value) {
+            this._itemRespond = value;
+        } else {
+            this._itemRespond = new VacancyRespond();
+        }
+    }
     @Input("item") get item(): Vacancy {
         return this._item;
     }
@@ -47,6 +60,7 @@ export class VacancyCompetenceScoreDialogComponent {
 
     @Input("openDialog") visible: boolean = false;
     private _item: Vacancy;
+    private _itemRespond: VacancyRespond;
     private _staffUnit: StaffUnitDto;
     @Input("editMode") editMode: boolean;
     @Input("singlePosition") singlePosition: Position;
@@ -87,8 +101,7 @@ export class VacancyCompetenceScoreDialogComponent {
         this.loading = true;
         await this.getAllPositionsFromApi();
         await this.getEmployeeFromApi();
-        this.competenceWeightScores = await this.competenceService.getCompetencesWeightScoreById(this.item.id);
-        console.log(this.competenceWeightScores);
+        this.competenceWeightScores = await this.competenceService.getCompetencesWeightScoreById(this.itemRespond.id);
         this.competenceGroupsWithCompetences = await this.competenceService.getAllCompetenceTree();
         if (this.editMode) {
             this._item = await this.vacancyService.getVacancyById(this._item.id);
@@ -106,7 +119,7 @@ export class VacancyCompetenceScoreDialogComponent {
             this.item.position = this.singlePosition;
         }
         if ($event !== null) { // null передается, если закрыть форму без сохранения на крестик
-            this.vacancyCompetenceScoreRequest.vacancyRespondId = this.item.id;
+            this.vacancyCompetenceScoreRequest.vacancyRespondId = this.itemRespond.id;
             this.vacancyCompetenceScoreRequest.employee = this.staffUnit.employee;
             this.vacancyCompetenceScoreRequest.competenceWeightScoreList = this.competenceWeightScores;
             this.vacancyCompetenceScoreRequest.interviewId = 1;
@@ -153,8 +166,7 @@ export class VacancyCompetenceScoreDialogComponent {
     async createVacancy(vacancy: Vacancy) {
         try {
             this.loading = true;
-            console.log(this.vacancyCompetenceScoreRequest);
-            // const rq = await this.vacancyService.createVacancy(vacancy);
+            const rq = await this.vacancyService.validateVacancyCompetenceScore(this.vacancyCompetenceScoreRequest);
             this.messageService.add({
                 severity: "success",
                 summary: "Успех!",

@@ -1,5 +1,5 @@
 <p-toolbar>
-  <div class="table-name">Отклики</div>
+  <div class="table-name">Кандидаты</div>
   <nav>
     <p-button icon="pi pi-sync"
               styleClass="p-button-rounded p-button-warning p-button-outlined"
@@ -114,7 +114,26 @@
 <app-vacancy-competence-score-dialog [openDialog]="openDialogVacancyComp"
                     *ngIf="openDialogVacancyComp"
                     [item]="vacancy"
+                    [itemRespond]="selectedVacancyRespond"
                     [staffUnit]="staffUnit"
                     [editMode]="dialogEditMode"
                     (submit)="onDialogSubmit($event)">
 </app-vacancy-competence-score-dialog>
+
+<p-dialog class="dialog" [header]="'Просмотр карточки эксперта'" [(visible)]="visible" [modal]="true"
+          [style]="{maxHeight: '80vh',width: '50vw'}"
+          (onHide)="closeDialog()">
+  <div class="p-inputgroup">
+    <span class="p-inputgroup-addon" style="width: 120px">Эксперт</span>
+    <p-dropdown [options]="employees"
+                appendTo="body"
+                [(ngModel)]="selectedEmployee"
+                name="firstName"
+                [style]="{width: '100%'}"
+                [optionLabel]="'employeeFullName'"></p-dropdown>
+  </div>
+
+  <button pButton (click)="showExpertCart()" type="button" style="margin-top: 10px" class="p-button-success tiffany-button" label="Просмотр карточки"
+          icon="pi pi-file-edit" ></button>
+</p-dialog>
+

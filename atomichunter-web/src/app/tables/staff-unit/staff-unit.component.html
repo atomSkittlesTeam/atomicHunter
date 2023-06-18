@@ -19,6 +19,14 @@
 
                     (onClick)="createVacancy()">
             </p-button>
+
+            <p-checkbox
+                    [(ngModel)]="showArchive"
+                    label="Открытые"
+                    [binary]="true"
+                    inputId="binary"
+                    (ngModelChange)="showArchivePressed()">
+            </p-checkbox>
         </nav>
 
     </p-toolbar>

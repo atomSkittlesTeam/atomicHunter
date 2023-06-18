@@ -37,6 +37,11 @@ public class OrgStructController {
         return staffUnitReader.getAllStaffUnits();
     }
 
+    @GetMapping("staff-units/open")
+    public List<StaffUnitDto> getOpenStaffUnits() {
+        return staffUnitReader.getOpenStaffUnits();
+    }
+
     @GetMapping("employees")
     public List<EmployeeDto> getAllEmployees() {
         return orgStructService.getAllEmployees();

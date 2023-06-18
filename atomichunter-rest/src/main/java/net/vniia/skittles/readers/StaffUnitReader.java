@@ -9,6 +9,7 @@ import net.vniia.skittles.entities.QEmployee;
 import net.vniia.skittles.entities.QPosition;
 import net.vniia.skittles.entities.QStaffUnit;
 import net.vniia.skittles.entities.QVacancy;
+import net.vniia.skittles.enums.StaffUnitStatus;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -45,6 +46,16 @@ public class StaffUnitReader {
                 .leftJoin(position).on(position.id.eq(staffUnit.positionId))
                 .leftJoin(vacancy).on(vacancy.staffUnitId.eq(staffUnit.id))
                 .orderBy(staffUnit.status.desc())
+                .select(getMappedSelectForStaffUnitDto())
+                .fetch();
+    }
+
+    public List<StaffUnitDto> getOpenStaffUnits() {
+        return queryFactory.from(staffUnit)
+                .leftJoin(employee).on(employee.id.eq(staffUnit.employeeId))
+                .leftJoin(position).on(position.id.eq(staffUnit.positionId))
+                .leftJoin(vacancy).on(vacancy.staffUnitId.eq(staffUnit.id))
+                .where(staffUnit.status.eq(StaffUnitStatus.Opened))
                 .select(getMappedSelectForStaffUnitDto())
                 .fetch();
     }

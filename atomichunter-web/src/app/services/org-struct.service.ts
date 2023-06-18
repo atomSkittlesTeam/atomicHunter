@@ -24,6 +24,11 @@ export class OrgStructService extends BaseService {
     return await firstValueFrom(this.http.get<StaffUnitDto[]>(url + '/org-struct/staff-units'));
   }
 
+  async getOpenStaffUnits() {
+    const url = await this.getBackendUrl();
+    return await firstValueFrom(this.http.get<StaffUnitDto[]>(url + '/org-struct/staff-units/open'));
+  }
+
   async getEmployees() {
     const url = await this.getBackendUrl();
     return await firstValueFrom(this.http.get<Employee[]>(url + '/org-struct/employees'));

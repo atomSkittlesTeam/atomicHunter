@@ -9,6 +9,8 @@ import { VacancyService } from "../../services/vacancy.service";
 import { InviteService } from "src/app/services/invite.service";
 import { VacancyWithVacancyRespond } from "../../dto/VacancyWithVacancyRespond";
 import {StaffUnitDto} from "../../dto/StaffUnitDto";
+import {Employee} from "../../dto/Employee";
+import {OrgStructService} from "../../services/org-struct.service";
 
 @Component({
   selector: "app-vacancy-respond",
@@ -29,6 +31,7 @@ export class VacancyRespondComponent {
 
   constructor(private confirmationService: ConfirmationService,
               private messageService: MessageService,
+              private orgStructService: OrgStructService,
               private vacancyService: VacancyService,
               private inviteService: InviteService) {
     this.renderMenu();
@@ -54,12 +57,19 @@ export class VacancyRespondComponent {
   selectedVacancyRespond: VacancyRespond;
   showArchive = false;
   public rowData: any[] = [];
+  employees: Employee[] = [];
+  selectedEmployee: Employee;
+
 
   public overlayLoadingTemplate = "<div class=\"loading-text\"> Загрузка...</div> ";
 
   createVacancyRespond() {
     this.openVacancyRespondDialog = true;
     this.vacancyRespondDialogEditMode = false;
+  }
+
+  async getEmployeeFromApi() {
+    this.employees = await this.orgStructService.getHrEmployees();
   }
 
   updateVacancyRespond() {
@@ -70,7 +80,7 @@ export class VacancyRespondComponent {
   renderMenu() {
     this.items = [
       {
-        label: "Отклики",
+        label: "Кандидат",
         items: [
           {
             label: "Добавить",
@@ -110,6 +120,14 @@ export class VacancyRespondComponent {
               if (this.selectedVacancyRespond.id) {
                 this.archiveRequestPosition();
               }
+            }
+          },
+          {
+            label: "Просмотреть эксперта",
+            icon: "pi pi-trash",
+            command: () => {
+                this.visible = true;
+                this.getEmployeeFromApi();
             }
           },
           {
@@ -163,6 +181,7 @@ export class VacancyRespondComponent {
     { field: "coverLetter", headerName: "Сопроводительное письмо", filter: "agTextColumnFilter" },
     { field: "fullName", headerName: "ФИО", filter: "agTextColumnFilter" },
     { field: "email", headerName: "Email", filter: "agTextColumnFilter" },
+    { field: "averageScore", headerName: "Средняя оценка собеседования", filter: "agTextColumnFilter" },
     {
       field: "interviewId",
       headerName: "Приглашен на собеседование",
@@ -208,6 +227,7 @@ export class VacancyRespondComponent {
   public loadingCellRendererParams: any = {
     loadingMessage: "Подождите еще немного..."
   };
+  visible: boolean = false;
 
   async onGridReady(params: GridReadyEvent) {
     if (this.vacancy && this.vacancy.id) {
@@ -310,5 +330,13 @@ export class VacancyRespondComponent {
     if ($event) {
       await this.getRespondByVacancyIdFromApi();
     }
+  }
+
+  closeDialog() {
+    this.visible = false;
+  }
+
+  showExpertCart() {
+    console.log('sss')
   }
 }
