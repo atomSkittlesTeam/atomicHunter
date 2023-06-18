@@ -3,6 +3,7 @@ package net.vniia.skittles.controllers;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.*;
+import net.vniia.skittles.readers.CompetenceReader;
 import net.vniia.skittles.readers.VacancyReader;
 import net.vniia.skittles.services.VacancyService;
 import org.springframework.web.bind.annotation.*;
@@ -100,7 +101,7 @@ public class VacancyController {
     }
 
     @GetMapping("vacancy/{vacancyId}/analysis")
-    public List<VacancyAnalysisDto> getVacancyRespondAnalysis(@PathVariable Long vacancyId) {
+    public List<CompetenceWeightScoreFullDto> getVacancyRespondAnalysis(@PathVariable Long vacancyId) {
         return vacancyService.getVacancyRespondAnalysis(vacancyId);
     }
 }
