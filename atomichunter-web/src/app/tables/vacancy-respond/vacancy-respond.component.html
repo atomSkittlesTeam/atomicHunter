@@ -1,5 +1,5 @@
 <p-toolbar>
-  <div class="table-name">Отклики</div>
+  <div class="table-name">Кандидаты</div>
   <nav>
     <p-button icon="pi pi-sync"
               styleClass="p-button-rounded p-button-warning p-button-outlined"
@@ -114,6 +114,7 @@
 <app-vacancy-competence-score-dialog [openDialog]="openDialogVacancyComp"
                     *ngIf="openDialogVacancyComp"
                     [item]="vacancy"
+                    [itemRespond]="selectedVacancyRespond"
                     [staffUnit]="staffUnit"
                     [editMode]="dialogEditMode"
                     (submit)="onDialogSubmit($event)">

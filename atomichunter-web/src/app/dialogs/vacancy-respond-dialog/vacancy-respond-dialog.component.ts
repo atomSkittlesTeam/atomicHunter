@@ -102,7 +102,7 @@ export class VacancyRespondDialogComponent {
       this.messageService.add({
         severity: "success",
         summary: "Успех!",
-        detail: "Отклик на вакансию создан",
+        detail: "Добавлен кандидат на вакансию",
         life: 5000
       });
     } catch (e: any) {
@@ -124,7 +124,7 @@ export class VacancyRespondDialogComponent {
       this.messageService.add({
         severity: "success",
         summary: "Успех!",
-        detail: "Отклик на вакансию обновлен",
+        detail: "Информация о кандидате обновлена",
         life: 5000
       });
     } catch (e: any) {

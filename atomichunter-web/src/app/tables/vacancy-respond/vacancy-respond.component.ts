@@ -80,7 +80,7 @@ export class VacancyRespondComponent {
   renderMenu() {
     this.items = [
       {
-        label: "Отклики",
+        label: "Кандидат",
         items: [
           {
             label: "Добавить",
@@ -181,6 +181,7 @@ export class VacancyRespondComponent {
     { field: "coverLetter", headerName: "Сопроводительное письмо", filter: "agTextColumnFilter" },
     { field: "fullName", headerName: "ФИО", filter: "agTextColumnFilter" },
     { field: "email", headerName: "Email", filter: "agTextColumnFilter" },
+    { field: "averageScore", headerName: "Средняя оценка собеседования", filter: "agTextColumnFilter" },
     {
       field: "interviewId",
       headerName: "Приглашен на собеседование",

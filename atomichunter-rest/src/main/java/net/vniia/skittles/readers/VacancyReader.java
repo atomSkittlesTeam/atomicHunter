@@ -81,6 +81,8 @@ public class VacancyReader {
                 vacancyRespond.email,
                 vacancyRespond.fullName,
                 vacancyRespond.archive,
+                vacancyRespond.averageScore,
+                vacancyRespond.competenceScoreCount,
                 interview.id.as("interviewId"),
                 confirmationToken.accepted.as("interviewInviteAccepted")
         );
