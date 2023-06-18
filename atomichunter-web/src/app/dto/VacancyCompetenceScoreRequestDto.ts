@@ -7,4 +7,5 @@ export class VacancyCompetenceScoreRequestDto {
     employee: Employee;
     competenceWeightScoreList: CompetenceWeightScore[];
     comment: string;
+    vacancyCompetenceId: number;
 }

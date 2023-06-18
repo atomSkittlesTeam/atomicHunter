@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CompetenceWeightScoreDto {
     private CompetenceDto competence;
+    private Long vacancyCompetenceId;
     private long weight;
     private long score;
 }

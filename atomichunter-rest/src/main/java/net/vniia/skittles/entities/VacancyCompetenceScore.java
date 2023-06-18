@@ -40,7 +40,7 @@ public class VacancyCompetenceScore {
     }
 
     public VacancyCompetenceScore(VacancyCompetenceScoreRequestDto requestDto, CompetenceWeightScoreDto competenceWeightScoreDto) {
-        this.vacancyCompetenceId = competenceWeightScoreDto.getCompetence().getId();
+        this.vacancyCompetenceId = competenceWeightScoreDto.getVacancyCompetenceId();
         this.score = competenceWeightScoreDto.getScore();
         this.weight = competenceWeightScoreDto.getWeight();
         this.vacancyRespondId = requestDto.getVacancyRespondId();

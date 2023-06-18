@@ -106,16 +106,15 @@ export class VacancyCompetenceScoreDialogComponent {
         this.loading = true;
         await this.getAllPositionsFromApi();
         await this.getEmployeeFromApi();
-        console.log(this.employeeExpert)
-        console.log(this.staffUnit)
         let competenceWeightScoreForExpert: CompetenceWeightScore[] = this.competenceWeightScoreForExpert;
         if (competenceWeightScoreForExpert.length === 0) {
             this.competenceWeightScores = await this.competenceService.getCompetencesWeightScoreById(this.itemRespond.id);
+            this.competenceWeightScores.forEach(e => e.score = 1);
         } else {
+            this.competenceWeightScoreForExpert.forEach(e => e.binaryIsChecked = e.score === 10)
             this.competenceWeightScores = this.competenceWeightScoreForExpert;
             this.staffUnit.employee = this.employeeExpert;
         }
-        this.competenceWeightScores.forEach(e => e.score = 1);
         this.competenceGroupsWithCompetences = await this.competenceService.getAllCompetenceTree();
         if (this.editMode) {
             this._item = await this.vacancyService.getVacancyById(this._item.id);
@@ -141,7 +140,9 @@ export class VacancyCompetenceScoreDialogComponent {
             this.vacancyCompetenceScoreRequest.vacancyRespondId = this.itemRespond.id;
             this.vacancyCompetenceScoreRequest.employee = this.staffUnit.employee;
             this.vacancyCompetenceScoreRequest.competenceWeightScoreList = this.competenceWeightScores;
+            // this.vacancyCompetenceScoreRequest.vacancyCompetenceId = this.competenceWeightScores
             this.vacancyCompetenceScoreRequest.interviewId = 1;
+
             await this.createVacancyCompetenceScore(this._item);
         }
         this.submit.emit($event);
@@ -228,7 +229,7 @@ export class VacancyCompetenceScoreDialogComponent {
     }
 
     async getEmployeeFromApi() {
-        this.employees = await this.orgStructService.getHrEmployees();
+        this.employees = await this.orgStructService.getEmployees();
     }
 
 
