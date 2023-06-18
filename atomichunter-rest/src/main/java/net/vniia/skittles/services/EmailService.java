@@ -45,7 +45,10 @@ public class EmailService {
     int runningPort;
 
     @Value("classpath:/invite_mail.html")
-    private Resource inviteMailHtml;
+    private Resource inviteRespondMailHtml;
+
+    @Value("classpath:/invite_mail2.html")
+    private Resource inviteEmployeeMailHtml;
 
     @Value("${spring.mail.username}")
     private String serviceMail;
@@ -159,9 +162,9 @@ public class EmailService {
 
         MimeBodyPart textPart = new MimeBodyPart();
 
-        String html = resourceHelper.getResourceAsString(this.inviteMailHtml);
+        String html = resourceHelper.getResourceAsString(this.inviteRespondMailHtml);
 
-        html = html.replaceAll("на позицию (........).", String.format("на позицию \"%s\"", vacancyPosition));
+        html = html.replaceAll("на позицию aaaa", String.format("на позицию \"%s\"", vacancyPosition));
         textPart.setContent(html, "text/html; charset=utf-8");
 
         MimeMultipart multipart = new MimeMultipart();
@@ -214,9 +217,9 @@ public class EmailService {
 
         MimeBodyPart textPart = new MimeBodyPart();
 
-        String html = resourceHelper.getResourceAsString(this.inviteMailHtml);
+        String html = resourceHelper.getResourceAsString(this.inviteEmployeeMailHtml);
 
-        html = html.replaceAll("на позицию (........).", String.format("на позицию \"%s\"", vacancyPosition));
+        html = html.replaceAll("на позицию aaaa", String.format("на позицию \"%s\"", vacancyPosition));
         textPart.setContent(html, "text/html; charset=utf-8");
 
         MimeMultipart multipart = new MimeMultipart();

@@ -54,7 +54,10 @@ public class InterviewService {
 
         placeTimeMapRepository.save(new PlaceTimeMap(interviewDto, interview.getId()));
 
+        this.notifyAboutInterview(interview, vacancyRespond);
+    }
 
+    private void notifyAboutInterview(Interview interview, VacancyRespond vacancyRespond) throws Exception {
         // notifications
         List<EmployeeDto> employeeDtoList = employeeReader
                 .getInterviewEmployees(interview.getId());
@@ -66,9 +69,11 @@ public class InterviewService {
                 Date.from(interview.getDateStart()), Date.from(interview.getDateEnd()));
 
         // сотрудникам
-//        this.sendInviteForInterviewForEmployees(vacancyRespond,
-//                emails,
-//                Date.from(interview.getDateStart()), Date.from(interview.getDateEnd()));
+        this.sendInviteForInterviewForEmployees(
+                vacancyRespond,
+                emails,
+                Date.from(interview.getDateStart()),
+                Date.from(interview.getDateEnd()));
     }
 
     public void sendInviteForInterviewForRespond(VacancyRespond vacancyRespond,
@@ -77,7 +82,7 @@ public class InterviewService {
                                                  Date interviewEndDate)
             throws Exception {
 
-        PositionDto position = positionReader.getPositionDtoByRespondId(vacancyRespond.getVacancyId());
+        PositionDto position = positionReader.getPositionDtoByVacancyId(vacancyRespond.getVacancyId());
 
         this.emailService.sendInterviewInviteForRespond("Приглашение на собеседование!",
                 Collections.singletonList(email),
@@ -92,9 +97,11 @@ public class InterviewService {
     public void sendInviteForInterviewForEmployees(VacancyRespond vacancyRespond,
                                                    List<String> emails,
                                                    Date interviewStartDate,
-                                                   Date interviewEndDate,
-                                                   String vacancyPosition)
+                                                   Date interviewEndDate)
             throws Exception {
+
+        PositionDto position = positionReader.getPositionDtoByVacancyId(vacancyRespond.getVacancyId());
+
         this.emailService.sendInterviewInviteForEmployee("Участие в собеседовании!",
                 emails,
                 "Собеседование",
@@ -103,12 +110,12 @@ public class InterviewService {
                         " в компанию Атомпродукт",
                 interviewStartDate,
                 interviewEndDate,
-                vacancyPosition
+                position.getName()
         );
     }
 
     @Transactional
-    public InterviewDto updateInterviewById(Long interviewId, InterviewDto interviewDto) {
+    public InterviewDto updateInterviewById(Long interviewId, InterviewDto interviewDto) throws Exception {
         Interview interview = interviewRepository.findById(interviewId).orElseThrow(
             () -> new RuntimeException("Собеседование не найдено!")
         );
@@ -123,6 +130,9 @@ public class InterviewService {
                 this.interviewEmployeeRepository.deleteAll(interviewEmployeeList);
             }
         }
+        VacancyRespond vacancyRespond = vacancyRespondRepository.findById(interview.getVacancyRespondId())
+                .orElseThrow(() -> new RuntimeException("Отклик на вакансию не найден!"));
+        this.notifyAboutInterview(interview, vacancyRespond);
         return interviewReader.getInterviewById(interviewId);
     }
 
