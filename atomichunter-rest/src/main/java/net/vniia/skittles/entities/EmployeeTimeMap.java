@@ -25,10 +25,13 @@ public class EmployeeTimeMap {
     private UUID employeeId;
     private Instant dateStart;
     private Instant dateEnd;
+    private Long interviewId;
 
-    public EmployeeTimeMap (EmployeeDto employeeDto, InterviewDto interviewDto) {
+    public EmployeeTimeMap (EmployeeDto employeeDto, InterviewDto interviewDto,
+                            Long interviewId) {
         this.employeeId = employeeDto.getId();
         this.dateStart = interviewDto.getDateStart();
         this.dateEnd = interviewDto.getDateEnd();
+        this.interviewId = interviewId;
     }
 }

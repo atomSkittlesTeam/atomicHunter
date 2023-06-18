@@ -39,6 +39,16 @@ public class InterviewController {
         return this.interviewService.updateInterviewById(interviewId, interviewDto);
     }
 
+    @PostMapping("validate")
+    @Transactional
+    public String validateInterview(@RequestBody InterviewDto interviewDto) {
+        if (interviewDto.getDateStart() != null && interviewDto.getDateEnd() != null
+                && interviewDto.getDateStart().isAfter(interviewDto.getDateEnd())) {
+            return "Даты указаны неверно: дата начала собеседования позже, чем дата конца";
+        }
+        return this.interviewService.validateInterview(interviewDto);
+    }
+
     @PostMapping("offer")
     @Transactional
     public void sendOffer(@RequestBody VacancyWithVacancyRespondDto vacancyWithVacancyRespondDto) throws Exception {
