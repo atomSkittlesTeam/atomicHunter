@@ -288,6 +288,10 @@ export class VacancyRespondComponent {
     this.pdfResume.emit(this.selectedVacancyRespond.pathToResume);
   }
 
+  openVacancyAnalysTable() {
+    // this.
+  }
+
   archiveRequestPosition() {
     this.confirmationService.confirm({
       key: "vacancy-respond-archive",

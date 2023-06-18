@@ -7,6 +7,9 @@ import {firstValueFrom} from 'rxjs';
 import {Vacancy} from '../dto/Vacancy';
 import {VacancyRespond} from "../dto/VacancyRespond";
 import {VacancyCompetenceScoreRequestDto} from "../dto/VacancyCompetenceScoreRequestDto";
+import _default from "chart.js/dist/plugins/plugin.tooltip";
+import numbers = _default.defaults.animations.numbers;
+import {CompetenceWeightScoreFull} from "../dto/CompetenceWeightScoreFull";
 
 @Injectable({
     providedIn: 'root'
@@ -100,5 +103,10 @@ export class VacancyService extends BaseService {
   async getVacancyFileReport(vacancyId: number, path: string) {
     const url = await this.getBackendUrl();
     window.open(url + `/report/vacancy/${path}`, '_blank');
+  }
+
+  async getVacancyAnalysisByVacancyId(vacancyId: number) {
+    const url = await this.getBackendUrl();
+    return await firstValueFrom(this.http.get<CompetenceWeightScoreFull[]>(url + `/vacancy/${vacancyId}/analysis`));
   }
 }

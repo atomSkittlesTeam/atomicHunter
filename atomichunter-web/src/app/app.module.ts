@@ -67,6 +67,7 @@ import { VacancyRespondDialogComponent } from './dialogs/vacancy-respond-dialog/
 import { VacancyCompetenceScoreDialogComponent } from './dialogs/vacancy-competence-score-dialog/vacancy-competence-score-dialog.component';
 import { PlaceComponent } from './tables/place/place.component';
 import { CalendarComponent } from './tables/calendar/calendar.component';
+import { VacancyAnalysisComponent } from './tables/vacancy-analysis/vacancy-analysis.component';
 
 @NgModule({
     declarations: [
@@ -97,7 +98,8 @@ import { CalendarComponent } from './tables/calendar/calendar.component';
         VacancyRespondDialogComponent,
         VacancyCompetenceScoreDialogComponent,
         PlaceComponent,
-        CalendarComponent
+        CalendarComponent,
+        VacancyAnalysisComponent
     ],
   imports: [
     BrowserModule,
