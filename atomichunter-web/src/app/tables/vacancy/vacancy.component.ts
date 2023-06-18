@@ -8,11 +8,13 @@ import {Vacancy} from 'src/app/dto/Vacancy';
 import {LoadingCellRendererComponent} from 'src/app/platform/loading-cell-renderer/loading-cell-renderer.component';
 import {VacancyService} from 'src/app/services/vacancy.service';
 import {StaffUnitDto} from "../../dto/StaffUnitDto";
+import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'app-vacancy',
     templateUrl: './vacancy.component.html',
-    styleUrls: ['./vacancy.component.scss']
+    styleUrls: ['./vacancy.component.scss'],
+    providers: [DatePipe]
 })
 export class VacancyComponent {
 
@@ -28,15 +30,30 @@ export class VacancyComponent {
     reportDialogVisible: boolean = false;
     additionalInformationForReport: string = "";
 
+    filterParams: IDateFilterParams = {
+        comparator: (filterLocalDateAtMidnight: Date, cellValue: number) => {
+            let dateAsString = this.datePipe.transform(cellValue * 1000, 'dd.MM.yyyy');
+            if (dateAsString == null) return -1;
+
+            // let dateParts = dateAsString.split('/');
+            let cellDate = dateAsString;
+
+            if (filterLocalDateAtMidnight.toLocaleDateString() === cellDate) {
+                return 0;
+            }
+            if (cellDate !== filterLocalDateAtMidnight.toLocaleDateString()) {
+                return -1;
+            }
+            return 0;
+        }
+    }
+
     public columnDefs: ColDef[] = [
         {field: 'id', headerName: 'Идентификатор', filter: 'agNumberColumnFilter'},
         {field: 'position.name', headerName: 'Должность', filter: 'agTextColumnFilter'},
         {field: 'conditions', headerName: 'Условия', filter: 'agTextColumnFilter'},
         {field: 'responsibilities', headerName: 'Обязаности', filter: 'agTextColumnFilter'},
         {field: 'requirements', headerName: 'Условия', filter: 'agTextColumnFilter'},
-        // {field: 'releaseDate', headerName: 'Дата поставки' , hide: this.showArchive, cellRenderer: (data: { value: string | number | Date; }) => {
-        //         return data.value ? (new Date(data.value)).toLocaleDateString() : '';
-        //     }},
         {
             field: 'archive', headerName: 'Архив', hide: !this.showArchive,
             cellRenderer: (params: { value: any; }) => {
@@ -44,43 +61,24 @@ export class VacancyComponent {
             }
         },
         {
-            field: 'createInstant', headerName: 'Дата создания', filter: 'agDateColumnFilter',
+            field: 'createInstant',
+            headerName: 'Дата создания',
+            filterParams: this.filterParams,
+            filter: 'agDateColumnFilter',
             cellRenderer: (data: { value: number }) => {
-                return data.value ? new Date(data.value * 1000).toLocaleDateString()
-                    + ' ' + new Date(data.value * 1000).toLocaleTimeString() : '';
+                return data.value ? this.datePipe.transform(data.value * 1000, 'dd.MM.yyyy') : '';
             }
         },
         {
-            field: 'modifyInstant', headerName: 'Дата последнего редактирования', filter: 'agDateColumnFilter',
+            field: 'modifyInstant',
+            headerName: 'Дата последнего редактирования',
+            filterParams: this.filterParams,
+            filter: 'agDateColumnFilter',
             cellRenderer: (data: { value: number }) => {
-                return data.value ? new Date(data.value * 1000).toLocaleDateString()
-                    + ' ' + new Date(data.value * 1000).toLocaleTimeString() : '';
+                return data.value ? this.datePipe.transform(data.value * 1000, 'dd.MM.yyyy') : '';
             }
         },
     ];
-
-    filterParams: IDateFilterParams = {
-        comparator: (filterLocalDateAtMidnight: Date, cellValue: string) => {
-            let dateAsString = cellValue;
-            if (dateAsString == null) return -1;
-            let dateParts = dateAsString.split('/');
-            let cellDate = new Date(
-                Number(dateParts[2]),
-                Number(dateParts[1]) - 1,
-                Number(dateParts[0])
-            );
-            if (filterLocalDateAtMidnight.getTime() === cellDate.getTime()) {
-                return 0;
-            }
-            if (cellDate < filterLocalDateAtMidnight) {
-                return -1;
-            }
-            if (cellDate > filterLocalDateAtMidnight) {
-                return 1;
-            }
-            return 0;
-        }
-    }
 
     public loadingCellRenderer: any = LoadingCellRendererComponent;
     public loadingCellRendererParams: any = {
@@ -108,6 +106,7 @@ export class VacancyComponent {
 
     constructor(public vacancyService: VacancyService,
                 public router: Router,
+                private datePipe: DatePipe,
                 public http: HttpClient,
                 private confirmationService: ConfirmationService,
                 private messageService: MessageService) {
