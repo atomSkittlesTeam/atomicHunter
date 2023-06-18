@@ -121,7 +121,7 @@ public class VacancyReader {
                 VacancyCompetenceScoreDto.class,
                 vacancyCompetenceScore.id,
                 vacancyCompetenceScore.vacancyCompetenceId,
-                vacancyCompetenceScore.maintainerId,
+                vacancyCompetenceScore.employeeId,
                 vacancyCompetenceScore.score,
                 vacancyCompetenceScore.vacancyRespondId,
                 vacancyCompetenceScore.interviewId,

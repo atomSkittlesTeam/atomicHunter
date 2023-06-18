@@ -23,6 +23,15 @@
                             [style]="{width: '100%'}"
                             [optionLabel]="'employeeFullName'"></p-dropdown>
             </div>
+
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon" style="width: 120px">Комментарий</span>
+
+                <textarea [(ngModel)]="vacancyCompetenceScoreRequest.comment"
+                          [autoResize]="true"
+                          name="comment"
+                          placeholder="Место для комментария" pInputTextarea></textarea>
+            </div>
             <div class="personal-skills">
                 <div class="flex flex-wrap gap-3 info-block">
                     <div class="personal-skills__header">
@@ -57,7 +66,7 @@
 
         <p-button icon="pi pi-check"
                   (onClick)="onSubmit($event)"
-                  [disabled]="!f.valid || isInvalidSumWeight()"
+                  [disabled]="!f.valid "
                   [label]="getSaveLabel()"
                   styleClass="tiffany-button">
         </p-button>
@@ -69,13 +78,13 @@
         <div class="main-block" *ngFor="let competenceGroup of competenceGroupsWithCompetences; let indexGroup = index">
             <div class="main-block__first">
                 <div class="main-block__title">{{competenceGroup.competenceGroup.name}}</div>
-                <!--                <div class="main-block__add">-->
-                <!--                    <p-button-->
-                <!--                            icon="pi pi-plus"-->
-                <!--                            styleClass="tiffany-button "-->
-                <!--                            (onClick)="pushNewSkill(index)">-->
-                <!--                    </p-button>-->
-                <!--                </div>-->
+                <div class="main-block__add">
+                    <p-button
+                            icon="pi pi-plus"
+                            styleClass="tiffany-button "
+                            (onClick)="pushGroupSkills(competenceGroup.competences)">
+                    </p-button>
+                </div>
             </div>
 
             <div class="dop-info">

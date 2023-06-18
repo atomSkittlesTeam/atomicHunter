@@ -7,7 +7,11 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.vniia.skittles.dto.CompetenceWeightScoreDto;
 import net.vniia.skittles.dto.VacancyCompetenceScoreDto;
+import net.vniia.skittles.dto.VacancyCompetenceScoreRequestDto;
+
+import java.util.UUID;
 
 @Entity
 @Data
@@ -17,22 +21,31 @@ public class VacancyCompetenceScore {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private Long vacancyCompetenceId;
-
     private Long vacancyRespondId;
-
     private Long interviewId;
-
-    private Long maintainerId;
-
-    private Integer score;
+    private UUID employeeId;
+    private Long score;
+    private Long weight;
+    private String comment;
 
     public VacancyCompetenceScore(VacancyCompetenceScoreDto vacancyCompetenceScoreDto) {
         this.vacancyCompetenceId = vacancyCompetenceScoreDto.getVacancyCompetenceId();
-        this.maintainerId = vacancyCompetenceScoreDto.getMaintainerId();
+        this.employeeId = vacancyCompetenceScoreDto.getEmployeeId();
         this.vacancyRespondId = vacancyCompetenceScoreDto.getVacancyRespondId();
         this.interviewId = vacancyCompetenceScoreDto.getInterviewId();
         this.score = vacancyCompetenceScoreDto.getScore();
+        this.weight = vacancyCompetenceScoreDto.getWeight();
+        this.comment = vacancyCompetenceScoreDto.getComment();
+    }
+
+    public VacancyCompetenceScore(VacancyCompetenceScoreRequestDto requestDto, CompetenceWeightScoreDto competenceWeightScoreDto) {
+        this.vacancyCompetenceId = competenceWeightScoreDto.getCompetence().getId();
+        this.score = competenceWeightScoreDto.getScore();
+        this.weight = competenceWeightScoreDto.getWeight();
+        this.vacancyRespondId = requestDto.getVacancyRespondId();
+        this.interviewId = requestDto.getInterviewId();
+        this.employeeId = requestDto.getEmployee().getId();
+        this.comment = requestDto.getComment();
     }
 }
