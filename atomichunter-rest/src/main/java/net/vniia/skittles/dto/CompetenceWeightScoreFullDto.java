@@ -12,9 +12,7 @@ import java.util.UUID;
 public class CompetenceWeightScoreFullDto {
     private CompetenceDto competence;
     private VacancyRespondDto vacancyRespond;
-    private Long vacancyCompetenceId;
     private long weight;
     private long score;
-    private String comment;
     private UUID employeeId;
 }

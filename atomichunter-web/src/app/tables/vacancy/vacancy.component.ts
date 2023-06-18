@@ -33,7 +33,7 @@ export class VacancyComponent {
         {field: 'position.name', headerName: 'Должность', filter: 'agTextColumnFilter'},
         {field: 'conditions', headerName: 'Условия', filter: 'agTextColumnFilter'},
         {field: 'responsibilities', headerName: 'Обязаности', filter: 'agTextColumnFilter'},
-        {field: 'requirements', headerName: 'Условия', filter: 'agTextColumnFilter'},
+        {field: 'requirements', headerName: 'Требования', filter: 'agTextColumnFilter'},
         // {field: 'releaseDate', headerName: 'Дата поставки' , hide: this.showArchive, cellRenderer: (data: { value: string | number | Date; }) => {
         //         return data.value ? (new Date(data.value)).toLocaleDateString() : '';
         //     }},
