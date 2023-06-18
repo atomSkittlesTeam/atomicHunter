@@ -4,7 +4,6 @@ import biweekly.Biweekly;
 import biweekly.ICalendar;
 import biweekly.component.VEvent;
 import biweekly.property.Method;
-import biweekly.util.Duration;
 import jakarta.activation.DataHandler;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
@@ -27,8 +26,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -97,18 +96,24 @@ public class EmailService {
         emailSender.send(mimeMessage);
     }
 
-    public static String generateICalDataForInvite(String consumerEmail) throws IOException {
+    public static String generateICalDataForInterviewInvite(
+            String summary,
+            String description,
+            Date interviewStartDate,
+            Date interviewEndDate) throws IOException {
         ICalendar ical = new ICalendar();
         ical.addProperty(new Method(Method.PUBLISH));
 
         VEvent event = new VEvent();
-        event.setSummary("Приглашение на собеседование");
-        event.setDescription("Приглашаем вас пройти собеседование в компании");
-        event.setDateStart(new Date());
-//        event.setDateEnd();
-        event.setDuration(new Duration.Builder()
-                .hours(1)
-                .build());
+//        event.setSummary("Приглашение на собеседование");
+//        event.setDescription("Собеседование в компании Атомпродукт");
+        event.setSummary(summary);
+        event.setDescription(description);
+        event.setDateStart(interviewStartDate);
+        event.setDateEnd(interviewEndDate);
+//        event.setDuration(new Duration.Builder()
+//                .hours(1)
+//                .build());
 
 //        event.setOrganizer(new Organizer("Atomic Hunter", MailConfiguration.SERVICE_EMAIL));
 
@@ -121,22 +126,28 @@ public class EmailService {
         return Biweekly.write(ical).go();
     }
 
-    public void sendInterviewInvite(String subject, String consumerEmail, Long vacancyRespondId) throws Exception {
+    public void sendInterviewInvite(String subject,
+                                     List<String> consumerEmail,
+                                     String summary,
+                                     String description,
+                                     Date interviewStartDate,
+                                     Date interviewEndDate) throws Exception {
 
         MimeMessage mimeMessage = emailSender.createMimeMessage();
         InternetAddress sender = new InternetAddress(serviceMail, "Atomic Hunter");
-        InternetAddress consumer = new InternetAddress(consumerEmail);
 
-//        mimeMessage.addHeaderLine("method=PUBLISH");
-//        mimeMessage.addHeaderLine("charset=UTF-8");
-//        mimeMessage.addHeaderLine("component=VEVENT");
         mimeMessage.setFrom(sender);
-        mimeMessage.addRecipient(Message.RecipientType.TO, consumer);
-//        mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(""));
+
+        for (String s : consumerEmail) {
+            InternetAddress consumer = new InternetAddress(s);
+            mimeMessage.addRecipient(Message.RecipientType.TO, consumer);
+        }
+
         mimeMessage.setSubject(subject);
 
         StringBuilder builder = new StringBuilder();
-        builder.append(generateICalDataForInvite(consumerEmail));
+
+        builder.append(generateICalDataForInterviewInvite(summary, description, interviewStartDate, interviewEndDate));
 
         MimeBodyPart messageBodyPart = new MimeBodyPart();
 
@@ -147,18 +158,18 @@ public class EmailService {
 
         MimeBodyPart textPart = new MimeBodyPart();
 
-        ConfirmationToken confirmationToken = this.createConfirmationTokenInterviewInvite(consumerEmail, vacancyRespondId);
+//        ConfirmationToken confirmationToken = this.createConfirmationTokenInterviewInvite(consumerEmail, vacancyRespondId);
         String html = resourceHelper.getResourceAsString(this.inviteMailHtml);
 
-        if (this.serviceAddress == null) {
-            this.serviceAddress = InetAddress.getLoopbackAddress().getHostAddress();
-        }
+//        if (this.serviceAddress == null) {
+//            this.serviceAddress = InetAddress.getLoopbackAddress().getHostAddress();
+//        }
 
-        String address = "http://" + this.serviceAddress + ":" + runningPort +
-                "/confirmation?token="
-                + confirmationToken.getConfirmationToken();
-        html = html.replaceAll("a href=\"#\"", String.format("a href=\"%s\"", serviceAddress));
-        textPart.setContent(html + address, "text/html; charset=utf-8");
+//        String address = "http://" + this.serviceAddress + ":" + runningPort +
+//                "/confirmation?token="
+//                + confirmationToken.getConfirmationToken();
+//        html = html.replaceAll("a href=\"#\"", String.format("a href=\"%s\"", serviceAddress));
+        textPart.setContent(html, "text/html; charset=utf-8");
 
         MimeMultipart multipart = new MimeMultipart();
 

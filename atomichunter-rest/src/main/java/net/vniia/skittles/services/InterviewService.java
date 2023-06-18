@@ -8,16 +8,14 @@ import net.vniia.skittles.entities.Interview;
 import net.vniia.skittles.entities.InterviewEmployee;
 import net.vniia.skittles.entities.VacancyCompetence;
 import net.vniia.skittles.entities.VacancyRespond;
+import net.vniia.skittles.readers.EmployeeReader;
 import net.vniia.skittles.readers.InterviewReader;
 import net.vniia.skittles.repositories.InterviewEmployeeRepository;
 import net.vniia.skittles.repositories.InterviewRepository;
 import net.vniia.skittles.repositories.VacancyRespondRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -35,6 +33,8 @@ public class InterviewService {
 
     private final InterviewReader interviewReader;
 
+    private final EmployeeReader employeeReader;
+
     @Transactional
     public void createInterview(Long vacancyRespondId, InterviewDto interviewDto) throws Exception {
         VacancyRespond vacancyRespond = vacancyRespondRepository.findById(vacancyRespondId)
@@ -50,12 +50,29 @@ public class InterviewService {
             }
         }
 
-        // @TODO send to candidate
-//        this.emailService.sendInterviewInvite("Приглашение на собеседование!",
-//                vacancyRespond.getEmail(), vacancyRespond.getId());
+        List<EmployeeDto> employeeDtoList = employeeReader
+                .getInterviewEmployees(interview.getId());
 
-        // send to employees
+        // сотрудникам
+        List<String> emails = employeeDtoList.stream().map(EmployeeDto::getEmail).toList();
+        // кандидату
+        emails.add(vacancyRespond.getEmail());
+
+        this.sendInviteForInterview(emails,
+                Date.from(interview.getDateStart()), Date.from(interview.getDateEnd()));
     }
+
+    public void sendInviteForInterview(List<String> emails, Date interviewStartDate, Date interviewEndDate)
+            throws Exception {
+        this.emailService.sendInterviewInvite("Приглашение на собеседование!",
+                emails,
+                "Собеседование",
+                "Собеседование в компании Атомпродукт",
+                interviewStartDate,
+                interviewEndDate
+        );
+    }
+
     @Transactional
     public InterviewDto updateInterviewById(Long interviewId, InterviewDto interviewDto) {
         Interview interview = interviewRepository.findById(interviewId).orElseThrow(
