@@ -62,11 +62,16 @@ public class InterviewService {
         List<EmployeeDto> employeeDtoList = employeeReader
                 .getInterviewEmployees(interview.getId());
 
-        List<String> emails = new ArrayList<>(employeeDtoList.stream().map(EmployeeDto::getEmail).toList());
+        List<String> emails = new ArrayList<>(employeeDtoList.stream()
+                .map(EmployeeDto::getEmail)
+                .filter(Objects::nonNull)
+                .toList());
 
         // кандидату
-        this.sendInviteForInterviewForRespond(vacancyRespond, vacancyRespond.getEmail(),
-                Date.from(interview.getDateStart()), Date.from(interview.getDateEnd()));
+        if (vacancyRespond.getEmail() != null) {
+            this.sendInviteForInterviewForRespond(vacancyRespond, vacancyRespond.getEmail(),
+                    Date.from(interview.getDateStart()), Date.from(interview.getDateEnd()));
+        }
 
         // сотрудникам
         this.sendInviteForInterviewForEmployees(
