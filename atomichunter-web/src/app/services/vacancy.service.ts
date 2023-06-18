@@ -66,6 +66,11 @@ export class VacancyService extends BaseService {
         return await firstValueFrom(this.http.post<VacancyCompetenceScoreRequestDto>(url + '/vacancy/competence-score/add', vacancyCompScoreReq));
     }
 
+    async validateVacancyCompetenceScoreByEmployeeId(employeeId: string, vacancyPositionId: number) {
+        const url = await this.getBackendUrl();
+        return await firstValueFrom(this.http.get<boolean>(url + `/vacancy/competence-score/${employeeId}/${vacancyPositionId}/validation`));
+    }
+
     async getVacancyRespondById(id: number) {
         const url = await this.getBackendUrl();
         return await firstValueFrom(this.http.get<VacancyRespond>(url + `/vacancy/respond/${id}`));

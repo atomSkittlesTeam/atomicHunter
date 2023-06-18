@@ -12,6 +12,7 @@ import {StaffUnitDto} from "../../dto/StaffUnitDto";
 import {Employee} from "../../dto/Employee";
 import {OrgStructService} from "../../services/org-struct.service";
 import {CompetenceService} from "../../services/competence.service";
+import {CompetenceWeightScore} from "../../dto/CompetenceWeightScore";
 
 @Component({
   selector: "app-vacancy-respond",
@@ -61,6 +62,7 @@ export class VacancyRespondComponent {
   public rowData: any[] = [];
   employees: Employee[] = [];
   selectedEmployee: Employee;
+  competenceWeightScoreForExpert: CompetenceWeightScore[] = [];
 
 
   public overlayLoadingTemplate = "<div class=\"loading-text\"> Загрузка...</div> ";
@@ -333,6 +335,7 @@ export class VacancyRespondComponent {
 
   async onDialogSubmit($event: any) {
     this.openDialogVacancyComp = false;
+    this.competenceWeightScoreForExpert = [];
     if ($event) {
       await this.getRespondByVacancyIdFromApi();
     }
@@ -342,8 +345,8 @@ export class VacancyRespondComponent {
     this.visible = false;
   }
 
-  showExpertCart() {
-    let test =  this.competenceService.getEmployeesWithScoreForRespond(this.selectedVacancyRespond.id);
-    // this.employees = this.competenceService.getEmployeesWithScoreForRespond(this.selectedVacancyRespond.id)
+  async showExpertCart() {
+    this.competenceWeightScoreForExpert = await this.competenceService.getVacancyCompetenceScoreForEmployee(this.selectedVacancyRespond.id, this.selectedEmployee.id);
+    this.openDialogVacancyComp = true;
   }
 }

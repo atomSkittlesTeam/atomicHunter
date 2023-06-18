@@ -57,6 +57,11 @@ export class CompetenceService extends BaseService {
         return await firstValueFrom(this.http.get<Employee[]>(url + `/competence/${vacancyRespondId}/employees`));
     }
 
+    async getVacancyCompetenceScoreForEmployee(vacancyRespondId: number, employeeId: string) {
+        const url = await this.getBackendUrl();
+        return await firstValueFrom(this.http.get<CompetenceWeightScore[]>(url + `/competence/${vacancyRespondId}/employees/${employeeId}`));
+    }
+
     async createCompetenceGroup(competenceGroup: CompetenceGroupDto) {
         const url = await this.getBackendUrl();
         return await firstValueFrom(this.http.post(url + '/competence/group', competenceGroup));

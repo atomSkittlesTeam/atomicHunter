@@ -15,13 +15,16 @@
             <!--            </div>-->
 
             <div class="p-inputgroup">
-                <span class="p-inputgroup-addon" style="width: 120px">HR</span>
+                <span class="p-inputgroup-addon" style="width: 120px">Эксперт</span>
                 <p-dropdown [options]="employees"
                             appendTo="body"
                             [(ngModel)]="staffUnit.employee"
                             name="firstName"
                             [style]="{width: '100%'}"
-                            [optionLabel]="'employeeFullName'"></p-dropdown>
+                            (ngModelChange)="validateExpertScore()"
+                            [optionLabel]="'employeeFullName'"
+                            [disabled]="competenceWeightScoreForExpert.length > 0"
+                ></p-dropdown>
             </div>
 
             <div class="p-inputgroup">
@@ -32,6 +35,9 @@
                           name="comment"
                           placeholder="Введите комментарий к собеседованию" pInputTextarea></textarea>
             </div>
+            <span class="fail" *ngIf="!blockCreate"
+                  style="color:red"> Этот эксперт уже оценивал</span>
+
             <div class="personal-skills">
                 <div class="flex flex-wrap gap-3 info-block">
                     <div class="personal-skills__header">
@@ -66,7 +72,7 @@
 
         <p-button icon="pi pi-check"
                   (onClick)="onSubmit($event)"
-                  [disabled]="!f.valid "
+                  [disabled]="!f.valid || !blockCreate"
                   [label]="getSaveLabel()"
                   styleClass="tiffany-button">
         </p-button>
