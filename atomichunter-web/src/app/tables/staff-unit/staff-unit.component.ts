@@ -137,6 +137,7 @@ export class StaffUnitComponent {
 
     async onDialogSubmit($event: any) {
         this.openDialog = false;
+        this.selectedStaff = new StaffUnitDto();
         if ($event) {
             await this.getAllStaffUnitsFromApi();
         }

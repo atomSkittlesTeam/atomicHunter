@@ -41,6 +41,9 @@ export class VacancyRequestComponent {
             if (typeof this.interview.dateEnd === "number") {
                 this.interview.dateEnd = new Date(this.interview.dateEnd * 1000);
             }
+            if (this.interview?.employees) {
+                this.selectedEmployees = this.interview.employees;
+            }
 
             if (typeof this.interview.dateStart === "number") {
                 this.interview.dateStart = new Date(this.interview.dateStart * 1000);
@@ -78,6 +81,10 @@ export class VacancyRequestComponent {
     async onSubmit($event?: any) {
         this.interview.employees = this.selectedEmployees;
         try {
+            if (this.selectedEmployees) {
+                this.interview.employees = this.selectedEmployees;
+            }
+
             if (this.editMode) {
                 await this.inviteService.updateInterview(this.selectedVacancyRespond.interviewId, this.interview);
                 this.messageService.add({
