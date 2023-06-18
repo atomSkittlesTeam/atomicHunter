@@ -342,6 +342,7 @@ export class VacancyRespondComponent {
     this.openDialogVacancyComp = false;
     this.competenceWeightScoreForExpert = [];
     this.selectedEmployee = new Employee();
+    this.staffUnit = new StaffUnitDto();
     if ($event) {
       await this.getRespondByVacancyIdFromApi();
     }
