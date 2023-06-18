@@ -66,6 +66,11 @@ export class VacancyRequestComponent {
         }
     }
 
+    placeSaveToObject() {
+        console.log(this.interview);
+        // console.log(this.interview.place);
+    }
+
     async openSidebarWithAllSkills() {
         this.showSidebarWithAllSkills = true;
         this.employees = await this.orgStructService.getEmployees();
@@ -123,10 +128,15 @@ export class VacancyRequestComponent {
     addEmployeeToList(employee: Employee) {
         if (!(this.selectedEmployees.find(emp => emp.id === employee.id))) {
             this.selectedEmployees.push(employee);
+            this.validateChecker();
         }
     }
 
     deleteSkill(id: string) {
         this.selectedEmployees = this.selectedEmployees.filter(e => e.id !== id);
+    }
+
+    validateChecker() {
+        this.inviteService.validateInterview(this.interview);
     }
 }

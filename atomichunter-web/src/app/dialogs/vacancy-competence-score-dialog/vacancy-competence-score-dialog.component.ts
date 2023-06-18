@@ -106,6 +106,8 @@ export class VacancyCompetenceScoreDialogComponent {
         this.loading = true;
         await this.getAllPositionsFromApi();
         await this.getEmployeeFromApi();
+        console.log(this.employeeExpert)
+        console.log(this.staffUnit)
         let competenceWeightScoreForExpert: CompetenceWeightScore[] = this.competenceWeightScoreForExpert;
         if (competenceWeightScoreForExpert.length === 0) {
             this.competenceWeightScores = await this.competenceService.getCompetencesWeightScoreById(this.itemRespond.id);
@@ -117,9 +119,9 @@ export class VacancyCompetenceScoreDialogComponent {
         this.competenceGroupsWithCompetences = await this.competenceService.getAllCompetenceTree();
         if (this.editMode) {
             this._item = await this.vacancyService.getVacancyById(this._item.id);
-            this.dialogTitle = "Редактирование вакансии";
+            this.dialogTitle = "Оценка экспертом";
         } else {
-            this.dialogTitle = "Регистрация вакансии";
+            this.dialogTitle = "Просмотр Эксперта";
         }
         this.loading = false;
     }

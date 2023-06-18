@@ -12,6 +12,8 @@
                             appendTo="body"
                             [(ngModel)]="interview.place"
                             name="placeDrop"
+                            (ngModelChange)="validateChecker()"
+                            [required]="true"
                             [style]="{width: '100%'}"></p-dropdown>
             </div>
 
@@ -21,6 +23,7 @@
                             [(ngModel)]="interview.dateStart"
                             [showTime]="true"
                             appendTo="body"
+                            (ngModelChange)="validateChecker()"
                             [required]="true"
                             placeholder="Введите дату и время"
                 ></p-calendar>
@@ -33,6 +36,7 @@
                             [(ngModel)]="interview.dateEnd"
                             [showTime]="true"
                             [required]="true"
+                            (ngModelChange)="validateChecker()"
                             appendTo="body"
                             placeholder="Введите дату и время"
                 ></p-calendar>
@@ -44,7 +48,7 @@
                     pTooltip="Добавить участника"
                     label="Новый участник"
                     styleClass="tiffany-button"
-                    style="width: 125px"
+                    [style]="{width: '150px'}"
                     (click)="openSidebarWithAllSkills()"
             >
             </p-button>
@@ -71,7 +75,7 @@
         <div class="flex justify-content-center">
             <p-button icon="pi pi-check"
                       (onClick)="onSubmit($event)"
-                      [disabled]="!f.valid"
+                      [disabled]="!f.valid || selectedEmployees.length === 0"
                       [label]="getSaveLabel()"
                       styleClass="tiffany-button">
             </p-button>

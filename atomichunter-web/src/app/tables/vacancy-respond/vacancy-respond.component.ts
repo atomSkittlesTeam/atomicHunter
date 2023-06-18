@@ -113,6 +113,11 @@ export class VacancyRespondComponent {
             icon: "pi pi-star",
             command: () => {
               if (this.selectedVacancyRespond.id) {
+                console.log(this.selectedEmployee)
+                console.log(this.selectedVacancyRespond)
+                console.log(this.competenceWeightScoreForExpert)
+                this.selectedEmployee = new Employee();
+                this.competenceWeightScoreForExpert = [];
                 this.openDialogVacancyComp = true;
               }
             }
@@ -336,6 +341,7 @@ export class VacancyRespondComponent {
   async onDialogSubmit($event: any) {
     this.openDialogVacancyComp = false;
     this.competenceWeightScoreForExpert = [];
+    this.selectedEmployee = new Employee();
     if ($event) {
       await this.getRespondByVacancyIdFromApi();
     }
