@@ -139,7 +139,9 @@ public class ReportService {
 
         document.add(img).setTextAlignment(TextAlignment.JUSTIFIED);
         document.add(new Paragraph("ЛИЧНО И КОНФИДЕНЦИАЛЬНО").setBold().setFont(font));
-        document.add(new Paragraph(vacancyWithRespondDto.getVacancyRespond().getFullName()).setFont(font));
+        document.add(new Paragraph(vacancyWithRespondDto.getVacancyRespond().getLastName() + " "
+                + vacancyWithRespondDto.getVacancyRespond().getFirstName())
+                .setFont(font));
         document.add(new Paragraph("Дата: " + LocalDate.now()).setFont(font));
 
         document.add(new Paragraph(
@@ -221,7 +223,9 @@ public class ReportService {
 
         document.add(img).setTextAlignment(TextAlignment.JUSTIFIED);
         document.add(new Paragraph("ЛИЧНО И КОНФИДЕНЦИАЛЬНО").setBold().setFont(font));
-        document.add(new Paragraph("Кому: " + vacancyWithRespondDto.getVacancyRespond().getFullName()).setFont(font));
+        document.add(new Paragraph(vacancyWithRespondDto.getVacancyRespond().getLastName() + " "
+                + vacancyWithRespondDto.getVacancyRespond().getFirstName())
+                .setFont(font));
         document.add(new Paragraph("Дата: " + LocalDate.now()).setFont(font));
 
         document.add(new Paragraph(

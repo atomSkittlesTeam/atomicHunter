@@ -243,8 +243,8 @@ class EmployeeRequest {
 
     public EmployeeRequest(Vacancy vacancy, VacancyRespond vacancyRespond) {
         this.staffUnitId = vacancy.getStaffUnitId();
-        this.firstName = vacancyRespond.getFullName();
-        this.lastName = vacancyRespond.getFullName();
+        this.firstName = vacancyRespond.getFirstName();
+        this.lastName = vacancyRespond.getLastName();
         this.email = vacancyRespond.getEmail();
     }
 }
