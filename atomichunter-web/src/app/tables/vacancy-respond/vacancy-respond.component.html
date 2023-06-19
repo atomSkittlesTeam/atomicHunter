@@ -33,6 +33,15 @@
       <p-menu #menu [model]="items" [popup]="true" appendTo="body"></p-menu>
     </div>
 
+    <p-button
+            icon="pi pi-chart-bar"
+            styleClass="p-button-outlined"
+            [pTooltip]="'Сравнение кандидатов'"
+            [disabled]="!vacancy"
+            [routerLink]="'/vacancyAnalysis/' + this.vacancy?.id">
+    </p-button>
+
+
     <!--    <div class="card flex justify-content-center">-->
     <!--      <p-inputSwitch [(ngModel)]="showArchive" (ngModelChange)="showArchivePressed()">Показывать архив</p-inputSwitch>-->
     <!--      <span>Показывать архив</span>-->

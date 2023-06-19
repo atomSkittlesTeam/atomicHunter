@@ -24,6 +24,7 @@ public class CompetenceReader {
     private static final QVacancyCompetence vacancyCompetence = QVacancyCompetence.vacancyCompetence;
 
     private static final QEmployee employee = QEmployee.employee;
+    private static final QInterview interview = QInterview.interview;
 
     private static final QVacancyCompetenceScore vacancyCompetenceScore = QVacancyCompetenceScore.vacancyCompetenceScore;
 
@@ -140,6 +141,7 @@ public class CompetenceReader {
                     .innerJoin(vacancyCompetence).on(vacancyCompetence.id.eq(vacancyCompetenceScore.vacancyCompetenceId))
                     .innerJoin(competence).on(competence.id.eq(vacancyCompetence.competenceId))
                     .innerJoin(vacancyRespond).on(vacancyRespond.id.eq(vacancyCompetenceScore.vacancyRespondId))
+                    .leftJoin(interview).on(interview.vacancyRespondId.eq(vacancyRespond.id))
                     .where(vacancyCompetence.vacancyId.eq(vacancyId))
                     .select(Projections.bean(
                             CompetenceWeightScoreFullDto.class,

@@ -30,7 +30,7 @@
             <div class="p-inputgroup">
                 <span class="p-inputgroup-addon" style="width: 230px">Url для резюме кандидата </span>
                 <input [(ngModel)]="item.pathToResume"
-                       pattern="^http\w+([\.-]?\w+)*(\.pdf)+$"
+                       pattern="^http.+(\.pdf)+$"
                        name="pathToResume"
                        placeholder="Введите url для резюме кандидата. Убедитесь в правильности введенной ссылки"
                        [required]="!!item.pathToResume" pInputText/>

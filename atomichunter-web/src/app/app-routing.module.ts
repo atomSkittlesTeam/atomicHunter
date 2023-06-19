@@ -16,6 +16,7 @@ import {PositionsComponent} from "./tables/positions/positions.component";
 import {CompetenceGroupComponent} from "./tables/competence-group/competence-group.component";
 import {PlaceComponent} from "./tables/place/place.component";
 import {CalendarComponent} from "./tables/calendar/calendar.component";
+import {VacancyAnalysisComponent} from "./tables/vacancy-analysis/vacancy-analysis.component";
 
 const routes: Routes = [
     {path: '', component: NavigationComponent, canActivate: [AuthGuard]},
@@ -32,7 +33,8 @@ const routes: Routes = [
     {path: 'competenceGroup', component: CompetenceGroupComponent, canActivate: [AuthGuard]},
     {path: 'analytics', component: AnalyticsComponent},
     {path: '3ple', component: MasterDetailDetailComponent},
-    {path: 'vacancyRequest', component: VacancyRequestComponent}
+    {path: 'vacancyRequest', component: VacancyRequestComponent},
+    {path: 'vacancyAnalysis/:id', component: VacancyAnalysisComponent}
 ];
 
 @NgModule({
