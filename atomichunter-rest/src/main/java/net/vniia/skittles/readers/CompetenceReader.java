@@ -31,6 +31,8 @@ public class CompetenceReader {
 
     private static final QVacancyRespond vacancyRespond = QVacancyRespond.vacancyRespond;
 
+    private static final QVacancy vacancy = QVacancy.vacancy;
+
     public static QBean<CompetenceDto> getMappedSelectForCompetenceDto() {
         return Projections.bean(
                 CompetenceDto.class,
@@ -156,5 +158,15 @@ public class CompetenceReader {
             weightScoreDtos.where(vacancyRespond.id.in(checkedIds));
         }
         return weightScoreDtos.fetch();
+    }
+
+    public List<Vacancy> findVacanciesByCompetences(List<Long> competenceIds, Long exceptVacancyId) {
+        return queryFactory.from(vacancy)
+                .innerJoin(vacancyCompetence).on(vacancyCompetence.vacancyId.eq(vacancy.id)
+                    .and(vacancyCompetence.competenceId.in(competenceIds))
+                )
+                .where(vacancy.id.ne(exceptVacancyId))
+                .select(vacancy)
+                .fetch();
     }
 }
