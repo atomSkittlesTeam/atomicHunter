@@ -3,13 +3,14 @@
 
 Система **Atomic Hunter** разработана в соответствии с трёхзвенной архитектурой. Данная система включает в себя клиентское веб-приложение и сервис, которые разработаны с помощью решений с открытым исходным кодом. Веб-приложение разработано c помощью веб-фреймворка **Angular 15**. Серверная часть представляет собой сервис, разработанный с помощью **Java 17** и фреймворка **Spring Boot 3**. Данный набор технологий обеспечивает кроссплатформенность приложения. Java-сервис может быть запущен на любой платформе, поддерживающей Java-машину. Клиентское веб-приложение может быть использовано на любом устройстве с браузером, в том числе на мобильном устройстве.
 
-Веб приложение взаимодействует с сервисом с помощью протокола HTTP. Java-сервис имеет в своём составе REST API, с помощью которого обеспечиваются интеграционные возможности, что даёт возможности для дальнейшего масштабирования. 
+Веб приложение взаимодействует с сервисом с помощью протокола HTTP. Java-сервис имеет в своём составе REST API, с помощью которого обеспечиваются интеграционные возможности, что даёт возможности для дальнейшего масштабирования. Java-сервис взаимодействует с внешним окружением (ИС Кадры) про протоколу HTTP каждые 5 секунд. На схеме ИС Кадры изображена в виде блока RemoteRestService.
 
 ```mermaid
-  flowchart TD
+   flowchart TD
       db[(Database)]
       Frontend<-- HTTP -->Backend
       Backend<-- SQL -->db
+      Backend<-- HTTP --> RemoteRestService
 ```
 
 ---
@@ -48,35 +49,125 @@ Backend представлет собой сервис, разработанны
 
 Структура данных разработана на основе ER-диаграммы представленной ниже.
 ```mermaid
-  erDiagram
-      VACANCY ||--o{ VACANCY_RESPOND : has
-      VACANCY ||--|| POSITION : has
-      MATRIX_COMPETENCE }o--|| POSITION : has
-      MATRIX_COMPETENCE }o--|| COMPETENCE : has
+erDiagram
+      VACANCY ||--|| VACANCY_RESPOND : ""
+      VACANCY ||--|| POSITION : ""
+      VACANCY ||--|| STAFF_UNIT : ""
+      VACANCY ||--|| EMPLOYEE : ""
+      VACANCY_COMPETENCE ||--|| COMPETENCE : ""
+      VACANCY_COMPETENCE ||--|| VACANCY : ""
+      VACANCY_COMPETENCE_SCORE ||--|| VACANCY_COMPETENCE : ""
+      VACANCY_COMPETENCE_SCORE ||--|| EMPLOYEE : ""
+      VACANCY_COMPETENCE_SCORE ||--|| VACANCY_RESPOND: ""
+      VACANCY_COMPETENCE_SCORE ||--|| INTERVIEW: ""
+      VACANCY_COMPETENCE_SCORE ||--|| EMPLOYEE: ""
+      INTERVIEW_EMPLOYEE ||--|| EMPLOYEE: ""
+      INTERVIEW_EMPLOYEE ||--|| INTERVIEW: ""
+      INTERVIEW ||--|| PLACE: ""
+      EMPLOYEE_TIME_MAP ||--|| EMPLOYEE: ""
+      EMPLOYEE_TIME_MAP ||--|| INTERVIEW: ""
+      PLACE_TIME_MAP ||--|| PLACE: ""
+      PLACE_TIME_MAP ||--|| INTERVIEW: ""
+      STAFF_UNIT ||--|| POSITION: ""
+      EMPLOYEE ||--|| POSITION: ""
+
       VACANCY {
           int id
-          int salary
-          string description
-          int positionId
+          string name
+          int staffUnitId
+          string positionId
+          string requirements
+          string responsibilities
+          string conditions
+          UUID hrId
+          boolean archive
+          boolean closed
       }
       VACANCY_RESPOND {
           int id
+          int vacancyId
+          string coverLetter
+          string pathToResume
+          boolean archive
           string email
+          string lastName
+          string firstName
+          int averageScore
+          int competenceScoreCount
       }
       POSITION {
           int id
           string name
       }
+      STAFF_UNIT {
+          UUID id
+          string positionId
+          UUID employeeId
+          string status
+          Date closeTime
+      }
+      EMPLOYEE {
+        UUID id
+        String positionId
+        UUID staffUnitId
+        String firstName
+        String lastName
+        String email
+      }
+      VACANCY_COMPETENCE {
+          int id
+          int vacancyId
+          int competenceId
+          int weight
+      }
       COMPETENCE {
-          int id
-          string name
-          string description
+        int id
+        int name
+        boolean binaryLogic
+        int groupId
       }
-      MATRIX_COMPETENCE {
+      VACANCY_COMPETENCE_SCORE {
           int id
-          int position_id
-          int competence_id
+          int vacancyCompetenceId
+          int vacancyRespondId
+          int interviewId
+          UUID employeeId
+          int score
+          int weight
+          string comment
       }
+      INTERVIEW {
+         number id
+         number vacancyRespondId
+         number placeId
+         date dateStart
+         date dateEnd
+      }  
+      INTERVIEW_EMPLOYEE {
+         number id
+         number interviewId
+         UUID employeeId
+      }
+      PLACE {
+         number id
+         string name
+         boolean archive
+      }
+      EMPLOYEE_TIME_MAP {
+        number id
+        UUID employeeId
+        date dateStart
+        date dateEnd
+        number interviewId
+      }
+      PLACE_TIME_MAP {
+        number id
+        number placeId
+        date dateStart
+        date dateEnd
+        number interviewId
+      }
+
 ```
 
 ---
