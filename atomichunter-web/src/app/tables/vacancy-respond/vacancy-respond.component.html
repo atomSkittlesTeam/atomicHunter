@@ -33,12 +33,12 @@
             <p-menu #menu [model]="items" [popup]="true" appendTo="body"></p-menu>
         </div>
 
-        <p-button
+        <p-button *ngIf="!!vacancy"
                 icon="pi pi-chart-bar"
                 styleClass="p-button-outlined"
                 [pTooltip]="'Сравнение кандидатов'"
                 [disabled]="!vacancy"
-                [routerLink]="'/vacancyAnalysis/' + this.vacancy?.id">
+                [routerLink]="'/vacancyAnalysis/' + this.vacancy.id">
         </p-button>
 
 
