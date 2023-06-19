@@ -123,6 +123,7 @@ export class VacancyAnalysisComponent implements OnInit {
             this.listFullNamesWithIdAndCheck = [];
         }
         this.rowData = await this.vacancyService.getVacancyAnalysisByVacancyId(this.vacancyId, checkedIds);
+        this.rowData.sort((a,b) =>  (a.vacancyRespond.id > b.vacancyRespond.id) ? 1 : -1);
         this.rowData.forEach(e => {
             let fullNameAnd = new FullNameWithIdAndCheck(e.vacancyRespond.fullName,
                 e.vacancyRespond.id, false)

@@ -106,6 +106,7 @@ public class VacancyReader {
         return vacancyRespondQuery()
                 .where(vacancyRespond.vacancyId.in(vacancyIds))
                 .where(showArchive ? null : vacancyRespond.archive.eq(false))
+                .orderBy(vacancyRespond.averageScore.desc())
                 .fetch();
     }
 
