@@ -6,6 +6,7 @@ import net.vniia.skittles.entities.Vacancy;
 import net.vniia.skittles.entities.VacancyCompetence;
 import net.vniia.skittles.entities.VacancyCompetenceScore;
 import net.vniia.skittles.entities.VacancyRespond;
+import net.vniia.skittles.integration.OrgStructIntegrationService;
 import net.vniia.skittles.readers.CompetenceReader;
 import net.vniia.skittles.readers.VacancyReader;
 import net.vniia.skittles.repositories.VacancyCompetenceRepository;
@@ -45,6 +46,8 @@ public class VacancyService {
     private final VacancyCompetenceScoreRepository vacancyCompetenceScoreRepository;
 
     private final CompetenceReader competenceReader;
+
+    private final OrgStructIntegrationService orgStructIntegrationService;
 
     @Transactional
     public VacancyDto createVacancy(VacancyDto vacancyDto) {
@@ -130,6 +133,22 @@ public class VacancyService {
                 }
         );
         vacancy.archive();
+    }
+
+    @Transactional
+    public void closeVacancy(Long id, Long vacancyRespondId) {
+        Vacancy vacancy = this.vacancyRepository.findById(id).orElseThrow(
+                () -> {
+                    throw new RuntimeException("Вакансия не найдена!");
+                }
+        );
+        VacancyRespond vacancyRespond = this.vacancyRespondRepository.findById(vacancyRespondId).orElseThrow(
+                () -> {
+                    throw new RuntimeException("Кандидат на вакансию не найден!");
+                }
+        );
+        vacancy.closed();
+        orgStructIntegrationService.registerEmployee(vacancy, vacancyRespond);
     }
 
     @Transactional

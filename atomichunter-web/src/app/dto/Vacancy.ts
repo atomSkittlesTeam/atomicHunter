@@ -18,6 +18,7 @@ export class  Vacancy {
     // сотрудник кадровой службы ответственный за вакансию (join с employId)
     hr: string;
     archive: boolean;
+    closed: boolean;
     createInstant: Date;
     modifyInstant: Date;
     competenceWeight: CompetenceWeight[] = [];

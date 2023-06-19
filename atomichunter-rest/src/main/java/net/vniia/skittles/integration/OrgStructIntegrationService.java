@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.vniia.skittles.configs.OrgStructIntegrationHelper;
 import net.vniia.skittles.dto.*;
+import net.vniia.skittles.entities.Vacancy;
+import net.vniia.skittles.entities.VacancyRespond;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -15,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -163,7 +166,8 @@ public class OrgStructIntegrationService {
         }
     }
 
-    public EmployeeRegistrationResponseDto registerEmployee(EmployeeDto employeeDto) {
+    public void registerEmployee(Vacancy vacancy, VacancyRespond vacancyRespond) {
+        EmployeeRequest requestDto = new EmployeeRequest(vacancy, vacancyRespond);
         try {
             String url = UriComponentsBuilder.fromHttpUrl(this.remoteServiceUrl + "/employees/Register"
                     )
@@ -172,15 +176,13 @@ public class OrgStructIntegrationService {
 
             HttpHeaders headers = helper.createHeaders();
 
-            HttpEntity<EmployeeDto> request = new HttpEntity<EmployeeDto>(employeeDto, headers);
-            ResponseEntity<EmployeeRegistrationResponseDto> response = restTemplate.exchange(url, HttpMethod.POST,
-                    request, EmployeeRegistrationResponseDto.class);
-            EmployeeRegistrationResponseDto employee = response.getBody();
+            HttpEntity<EmployeeRequest> request = new HttpEntity<EmployeeRequest>(requestDto, headers);
+            ResponseEntity<EmployeeResponse> response = restTemplate.exchange(url, HttpMethod.POST,
+                    request, EmployeeResponse.class);
+            EmployeeResponse employee = response.getBody();
             if (employee == null) {
                 log.info("employee by id empty [rest]");
-                return null;
             }
-            return employee;
         } catch (Exception exception) {
             throw new RuntimeException("Ошибка в регистрации сотрудника");
         }
@@ -231,4 +233,22 @@ public class OrgStructIntegrationService {
             throw new RuntimeException("Ошибка в поиске должности по id");
         }
     }
+}
+
+class EmployeeRequest {
+     public UUID staffUnitId;
+    public String firstName;
+    public String lastName;
+    public String email;
+
+    public EmployeeRequest(Vacancy vacancy, VacancyRespond vacancyRespond) {
+        this.staffUnitId = vacancy.getStaffUnitId();
+        this.firstName = vacancyRespond.getFullName();
+        this.lastName = vacancyRespond.getFullName();
+        this.email = vacancyRespond.getEmail();
+    }
+}
+
+class EmployeeResponse {
+    public String result;
 }

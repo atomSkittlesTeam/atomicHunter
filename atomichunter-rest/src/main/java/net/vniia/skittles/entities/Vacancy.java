@@ -46,6 +46,7 @@ public class Vacancy {
     private UUID hrId;
 
     private boolean archive;
+    private boolean closed;
 
 
     @CreationTimestamp
@@ -82,5 +83,8 @@ public class Vacancy {
 
     public void archive() {
         this.archive = true;
+    }
+    public void closed() {
+        this.closed = true;
     }
 }
