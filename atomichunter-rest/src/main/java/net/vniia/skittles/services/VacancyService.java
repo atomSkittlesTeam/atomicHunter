@@ -249,4 +249,22 @@ public class VacancyService {
                 Collections.singletonList(vacancyRespondId));
         return scores.stream().filter(e -> e.getScore() < 4L).toList();
     }
+
+    public String getGoodVacancyForRespondId(Long vacancyId,
+                                             Long vacancyRespondId) {
+        // get good scores from
+        List<CompetenceWeightScoreFullDto> scores = this.getVacancyRespondAnalysis(vacancyId,
+                Collections.singletonList(vacancyRespondId));
+        List<Long> goodCompetenceIds = scores.stream()
+                .filter(e -> e.getScore() > 4L)
+                .map(c -> c.getCompetence().getId())
+                .toList();
+
+        List<Vacancy> vacancies = competenceReader.findVacanciesByCompetences(goodCompetenceIds, vacancyId);
+
+
+        return (vacancies != null && !vacancies.isEmpty()) ?
+                vacancies.stream().map(Vacancy::getName).collect(Collectors.joining(", "))
+                : null;
+    }
 }
