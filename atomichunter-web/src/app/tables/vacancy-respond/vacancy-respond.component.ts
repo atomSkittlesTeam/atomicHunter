@@ -114,7 +114,18 @@ export class VacancyRespondComponent {
             }
           },
           {
+            label: "Удалить",
+            disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id,
+            icon: "pi pi-trash",
+            command: () => {
+              if (this.selectedVacancyRespond.id) {
+                this.archiveRequestPosition();
+              }
+            }
+          },
+          {
             label: "Оценить кандидата",
+            visible: !!this.selectedVacancyRespond && !!this.selectedVacancyRespond?.interviewId,
             disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id,
             icon: "pi pi-star",
             command: () => {
@@ -126,18 +137,9 @@ export class VacancyRespondComponent {
             }
           },
           {
-            label: "Удалить",
-            disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id,
-            icon: "pi pi-trash",
-            command: () => {
-              if (this.selectedVacancyRespond.id) {
-                this.archiveRequestPosition();
-              }
-            }
-          },
-          {
             label: "Открыть оценки кандидата",
             icon: "pi pi-check",
+            visible: !!this.selectedVacancyRespond && !!this.selectedVacancyRespond?.interviewId,
             disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id,
             command: () => {
               if (this.selectedVacancyRespond.id) {
@@ -150,6 +152,7 @@ export class VacancyRespondComponent {
             label: this.selectedVacancyRespond && this.selectedVacancyRespond.interviewId
                 ? "Редактировать собеседование" : "Организовать собеседование",
             disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id,
+            visible: !!this.selectedVacancyRespond && !!this.selectedVacancyRespond.id,
             icon: "pi pi-envelope",
             command: () => {
               if (this.selectedVacancyRespond.id) {
@@ -339,6 +342,11 @@ export class VacancyRespondComponent {
     } else {
       this.interviewDialogEditMode = false;
     }
+  }
+
+  wow() {
+    console.log("request");
+    return true;
   }
 
   setOfferType() {

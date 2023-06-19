@@ -121,7 +121,7 @@ export class VacancyCompetenceScoreDialogComponent {
             this._item = await this.vacancyService.getVacancyById(this._item.id);
             this.dialogTitle = "Оценка экспертом";
         } else {
-            this.dialogTitle = "Просмотр оценки кандидата";
+            this.dialogTitle = "Оценка кандидата";
         }
         this.loading = false;
     }
