@@ -125,7 +125,6 @@ export class StaffUnitComponent {
     // Example of consuming Grid Event
     onCellClicked(e: CellClickedEvent): void {
         this.selectedStaff = e.data;
-        console.log(this.selectedStaff);
         if (this.selectedStaff?.status === StatusEnum.Opened) {
             this.selectedVacancy = new Vacancy();
             this.position = this.selectedStaff.position;

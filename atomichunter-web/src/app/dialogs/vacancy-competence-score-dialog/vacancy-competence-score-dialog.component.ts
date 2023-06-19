@@ -53,7 +53,6 @@ export class VacancyCompetenceScoreDialogComponent {
     }
 
     set staffUnit(value: StaffUnitDto) {
-        console.log(value, 'ssfafw')
         if (value) {
             this._staffUnit = value;
         } else {
@@ -244,7 +243,6 @@ export class VacancyCompetenceScoreDialogComponent {
     }
 
     calculateBinary(score: number) {
-        console.log()
         this.binaryLogicCheckbox ? score = 10 : score = 0;
     }
 

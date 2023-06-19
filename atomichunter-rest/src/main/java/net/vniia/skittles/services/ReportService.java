@@ -142,16 +142,16 @@ public class ReportService {
         document.add(new Paragraph("Дата: " + LocalDate.now()).setFont(font));
 
         document.add(new Paragraph(
-                "Спасибо что выбрали нашу компанию!").setFont(font)
+                "Спасибо, что выбрали нашу компанию!").setFont(font)
                 .setTextAlignment(TextAlignment.JUSTIFIED));
         document.add(new Paragraph(
-                "К сожалению мы вынуждены Вам отказать, на неопределнный срок. Возможно мы вам еще перезвоним!").setFont(font)
+                "К сожалению мы вынуждены Вам отказать на неопределнный срок. Возможно, мы вам перезвоним!").setFont(font)
                 .setTextAlignment(TextAlignment.JUSTIFIED));
 
         document.add(new Paragraph("").setFont(font));
 
         document.add(new Paragraph(
-                "Вы не прошли по следующим позициям: ").setFont(font).setBold()
+                "Вы не прошли по следующим компетенциям: ").setFont(font).setBold()
                 .setTextAlignment(TextAlignment.JUSTIFIED));
 
         competenceWeightScoreFullDtos.forEach( comp -> {
@@ -160,6 +160,18 @@ public class ReportService {
                     .setTextAlignment(TextAlignment.JUSTIFIED));
         } );
 
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
         document.add(new Paragraph("").setFont(font));
         document.add(new Paragraph("").setFont(font));
         document.add(new Paragraph("").setFont(font));
@@ -212,13 +224,10 @@ public class ReportService {
         document.add(new Paragraph("Дата: " + LocalDate.now()).setFont(font));
 
         document.add(new Paragraph(
-                "Спасибо что выбрали нашу компанию!").setFont(font)
+                "Спасибо, что выбрали нашу компанию!").setFont(font)
                 .setTextAlignment(TextAlignment.JUSTIFIED));
         document.add(new Paragraph(
-                "К сожалению мы не может предложить Вам вакансию на которую вы проходили собеседование").setFont(font)
-                .setTextAlignment(TextAlignment.JUSTIFIED));
-        document.add(new Paragraph(
-                "Однако, по результам собеседования, мы можем вам перезвонить и предложить что-то новое ").setFont(font)
+                "К сожалению мы не можем предложить Вам вакансию, на которую вы проходили собеседование.").setFont(font)
                 .setTextAlignment(TextAlignment.JUSTIFIED));
 
         if (goodVacancy != null) {
@@ -227,6 +236,30 @@ public class ReportService {
                     .setTextAlignment(TextAlignment.JUSTIFIED));
         }
 
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
         document.add(new Paragraph("").setFont(font));
         document.add(new Paragraph("").setFont(font));
         document.add(new Paragraph("").setFont(font));

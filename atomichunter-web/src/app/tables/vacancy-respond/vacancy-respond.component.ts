@@ -81,7 +81,6 @@ export class VacancyRespondComponent {
 
   async getEmployeeFromApi() {
     this.employees = await this.competenceService.getEmployeesWithScoreForRespond(this.selectedVacancyRespond.id);
-    console.log(this.employees)
   }
 
   updateVacancyRespond() {
@@ -272,7 +271,6 @@ export class VacancyRespondComponent {
   }
 
   onCellClicked(e: CellClickedEvent): void {
-    console.log(e);
     this.selectedVacancyRespond = e.data;
     this.renderMenu();
   }
@@ -376,7 +374,6 @@ export class VacancyRespondComponent {
       let vacancyWithVacancyRespond = new VacancyWithVacancyRespond();
       vacancyWithVacancyRespond.vacancy = this._vacancy;
       vacancyWithVacancyRespond.vacancyRespond = this.selectedVacancyRespond;
-      console.log(OfferEnum.Alternative,'OfferEnum.Alternative')
       if (this.offerType === OfferEnum.Alternative) {
         await this.offerService.sendAlternativeOffer(vacancyWithVacancyRespond);
 
@@ -389,12 +386,6 @@ export class VacancyRespondComponent {
         await this.offerService.sendOffer(vacancyWithVacancyRespond);
 
       }
-      this.messageService.add({
-        severity: "success",
-        summary: "Успех!",
-        detail: "Оффер отправлен!",
-        life: 5000
-      });
       await this.getRespondByVacancyIdFromApi();
     } catch (e: any) {
       this.messageService.add({
