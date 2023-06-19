@@ -212,9 +212,9 @@ public class VacancyService {
         return result;
     }
 
-    public List<CompetenceWeightScoreFullDto> getVacancyRespondAnalysis(Long vacancyId) {
+    public List<CompetenceWeightScoreFullDto> getVacancyRespondAnalysis(Long vacancyId, List<Long> checkedIds) {
         List<CompetenceWeightScoreFullDto> listWithEmployees =
-                competenceReader.getVacancyCompetenceScoreForVacancy(vacancyId);
+                competenceReader.getVacancyCompetenceScoreForVacancy(vacancyId, checkedIds);
 
         Function<CompetenceWeightScoreFullDto, String> key = e ->
                 e.getVacancyRespond().getId() + "r"

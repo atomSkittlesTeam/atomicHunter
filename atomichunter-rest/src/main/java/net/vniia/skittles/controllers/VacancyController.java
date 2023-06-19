@@ -100,8 +100,9 @@ public class VacancyController {
         this.vacancyService.updateVacancyRespondAverageScore(requestDto.getVacancyRespondId(), scoreDtosWithIds);
     }
 
-    @GetMapping("{vacancyId}/analysis")
-    public List<CompetenceWeightScoreFullDto> getVacancyRespondAnalysis(@PathVariable Long vacancyId) {
-        return vacancyService.getVacancyRespondAnalysis(vacancyId);
+    @PostMapping("{vacancyId}/analysis")
+    public List<CompetenceWeightScoreFullDto> getVacancyRespondAnalysis(@PathVariable Long vacancyId,
+                                                                        @RequestBody List<Long> checkedIds) {
+        return vacancyService.getVacancyRespondAnalysis(vacancyId, checkedIds);
     }
 }

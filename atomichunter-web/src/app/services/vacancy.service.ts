@@ -105,8 +105,8 @@ export class VacancyService extends BaseService {
     window.open(url + `/report/vacancy/${path}`, '_blank');
   }
 
-  async getVacancyAnalysisByVacancyId(vacancyId: number) {
+  async getVacancyAnalysisByVacancyId(vacancyId: number, checkedIds: number[]) {
     const url = await this.getBackendUrl();
-    return await firstValueFrom(this.http.get<CompetenceWeightScoreFull[]>(url + `/vacancy/${vacancyId}/analysis`));
+    return await firstValueFrom(this.http.post<CompetenceWeightScoreFull[]>(url + `/vacancy/${vacancyId}/analysis`, checkedIds));
   }
 }
