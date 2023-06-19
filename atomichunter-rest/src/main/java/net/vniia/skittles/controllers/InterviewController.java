@@ -58,12 +58,6 @@ public class InterviewController {
         return this.interviewService.validateInterview(interviewDto);
     }
 
-    @PostMapping("offer")
-    @Transactional
-    public void sendOffer(@RequestBody VacancyWithVacancyRespondDto vacancyWithVacancyRespondDto) throws Exception {
-        this.offerService.sendOffer(vacancyWithVacancyRespondDto);
-    }
-
     @GetMapping("calendar")
     public List<InterviewCalendarDto> getCalendar(@RequestParam boolean showArchive) {
         return interviewReader.getAllInterviewCalendar(showArchive);

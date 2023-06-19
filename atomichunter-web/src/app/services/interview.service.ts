@@ -30,11 +30,6 @@ export class InterviewService extends BaseService {
     return await firstValueFrom(this.http.get<Interview>(url + `/interview/${interviewId}`));
   }
 
-  async sendOffer(vacancyWithVacancyRespond: VacancyWithVacancyRespond) {
-    const url = await this.getBackendUrl();
-    return await firstValueFrom(this.http.post(url + '/invite/offer', vacancyWithVacancyRespond));
-  }
-
   async updateInterview(interviewId: number, interview: Interview) {
     const url = await this.getBackendUrl();
     return await firstValueFrom(this.http.put<Interview>(url + `/interview/${interviewId}`, interview));

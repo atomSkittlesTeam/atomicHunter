@@ -1,6 +1,7 @@
 import { Position } from "./Position";
 import { CompetenceWeight } from "./CompetenceWeight";
 import {StaffUnitDto} from "./StaffUnitDto";
+import {Employee} from "./Employee";
 
 export class  Vacancy {
     id: number;
@@ -16,7 +17,7 @@ export class  Vacancy {
     // предлагаемые условия работы
     conditions: string;
     // сотрудник кадровой службы ответственный за вакансию (join с employId)
-    hr: string;
+    hr: Employee;
     archive: boolean;
     createInstant: Date;
     modifyInstant: Date;

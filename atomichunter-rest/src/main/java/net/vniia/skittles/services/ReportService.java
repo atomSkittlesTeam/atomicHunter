@@ -29,6 +29,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,7 +46,73 @@ public class ReportService {
     @Autowired
     private EmailService emailService;
 
+
     public String createOfferReport(VacancyWithVacancyRespondDto vacancyWithRespondDto, User currentUser, UserDto currentHR)
+            throws IOException {
+        this.createFolder(OFFER_PATH);
+        String path = OFFER_PATH + "offer_to_" + vacancyWithRespondDto.getVacancyRespond().getId() + "_respond.pdf";
+        VacancyDto vacancy = vacancyWithRespondDto.getVacancy();
+
+        FontProgram fontProgram = FontProgramFactory.createFont(font.getContentAsByteArray());
+        PdfFont font = PdfFontFactory.createFont(fontProgram);
+
+        PdfWriter pdfWriter = new PdfWriter(path);
+        PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+        pdfDocument.setDefaultPageSize(PageSize.A4);
+        Document document = new Document(pdfDocument);
+
+        ImageData data = ImageDataFactory.create(photo.getContentAsByteArray());
+        Image img = new Image(data);
+        img.scaleToFit(200f, 200f);
+        float twoCol = 360f;
+        float twoColumnWidth[] = {twoCol, twoCol};
+        img.setRelativePosition(170f, 0, 200f, 0);
+
+
+        document.add(img).setTextAlignment(TextAlignment.JUSTIFIED);
+        document.add(new Paragraph("ЛИЧНО И КОНФИДЕНЦИАЛЬНО").setBold().setFont(font));
+        document.add(new Paragraph("Кому: " + vacancyWithRespondDto.getVacancyRespond().getFullName()).setFont(font));
+        document.add(new Paragraph("Дата: " + LocalDate.now()).setFont(font));
+
+        document.add(new Paragraph(
+                "Компания «Атомпродукт» хотела бы предложить Вам занять должность (" +
+                        vacancyWithRespondDto.getVacancy().getPosition().getName()
+                        + ") на следующих условиях: " +
+                        vacancyWithRespondDto.getVacancy().getResponsibilities()).setFont(font)
+                .setTextAlignment(TextAlignment.JUSTIFIED));
+        document.add(new Paragraph("Дата начала действия трудового договора – открытая дата.").setFont(font).setTextAlignment(TextAlignment.JUSTIFIED));
+
+        document.add(new Paragraph("Вам будет установлен испытательный срок 3 (три) месяца, " +
+                "по истечении которого компания проведет Вашу аттестацию. " +
+                "В дальнейшем аттестация будет проводиться регулярно, и по ее результатам " +
+                "может изменяться уровень компенсации и занимаемая Вами в компании должность.").setFont(font));
+        document.add(new Paragraph("Ваш вклад в развитие Компании будет оцениваться руководством по следующим критериям:").setFont(font));
+        document.add(new Paragraph("1) Решение задач, входящих в непосредственную зону Вашей ответственности;").setFont(font));
+        document.add(new Paragraph("2) Вклад в развитие Компании в целом.").setFont(font));
+        document.add(new Paragraph("Для заключения трудового договора свяжитес с нашей службой HR." +
+                "При заключении договора при себе иметь мед. обследование и паспорт.").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+
+
+        Table twoColTable = new Table(twoColumnWidth);
+        twoColTable.addCell(getBoldTitleCell("Отдел кадров").setFont(font));
+        twoColTable.addCell(getNotBoldTitleCell(currentHR.getFullName()).setFont(font));
+        document.add(twoColTable.setMarginBottom(12f));
+
+        document.close();
+
+        return path;
+    }
+
+    public String createDeclineOfferReport(VacancyWithVacancyRespondDto vacancyWithRespondDto, User currentUser, UserDto currentHR)
             throws IOException {
         this.createFolder(OFFER_PATH);
         String path = OFFER_PATH + "offer_to_" + vacancyWithRespondDto.getVacancyRespond().getId() + "_respond.pdf";
@@ -73,18 +140,12 @@ public class ReportService {
         document.add(new Paragraph("Дата: " + LocalDate.now()).setFont(font));
 
         document.add(new Paragraph(
-                "Компания «Атомпродукт» хотела бы предложить Вам занять должность " + "ПОПРАВИТЬ"
-                + " на следующих условиях: " +
-                        "ВСТАВИТЬ УСЛОВИЯ"
-                + "Дата начала действия трудового договора – открытая дата.").setFont(font)
+                "Спасибо что выбрали нашу компанию!").setFont(font)
                 .setTextAlignment(TextAlignment.JUSTIFIED));
-        document.add(new Paragraph("Вам будет установлен испытательный срок 3 (три) месяца, " +
-                "по истечении которого компания проведет Вашу аттестацию. " +
-                "В дальнейшем аттестация будет проводиться регулярно, и по ее результатам " +
-                "может изменяться уровень компенсации и занимаемая Вами в компании должность.").setFont(font));
-        document.add(new Paragraph("Ваш вклад в развитие Компании будет оцениваться руководством по следующим критериям:").setFont(font));
-        document.add(new Paragraph("1) Решение задач, входящих в непосредственную зону Вашей ответственности;").setFont(font));
-        document.add(new Paragraph("2) Вклад в развитие Компании в целом.").setFont(font));
+        document.add(new Paragraph(
+                "К сожалению мы вынуждены Вам отказать, на неопределнный срок. Возможно мы вам еще перезвоним!").setFont(font)
+                .setTextAlignment(TextAlignment.JUSTIFIED));
+
         document.add(new Paragraph("").setFont(font));
         document.add(new Paragraph("").setFont(font));
         document.add(new Paragraph("").setFont(font));
@@ -99,9 +160,67 @@ public class ReportService {
 
 
         Table twoColTable = new Table(twoColumnWidth);
-        twoColTable.addCell(getBoldTitleCell("Директор").setFont(font));
         twoColTable.addCell(getBoldTitleCell("Отдел кадров").setFont(font));
-        twoColTable.addCell(getNotBoldTitleCell(currentUser.getFullName()).setFont(font));
+        twoColTable.addCell(getNotBoldTitleCell(currentHR.getFullName()).setFont(font));
+        document.add(twoColTable.setMarginBottom(12f));
+
+        document.close();
+
+        return path;
+    }
+
+    public String createAlternativeOfferReport(VacancyWithVacancyRespondDto vacancyWithRespondDto, User currentUser, UserDto currentHR)
+            throws IOException {
+        this.createFolder(OFFER_PATH);
+        String path = OFFER_PATH + "offer_to_" + vacancyWithRespondDto.getVacancyRespond().getId() + "_respond.pdf";
+        VacancyDto vacancy = vacancyWithRespondDto.getVacancy();
+
+        FontProgram fontProgram = FontProgramFactory.createFont(font.getContentAsByteArray());
+        PdfFont font = PdfFontFactory.createFont(fontProgram);
+
+        PdfWriter pdfWriter = new PdfWriter(path);
+        PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+        pdfDocument.setDefaultPageSize(PageSize.A4);
+        Document document = new Document(pdfDocument);
+
+        ImageData data = ImageDataFactory.create(photo.getContentAsByteArray());
+        Image img = new Image(data);
+        img.scaleToFit(200f, 200f);
+        float twoCol = 360f;
+        float twoColumnWidth[] = {twoCol, twoCol};
+        img.setRelativePosition(170f, 0, 200f, 0);
+
+
+        document.add(img).setTextAlignment(TextAlignment.JUSTIFIED);
+        document.add(new Paragraph("ЛИЧНО И КОНФИДЕНЦИАЛЬНО").setBold().setFont(font));
+        document.add(new Paragraph("Кому: " + vacancyWithRespondDto.getVacancyRespond().getFullName()).setFont(font));
+        document.add(new Paragraph("Дата: " + LocalDate.now()).setFont(font));
+
+        document.add(new Paragraph(
+                "Спасибо что выбрали нашу компанию!").setFont(font)
+                .setTextAlignment(TextAlignment.JUSTIFIED));
+        document.add(new Paragraph(
+                "К сожалению мы не может предложить Вам вакансию на которую вы проходили собеседование").setFont(font)
+                .setTextAlignment(TextAlignment.JUSTIFIED));
+        document.add(new Paragraph(
+                "Однако, по результам собеседования, мы хотим вам предложить позицию: ").setFont(font)
+                .setTextAlignment(TextAlignment.JUSTIFIED));
+
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+
+
+        Table twoColTable = new Table(twoColumnWidth);
+        twoColTable.addCell(getBoldTitleCell("Отдел кадров").setFont(font));
         twoColTable.addCell(getNotBoldTitleCell(currentHR.getFullName()).setFont(font));
         document.add(twoColTable.setMarginBottom(12f));
 
@@ -172,11 +291,24 @@ public class ReportService {
     }
 
     public void createPdfAndSendByEmail(VacancyWithVacancyRespondDto vacancyWithVacancyRespondDto,
-                                        User currentUser, UserDto currentHR)
+                                        User currentUser, UserDto currentHR, String mode)
             throws IOException, MessagingException {
-        String path = this.createOfferReport(vacancyWithVacancyRespondDto, currentUser, currentHR);
+        String path = "";
+        switch (mode) {
+            case "approve" -> {
+                path = this.createOfferReport(vacancyWithVacancyRespondDto, currentUser, currentHR);
+
+            }
+            case "decline" -> {
+                path = this.createDeclineOfferReport(vacancyWithVacancyRespondDto, currentUser, currentHR);
+            }
+            case "alternative" -> {
+                System.out.println("sss");
+            }
+
+        }
         this.emailService.sendEmailWithAttachment(
-                        vacancyWithVacancyRespondDto.getVacancyRespond().getEmail(),
+                vacancyWithVacancyRespondDto.getVacancyRespond().getEmail(),
                 "Оффер",
                 "Здравствуйте! Компания Atomic Hunter высылает вам оффер",
                 path

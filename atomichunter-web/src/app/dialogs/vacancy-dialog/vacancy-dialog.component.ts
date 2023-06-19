@@ -111,11 +111,13 @@ export class VacancyDialogComponent {
         if (this.staffUnit) {
             this.item.staffUnit = this.staffUnit;
             this.item.position = this.singlePosition;
+            this.item.hr = this.staffUnit.employee;
         }
         if ($event !== null) { // null передается, если закрыть форму без сохранения на крестик
             if (this.editMode) {
                 await this.updateVacancy(this._item);
             } else {
+                console.log(this._item,'fafawfafwa')
                 await this.createVacancy(this._item);
             }
         }

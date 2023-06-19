@@ -14,6 +14,7 @@ import {OrgStructService} from "../../services/org-struct.service";
 import {CompetenceService} from "../../services/competence.service";
 import {CompetenceWeightScore} from "../../dto/CompetenceWeightScore";
 import {OfferEnum} from "../../dto/offer-enum";
+import {OfferService} from "../../services/offer.service";
 
 @Component({
   selector: "app-vacancy-respond",
@@ -40,6 +41,7 @@ export class VacancyRespondComponent {
               private orgStructService: OrgStructService,
               private vacancyService: VacancyService,
               private inviteService: InterviewService,
+              private offerService: OfferService,
               private interviewService: InterviewService) {
     this.renderMenu();
   }
@@ -345,13 +347,11 @@ export class VacancyRespondComponent {
       key: "vacancy-offer",
       accept: async () => {
         try {
-          if (this.offerType === "Альтернативный") {
-
-          }
+          await this.sendOffer();
           this.messageService.add({
             severity: 'success',
             summary: 'Успех!',
-            detail: 'Вакансия переведена в архив',
+            detail: 'Оффер успешно отправлен',
             life: 5000
           });
           // await this.getAllVacanciesFromApi();
@@ -376,7 +376,18 @@ export class VacancyRespondComponent {
       let vacancyWithVacancyRespond = new VacancyWithVacancyRespond();
       vacancyWithVacancyRespond.vacancy = this._vacancy;
       vacancyWithVacancyRespond.vacancyRespond = this.selectedVacancyRespond;
-      await this.inviteService.sendOffer(vacancyWithVacancyRespond);
+      if (this.offerType === "Альтернативный") {
+        // await this.offerService.sendOffer(vacancyWithVacancyRespond);
+
+
+      } else if (this.offerType === "Отклонить") {
+        await this.offerService.sendDeclineOffer(vacancyWithVacancyRespond);
+
+
+      } else {
+        await this.offerService.sendOffer(vacancyWithVacancyRespond);
+
+      }
       this.messageService.add({
         severity: "success",
         summary: "Успех!",
