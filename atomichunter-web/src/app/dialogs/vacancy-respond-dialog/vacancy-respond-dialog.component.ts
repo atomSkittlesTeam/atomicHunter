@@ -69,7 +69,7 @@ export class VacancyRespondDialogComponent {
     } else {
       this._item = new VacancyRespond();
       this._item.vacancyId = this._vacancy.id;
-      this.dialogTitle = "Регистрация вакансии";
+      this.dialogTitle = "Регистрация кандидата";
     }
     this.loading = false;
   }
