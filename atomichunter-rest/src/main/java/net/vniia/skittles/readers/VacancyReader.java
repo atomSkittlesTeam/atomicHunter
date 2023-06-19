@@ -16,15 +16,16 @@ import java.util.List;
 public class VacancyReader {
     private static final QVacancy vacancy = QVacancy.vacancy;
     private static final QPosition position = QPosition.position;
+
     public static final QVacancyRespond vacancyRespond = QVacancyRespond.vacancyRespond;
     public static final QVacancyCompetenceScore vacancyCompetenceScore = QVacancyCompetenceScore.vacancyCompetenceScore;
     public static final QVacancyCompetence vacancyCompetence = QVacancyCompetence.vacancyCompetence;
     public static final QConfirmationToken confirmationToken = QConfirmationToken.confirmationToken1;
+
     public static final QInterview interview = QInterview.interview;
     public static final QStaffUnit staffUnit = QStaffUnit.staffUnit;
 
     public static final QEmployee employee = QEmployee.employee;
-
 
     public static QBean<VacancyDto> getMappedSelectForVacancyDto() {
         return Projections.bean(
