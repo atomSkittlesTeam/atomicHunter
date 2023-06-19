@@ -48,7 +48,6 @@ public class ReportService {
     @Autowired
     private EmailService emailService;
 
-
     public String createOfferReport(VacancyWithVacancyRespondDto vacancyWithRespondDto, User currentUser, UserDto currentHR)
             throws IOException {
         this.createFolder(OFFER_PATH);
@@ -73,7 +72,9 @@ public class ReportService {
 
         document.add(img).setTextAlignment(TextAlignment.JUSTIFIED);
         document.add(new Paragraph("ЛИЧНО И КОНФИДЕНЦИАЛЬНО").setBold().setFont(font));
-        document.add(new Paragraph("Кому: " + vacancyWithRespondDto.getVacancyRespond().getFullName()).setFont(font));
+        document.add(new Paragraph(vacancyWithRespondDto.getVacancyRespond().getLastName() + " "
+                + vacancyWithRespondDto.getVacancyRespond().getFirstName())
+                .setFont(font));
         document.add(new Paragraph("Дата: " + LocalDate.now()).setFont(font));
 
         document.add(new Paragraph(
@@ -142,16 +143,16 @@ public class ReportService {
         document.add(new Paragraph("Дата: " + LocalDate.now()).setFont(font));
 
         document.add(new Paragraph(
-                "Спасибо что выбрали нашу компанию!").setFont(font)
+                "Спасибо, что выбрали нашу компанию!").setFont(font)
                 .setTextAlignment(TextAlignment.JUSTIFIED));
         document.add(new Paragraph(
-                "К сожалению мы вынуждены Вам отказать, на неопределнный срок. Возможно мы вам еще перезвоним!").setFont(font)
+                "К сожалению мы вынуждены Вам отказать на неопределнный срок. Возможно, мы вам перезвоним!").setFont(font)
                 .setTextAlignment(TextAlignment.JUSTIFIED));
 
         document.add(new Paragraph("").setFont(font));
 
         document.add(new Paragraph(
-                "Вы не прошли по следующим позициям: ").setFont(font).setBold()
+                "Вы не прошли по следующим компетенциям: ").setFont(font).setBold()
                 .setTextAlignment(TextAlignment.JUSTIFIED));
 
         competenceWeightScoreFullDtos.forEach( comp -> {
@@ -160,6 +161,18 @@ public class ReportService {
                     .setTextAlignment(TextAlignment.JUSTIFIED));
         } );
 
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
         document.add(new Paragraph("").setFont(font));
         document.add(new Paragraph("").setFont(font));
         document.add(new Paragraph("").setFont(font));
@@ -184,7 +197,7 @@ public class ReportService {
 
     public String createAlternativeOfferReport(VacancyWithVacancyRespondDto vacancyWithRespondDto,
                                                User currentUser,
-                                               UserDto currentHR)
+                                               UserDto currentHR, String goodVacancy)
             throws IOException {
         this.createFolder(OFFER_PATH);
         String path = OFFER_PATH + "offer_to_" + vacancyWithRespondDto.getVacancyRespond().getId() + "_respond.pdf";
@@ -212,15 +225,42 @@ public class ReportService {
         document.add(new Paragraph("Дата: " + LocalDate.now()).setFont(font));
 
         document.add(new Paragraph(
-                "Спасибо что выбрали нашу компанию!").setFont(font)
+                "Спасибо, что выбрали нашу компанию!").setFont(font)
                 .setTextAlignment(TextAlignment.JUSTIFIED));
         document.add(new Paragraph(
-                "К сожалению мы не может предложить Вам вакансию на которую вы проходили собеседование").setFont(font)
-                .setTextAlignment(TextAlignment.JUSTIFIED));
-        document.add(new Paragraph(
-                "Однако, по результам собеседования, мы хотим вам предложить позицию: ").setFont(font)
+                "К сожалению мы не можем предложить Вам вакансию, на которую вы проходили собеседование.").setFont(font)
                 .setTextAlignment(TextAlignment.JUSTIFIED));
 
+        if (goodVacancy != null) {
+            document.add(new Paragraph(
+                    "Сейчас мы готовы педложить вам следующие вакансии: " + goodVacancy).setFont(font)
+                    .setTextAlignment(TextAlignment.JUSTIFIED));
+        }
+
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
+        document.add(new Paragraph("").setFont(font));
         document.add(new Paragraph("").setFont(font));
         document.add(new Paragraph("").setFont(font));
         document.add(new Paragraph("").setFont(font));
@@ -306,7 +346,7 @@ public class ReportService {
     }
 
     public void createPdfAndSendByEmail(VacancyWithVacancyRespondDto vacancyWithVacancyRespondDto,
-                                        User currentUser, UserDto currentHR, String mode, List<CompetenceWeightScoreFullDto> competenceWeightScoreFullDtos)
+                                        User currentUser, UserDto currentHR, String mode, List<CompetenceWeightScoreFullDto> competenceWeightScoreFullDtos, String goodVacancy)
             throws IOException, MessagingException {
         String path = "";
         switch (mode) {
@@ -318,7 +358,7 @@ public class ReportService {
                 path = this.createDeclineOfferReport(vacancyWithVacancyRespondDto, currentUser, currentHR, competenceWeightScoreFullDtos);
             }
             case "alternative" -> {
-                path = this.createAlternativeOfferReport(vacancyWithVacancyRespondDto, currentUser, currentHR);
+                path = this.createAlternativeOfferReport(vacancyWithVacancyRespondDto, currentUser, currentHR, goodVacancy);
             }
 
         }

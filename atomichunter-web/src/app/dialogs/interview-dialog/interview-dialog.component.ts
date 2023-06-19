@@ -122,7 +122,6 @@ export class VacancyRequestComponent {
             }
 
         } catch (e: any) {
-            console.log(e);
             this.messageService.add({
                 severity: "error",
                 summary: "Ошибка...",

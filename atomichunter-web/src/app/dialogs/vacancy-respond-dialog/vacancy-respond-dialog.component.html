@@ -4,10 +4,17 @@
     <form #f="ngForm" name="vacancyRespond" novalidate>
         <div class="flex" [class.formDisabled] = "loading">
             <div class="p-inputgroup">
-                <span class="p-inputgroup-addon" style="width: 230px">ФИО <span class="required-mark">*</span></span>
-                <input [(ngModel)]="item.fullName"
-                       name="fullName"
-                       placeholder="Введите ФИО кандидата" pInputText required/>
+                <span class="p-inputgroup-addon" style="width: 230px">Фамилия <span class="required-mark">*</span></span>
+                <input [(ngModel)]="item.lastName"
+                       name="lastName"
+                       placeholder="Введите Фамилию кандидата" pInputText required/>
+            </div>
+
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon" style="width: 230px">Имя <span class="required-mark">*</span></span>
+                <input [(ngModel)]="item.firstName"
+                       name="firstName"
+                       placeholder="Введите Имя кандидата" pInputText required/>
             </div>
 
             <div class="p-inputgroup">

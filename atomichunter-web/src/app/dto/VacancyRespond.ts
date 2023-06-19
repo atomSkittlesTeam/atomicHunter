@@ -5,7 +5,8 @@ export class  VacancyRespond {
     pathToResume: string;
     archive: boolean;
     email: string;
-    fullName: string;
+    lastName: string;
+    firstName: string;
     interviewId: number;
     averageScore: number;
     competenceScoreCount: number;

@@ -37,7 +37,6 @@ export class VacancyDialogComponent {
     }
 
     set staffUnit(value: StaffUnitDto) {
-        console.log(value,'ssfafw')
         if (value) {
             this._staffUnit = value;
         } else {
@@ -117,7 +116,6 @@ export class VacancyDialogComponent {
             if (this.editMode) {
                 await this.updateVacancy(this._item);
             } else {
-                console.log(this._item,'fafawfafwa')
                 await this.createVacancy(this._item);
             }
         }
@@ -137,17 +135,7 @@ export class VacancyDialogComponent {
     async openSidebarWithAllSkills() {
         this.showSidebarWithAllSkills = true;
         this.competencesAll = await this.competenceService.getAllCompetences();
-        // let alreadyHas: number[] = [];
-        // console.log(this.competencesAll, "fwafawf");
-        //
-        // this.competencesAll = this.competencesAll.map((e, idx) => {
-        //   if (this.competences.find(com => com.name = e.name)) {
-        //     alreadyHas.push(idx);
-        //   }
-        //   return e;
-        // });
-        // alreadyHas.forEach(index => this.competencesAll.splice(index, 1));
-    }
+        }
 
     pushNewSkill(id: number, indexGroup?: number) {
         let pickedSkill: any = this.competencesAll.find(com => com.id === id);

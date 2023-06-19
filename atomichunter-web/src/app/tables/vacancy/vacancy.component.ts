@@ -196,7 +196,6 @@ export class VacancyComponent {
     async getAllRespondsWithInterview() {
         this.allRespondsWithInterview = await this.vacancyService.getVacancyRespondsByIds([this.selectedVacancy.id],
             false);
-        console.log(this.allRespondsWithInterview);
     }
 
     async closeVacancy() {

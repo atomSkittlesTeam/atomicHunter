@@ -94,7 +94,6 @@ export class CompetenceDialogComponent {
 
     async createCompetence(competence: Competence) {
         try {
-            console.log(this.competenceGroup, "fafawfawf")
             this.loading = true;
             const rq = await this.competenceService.createCompetence(this.competenceGroup.id, competence);
             this.messageService.add({

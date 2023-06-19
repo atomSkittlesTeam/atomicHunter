@@ -1,13 +1,13 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from "@angular/core";
-import { Vacancy } from "../../dto/Vacancy";
-import { VacancyRespond } from "../../dto/VacancyRespond";
-import { CellClickedEvent, ColDef, GridReadyEvent } from "ag-grid-community";
-import { AgGridAngular } from "ag-grid-angular";
-import { ConfirmationService, MenuItem, MessageService } from "primeng/api";
-import { LoadingCellRendererComponent } from "../../platform/loading-cell-renderer/loading-cell-renderer.component";
-import { VacancyService } from "../../services/vacancy.service";
-import { InterviewService } from "src/app/services/interview.service";
-import { VacancyWithVacancyRespond } from "../../dto/VacancyWithVacancyRespond";
+import {Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
+import {Vacancy} from "../../dto/Vacancy";
+import {VacancyRespond} from "../../dto/VacancyRespond";
+import {CellClickedEvent, ColDef, GridReadyEvent} from "ag-grid-community";
+import {AgGridAngular} from "ag-grid-angular";
+import {ConfirmationService, MenuItem, MessageService} from "primeng/api";
+import {LoadingCellRendererComponent} from "../../platform/loading-cell-renderer/loading-cell-renderer.component";
+import {VacancyService} from "../../services/vacancy.service";
+import {InterviewService} from "src/app/services/interview.service";
+import {VacancyWithVacancyRespond} from "../../dto/VacancyWithVacancyRespond";
 import {StaffUnitDto} from "../../dto/StaffUnitDto";
 import {Employee} from "../../dto/Employee";
 import {OrgStructService} from "../../services/org-struct.service";
@@ -81,7 +81,6 @@ export class VacancyRespondComponent {
 
   async getEmployeeFromApi() {
     this.employees = await this.competenceService.getEmployeesWithScoreForRespond(this.selectedVacancyRespond.id);
-    console.log(this.employees)
   }
 
   updateVacancyRespond() {
@@ -222,7 +221,8 @@ export class VacancyRespondComponent {
     { field: "id", headerName: "Идентификатор", filter: "agTextColumnFilter" },
     { field: "vacancyId", headerName: "Номер вакансии", filter: "agTextColumnFilter" },
     { field: "coverLetter", headerName: "Сопроводительное письмо", filter: "agTextColumnFilter" },
-    { field: "fullName", headerName: "ФИО", filter: "agTextColumnFilter" },
+    { field: "lastName", headerName: "Фамилия", filter: "agTextColumnFilter"},
+    { field: "firstName", headerName: "Имя", filter: "agTextColumnFilter"},
     { field: "email", headerName: "Email", filter: "agTextColumnFilter" },
     { field: "averageScore", headerName: "Средняя оценка собеседования", filter: "agTextColumnFilter" },
     {
@@ -272,7 +272,6 @@ export class VacancyRespondComponent {
   }
 
   onCellClicked(e: CellClickedEvent): void {
-    console.log(e);
     this.selectedVacancyRespond = e.data;
     this.renderMenu();
   }
@@ -376,11 +375,11 @@ export class VacancyRespondComponent {
       let vacancyWithVacancyRespond = new VacancyWithVacancyRespond();
       vacancyWithVacancyRespond.vacancy = this._vacancy;
       vacancyWithVacancyRespond.vacancyRespond = this.selectedVacancyRespond;
-      if (this.offerType === "Альтернативный") {
+      if (this.offerType === OfferEnum.Alternative) {
         await this.offerService.sendAlternativeOffer(vacancyWithVacancyRespond);
 
 
-      } else if (this.offerType === "Отклонить") {
+      } else if (this.offerType === OfferEnum.Decline) {
         await this.offerService.sendDeclineOffer(vacancyWithVacancyRespond);
 
 
@@ -388,12 +387,6 @@ export class VacancyRespondComponent {
         await this.offerService.sendOffer(vacancyWithVacancyRespond);
 
       }
-      this.messageService.add({
-        severity: "success",
-        summary: "Успех!",
-        detail: "Оффер отправлен!",
-        life: 5000
-      });
       await this.getRespondByVacancyIdFromApi();
     } catch (e: any) {
       this.messageService.add({
