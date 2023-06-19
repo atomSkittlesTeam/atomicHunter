@@ -17,6 +17,7 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.TextAlignment;
 import jakarta.mail.MessagingException;
+import net.vniia.skittles.dto.CompetenceWeightScoreFullDto;
 import net.vniia.skittles.dto.UserDto;
 import net.vniia.skittles.dto.VacancyDto;
 import net.vniia.skittles.dto.VacancyWithVacancyRespondDto;
@@ -29,6 +30,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -112,7 +114,7 @@ public class ReportService {
         return path;
     }
 
-    public String createDeclineOfferReport(VacancyWithVacancyRespondDto vacancyWithRespondDto, User currentUser, UserDto currentHR)
+    public String createDeclineOfferReport(VacancyWithVacancyRespondDto vacancyWithRespondDto, User currentUser, UserDto currentHR, List<CompetenceWeightScoreFullDto> competenceWeightScoreFullDtos)
             throws IOException {
         this.createFolder(OFFER_PATH);
         String path = OFFER_PATH + "offer_to_" + vacancyWithRespondDto.getVacancyRespond().getId() + "_respond.pdf";
@@ -147,6 +149,17 @@ public class ReportService {
                 .setTextAlignment(TextAlignment.JUSTIFIED));
 
         document.add(new Paragraph("").setFont(font));
+
+        document.add(new Paragraph(
+                "Вы не прошли по следующим позициям: ").setFont(font).setBold()
+                .setTextAlignment(TextAlignment.JUSTIFIED));
+
+        competenceWeightScoreFullDtos.forEach( comp -> {
+            document.add(new Paragraph(
+                    comp.getCompetence().getName() + " " + "Оценка: " + comp.getScore() ).setFont(font)
+                    .setTextAlignment(TextAlignment.JUSTIFIED));
+        } );
+
         document.add(new Paragraph("").setFont(font));
         document.add(new Paragraph("").setFont(font));
         document.add(new Paragraph("").setFont(font));
@@ -169,11 +182,13 @@ public class ReportService {
         return path;
     }
 
-    public String createAlternativeOfferReport(VacancyWithVacancyRespondDto vacancyWithRespondDto, User currentUser, UserDto currentHR)
+    public String createAlternativeOfferReport(VacancyWithVacancyRespondDto vacancyWithRespondDto,
+                                               User currentUser,
+                                               UserDto currentHR)
             throws IOException {
         this.createFolder(OFFER_PATH);
         String path = OFFER_PATH + "offer_to_" + vacancyWithRespondDto.getVacancyRespond().getId() + "_respond.pdf";
-        VacancyDto vacancy = vacancyWithRespondDto.getVacancy();
+
 
         FontProgram fontProgram = FontProgramFactory.createFont(font.getContentAsByteArray());
         PdfFont font = PdfFontFactory.createFont(fontProgram);
@@ -291,7 +306,7 @@ public class ReportService {
     }
 
     public void createPdfAndSendByEmail(VacancyWithVacancyRespondDto vacancyWithVacancyRespondDto,
-                                        User currentUser, UserDto currentHR, String mode)
+                                        User currentUser, UserDto currentHR, String mode, List<CompetenceWeightScoreFullDto> competenceWeightScoreFullDtos)
             throws IOException, MessagingException {
         String path = "";
         switch (mode) {
@@ -300,10 +315,10 @@ public class ReportService {
 
             }
             case "decline" -> {
-                path = this.createDeclineOfferReport(vacancyWithVacancyRespondDto, currentUser, currentHR);
+                path = this.createDeclineOfferReport(vacancyWithVacancyRespondDto, currentUser, currentHR, competenceWeightScoreFullDtos);
             }
             case "alternative" -> {
-                System.out.println("sss");
+                path = this.createAlternativeOfferReport(vacancyWithVacancyRespondDto, currentUser, currentHR);
             }
 
         }

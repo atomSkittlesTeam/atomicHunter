@@ -377,7 +377,7 @@ export class VacancyRespondComponent {
       vacancyWithVacancyRespond.vacancy = this._vacancy;
       vacancyWithVacancyRespond.vacancyRespond = this.selectedVacancyRespond;
       if (this.offerType === "Альтернативный") {
-        // await this.offerService.sendOffer(vacancyWithVacancyRespond);
+        await this.offerService.sendAlternativeOffer(vacancyWithVacancyRespond);
 
 
       } else if (this.offerType === "Отклонить") {

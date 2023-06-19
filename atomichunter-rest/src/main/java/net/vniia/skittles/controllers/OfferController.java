@@ -27,4 +27,10 @@ public class OfferController {
     public void sendDeclineOffer(@RequestBody VacancyWithVacancyRespondDto vacancyWithVacancyRespondDto) throws Exception {
         this.offerService.sendOffer(vacancyWithVacancyRespondDto, "decline");
     }
+
+    @PostMapping("alternative")
+    @Transactional
+    public void sendAlternativeOffer(@RequestBody VacancyWithVacancyRespondDto vacancyWithVacancyRespondDto) throws Exception {
+        this.offerService.sendOffer(vacancyWithVacancyRespondDto, "alternative");
+    }
 }

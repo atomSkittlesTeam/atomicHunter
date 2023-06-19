@@ -27,4 +27,9 @@ export class OfferService extends BaseService {
     const url = await this.getBackendUrl();
     return await firstValueFrom(this.http.post(url + '/offer/decline', vacancyWithVacancyRespond));
   }
+
+  async sendAlternativeOffer(vacancyWithVacancyRespond: VacancyWithVacancyRespond) {
+    const url = await this.getBackendUrl();
+    return await firstValueFrom(this.http.post(url + '/offer/alternative', vacancyWithVacancyRespond));
+  }
 }
