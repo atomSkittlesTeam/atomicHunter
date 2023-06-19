@@ -48,6 +48,13 @@ public class OfferService {
                             vacancyWithVacancyRespondDto.getVacancyRespond().getId());
         }
 
-        this.reportService.createPdfAndSendByEmail(vacancyWithVacancyRespondDto, currentChief, currentHR, mode, competenceWeightScoreFullDto);
+        String goodVacancy = null;
+        if (Objects.equals(mode, "alternative")) {
+            goodVacancy = vacancyService.getGoodVacancyForRespondId(
+                    vacancyWithVacancyRespondDto.getVacancy().getId(),
+                    vacancyWithVacancyRespondDto.getVacancyRespond().getId());
+        }
+
+        this.reportService.createPdfAndSendByEmail(vacancyWithVacancyRespondDto, currentChief, currentHR, mode, competenceWeightScoreFullDto, goodVacancy);
     }
 }

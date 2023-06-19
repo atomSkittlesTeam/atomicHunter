@@ -184,7 +184,7 @@ public class ReportService {
 
     public String createAlternativeOfferReport(VacancyWithVacancyRespondDto vacancyWithRespondDto,
                                                User currentUser,
-                                               UserDto currentHR)
+                                               UserDto currentHR, String goodVacancy)
             throws IOException {
         this.createFolder(OFFER_PATH);
         String path = OFFER_PATH + "offer_to_" + vacancyWithRespondDto.getVacancyRespond().getId() + "_respond.pdf";
@@ -218,8 +218,14 @@ public class ReportService {
                 "К сожалению мы не может предложить Вам вакансию на которую вы проходили собеседование").setFont(font)
                 .setTextAlignment(TextAlignment.JUSTIFIED));
         document.add(new Paragraph(
-                "Однако, по результам собеседования, мы хотим вам предложить позицию: ").setFont(font)
+                "Однако, по результам собеседования, мы можем вам перезвонить и предложить что-то новое ").setFont(font)
                 .setTextAlignment(TextAlignment.JUSTIFIED));
+
+        if (goodVacancy != null) {
+            document.add(new Paragraph(
+                    "Сейчас мы готовы педложить вам следующие вакансии: " + goodVacancy).setFont(font)
+                    .setTextAlignment(TextAlignment.JUSTIFIED));
+        }
 
         document.add(new Paragraph("").setFont(font));
         document.add(new Paragraph("").setFont(font));
@@ -306,7 +312,7 @@ public class ReportService {
     }
 
     public void createPdfAndSendByEmail(VacancyWithVacancyRespondDto vacancyWithVacancyRespondDto,
-                                        User currentUser, UserDto currentHR, String mode, List<CompetenceWeightScoreFullDto> competenceWeightScoreFullDtos)
+                                        User currentUser, UserDto currentHR, String mode, List<CompetenceWeightScoreFullDto> competenceWeightScoreFullDtos, String goodVacancy)
             throws IOException, MessagingException {
         String path = "";
         switch (mode) {
@@ -318,7 +324,7 @@ public class ReportService {
                 path = this.createDeclineOfferReport(vacancyWithVacancyRespondDto, currentUser, currentHR, competenceWeightScoreFullDtos);
             }
             case "alternative" -> {
-                path = this.createAlternativeOfferReport(vacancyWithVacancyRespondDto, currentUser, currentHR);
+                path = this.createAlternativeOfferReport(vacancyWithVacancyRespondDto, currentUser, currentHR, goodVacancy);
             }
 
         }

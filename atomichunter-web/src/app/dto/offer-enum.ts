@@ -1,5 +1,5 @@
 export enum OfferEnum {
     Approve = 'Принять',
-    Decline = 'Отклонить',
-    Alternative = 'Альтернативный'
+    Decline = 'Отказ',
+    Alternative = 'Отказ с дальнейшим сотрудничеством'
 }
