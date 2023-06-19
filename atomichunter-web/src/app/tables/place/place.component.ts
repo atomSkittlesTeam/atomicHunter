@@ -147,7 +147,7 @@ export class PlaceComponent {
     await this.getAllPlasesFromApi();
   }
 
-  archiveVacancy() {
+  archivePlace() {
     this.confirmationService.confirm({
       key: "place-archive",
       message: 'Отправить позицию в архив?',

@@ -22,12 +22,13 @@ export class VacancyService extends BaseService {
         super(configService);
     }
 
-    async getVacancies(showArchive: boolean) {
+    async getVacancies(showArchive: boolean, showClose: boolean) {
         const url = await this.getBackendUrl();
         return await firstValueFrom(this.http.get<Vacancy[]>(url + '/vacancy/all',
             {
                 params: {
-                    showArchive: showArchive
+                    showArchive: showArchive,
+                    showClose: showClose
                 }
             }
         ));
@@ -53,9 +54,14 @@ export class VacancyService extends BaseService {
         await firstValueFrom(this.http.delete(url + `/vacancy/${id}/archive`));
     }
 
-    async getVacancyRespondsByIds(ids: number[], showArchive: boolean) {
+    async closeVacancy(id: number, vacancyRespondId: number) {
         const url = await this.getBackendUrl();
-        return await firstValueFrom(this.http.post<Vacancy[]>(url + '/vacancy/respond/get-all-by-ids', ids,
+        await firstValueFrom(this.http.delete(url + `/vacancy/${id}/${vacancyRespondId}/close`));
+    }
+
+    async getVacancyRespondsByIds(ids: number[], showArchive: boolean,) {
+        const url = await this.getBackendUrl();
+        return await firstValueFrom(this.http.post<VacancyRespond[]>(url + '/vacancy/respond/get-all-by-ids', ids,
             {
                 params: {
                     showArchive: showArchive
@@ -77,6 +83,11 @@ export class VacancyService extends BaseService {
     async getVacancyRespondById(id: number) {
         const url = await this.getBackendUrl();
         return await firstValueFrom(this.http.get<VacancyRespond>(url + `/vacancy/respond/${id}`));
+    }
+
+    async getVacancyRespondWithInterviewById(id: number) {
+        const url = await this.getBackendUrl();
+        return await firstValueFrom(this.http.get<VacancyRespond>(url + `/vacancy/respond/${id}/interview`));
     }
 
     async createVacancyRespond(vacancyRespond: VacancyRespond) {

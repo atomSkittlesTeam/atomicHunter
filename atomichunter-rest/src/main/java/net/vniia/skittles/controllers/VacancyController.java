@@ -21,8 +21,8 @@ public class VacancyController {
     private final VacancyReader vacancyReader;
 
     @GetMapping("all")
-    public List<VacancyDto> getAllVacancies(@RequestParam boolean showArchive) {
-        return vacancyReader.getAllVacancies(showArchive);
+    public List<VacancyDto> getAllVacancies(@RequestParam boolean showArchive, @RequestParam boolean showClose) {
+        return vacancyReader.getAllVacancies(showArchive, showClose);
     }
 
     @GetMapping("{vacancyId}")
@@ -49,6 +49,12 @@ public class VacancyController {
         this.vacancyService.archiveVacancy(id);
     }
 
+    @DeleteMapping("{id}/{vacancyRespondId}/close")
+    @Transactional
+    public void closeVacancy(@PathVariable Long id, @PathVariable Long vacancyRespondId) {
+        this.vacancyService.closeVacancy(id, vacancyRespondId);
+    }
+
     @GetMapping("respond/{vacancyRespondId}")
     @Transactional
     public VacancyRespondDto getVacancyRespondById(@PathVariable Long vacancyRespondId) {
@@ -57,7 +63,7 @@ public class VacancyController {
 
     @PostMapping("respond/get-all-by-ids")
     public List<VacancyRespondDto> getVacancyRespondsByIds(@RequestBody List<Long> vacancyIds,
-                                                         @RequestParam boolean showArchive) {
+                                                           @RequestParam boolean showArchive) {
         return vacancyReader.getVacancyRespondsByVacancyIds(vacancyIds, showArchive);
     }
 

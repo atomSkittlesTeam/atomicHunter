@@ -9,6 +9,7 @@ import {LoadingCellRendererComponent} from 'src/app/platform/loading-cell-render
 import {VacancyService} from 'src/app/services/vacancy.service';
 import {StaffUnitDto} from "../../dto/StaffUnitDto";
 import {DatePipe} from "@angular/common";
+import {VacancyRespond} from "../../dto/VacancyRespond";
 
 @Component({
     selector: 'app-vacancy',
@@ -21,6 +22,7 @@ export class VacancyComponent {
     loading: boolean = false;
     filter: boolean = false;
     showArchive = false;
+    showClose = false;
     openDialog: boolean = false;
     dialogEditMode: boolean = false;
     selectedVacancy: Vacancy;
@@ -29,6 +31,9 @@ export class VacancyComponent {
     showPdfResume: boolean = false;
     reportDialogVisible: boolean = false;
     additionalInformationForReport: string = "";
+    allRespondsWithInterview: VacancyRespond[] = [];
+    selectedRespondForClose: VacancyRespond;
+    dialogForClose: boolean = false;
 
     filterParams: IDateFilterParams = {
         comparator: (filterLocalDateAtMidnight: Date, cellValue: number) => {
@@ -56,6 +61,12 @@ export class VacancyComponent {
         {field: 'requirements', headerName: 'Требования', filter: 'agTextColumnFilter'},
         {
             field: 'archive', headerName: 'Архив', hide: !this.showArchive,
+            cellRenderer: (params: { value: any; }) => {
+                return `<input disabled="true" type='checkbox' ${params.value ? 'checked' : ''} />`;
+            }
+        },
+        {
+            field: 'closed', headerName: 'Закрыта', hide: !this.showArchive,
             cellRenderer: (params: { value: any; }) => {
                 return `<input disabled="true" type='checkbox' ${params.value ? 'checked' : ''} />`;
             }
@@ -114,7 +125,7 @@ export class VacancyComponent {
 
     async getAllVacanciesFromApi() {
         this.agGrid.api.showLoadingOverlay();
-        const vacancies = await this.vacancyService.getVacancies(this.showArchive);
+        const vacancies = await this.vacancyService.getVacancies(this.showArchive, this.showClose);
         this.rowData = vacancies;
         this.loading = false;
     }
@@ -182,9 +193,51 @@ export class VacancyComponent {
         });
     }
 
+    async getAllRespondsWithInterview() {
+        this.allRespondsWithInterview = await this.vacancyService.getVacancyRespondsByIds([this.selectedVacancy.id],
+            false);
+        console.log(this.allRespondsWithInterview);
+    }
+
+    async closeVacancy() {
+        this.dialogForClose = false;
+        try {
+            await this.vacancyService.closeVacancy(this.selectedVacancy.id, this.selectedRespondForClose.id);
+            this.messageService.add({
+                severity: 'success',
+                summary: 'Успех!',
+                detail: 'Вакансия закрыта',
+                life: 5000
+            });
+            await this.getAllVacanciesFromApi();
+        } catch (e: any) {
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Ошибка...',
+                detail: e.error.message,
+                life: 5000
+            });
+        }
+    }
+
+    isArchivedVacancy() {
+        return !this.selectedVacancy || this.selectedVacancy.archive;
+    }
+
+    isClosedVacancy() {
+        return !this.selectedVacancy || this.selectedVacancy.closed;
+    }
+
     async showArchivePressed() {
         if (this.agGrid) {
             this.agGrid.columnApi.setColumnVisible('archive', this.showArchive);
+        }
+        await this.getAllVacanciesFromApi();
+    }
+
+    async showClosePressed() {
+        if (this.agGrid) {
+            this.agGrid.columnApi.setColumnVisible('closed', this.showClose);
         }
         await this.getAllVacanciesFromApi();
     }

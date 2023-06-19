@@ -39,6 +39,7 @@ public class VacancyReader {
                 vacancy.conditions,
                 EmployeeReader.getMappedSelectForEmployeeDto().as("hr"),
                 vacancy.archive,
+                vacancy.closed,
                 vacancy.createInstant,
                 vacancy.modifyInstant
         );
@@ -58,9 +59,10 @@ public class VacancyReader {
                 .select(getMappedSelectForVacancyDto());
     }
 
-    public List<VacancyDto> getAllVacancies(boolean showArchive) {
+    public List<VacancyDto> getAllVacancies(boolean showArchive, boolean showClose) {
         return vacancyQuery()
                 .where(showArchive ? null : vacancy.archive.eq(false))
+                .where(showClose ? null : vacancy.closed.eq(false))
                 .fetch();
     }
 
@@ -100,6 +102,12 @@ public class VacancyReader {
     public VacancyRespondDto getVacancyRespondById(Long vacancyRespondId) {
         return vacancyRespondQuery()
                 .where(vacancyRespond.id.eq(vacancyRespondId))
+                .fetchFirst();
+    }
+
+    public VacancyRespondDto getVacancyRespondByIdWithInterview(Long vacancyRespondId) {
+        return vacancyRespondQuery()
+                .where(vacancyRespond.id.eq(vacancyRespondId).and(interview.id.isNotNull()))
                 .fetchFirst();
     }
 

@@ -11,7 +11,7 @@ remoteService:
 token:
   recover-clean-in-sec: "3600"
 scheduled:
-  staff-units: "30000"
+  staff-units: "5000"
   employees: "30000"
   positions: "30000"
   broken-machines: "25000"

@@ -44,7 +44,8 @@ public class StaffUnitReader {
         return queryFactory.from(staffUnit)
                 .leftJoin(employee).on(employee.id.eq(staffUnit.employeeId))
                 .leftJoin(position).on(position.id.eq(staffUnit.positionId))
-                .leftJoin(vacancy).on(vacancy.staffUnitId.eq(staffUnit.id))
+                .leftJoin(vacancy).on(vacancy.staffUnitId.eq(staffUnit.id)
+                        .and(vacancy.archive.isFalse()).and(vacancy.closed.isFalse()))
                 .orderBy(staffUnit.status.desc())
                 .select(getMappedSelectForStaffUnitDto())
                 .fetch();
@@ -54,7 +55,8 @@ public class StaffUnitReader {
         return queryFactory.from(staffUnit)
                 .leftJoin(employee).on(employee.id.eq(staffUnit.employeeId))
                 .leftJoin(position).on(position.id.eq(staffUnit.positionId))
-                .leftJoin(vacancy).on(vacancy.staffUnitId.eq(staffUnit.id))
+                .leftJoin(vacancy).on(vacancy.staffUnitId.eq(staffUnit.id)
+                        .and(vacancy.archive.isFalse()).and(vacancy.closed.isFalse()))
                 .where(staffUnit.status.eq(StaffUnitStatus.Opened))
                 .select(getMappedSelectForStaffUnitDto())
                 .fetch();

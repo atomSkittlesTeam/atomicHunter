@@ -38,6 +38,8 @@ public class VacancyDto {
 
     private boolean archive;
 
+    private boolean closed;
+
     private Instant createInstant;
 
     private Instant modifyInstant;
