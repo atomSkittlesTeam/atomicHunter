@@ -242,4 +242,11 @@ public class VacancyService {
 
         return finalArray;
     }
+
+    public List<CompetenceWeightScoreFullDto> getVacancyRespondAnalysisForVacancyRespondId(Long vacancyId,
+                                                                                           Long vacancyRespondId) {
+        List<CompetenceWeightScoreFullDto> scores = this.getVacancyRespondAnalysis(vacancyId,
+                Collections.singletonList(vacancyRespondId));
+        return scores.stream().filter(e -> e.getScore() < 4L).toList();
+    }
 }
