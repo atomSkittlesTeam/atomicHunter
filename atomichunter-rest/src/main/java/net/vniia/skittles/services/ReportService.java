@@ -103,7 +103,7 @@ public class ReportService {
 
         Table twoColTable = new Table(twoColumnWidth);
         twoColTable.addCell(getBoldTitleCell("Отдел кадров").setFont(font));
-        twoColTable.addCell(getNotBoldTitleCell(currentHR.getFullName()).setFont(font));
+        twoColTable.addCell(getNotBoldTitleCell(currentHR.getFullName().equals("null null") ? "" : currentHR.getFullName()).setFont(font));
         document.add(twoColTable.setMarginBottom(12f));
 
         document.close();
@@ -185,7 +185,7 @@ public class ReportService {
 
         Table twoColTable = new Table(twoColumnWidth);
         twoColTable.addCell(getBoldTitleCell("Отдел кадров").setFont(font));
-        twoColTable.addCell(getNotBoldTitleCell(currentHR.getFullName()).setFont(font));
+        twoColTable.addCell(getNotBoldTitleCell(currentHR.getFullName().equals("null null") ? "" : currentHR.getFullName()).setFont(font));
         document.add(twoColTable.setMarginBottom(12f));
 
         document.close();
@@ -276,7 +276,7 @@ public class ReportService {
 
         Table twoColTable = new Table(twoColumnWidth);
         twoColTable.addCell(getBoldTitleCell("Отдел кадров").setFont(font));
-        twoColTable.addCell(getNotBoldTitleCell(currentHR.getFullName()).setFont(font));
+        twoColTable.addCell(getNotBoldTitleCell(currentHR.getFullName().equals("null null") ? "" : currentHR.getFullName()).setFont(font));
         document.add(twoColTable.setMarginBottom(12f));
 
         document.close();
