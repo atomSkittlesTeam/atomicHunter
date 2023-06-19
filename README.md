@@ -7,7 +7,7 @@
 
 [Инструкция по развёртке](DEPLOY.md)  
 [Техническое описание](TECHDESCRIPTION.md)
-
+[Руководство администратора](ADMINISTRATION.md)
 [Презентация](AtomicHunterProduct.pptx)
 
 
