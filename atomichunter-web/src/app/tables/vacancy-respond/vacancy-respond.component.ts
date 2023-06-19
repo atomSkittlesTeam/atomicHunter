@@ -342,11 +342,12 @@ export class VacancyRespondComponent {
 
   setOfferType() {
     this.confirmationService.confirm({
-      key: "vacancy-archive",
-      message: 'Отправить позицию в архив?',
+      key: "vacancy-offer",
       accept: async () => {
         try {
-          // await this.vacancyService.archiveVacancy(this.selectedVacancy.id);
+          if (this.offerType === "Альтернативный") {
+
+          }
           this.messageService.add({
             severity: 'success',
             summary: 'Успех!',
