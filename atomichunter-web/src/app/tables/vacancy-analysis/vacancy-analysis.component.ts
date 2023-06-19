@@ -119,9 +119,10 @@ export class VacancyAnalysisComponent implements OnInit{
     FullNameWithIdAndCheck
     this.agGrid.api.showLoadingOverlay();
     this.rowData = await this.vacancyService.getVacancyAnalysisByVacancyId(this.vacancyId);
-    // this.rowData.forEach(e => {
-    //   this.listFullNamesWithIdAndCheck.push(new FullNameWithIdAndCheck())
-    // })
+    this.rowData.forEach(e => {
+      this.listFullNamesWithIdAndCheck.push(new FullNameWithIdAndCheck(e.vacancyRespond.fullName,
+          e.vacancyRespond.id, false));
+    })
     this.loading = false;
   }
 }
