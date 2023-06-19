@@ -94,11 +94,7 @@ public class ReportService {
         document.add(new Paragraph("2) Вклад в развитие Компании в целом.").setFont(font));
         document.add(new Paragraph("Для заключения трудового договора свяжитес с нашей службой HR." +
                 "При заключении договора при себе иметь мед. обследование и паспорт.").setFont(font));
-        document.add(new Paragraph("").setFont(font));
-        document.add(new Paragraph("").setFont(font));
-        document.add(new Paragraph("").setFont(font));
-        document.add(new Paragraph("").setFont(font));
-        document.add(new Paragraph("").setFont(font));
+        
         document.add(new Paragraph("").setFont(font));
         document.add(new Paragraph("").setFont(font));
         document.add(new Paragraph("").setFont(font));

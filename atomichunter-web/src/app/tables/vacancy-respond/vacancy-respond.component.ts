@@ -115,7 +115,7 @@ export class VacancyRespondComponent {
           },
           {
             label: "Оценить кандидата",
-            disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id,
+            disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id || !this.selectedVacancyRespond.interviewId,
             icon: "pi pi-star",
             command: () => {
               if (this.selectedVacancyRespond.id) {
@@ -138,7 +138,7 @@ export class VacancyRespondComponent {
           {
             label: "Открыть оценки кандидата",
             icon: "pi pi-check",
-            disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id,
+            disabled: !this.selectedVacancyRespond || !this.selectedVacancyRespond.id || !this.selectedVacancyRespond.interviewId,
             command: () => {
               if (this.selectedVacancyRespond.id) {
                 this.visible = true;
