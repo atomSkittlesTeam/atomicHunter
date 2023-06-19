@@ -8,6 +8,7 @@
 [Инструкция по развёртке](DEPLOY.md)  
 [Техническое описание](TECHDESCRIPTION.md)  
 [Руководство администратора](ADMINISTRATION.md)  
+[Руководство пользователя](Руководство пользователя приложения AtomicHunter.docx)  
 [Презентация](AtomicHunterProduct.pptx)  
 
 
