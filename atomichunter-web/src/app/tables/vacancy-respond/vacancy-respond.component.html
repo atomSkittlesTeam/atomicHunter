@@ -1,106 +1,106 @@
 <p-toolbar>
-  <div class="table-name">Кандидаты</div>
-  <nav>
-    <p-button icon="pi pi-sync"
-              styleClass="p-button-rounded p-button-warning p-button-outlined"
-              (click)="getRespondByVacancyIdFromApi()"
-              [disabled]="!vacancy">
-    </p-button>
+    <div class="table-name">Кандидаты</div>
+    <nav>
+        <p-button icon="pi pi-sync"
+                  styleClass="p-button-rounded p-button-warning p-button-outlined"
+                  (click)="getRespondByVacancyIdFromApi()"
+                  [disabled]="!vacancy">
+        </p-button>
 
-    <p-button
-      icon="pi pi-filter"
-      styleClass="p-button-outlined p-button-warning"
-      (onClick)="showFilter()"
-      [disabled]="!vacancy">
-    </p-button>
+        <p-button
+                icon="pi pi-filter"
+                styleClass="p-button-outlined p-button-warning"
+                (onClick)="showFilter()"
+                [disabled]="!vacancy">
+        </p-button>
 
-    <p-button
-      icon="pi pi-search"
-      styleClass="p-button-outlined"
-      [disabled]="!vacancy || !this.selectedVacancyRespond || !this.selectedVacancyRespond.vacancyId
+        <p-button
+                icon="pi pi-search"
+                styleClass="p-button-outlined"
+                [disabled]="!vacancy || !this.selectedVacancyRespond || !this.selectedVacancyRespond.vacancyId
       || !this.selectedVacancyRespond.pathToResume"
-      (onClick)="openRespondPdfResumeDialog()">
-    </p-button>
-    <!--    <p-menubar [model]="items" appendTo="body"></p-menubar>-->
-    <div class="card flex justify-content-center">
-      <p-button
-        icon="pi pi-bars"
-        styleClass="p-button-outlined"
-        [disabled]="!vacancy"
-        #btn
-        (onClick)="menu.toggle($event)">
-      </p-button>
-      <p-menu #menu [model]="items" [popup]="true" appendTo="body"></p-menu>
-    </div>
+                (onClick)="openRespondPdfResumeDialog()">
+        </p-button>
+        <!--    <p-menubar [model]="items" appendTo="body"></p-menubar>-->
+        <div class="card flex justify-content-center">
+            <p-button
+                    icon="pi pi-bars"
+                    styleClass="p-button-outlined"
+                    [disabled]="!vacancy"
+                    #btn
+                    (onClick)="menu.toggle($event)">
+            </p-button>
+            <p-menu #menu [model]="items" [popup]="true" appendTo="body"></p-menu>
+        </div>
 
-    <p-button
-            icon="pi pi-chart-bar"
-            styleClass="p-button-outlined"
-            [pTooltip]="'Сравнение кандидатов'"
-            [disabled]="!vacancy"
-            [routerLink]="'/vacancyAnalysis/' + this.vacancy?.id">
-    </p-button>
-
-
-    <!--    <div class="card flex justify-content-center">-->
-    <!--      <p-inputSwitch [(ngModel)]="showArchive" (ngModelChange)="showArchivePressed()">Показывать архив</p-inputSwitch>-->
-    <!--      <span>Показывать архив</span>-->
-    <!--    </div>-->
+        <p-button
+                icon="pi pi-chart-bar"
+                styleClass="p-button-outlined"
+                [pTooltip]="'Сравнение кандидатов'"
+                [disabled]="!vacancy"
+                [routerLink]="'/vacancyAnalysis/' + this.vacancy?.id">
+        </p-button>
 
 
-    <!--        <p-button-->
-    <!--          icon="pi pi-search"-->
-    <!--          styleClass="p-button-outlined"-->
-    <!--          [disabled]="!vacancy || !selectedVacancyRespond || !selectedVacancyRespond.id"-->
-    <!--          (onClick)="inviteToInterview()">-->
-    <!--        </p-button>-->
+        <!--    <div class="card flex justify-content-center">-->
+        <!--      <p-inputSwitch [(ngModel)]="showArchive" (ngModelChange)="showArchivePressed()">Показывать архив</p-inputSwitch>-->
+        <!--      <span>Показывать архив</span>-->
+        <!--    </div>-->
 
-    <!--        <p-button label="Отправить оффер"-->
-    <!--          icon="pi pi-search"-->
-    <!--          styleClass="p-button-outlined"-->
-    <!--          [disabled]="!vacancy || !selectedVacancyRespond || !selectedVacancyRespond.id"-->
-    <!--          (onClick)="sendOffer()">-->
-    <!--        </p-button>-->
 
-    <!--        <p-button label="Удалить"-->
-    <!--                  icon="pi pi-trash"-->
-    <!--                  [disabled]="!vacancy || !selectedVacancyRespond || !selectedVacancyRespond.id"-->
-    <!--                  styleClass="p-button-outlined p-button-danger"-->
-    <!--                  (onClick)="archiveRequestPosition()">-->
-    <!--        </p-button>-->
+        <!--        <p-button-->
+        <!--          icon="pi pi-search"-->
+        <!--          styleClass="p-button-outlined"-->
+        <!--          [disabled]="!vacancy || !selectedVacancyRespond || !selectedVacancyRespond.id"-->
+        <!--          (onClick)="inviteToInterview()">-->
+        <!--        </p-button>-->
 
-    <p-checkbox [disabled]="!vacancy || !selectedVacancyRespond"
-                [(ngModel)]="showArchive"
-                label="Архив"
-                [binary]="true"
-                inputId="binary"
-                (ngModelChange)="showArchivePressed()">
-    </p-checkbox>
-  </nav>
+        <!--        <p-button label="Отправить оффер"-->
+        <!--          icon="pi pi-search"-->
+        <!--          styleClass="p-button-outlined"-->
+        <!--          [disabled]="!vacancy || !selectedVacancyRespond || !selectedVacancyRespond.id"-->
+        <!--          (onClick)="sendOffer()">-->
+        <!--        </p-button>-->
+
+        <!--        <p-button label="Удалить"-->
+        <!--                  icon="pi pi-trash"-->
+        <!--                  [disabled]="!vacancy || !selectedVacancyRespond || !selectedVacancyRespond.id"-->
+        <!--                  styleClass="p-button-outlined p-button-danger"-->
+        <!--                  (onClick)="archiveRequestPosition()">-->
+        <!--        </p-button>-->
+
+        <p-checkbox [disabled]="!vacancy || !selectedVacancyRespond"
+                    [(ngModel)]="showArchive"
+                    label="Архив"
+                    [binary]="true"
+                    inputId="binary"
+                    (ngModelChange)="showArchivePressed()">
+        </p-checkbox>
+    </nav>
 
 </p-toolbar>
 
 <ag-grid-angular
-  style="width: 100%; height: 100%"
-  class="ag-theme-alpine"
-  [columnDefs]="columnDefs"
-  [defaultColDef]="defaultColDef"
-  [overlayLoadingTemplate]="overlayLoadingTemplate"
-  [loadingCellRenderer]="loadingCellRenderer"
-  [loadingCellRendererParams]="loadingCellRendererParams"
-  [overlayNoRowsTemplate]="'Данные отсутствуют'"
-  [rowData]="rowData"
-  [rowSelection]="'multiple'"
-  [animateRows]="true"
-  (gridReady)="onGridReady($event)"
-  (cellClicked)="onCellClicked($event)">
+        style="width: 100%; height: 100%"
+        class="ag-theme-alpine"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        [overlayLoadingTemplate]="overlayLoadingTemplate"
+        [loadingCellRenderer]="loadingCellRenderer"
+        [loadingCellRendererParams]="loadingCellRendererParams"
+        [overlayNoRowsTemplate]="'Данные отсутствуют'"
+        [rowData]="rowData"
+        [rowSelection]="'multiple'"
+        [animateRows]="true"
+        (gridReady)="onGridReady($event)"
+        (cellClicked)="onCellClicked($event)">
 </ag-grid-angular>
 
 <app-interview-dialog [openDialog]="openInterviewDialog"
-                     *ngIf="openInterviewDialog"
-                     [editMode]="interviewDialogEditMode"
-                     [selectedVacancyRespond]="this.selectedVacancyRespond"
-                     (submit)="onInterviewDialogSubmit($event)">
+                      *ngIf="openInterviewDialog"
+                      [editMode]="interviewDialogEditMode"
+                      [selectedVacancyRespond]="this.selectedVacancyRespond"
+                      (submit)="onInterviewDialogSubmit($event)">
 </app-interview-dialog>
 
 
@@ -112,56 +112,60 @@
                             (submit)="onVacancyRespondDialogSubmit($event)">
 </app-vacancy-respond-dialog>
 <p-confirmDialog #cd [style]="{width: '50vw'}" key="vacancy-respond-archive">
-  <ng-template pTemplate="header">
-    <h3>Архивация</h3>
-  </ng-template>
-  <ng-template pTemplate="footer">
-    <button type="button" pButton icon="pi pi-check" label="Да" (click)="cd.accept()"></button>
-    <button type="button" pButton icon="pi pi-times" label="Нет" (click)="cd.reject()"></button>
-  </ng-template>
+    <ng-template pTemplate="header">
+        <h3>Архивация</h3>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton icon="pi pi-check" label="Да" (click)="cd.accept()"></button>
+        <button type="button" pButton icon="pi pi-times" label="Нет" (click)="cd.reject()"></button>
+    </ng-template>
 </p-confirmDialog>
 
 <app-vacancy-competence-score-dialog [openDialog]="openDialogVacancyComp"
-                    *ngIf="openDialogVacancyComp"
-                    [item]="vacancy"
-                    [itemRespond]="selectedVacancyRespond"
-                    [competenceWeightScoreForExpert]="competenceWeightScoreForExpert"
-                    [staffUnit]="staffUnit"
-                    [editMode]="dialogEditMode"
-                    [employeeExpert]="selectedEmployee"
-                    (submit)="onDialogSubmit($event)">
+                                     *ngIf="openDialogVacancyComp"
+                                     [item]="vacancy"
+                                     [itemRespond]="selectedVacancyRespond"
+                                     [competenceWeightScoreForExpert]="competenceWeightScoreForExpert"
+                                     [staffUnit]="staffUnit"
+                                     [editMode]="dialogEditMode"
+                                     [employeeExpert]="selectedEmployee"
+                                     (submit)="onDialogSubmit($event)">
 </app-vacancy-competence-score-dialog>
 
 <p-dialog class="dialog" [header]="'Просмотр карточки эксперта'" [(visible)]="visible" [modal]="true"
           [style]="{maxHeight: '80vh',width: '50vw'}"
           (onHide)="closeDialog()">
-  <div class="p-inputgroup">
-    <span class="p-inputgroup-addon" style="width: 120px">Эксперт</span>
-    <p-dropdown [options]="employees"
-                appendTo="body"
-                [(ngModel)]="selectedEmployee"
-                name="firstName"
-                [style]="{width: '100%'}"
-                [optionLabel]="'employeeFullName'"></p-dropdown>
-  </div>
+    <div class="p-inputgroup">
+        <span class="p-inputgroup-addon" style="width: 120px">Эксперт</span>
+        <p-dropdown [options]="employees"
+                    appendTo="body"
+                    [(ngModel)]="selectedEmployee"
+                    name="firstName"
+                    [style]="{width: '100%'}"
+                    [optionLabel]="'employeeFullName'"></p-dropdown>
+    </div>
 
-  <button pButton (click)="showExpertCart()" type="button" style="margin-top: 10px" class="p-button-success tiffany-button" label="Просмотр карточки"
-          icon="pi pi-file-edit" ></button>
+    <button pButton (click)="showExpertCart()" type="button" style="margin-top: 10px"
+            class="p-button-success tiffany-button" label="Просмотр карточки"
+            icon="pi pi-file-edit"></button>
 </p-dialog>
 
-<p-confirmDialog #cd [style]="{width: '50vw'}" key="vacancy-archive">
-  <ng-template pTemplate="header">
-    <h3>Тип оффера</h3>
+<p-confirmDialog #offer [style]="{width: '50vw'}" key="vacancy-offer">
+    <ng-template pTemplate="header">
+        <div class="flex">
+            <h3>Тип оффера</h3>
 
-    <div class="flex flex-column gap-3">
-      <div *ngFor="let enum of OfferEnum | keyvalue" class="field-checkbox">
-        <p-radioButton [inputId]="enum.value" name="category" [value]="enum.value" [(ngModel)]="offerType"></p-radioButton>
-        <label [for]="enum.value" class="ml-2">{{ enum.value }}</label>
-      </div>
-    </div>
-  </ng-template>
-  <ng-template pTemplate="footer">
-    <button type="button" pButton icon="pi pi-check" label="Да" (click)="cd.accept()"></button>
-    <button type="button" pButton icon="pi pi-times" label="Нет" (click)="cd.reject()"></button>
-  </ng-template>
+            <div class="flex flex-column gap-3 enum">
+                <div *ngFor="let enum of OfferEnum | keyvalue" class="field-checkbox">
+                    <p-radioButton [inputId]="enum.value" name="category" [value]="enum.value"
+                                   [(ngModel)]="offerType"></p-radioButton>
+                    <label [for]="enum.value" class="ml-2">{{ enum.value }}</label>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton icon="pi pi-check" label="Да" (click)="offer.accept()"></button>
+        <button type="button" pButton icon="pi pi-times" label="Нет" (click)="offer.reject()"></button>
+    </ng-template>
 </p-confirmDialog>
