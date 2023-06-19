@@ -344,11 +344,6 @@ export class VacancyRespondComponent {
     }
   }
 
-  wow() {
-    console.log("request");
-    return true;
-  }
-
   setOfferType() {
     this.confirmationService.confirm({
       key: "vacancy-offer",

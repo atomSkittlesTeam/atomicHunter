@@ -71,7 +71,7 @@
     </form>
 
     <p-footer>
-        <div class="flex justify-content-center">
+        <div class="flex justify-content-center" [class.formDisabled]="loading">
             <p-button icon="pi pi-check"
                       (onClick)="onSubmit($event)"
                       [disabled]="!f.valid || selectedEmployees.length === 0
