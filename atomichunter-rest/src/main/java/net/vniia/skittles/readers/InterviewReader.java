@@ -125,6 +125,7 @@ public class InterviewReader {
                 .innerJoin(vacancyRespond).on(interview.vacancyRespondId.eq(vacancyRespond.id))
                 .innerJoin(place).on(place.id.eq(interview.placeId))
                 .select(InterviewReader.getMappedSelectForInterviewCalendarDto())
+                .orderBy(interview.dateStart.desc())
                 .fetch();
     }
 }
