@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {CellClickedEvent, ColDef} from "ag-grid-community";
+import {CellClickedEvent, ColDef, IDateFilterParams} from "ag-grid-community";
 import {LoadingCellRendererComponent} from "../../platform/loading-cell-renderer/loading-cell-renderer.component";
 import {AgGridAngular} from "ag-grid-angular";
 import {Router} from "@angular/router";
@@ -11,11 +11,13 @@ import {Vacancy} from "../../dto/Vacancy";
 import {VacancyService} from "../../services/vacancy.service";
 import {Position} from "../../dto/Position";
 import {StatusEnum} from "../../dto/status-enum";
+import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'app-staff-unit',
     templateUrl: './staff-unit.component.html',
-    styleUrls: ['./staff-unit.component.scss']
+    styleUrls: ['./staff-unit.component.scss'],
+    providers: [DatePipe]
 })
 export class StaffUnitComponent {
 
@@ -28,6 +30,23 @@ export class StaffUnitComponent {
     selectedVacancy: Vacancy;
     position: Position;
 
+    filterParams: IDateFilterParams = {
+        comparator: (filterLocalDateAtMidnight: Date, cellValue: number) => {
+            let dateAsString = this.datePipe.transform(cellValue * 1000, 'dd.MM.yyyy');
+            if (dateAsString == null) return -1;
+
+            // let dateParts = dateAsString.split('/');
+            let cellDate = dateAsString;
+
+            if (filterLocalDateAtMidnight.toLocaleDateString() === cellDate) {
+                return 0;
+            }
+            if (cellDate !== filterLocalDateAtMidnight.toLocaleDateString()) {
+                return -1;
+            }
+            return 0;
+        }
+    }
 
     public columnDefs: ColDef[] = [
         // {field: 'id', headerName: 'Идентификатор', filter: 'agNumberColumnFilter'},
@@ -39,7 +58,14 @@ export class StaffUnitComponent {
                 return !data.value ? " " : this.getEnum(data.value);
             }
         },
-        {field: 'closeTime', headerName: 'Дата закрытия', filter: 'agTextColumnFilter'},
+        {
+            field: 'closeTime', headerName: 'Дата закрытия',
+            filterParams: this.filterParams,
+            cellRenderer: (data: { value: number }) => {
+                return data.value ? this.datePipe.transform(data.value * 1000, 'dd.MM.yyyy') : '';
+            },
+            filter: 'agDateColumnFilter'
+        },
         {field: 'employee.lastName', headerName: 'Фамилия', filter: 'agTextColumnFilter'},
         {field: 'employee.firstName', headerName: 'Имя', filter: 'agTextColumnFilter'},
         {field: 'position.name', headerName: 'Должность', filter: 'agTextColumnFilter'},
@@ -83,9 +109,8 @@ export class StaffUnitComponent {
 
     constructor(public orgStructService: OrgStructService,
                 public router: Router,
-                public http: HttpClient,
-                private vacancyService: VacancyService,
-                private messageService: MessageService) {
+                private datePipe: DatePipe,
+                public http: HttpClient) {
     }
 
     async onGridReady(grid: any) {

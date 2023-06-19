@@ -20,6 +20,19 @@
   justify-content: flex-start;
   position: relative;
 
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+  }
+
+  &__multi {
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+  }
+
 
   &__toolbar {
     display: flex;
@@ -51,7 +64,6 @@
     justify-content: center;
     align-items: center;
     width: auto;
-    min-width: 40px;
     height: 20px;
     gap: 10px;
   }

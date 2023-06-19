@@ -41,12 +41,22 @@
     justify-content: center;
     align-items: center;
     width: auto;
-    min-width: 40px;
+    //min-width: 40px;
     height: 20px;
     gap: 10px;
   }
 
 
+}
+
+:host {
+  ::ng-deep {
+    .skills__title {
+      .p-button {
+        min-width: 42px !important;
+      }
+    }
+  }
 }
 
 .skill-weight {
