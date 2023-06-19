@@ -220,7 +220,8 @@ export class VacancyRespondComponent {
     { field: "id", headerName: "Идентификатор", filter: "agTextColumnFilter" },
     { field: "vacancyId", headerName: "Номер вакансии", filter: "agTextColumnFilter" },
     { field: "coverLetter", headerName: "Сопроводительное письмо", filter: "agTextColumnFilter" },
-    { field: "fullName", headerName: "ФИО", filter: "agTextColumnFilter" },
+    { field: "lastName", headerName: "Фамилия", filter: "agTextColumnFilter"},
+    { field: "firstName", headerName: "Имя", filter: "agTextColumnFilter"},
     { field: "email", headerName: "Email", filter: "agTextColumnFilter" },
     { field: "averageScore", headerName: "Средняя оценка собеседования", filter: "agTextColumnFilter" },
     {
