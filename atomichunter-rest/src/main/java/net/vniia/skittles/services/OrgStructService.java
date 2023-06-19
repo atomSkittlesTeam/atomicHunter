@@ -104,6 +104,27 @@ public class OrgStructService {
         return employeeDtos;
     }
 
+    public List<EmployeeDto> getEmployeesForInterview(Long interviewId) {
+        List<InterviewEmployee> interviewEmployees = interviewEmployeeRepository.findAllByInterviewId(interviewId);
+        List<UUID> employeeIds = interviewEmployees.stream().map(InterviewEmployee::getEmployeeId).toList();
+        List<Employee> preEmployees = employeeRepository.findAllByOrderByLastNameAsc();
+        List<Employee> employees = new ArrayList<>();
+        preEmployees.forEach(pre -> {
+            if (employeeIds.contains(pre.getId())) {
+                employees.add(pre);
+            }
+        });
+        List<EmployeeDto> employeeDtos = new ArrayList<>();
+        employees.forEach(e -> {
+            EmployeeDto employeeDto = new EmployeeDto(e);
+            employeeDto.setEmployeeFullName(employeeDto.getLastName()
+                    + " "
+                    + employeeDto.getFirstName());
+            employeeDtos.add(employeeDto);
+        });
+        return employeeDtos;
+    }
+
     public List<PositionDto> getAllPositions() {
         List<Position> positions = positionRepository.findAll();
         List<PositionDto> positionDtos = new ArrayList<>();

@@ -229,7 +229,7 @@ export class VacancyCompetenceScoreDialogComponent {
     }
 
     async getEmployeeFromApi() {
-        this.employees = await this.orgStructService.getEmployees();
+        this.employees = await this.orgStructService.getEmployeesOnlyForThisInterview(this.itemRespond.interviewId);
     }
 
 

@@ -15,6 +15,7 @@ import net.vniia.skittles.repositories.PositionRepository;
 import net.vniia.skittles.repositories.StaffUnitRepository;
 import net.vniia.skittles.services.OrgStructService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,6 +46,11 @@ public class OrgStructController {
     @GetMapping("employees")
     public List<EmployeeDto> getAllEmployees() {
         return orgStructService.getAllEmployees();
+    }
+
+    @GetMapping("employees/interview/{interviewId}")
+    public List<EmployeeDto> getEmployeesForInterview(@PathVariable Long interviewId) {
+        return orgStructService.getEmployeesForInterview(interviewId);
     }
 
     @GetMapping("employees/hr")

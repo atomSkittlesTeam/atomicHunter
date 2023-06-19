@@ -34,6 +34,11 @@ export class OrgStructService extends BaseService {
     return await firstValueFrom(this.http.get<Employee[]>(url + '/org-struct/employees'));
   }
 
+  async getEmployeesOnlyForThisInterview(interviewId: number) {
+    const url = await this.getBackendUrl();
+    return await firstValueFrom(this.http.get<Employee[]>(url + `/org-struct/employees/interview/${interviewId}`));
+  }
+
   async getHrEmployees() {
     const url = await this.getBackendUrl();
     return await firstValueFrom(this.http.get<Employee[]>(url + '/org-struct/employees/hr'));
