@@ -66,9 +66,11 @@ public class Vacancy {
             this.staffUnitId = Optional.ofNullable(vacancyDto.getStaffUnit())
                     .map(StaffUnitDto::getId)
                     .orElse(null);
-            this.positionId = Optional.ofNullable(vacancyDto.getPosition())
-                    .map(PositionDto::getId)
-                    .orElse(null);
+            if (vacancyDto.getStaffUnit() != null) {
+                if (vacancyDto.getStaffUnit().getPosition() != null) {
+                    this.positionId = vacancyDto.getStaffUnit().getPosition().getId();
+                }
+            }
         }
         this.requirements = vacancyDto.getRequirements();
         this.responsibilities = vacancyDto.getResponsibilities();
