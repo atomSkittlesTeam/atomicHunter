@@ -12,6 +12,14 @@
                     styleClass="p-button-outlined p-button-warning"
                     (onClick)="showFilter()">
             </p-button>
+
+            <p-checkbox
+                [(ngModel)]="showArchive"
+                label="Прошедшие"
+                [binary]="true"
+                inputId="binary"
+                (ngModelChange)="showArchivePressed()">
+            </p-checkbox>
         </nav>
     </p-toolbar>
 

@@ -44,9 +44,14 @@ export class InterviewService extends BaseService {
     const url = await this.getBackendUrl();
     return await firstValueFrom(this.http.post<string[]>(url + `/interview/validate`, interview));
   }
-  async getCalendar() {
+  async getCalendar(showArchive: boolean) {
     const url = await this.getBackendUrl();
-    return await firstValueFrom(this.http.get<InterviewCalendarDto>(url + `/interview/calendar`));
+    return await firstValueFrom(this.http.get<InterviewCalendarDto>(url + `/interview/calendar`,
+    {
+      params: {
+          showArchive: showArchive
+      }
+    }));
   }
   async deleteInterview(interviewId: number) {
     const url = await this.getBackendUrl();

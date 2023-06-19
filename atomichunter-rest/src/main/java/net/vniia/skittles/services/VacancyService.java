@@ -6,6 +6,7 @@ import net.vniia.skittles.entities.Vacancy;
 import net.vniia.skittles.entities.VacancyCompetence;
 import net.vniia.skittles.entities.VacancyCompetenceScore;
 import net.vniia.skittles.entities.VacancyRespond;
+import net.vniia.skittles.readers.CompetenceReader;
 import net.vniia.skittles.readers.VacancyReader;
 import net.vniia.skittles.repositories.VacancyCompetenceRepository;
 import net.vniia.skittles.repositories.VacancyCompetenceScoreRepository;
@@ -42,6 +43,8 @@ public class VacancyService {
     private final VacancyCompetenceRepository vacancyCompetenceRepository;
 
     private final VacancyCompetenceScoreRepository vacancyCompetenceScoreRepository;
+
+    private final CompetenceReader competenceReader;
 
     @Transactional
     public VacancyDto createVacancy(VacancyDto vacancyDto) {
@@ -209,7 +212,33 @@ public class VacancyService {
         return result;
     }
 
-    public List<VacancyAnalysisDto> getVacancyRespondAnalysis(Long vacancyId) {
-        return null;
+    public List<CompetenceWeightScoreFullDto> getVacancyRespondAnalysis(Long vacancyId) {
+        List<CompetenceWeightScoreFullDto> listWithEmployees =
+                competenceReader.getVacancyCompetenceScoreForVacancy(vacancyId);
+
+        Function<CompetenceWeightScoreFullDto, String> key = e ->
+                e.getVacancyRespond().getId() + "r"
+                + e.getCompetence().getId() + "c"
+                + e.getWeight() + "w";
+
+        Map<String, List<CompetenceWeightScoreFullDto>> map =
+                listWithEmployees.stream().collect(Collectors.groupingBy(key));
+
+        List<CompetenceWeightScoreFullDto> finalArray = new ArrayList<>();
+        for (Map.Entry<String, List<CompetenceWeightScoreFullDto>> stringListEntry : map.entrySet()) {
+            List<Long> scores = stringListEntry
+                    .getValue()
+                    .stream()
+                    .map(CompetenceWeightScoreFullDto::getScore)
+                    .toList();
+            Long averageSum = scores.stream()
+                    .reduce(0L, Long::sum) / scores.size();
+
+            CompetenceWeightScoreFullDto comp = stringListEntry.getValue().get(0);
+            comp.getVacancyRespond().setAverageScore(averageSum*comp.getWeight());
+            finalArray.add(comp);
+        }
+
+        return finalArray;
     }
 }

@@ -9,6 +9,7 @@ import net.vniia.skittles.dto.*;
 import net.vniia.skittles.entities.*;
 import org.springframework.stereotype.Repository;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -120,11 +121,13 @@ public class InterviewReader {
         }
     }
 
-    public List<InterviewCalendarDto> getAllInterviewCalendar() {
+    public List<InterviewCalendarDto> getAllInterviewCalendar(boolean showArchive) {
         return queryFactory.from(interview)
                 .innerJoin(vacancyRespond).on(interview.vacancyRespondId.eq(vacancyRespond.id))
                 .innerJoin(place).on(place.id.eq(interview.placeId))
                 .select(InterviewReader.getMappedSelectForInterviewCalendarDto())
+                .where(showArchive ? interview.dateStart.lt(Instant.now()) : interview.dateStart.goe(Instant.now()))
+                .orderBy(interview.dateStart.desc())
                 .fetch();
     }
 }

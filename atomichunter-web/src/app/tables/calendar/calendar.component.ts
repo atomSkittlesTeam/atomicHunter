@@ -117,8 +117,12 @@ export class CalendarComponent {
 
     async getCalendarFromApi() {
         this.agGrid.api.showLoadingOverlay();
-        this.rowData = await this.interviewService.getCalendar();
+        this.rowData = await this.interviewService.getCalendar(this.showArchive);
         this.loading = false;
     }
 
+    async showArchivePressed() {
+      await this.getCalendarFromApi();
+    }
+ 
 }

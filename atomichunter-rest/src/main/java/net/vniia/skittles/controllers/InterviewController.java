@@ -65,7 +65,7 @@ public class InterviewController {
     }
 
     @GetMapping("calendar")
-    public List<InterviewCalendarDto> getCalendar() {
-        return interviewReader.getAllInterviewCalendar();
+    public List<InterviewCalendarDto> getCalendar(@RequestParam boolean showArchive) {
+        return interviewReader.getAllInterviewCalendar(showArchive);
     }
 }

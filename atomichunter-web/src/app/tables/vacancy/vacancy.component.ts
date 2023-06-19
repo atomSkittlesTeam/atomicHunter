@@ -53,7 +53,7 @@ export class VacancyComponent {
         {field: 'position.name', headerName: 'Должность', filter: 'agTextColumnFilter'},
         {field: 'conditions', headerName: 'Условия', filter: 'agTextColumnFilter'},
         {field: 'responsibilities', headerName: 'Обязаности', filter: 'agTextColumnFilter'},
-        {field: 'requirements', headerName: 'Условия', filter: 'agTextColumnFilter'},
+        {field: 'requirements', headerName: 'Требования', filter: 'agTextColumnFilter'},
         {
             field: 'archive', headerName: 'Архив', hide: !this.showArchive,
             cellRenderer: (params: { value: any; }) => {
