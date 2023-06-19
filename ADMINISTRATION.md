@@ -5,7 +5,7 @@
 Серверная часть представляет собой сервис, разработанный с помощью *Java 17* и фреймворка *Spring Boot 3*.
 
 
-Для запуска на платформе Windows можно скачать собранный дистрибутив по ссылке `\\172.30.100.100\doc\team9\install\atomichunter.zip`.
+Для запуска на платформе Windows можно скачать собранный дистрибутив по [ссылке](https://drive.google.com/file/d/1jJxTPns49Bwdtb41q0IBj7AFYUM70iGN/view?usp=sharing "MESkittles-dist.zip").
 
 ---
 

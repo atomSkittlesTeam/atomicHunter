@@ -348,6 +348,9 @@ export class VacancyRespondComponent {
     this.confirmationService.confirm({
       key: "vacancy-offer",
       accept: async () => {
+        if (!this.offerType) {
+          return;
+        }
         try {
           await this.sendOffer();
           this.messageService.add({
