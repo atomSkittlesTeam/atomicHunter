@@ -56,7 +56,8 @@ public class VacancyService {
         vacancy = this.vacancyRepository.save(vacancy);
         this.messageService.createMessagesForAllUsers(vacancy.getId(),
                 "Новая вакансия №" + vacancy.getId());
-        this.messageService.createTelegramMessagesForAllUsers("Новая вакансия №" + vacancy.getId());
+        this.messageService.createTelegramMessagesForAllUsers("Новая вакансия №" + vacancy.getId()
+                + ". Название вакансии: " + vacancy.getName());
 
         List<VacancyCompetence> vacancyCompetences = new ArrayList<>();
         for (CompetenceWeightDto competenceWeightDto : vacancyDto.getCompetenceWeight()) {

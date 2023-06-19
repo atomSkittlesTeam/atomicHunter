@@ -61,23 +61,22 @@ public class OrgStructService {
 
     @Transactional
     public void deleteEmployeeFromEveryDBOnFire(List<UUID> firedEmployees) {
+        if (!firedEmployees.isEmpty()) {
+            log.info("Некоторые сотрудники уволены. Удаление из таблиц...");
+        }
         for (UUID firedEmployee : firedEmployees) {
-            log.info("Сотрудник " + firedEmployee + " уволен. Удаление из таблиц...");
+
             List<InterviewEmployee> listInterviewEmployee = interviewEmployeeRepository.findAllByEmployeeId(firedEmployee);
             List<Long> interviewIds = listInterviewEmployee.stream().map(InterviewEmployee::getInterviewId).toList();
             listInterviewEmployee = null;
             employeeTimeMapRepository.deleteAllByEmployeeId(firedEmployee);
             employeeTimeMapRepository.flush();
-            log.info("Сотрудник удален из таблицы расписания времени");
             interviewEmployeeRepository.deleteAllByEmployeeId(firedEmployee);
             interviewEmployeeRepository.flush();
-            log.info("Сотрудник удален из таблицы собеседующих");
             for (Long interviewId : interviewIds) {
                 if(employeeTimeMapRepository.findAllByInterviewId(interviewId).size() == 0) {
                     interviewRepository.deleteById(interviewId);
-                    log.info("Удалено интервью, так как в нем не осталось собеседующих");
                     placeTimeMapRepository.deleteAllByInterviewId(interviewId);
-                    log.info("Место собеседования удалено из таблицы расписания времени");
                 }
             }
         }

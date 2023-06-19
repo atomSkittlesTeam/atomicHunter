@@ -67,25 +67,25 @@ public class TelegramBotController extends TelegramLongPollingBot {
             } else {
                 switch (message.getText()) {
                     case "/start" -> {
-                        String response = telegramBotService.commandShowHelp(message, userIsNotAuthorized, subscriber);
+                        String response = telegramBotService.commandShowStart(message, userIsNotAuthorized, subscriber);
                         sendMsg(message, response);
                     }
                     case "/help" -> {
                         String response = telegramBotService.commandShowHelp(message, userIsNotAuthorized, subscriber);
                         sendMsg(message, response);
                     }
-                    case "/user" -> {
-                        String response = telegramBotService.commandUser(message, subscriber);
-                        sendMsg(message, response);
-                    }
-                    case "/chief" -> {
-                        String response = telegramBotService.commandChief(message, subscriber);
-                        sendMsg(message, response);
-                    }
-                    case "/admin" -> {
-                        String response = telegramBotService.commandAdmin(message, subscriber);
-                        sendMsg(message, response);
-                    }
+//                    case "/user" -> {
+//                        String response = telegramBotService.commandUser(message, subscriber);
+//                        sendMsg(message, response);
+//                    }
+//                    case "/chief" -> {
+//                        String response = telegramBotService.commandChief(message, subscriber);
+//                        sendMsg(message, response);
+//                    }
+//                    case "/admin" -> {
+//                        String response = telegramBotService.commandAdmin(message, subscriber);
+//                        sendMsg(message, response);
+//                    }
                     default -> {
                         String response = telegramBotService.commandDefault(message);
                         sendMsg(message, response);

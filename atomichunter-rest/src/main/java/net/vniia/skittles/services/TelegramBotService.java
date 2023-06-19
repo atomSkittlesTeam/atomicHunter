@@ -43,6 +43,22 @@ public class TelegramBotService {
         return "Команда не распознана\nСписок доступных команд (/help)";
     }
 
+    public String commandShowStart(Message message, Boolean userIsNotAuthorized, TelegramSubscriber subscriber) {
+        StringBuilder messageToTelegramChat = new StringBuilder();
+        List<TelegramCommandDto> actualCommands = TelegramBotSettings.telegramCommands;
+        if(userIsNotAuthorized) {
+            actualCommands = actualCommands.stream().filter(e -> e.isVisibleToNotAuthorized()).toList();
+        } else {
+            actualCommands = actualCommands.stream().filter(e -> e.isVisibleToAuthorized()
+                    && (e.getRoles() == null || e.getRoles().contains(subscriber.getRole()))).toList();
+        }
+        actualCommands.forEach(command ->
+                messageToTelegramChat.append(command.getCommand()).append(" - ").append(command.getDescription()).append("\n")
+        );
+        loggingAndSavingChatHistory(standardMessageToLogging(message), message, null);
+        return "Вам доступны команды: \n" + messageToTelegramChat;
+    }
+
     public String commandShowHelp(Message message, Boolean userIsNotAuthorized, TelegramSubscriber subscriber) {
         StringBuilder messageToTelegramChat = new StringBuilder();
         List<TelegramCommandDto> actualCommands = TelegramBotSettings.telegramCommands;

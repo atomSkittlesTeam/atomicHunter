@@ -201,7 +201,9 @@ public class UserService {
             telegramSubscriber.setTelegramId(telegramId);
             telegramSubscriber.setTelegramName(telegramUserName);
             telegramSubscriberRepository.saveAndFlush(telegramSubscriber);
-            return "Вы успешно залогинены, здравствуйте, " + user.getFullName();
+            return "Вы успешно залогинены, здравствуйте, " + user.getFullName() +
+                    ".\nДанный канал предназначен только для оповещений. " +
+                    "При необходимости, здесь появится сообщение о заведении новой вакансии.";
         } else {
             return "Вы не прошли аутентификацию! Попробуйте снова!";
         }

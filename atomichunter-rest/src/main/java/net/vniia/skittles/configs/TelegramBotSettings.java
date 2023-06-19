@@ -21,19 +21,19 @@ public class TelegramBotSettings {
     public static List<TelegramCommandDto> telegramCommands = List.of(
             new TelegramCommandDto("/help",
                     "Вызов доступных команд",
-                    null, true, true),
+                    null, false, true),
             new TelegramCommandDto("/login",
                     "Залогиниться в чат-боте. Введите /login Логин Пароль' через пробел",
-                    null, true, false),
-            new TelegramCommandDto("/user",
-                    "Команда, доступная всем ролям",
-                    null, false, true),
-            new TelegramCommandDto("/admin",
-                    "Команда, видимая и доступная только админу",
-                    List.of("admin"), false, true),
-            new TelegramCommandDto("/chief",
-                    "Команда, видимая и доступная админу и шефу",
-                    List.of("admin", "chief"), false, true)
+                    null, true, false)
+//            new TelegramCommandDto("/user",
+//                    "Команда, доступная всем ролям",
+//                    null, false, true),
+//            new TelegramCommandDto("/admin",
+//                    "Команда, видимая и доступная только админу",
+//                    List.of("admin"), false, true),
+//            new TelegramCommandDto("/chief",
+//                    "Команда, видимая и доступная админу и шефу",
+//                    List.of("admin", "chief"), false, true)
     );
 
 
