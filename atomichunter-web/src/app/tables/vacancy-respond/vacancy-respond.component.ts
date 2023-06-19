@@ -13,6 +13,7 @@ import {Employee} from "../../dto/Employee";
 import {OrgStructService} from "../../services/org-struct.service";
 import {CompetenceService} from "../../services/competence.service";
 import {CompetenceWeightScore} from "../../dto/CompetenceWeightScore";
+import {OfferEnum} from "../../dto/offer-enum";
 
 @Component({
   selector: "app-vacancy-respond",
@@ -30,6 +31,8 @@ export class VacancyRespondComponent {
   vacancyRespondDialogEditMode: boolean = false;
   openDialogVacancyComp: boolean = false;
   dialogEditMode: boolean = false;
+  offerType: OfferEnum;
+
 
   constructor(private confirmationService: ConfirmationService,
               private messageService: MessageService,
@@ -175,7 +178,7 @@ export class VacancyRespondComponent {
             icon: "pi pi-envelope",
             command: () => {
               if (this.selectedVacancyRespond.id) {
-                this.sendOffer();
+                this.setOfferType();
               }
             }
           }
@@ -333,6 +336,36 @@ export class VacancyRespondComponent {
     }
   }
 
+  setOfferType() {
+    this.confirmationService.confirm({
+      key: "vacancy-archive",
+      message: 'Отправить позицию в архив?',
+      accept: async () => {
+        try {
+          // await this.vacancyService.archiveVacancy(this.selectedVacancy.id);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Успех!',
+            detail: 'Вакансия переведена в архив',
+            life: 5000
+          });
+          // await this.getAllVacanciesFromApi();
+        } catch (e: any) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Ошибка...',
+            detail: e.error.message,
+            life: 5000
+          });
+        }
+      },
+      reject: () => {
+        // can implement on cancel
+      }
+    });
+  }
+
+
   async sendOffer() {
     try {
       let vacancyWithVacancyRespond = new VacancyWithVacancyRespond();
@@ -376,4 +409,6 @@ export class VacancyRespondComponent {
     this.openDialogVacancyComp = true;
     this.staffUnit.employee = this.selectedEmployee;
   }
+
+  protected readonly OfferEnum = OfferEnum;
 }

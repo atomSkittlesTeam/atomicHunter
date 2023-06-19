@@ -140,3 +140,19 @@
           icon="pi pi-file-edit" ></button>
 </p-dialog>
 
+<p-confirmDialog #cd [style]="{width: '50vw'}" key="vacancy-archive">
+  <ng-template pTemplate="header">
+    <h3>Тип оффера</h3>
+
+    <div class="flex flex-column gap-3">
+      <div *ngFor="let enum of OfferEnum | keyvalue" class="field-checkbox">
+        <p-radioButton [inputId]="enum.value" name="category" [value]="enum.value" [(ngModel)]="offerType"></p-radioButton>
+        <label [for]="enum.value" class="ml-2">{{ enum.value }}</label>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button type="button" pButton icon="pi pi-check" label="Да" (click)="cd.accept()"></button>
+    <button type="button" pButton icon="pi pi-times" label="Нет" (click)="cd.reject()"></button>
+  </ng-template>
+</p-confirmDialog>
