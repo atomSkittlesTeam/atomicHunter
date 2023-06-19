@@ -138,13 +138,13 @@
         <div class="main-block" *ngFor="let competenceGroup of competenceGroupsWithCompetences; let indexGroup = index">
             <div class="main-block__first">
                 <div class="main-block__title">{{competenceGroup.competenceGroup.name}}</div>
-<!--                <div class="main-block__add">-->
-<!--                    <p-button-->
-<!--                            icon="pi pi-plus"-->
-<!--                            styleClass="tiffany-button "-->
-<!--                            (onClick)="pushGroupSkills(competenceGroup.competences)">-->
-<!--                    </p-button>-->
-<!--                </div>-->
+                <div class="main-block__add">
+                    <p-button
+                            icon="pi pi-plus"
+                            styleClass="tiffany-button "
+                            (onClick)="pushGroupSkills(competenceGroup.competences)">
+                    </p-button>
+                </div>
             </div>
 
             <div class="dop-info">

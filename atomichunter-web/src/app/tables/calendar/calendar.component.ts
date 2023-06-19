@@ -42,6 +42,8 @@ export class CalendarComponent {
 
     public columnDefs: ColDef[] = [
         {field: 'interview.vacancyRespond.fullName', headerName: 'Кандидат', filter: 'agNumberColumnFilter'},
+        {field: 'vacancy.name', headerName: 'Наименование вакансии', filter: 'agNumberColumnFilter'},
+        {field: 'vacancy.staffUnit.position.name', headerName: 'Должность', filter: 'agNumberColumnFilter'},
         {field: 'interview.place.name', headerName: 'Место', filter: 'agTextColumnFilter'},
         {
             field: 'interview.dateStart',
@@ -62,7 +64,8 @@ export class CalendarComponent {
                 return data.value ? this.datePipe.transform(data.value * 1000, 'dd.MM.yyyy')
                     + ' ' + new Date(data.value * 1000).toLocaleTimeString() : '';
             }
-        }
+        },
+        // {field: 'members', headerName: 'Участники', filter: 'agTextColumnFilter'}
     ];
 
     public loadingCellRenderer: any = LoadingCellRendererComponent;
@@ -123,6 +126,10 @@ export class CalendarComponent {
 
     async showArchivePressed() {
       await this.getCalendarFromApi();
+    }
+
+    getTableTitle() {
+        return "Собеседования" + (this.showArchive ? " прошедшие" : " предстоящие");
     }
  
 }

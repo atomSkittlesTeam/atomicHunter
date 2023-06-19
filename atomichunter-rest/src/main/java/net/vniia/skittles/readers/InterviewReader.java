@@ -11,7 +11,9 @@ import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -25,9 +27,10 @@ public class InterviewReader {
 
     private static final QVacancyRespond vacancyRespond = QVacancyRespond.vacancyRespond;
 
-    private final JPAQueryFactory queryFactory;
+    private static final QPosition position = QPosition.position;
 
-    private final EmployeeReader employeeReader;
+    private static final QVacancy vacancy = QVacancy.vacancy;
+    public static final QStaffUnit staffUnit = QStaffUnit.staffUnit;
 
     public static QBean<InterviewDto> getMappedSelectForInterviewDto() {
         return Projections.bean(
@@ -39,10 +42,15 @@ public class InterviewReader {
         );
     }
 
+    private final JPAQueryFactory queryFactory;
+
+    private final EmployeeReader employeeReader;
+
     public static QBean<InterviewCalendarDto> getMappedSelectForInterviewCalendarDto() {
         return Projections.bean(
                 InterviewCalendarDto.class,
-                InterviewReader.getMappedSelectForInterviewDtoFull().as("interview")
+                InterviewReader.getMappedSelectForInterviewDtoFull().as("interview"),
+                VacancyReader.getMappedSelectForVacancyDto().as("vacancy")
         );
     }
 
@@ -122,12 +130,31 @@ public class InterviewReader {
     }
 
     public List<InterviewCalendarDto> getAllInterviewCalendar(boolean showArchive) {
-        return queryFactory.from(interview)
+        List<InterviewCalendarDto>  calendarDtos = queryFactory.from(interview)
                 .innerJoin(vacancyRespond).on(interview.vacancyRespondId.eq(vacancyRespond.id))
                 .innerJoin(place).on(place.id.eq(interview.placeId))
+                .innerJoin(vacancy).on(vacancy.id.eq(vacancyRespond.vacancyId))
+                .leftJoin(position).on(position.id.eq(vacancy.positionId))
+                .leftJoin(staffUnit).on(staffUnit.id.eq(vacancy.staffUnitId))
+                .leftJoin(employee).on(employee.id.eq(vacancy.hrId))
                 .select(InterviewReader.getMappedSelectForInterviewCalendarDto())
                 .where(showArchive ? interview.dateStart.lt(Instant.now()) : interview.dateStart.goe(Instant.now()))
                 .orderBy(interview.dateStart.desc())
                 .fetch();
+
+//        Map<Long, List<Employee>> interviewEmployees =
+//                this.employeeReader.getInterviewAllEmployees();
+//
+//        for (InterviewCalendarDto calendarDto : calendarDtos) {
+//            List<Employee> employeesForInterview = interviewEmployees.get(calendarDto.getInterview().getId());
+//            if (employeesForInterview != null && !employeesForInterview.isEmpty()) {
+//                calendarDto.setMembers(
+//                        employeesForInterview.stream().map(e -> e.getLastName() + " " + e.getFirstName())
+//                                .collect(Collectors.joining(","))
+//                );
+//            }
+//        }
+
+        return calendarDtos;
     }
 }

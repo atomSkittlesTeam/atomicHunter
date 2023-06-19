@@ -1,10 +1,12 @@
 package net.vniia.skittles.readers;
 
+import com.querydsl.core.group.GroupBy;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.QBean;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.EmployeeDto;
+import net.vniia.skittles.entities.Employee;
 import net.vniia.skittles.entities.QEmployee;
 import net.vniia.skittles.entities.QInterviewEmployee;
 import net.vniia.skittles.entities.QStaffUnit;
@@ -12,6 +14,8 @@ import net.vniia.skittles.enums.StaffUnitStatus;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -63,4 +67,13 @@ public class EmployeeReader {
         }
         return hrs;
     }
+
+//    public  Map<Long, List<Employee>> getInterviewAllEmployees() {
+//        Map<Long, List<Employee>> map =
+//                queryFactory.from(employee)
+////                .select(employee)
+//                .innerJoin(interviewEmployee).on(interviewEmployee.employeeId.eq(employee.id))
+//                .transform(GroupBy.groupBy(interviewEmployee.interviewId).as(GroupBy.list(employee)));
+//        return map;
+//    }
 }

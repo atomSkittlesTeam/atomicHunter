@@ -12,6 +12,13 @@
                     styleClass="p-button-outlined p-button-warning"
                     (onClick)="showFilter()">
             </p-button>
+
+            <p-button
+                    label="Подбор кандидатов"
+                    pTooltip="Выберите кандидатов для сравнения"
+                    styleClass="p-button-outlined"
+                    (onClick)="showSidebar = true">
+            </p-button>
         </nav>
 
     </p-toolbar>
@@ -33,33 +40,20 @@
     </ag-grid-angular>
 </div>
 
-<!--<p-sidebar [(visible)]="showSidebar" *ngIf="showSidebar" position="right">-->
-<!--    <div class="container">-->
-<!--        <h1>Список всех кандидатов</h1>-->
-<!--        <div class="main-block" *ngFor="let competenceGroup of competenceGroupsWithCompetences; let indexGroup = index">-->
-<!--            <div class="main-block__first">-->
-<!--                <div class="main-block__title">{{competenceGroup.competenceGroup.name}}</div>-->
-<!--                &lt;!&ndash;                <div class="main-block__add">&ndash;&gt;-->
-<!--                &lt;!&ndash;                    <p-button&ndash;&gt;-->
-<!--                &lt;!&ndash;                            icon="pi pi-plus"&ndash;&gt;-->
-<!--                &lt;!&ndash;                            styleClass="tiffany-button "&ndash;&gt;-->
-<!--                &lt;!&ndash;                            (onClick)="pushGroupSkills(competenceGroup.competences)">&ndash;&gt;-->
-<!--                &lt;!&ndash;                    </p-button>&ndash;&gt;-->
-<!--                &lt;!&ndash;                </div>&ndash;&gt;-->
-<!--            </div>-->
-
-<!--            <div class="dop-info">-->
-<!--                <div class="dop-info__container" *ngFor="let competence of competenceGroup.competences; let index = index">-->
-<!--                    <div class="dop-info__title">-->
-<!--                        {{competence.name}}-->
-<!--                    </div>-->
-<!--                    <p-button-->
-<!--                            icon="pi pi-plus"-->
-<!--                            styleClass="tiffany-button "-->
-<!--                            (onClick)="pushNewSkill(competence.id, indexGroup)">-->
-<!--                    </p-button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</p-sidebar>-->
+<p-sidebar [(visible)]="showSidebar" *ngIf="showSidebar" (onHide)="getAllVacancyAnalysisFromApi()" position="right">
+    <div class="container">
+        <h1>Список всех кандидатов</h1>
+            <div class="dop-info">
+                <div class="main-block" *ngFor="let fullNameWithIdAndCheck of listFullNamesWithIdAndCheck; let index = index">
+                    <div class="dop-info__title">
+                        {{fullNameWithIdAndCheck.fullName + ' [идентификатор:' + fullNameWithIdAndCheck.id + ']'}}
+                    </div>
+                    <p-button
+                            [icon]="fullNameWithIdAndCheck.check ? 'pi pi-check' : 'pi pi-plus'"
+                            styleClass="tiffany-button "
+                            (onClick)="setFullNameAndAsCheckedOrNot(fullNameWithIdAndCheck.id)">
+                    </p-button>
+                </div>
+            </div>
+    </div>
+</p-sidebar>

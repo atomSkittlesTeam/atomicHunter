@@ -2,6 +2,7 @@ package net.vniia.skittles.readers;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.QBean;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.*;
@@ -135,8 +136,8 @@ public class CompetenceReader {
         return weightScoreDtos;
     }
 
-    public List<CompetenceWeightScoreFullDto> getVacancyCompetenceScoreForVacancy(Long vacancyId) {
-        List<CompetenceWeightScoreFullDto> weightScoreDtos =
+    public List<CompetenceWeightScoreFullDto> getVacancyCompetenceScoreForVacancy(Long vacancyId, List<Long> checkedIds) {
+        JPAQuery<CompetenceWeightScoreFullDto> weightScoreDtos =
             queryFactory.from(vacancyCompetenceScore)
                     .innerJoin(vacancyCompetence).on(vacancyCompetence.id.eq(vacancyCompetenceScore.vacancyCompetenceId))
                     .innerJoin(competence).on(competence.id.eq(vacancyCompetence.competenceId))
@@ -150,8 +151,10 @@ public class CompetenceReader {
                             vacancyCompetenceScore.weight.as("weight"),
                             vacancyCompetenceScore.score.as("score"),
                             vacancyCompetenceScore.employeeId.as("employeeId")
-                    ))
-                    .fetch();
-        return weightScoreDtos;
+                    ));
+        if (!checkedIds.isEmpty()) {
+            weightScoreDtos.where(vacancyRespond.id.in(checkedIds));
+        }
+        return weightScoreDtos.fetch();
     }
 }
