@@ -34,7 +34,7 @@ export class VacancyAnalysisComponent implements OnInit{
     {field: 'competence.name', headerName: 'Критерий', filter: 'agTextColumnFilter'},
     {field: 'score', headerName: 'Оценка', filter: 'agTextColumnFilter'},
     {field: 'weight', headerName: 'Вес', filter: 'agTextColumnFilter'},
-    {field: 'averageScore', headerName: 'Средняя оценка', filter: 'agTextColumnFilter'}
+    {field: 'vacancyRespond.averageScore', headerName: 'Средняя оценка', filter: 'agTextColumnFilter'}
   ];
 
   public loadingCellRenderer: any = LoadingCellRendererComponent;

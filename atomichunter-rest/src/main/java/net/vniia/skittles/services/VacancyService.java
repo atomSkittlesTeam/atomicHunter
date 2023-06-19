@@ -235,6 +235,7 @@ public class VacancyService {
                     .reduce(0L, Long::sum) / scores.size();
 
             CompetenceWeightScoreFullDto comp = stringListEntry.getValue().get(0);
+            comp.setScore(averageSum);
             comp.getVacancyRespond().setAverageScore(averageSum*comp.getWeight());
             finalArray.add(comp);
         }
