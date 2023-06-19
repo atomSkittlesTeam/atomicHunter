@@ -32,7 +32,8 @@ export class VacancyAnalysisComponent implements OnInit {
 
     public columnDefs: ColDef[] = [
         {field: 'vacancyRespond.id', headerName: 'Идентификатор', filter: 'agTextColumnFilter'},
-        {field: 'vacancyRespond.fullName', headerName: 'Кандидат', filter: 'agTextColumnFilter'},
+        {field: 'vacancyRespond.lastName', headerName: 'Фамилия кандидата', filter: 'agTextColumnFilter'},
+        {field: 'vacancyRespond.firstName', headerName: 'Имя кандидата', filter: 'agTextColumnFilter'},
         {field: 'competence.name', headerName: 'Критерий', filter: 'agTextColumnFilter'},
         {field: 'score', headerName: 'Оценка', filter: 'agNumberColumnFilter'},
         {field: 'weight', headerName: 'Вес', filter: 'agNumberColumnFilter'},
@@ -125,7 +126,9 @@ export class VacancyAnalysisComponent implements OnInit {
         this.rowData = await this.vacancyService.getVacancyAnalysisByVacancyId(this.vacancyId, checkedIds);
         this.rowData.sort((a,b) =>  (a.vacancyRespond.id > b.vacancyRespond.id) ? 1 : -1);
         this.rowData.forEach(e => {
-            let fullNameAnd = new FullNameWithIdAndCheck(e.vacancyRespond.fullName,
+            let fullNameAnd = new FullNameWithIdAndCheck(e.vacancyRespond.lastName +
+                " "
+                + e.vacancyRespond.firstName,
                 e.vacancyRespond.id, false)
             if (!this.listFullNamesWithIdAndCheck.map(e => e.id).includes(fullNameAnd.id)) {
                 this.listFullNamesWithIdAndCheck.push(fullNameAnd);

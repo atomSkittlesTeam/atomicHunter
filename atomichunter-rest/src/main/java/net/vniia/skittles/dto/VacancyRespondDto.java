@@ -14,7 +14,9 @@ public class VacancyRespondDto {
     private String pathToResume;
     private boolean archive;
     private String email;
-    private String fullName;
+//    private String fullName;
+    private String lastName;
+    private String firstName;
     private long averageScore;
     private long competenceScoreCount;
     private boolean interviewInviteAccepted;

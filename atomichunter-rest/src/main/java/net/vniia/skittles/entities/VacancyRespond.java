@@ -25,7 +25,9 @@ public class VacancyRespond {
     private boolean archive;
 
     private String email;
-    private String fullName;
+    //    private String fullName;
+    private String lastName;
+    private String firstName;
     private long averageScore;
 
     private long competenceScoreCount;
@@ -39,7 +41,9 @@ public class VacancyRespond {
         this.coverLetter = vacancyRespondDto.getCoverLetter();
         this.pathToResume = vacancyRespondDto.getPathToResume();
         this.email = vacancyRespondDto.getEmail();
-        this.fullName = vacancyRespondDto.getFullName();
+//        this.fullName = vacancyRespondDto.getFullName();
+        this.lastName = vacancyRespondDto.getLastName();
+        this.firstName = vacancyRespondDto.getFirstName();
         this.averageScore = vacancyRespondDto.getAverageScore();
         this.competenceScoreCount = vacancyRespondDto.getCompetenceScoreCount();
     }

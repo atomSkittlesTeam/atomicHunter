@@ -111,7 +111,7 @@ public class InterviewService {
                 emails,
                 "Собеседование",
                 "Собеседование кандидата " +
-                        vacancyRespond.getFullName() +
+                        vacancyRespond.getLastName() + " " + vacancyRespond.getFirstName() +
                         " в компанию Атомпродукт",
                 interviewStartDate,
                 interviewEndDate,

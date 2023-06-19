@@ -41,7 +41,8 @@ export class CalendarComponent {
     }
 
     public columnDefs: ColDef[] = [
-        {field: 'interview.vacancyRespond.fullName', headerName: 'Кандидат', filter: 'agNumberColumnFilter'},
+        {field: 'interview.vacancyRespond.lastName', headerName: 'Имя Кандидата', filter: 'agNumberColumnFilter'},
+        {field: 'interview.vacancyRespond.firstName', headerName: 'Фамилия Кандидата', filter: 'agNumberColumnFilter'},
         {field: 'vacancy.name', headerName: 'Наименование вакансии', filter: 'agNumberColumnFilter'},
         {field: 'vacancy.staffUnit.position.name', headerName: 'Должность', filter: 'agNumberColumnFilter'},
         {field: 'interview.place.name', headerName: 'Место', filter: 'agTextColumnFilter'},

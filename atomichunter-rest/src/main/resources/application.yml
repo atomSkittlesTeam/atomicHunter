@@ -12,14 +12,9 @@ token:
   recover-clean-in-sec: "3600"
 scheduled:
   staff-units: "5000"
-  employees: "30000"
-  positions: "30000"
-  broken-machines: "25000"
-  update-batch: "20000"
-  repairing-machines: "27000"
-  new-requests: "30000"
-  queue-view: "35000"
-  telegram-bot-mailing: "20000"
+  employees: "5000"
+  positions: "5000"
+  telegram-bot-mailing: "5000"
 default-user:
   login: "admin"
   password: "admin"
@@ -33,8 +28,4 @@ telegram:
 generators:
   message: false
   telegram: false
-  product: false
-  request: false
-  request-positions: false
-  vacancy: false
   competence: true
