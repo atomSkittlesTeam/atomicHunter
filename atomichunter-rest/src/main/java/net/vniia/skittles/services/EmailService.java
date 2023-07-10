@@ -65,7 +65,13 @@ public class EmailService {
             message.setSubject(subject);
             message.setText(text);
 
-            emailSender.send(message);
+            try {
+                emailSender.send(message);
+                log.info("Invite for interview sent");
+            } catch (Exception e) {
+                log.error("Cant send email");
+                log.error(e);
+            }
 
         } catch (Exception e) {
             return;
