@@ -3,7 +3,9 @@ package net.vniia.skittles.integration;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.vniia.skittles.configs.OrgStructIntegrationHelper;
-import net.vniia.skittles.dto.*;
+import net.vniia.skittles.dto.EmployeeDto;
+import net.vniia.skittles.dto.PositionDto;
+import net.vniia.skittles.dto.StaffUnitDto;
 import net.vniia.skittles.entities.Vacancy;
 import net.vniia.skittles.entities.VacancyRespond;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +13,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -19,10 +20,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-@Service
 @RequiredArgsConstructor
 @Log4j2
-public class OrgStructIntegrationService {
+public class OrgStructIntegrationService implements IOrgStructIntegrationService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 

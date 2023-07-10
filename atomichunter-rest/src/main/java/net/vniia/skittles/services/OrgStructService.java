@@ -8,6 +8,7 @@ import net.vniia.skittles.dto.EmployeeDto;
 import net.vniia.skittles.dto.PositionDto;
 import net.vniia.skittles.dto.StaffUnitDto;
 import net.vniia.skittles.entities.*;
+import net.vniia.skittles.integration.IOrgStructIntegrationService;
 import net.vniia.skittles.integration.OrgStructIntegrationService;
 import net.vniia.skittles.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ import java.util.UUID;
 @Log4j2
 public class OrgStructService {
 
-    private final OrgStructIntegrationService orgStructIntegrationService;
+    private final IOrgStructIntegrationService orgStructIntegrationService;
     private final PositionRepository positionRepository;
     private final EmployeeRepository employeeRepository;
     private final EmployeeTimeMapRepository employeeTimeMapRepository;
@@ -33,7 +34,7 @@ public class OrgStructService {
     private final StaffUnitRepository staffUnitRepository;
 
 
-    @Scheduled(fixedDelayString = "${scheduled.staff-units}")
+//    @Scheduled(fixedDelayString = "${scheduled.staff-units}")
     public void getAllStaffUnitsFromRestAndSave() {
         List<StaffUnitDto> allStaffUnits = orgStructIntegrationService.getAllStaffUnits();
         List<StaffUnit> allStaffUnitsEntities = new ArrayList<>();
@@ -42,7 +43,7 @@ public class OrgStructService {
         log.info("staff units saved");
     }
 
-    @Scheduled(fixedDelayString = "${scheduled.employees}")
+//    @Scheduled(fixedDelayString = "${scheduled.employees}")
     @Transactional
     public void getAllEmployeesFromRestAndSave() {
         List<EmployeeDto> allEmployees = orgStructIntegrationService.getAllEmployees();
@@ -82,7 +83,7 @@ public class OrgStructService {
         }
     }
 
-    @Scheduled(fixedDelayString = "${scheduled.positions}")
+//    @Scheduled(fixedDelayString = "${scheduled.positions}")
     public void getAllPositionsFromRestAndSave() {
         List<PositionDto> allPositions = orgStructIntegrationService.getAllPositions();
         List<Position> allPositionsEntities = new ArrayList<>();

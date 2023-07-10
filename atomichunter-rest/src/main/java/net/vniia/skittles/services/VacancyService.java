@@ -6,6 +6,7 @@ import net.vniia.skittles.entities.Vacancy;
 import net.vniia.skittles.entities.VacancyCompetence;
 import net.vniia.skittles.entities.VacancyCompetenceScore;
 import net.vniia.skittles.entities.VacancyRespond;
+import net.vniia.skittles.integration.IOrgStructIntegrationService;
 import net.vniia.skittles.integration.OrgStructIntegrationService;
 import net.vniia.skittles.readers.CompetenceReader;
 import net.vniia.skittles.readers.VacancyReader;
@@ -47,7 +48,7 @@ public class VacancyService {
 
     private final CompetenceReader competenceReader;
 
-    private final OrgStructIntegrationService orgStructIntegrationService;
+    private final IOrgStructIntegrationService orgStructIntegrationService;
 
     @Transactional
     public VacancyDto createVacancy(VacancyDto vacancyDto) {

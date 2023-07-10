@@ -17,10 +17,7 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.TextAlignment;
 import jakarta.mail.MessagingException;
-import net.vniia.skittles.dto.CompetenceWeightScoreFullDto;
-import net.vniia.skittles.dto.UserDto;
-import net.vniia.skittles.dto.VacancyDto;
-import net.vniia.skittles.dto.VacancyWithVacancyRespondDto;
+import net.vniia.skittles.dto.*;
 import net.vniia.skittles.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,6 +29,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -79,7 +77,9 @@ public class ReportService {
 
         document.add(new Paragraph(
                 "Компания «Атомпродукт» хотела бы предложить Вам занять должность (" +
-                        vacancyWithRespondDto.getVacancy().getPosition().getName()
+                        Optional.ofNullable(vacancyWithRespondDto.getVacancy().getPosition())
+                                .map(PositionDto::getName)
+                                .orElse("Лучшй сотрудник в мире")
                         + ") на следующих условиях: " +
                         vacancyWithRespondDto.getVacancy().getResponsibilities()).setFont(font)
                 .setTextAlignment(TextAlignment.JUSTIFIED));

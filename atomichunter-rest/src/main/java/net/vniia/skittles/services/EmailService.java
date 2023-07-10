@@ -96,7 +96,13 @@ public class EmailService {
             log.error("attachment not found!");
         }
 
-        emailSender.send(mimeMessage);
+        try {
+            emailSender.send(mimeMessage);
+            log.info("Invite for interview sent");
+        } catch (Exception e) {
+            log.error("Cant send email");
+            log.error(e);
+        }
     }
 
     public static String generateICalDataForInterviewInvite(
@@ -174,9 +180,13 @@ public class EmailService {
 
         mimeMessage.setContent(multipart);
 
-        emailSender.send(mimeMessage);
-
-        log.info("Invite for interview sent");
+        try {
+            emailSender.send(mimeMessage);
+            log.info("Invite for interview sent");
+        } catch (Exception e) {
+            log.error("Cant send email");
+            log.error(e);
+        }
     }
 
     private ConfirmationToken createConfirmationTokenInterviewInvite(String email, Long vacancyRespondId) {
@@ -229,8 +239,12 @@ public class EmailService {
 
         mimeMessage.setContent(multipart);
 
-        emailSender.send(mimeMessage);
-
-        log.info("Invite for interview sent");
+        try {
+            emailSender.send(mimeMessage);
+            log.info("Invite for interview sent");
+        } catch (Exception e) {
+            log.error("Cant send email");
+            log.error(e);
+        }
     }
 }

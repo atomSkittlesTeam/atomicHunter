@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import net.vniia.skittles.dto.PasswordChangeRequestDto;
 import net.vniia.skittles.dto.StaffUnitDto;
 import net.vniia.skittles.dto.UserDto;
+import net.vniia.skittles.integration.IOrgStructIntegrationService;
 import net.vniia.skittles.integration.OrgStructIntegrationService;
 import net.vniia.skittles.services.UserService;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +27,7 @@ public class UserController {
     private final UserService userService;
     private final TelegramBotController telegramBotController;
 
-    private final OrgStructIntegrationService orgStructIntegrationService;
+    private final IOrgStructIntegrationService orgStructIntegrationService;
 
     @GetMapping("all")
     public List<UserDto> getAllUsers() {

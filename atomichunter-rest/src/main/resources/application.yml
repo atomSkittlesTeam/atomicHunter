@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: pg,mail
+    active: h2,mail
 server:
   port: 8081
 remoteService:
@@ -27,3 +27,6 @@ generators:
   message: false
   telegram: false
   competence: true
+  staffunit: true
+  positions: true
+  employee: true

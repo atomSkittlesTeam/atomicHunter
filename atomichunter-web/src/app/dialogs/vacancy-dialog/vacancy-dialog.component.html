@@ -15,12 +15,11 @@
             <!--            </div>-->
 
             <div class="p-inputgroup">
-                <span class="p-inputgroup-addon" style="width: 120px">HR<span class="required-mark">*</span></span>
+                <span class="p-inputgroup-addon" style="width: 120px">HR</span>
                 <p-dropdown [options]="employees"
                             appendTo="body"
                             [(ngModel)]="staffUnit.employee"
                             name="firstName"
-                            [required]="true"
                             [style]="{width: '100%'}"
                             [optionLabel]="'employeeFullName'"></p-dropdown>
             </div>
